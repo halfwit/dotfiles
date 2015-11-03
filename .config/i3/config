@@ -1,0 +1,200 @@
+# ~/.config/i3/config
+
+# use super key
+set $mod Mod4
+
+# Like Emacs, switching back and forth with same keystroke
+workspace_auto_back_and_forth yes
+
+font pango: Cousine 12
+
+# Border for hints
+new_window pixel 4
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec termite
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Move container to next output
+bindsym $mod+Ctrl+h move container to output left
+bindsym $mod+Ctrl+j move container to output down
+bindsym $mod+Ctrl+k move container to output up
+bindsym $mod+Ctrl+l move container to output right
+
+# split in horizontal orientation
+bindsym $mod+shift+v split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+mode "MENU MODE" {
+    bindsym s exec --no-startup-id dsearch; mode "default"
+    bindsym w exec --no-startup-id dwall; mode "default"
+    bindsym y exec --no-startup-id dclip; mode "default"
+    bindsym d exec --no-startup-id dmenu_run; mode "default"
+    bindsym g exec --no-startup-id taverner; mode "default"
+    bindsym b exec --no-startup-id librarian; mode "default"
+    bindsym u exec --no-startup-id bemenu_loader ~/.local/share/plaid/plaid_dmenu; mode "default"
+    bindsym o exec --no-startup-id bemenu_loader ~/.local/share/dmenu/dmenu_pdf; mode "default"
+    bindsym q mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+d mode "MENU MODE"
+
+# scrot
+
+bindsym $mod+z exec maim
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exit
+
+# Music control.
+mode "MPD CONTROL" {
+    bindsym s exec --no-startup-id mpc stop
+    bindsym p exec --no-startup-id mpc toggle
+    bindsym l exec --no-startup-id mpc next
+    bindsym h exec --no-startup-id mpc prev
+    bindsym r exec --no-startup-id mpc repeat && mpc single
+    bindsym equal exec --no-startup-id mpc volume +3
+    bindsym minus exec --no-startup-id mpc volume -3
+    bindsym XF86AudioMute exec --no-startup-id ponymix toggle
+    bindsym XF86AudioLowerVolume exec --no-startup-id mpc volume -3
+    bindsym XF86AudioRaiseVolume exec --no-startup-id mpc volume +3
+    bindsym d exec --no-startup-id mpdmenu; mode "default"
+    bindsym q mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+m mode "MPD CONTROL"
+
+
+# Global media keys.
+bindsym XF86AudioMute exec --no-startup-id ponymix toggle
+bindsym XF86AudioLowerVolume exec --no-startup-id ponymix decrease 3
+bindsym XF86AudioRaiseVolume exec --no-startup-id ponymix increase 3
+
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        bindsym h resize shrink width 1 px or 1 ppt
+        bindsym j resize grow height 1 px or 1 ppt
+        bindsym k resize shrink height 1 px or 1 ppt
+        bindsym l resize grow width 1 px or 1 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# Autostacking MPV
+for_window [class="^mpv"] focus right; splitv; focus left, move right; layout tabbed
+
+# compton
+exec compton --config ~/.config/compton/compton.conf -b -c
+# Base16 gruvbox by Morhetz
+# template by Matt Parnell, @parnmatt
+
+set $base00 #282828
+set $base01 #cc241d
+set $base02 #83a598
+set $base03 #928374
+set $base04 #d3869b
+set $base05 #a89984
+set $base06 #8ec97c
+set $base07 #fbf1c7
+set $base08 #cc241d
+set $base09 #fb4934
+set $base0A #d79921
+set $base0B #98971a
+set $base0C #689d6a
+set $base0D #458588
+set $base0E #b16286
+set $base0F #b8bb26
+
+client.focused $base0D $base0D $base00 $base01
+client.focused_inactive $base02 $base02 $base03 $base01
+client.unfocused $base02 $base02 $base03 $base01
+client.urgent $base02 $base08 $base07 $base08
+
+## remember to add the rest of your configuration
+
+bar {
+    ## remember to add your favourite status bar, i.e.,
+    # status_command i3status
+    
+        colors {
+        separator $base03
+        background $base00
+        statusline $base05
+        focused_workspace $base0C $base0D $base00
+        active_workspace $base02 $base02 $base07
+        inactive_workspace $base07 $base07 $base00
+        urgent_workspace $base08 $base08 $base07
+    }
+}
+

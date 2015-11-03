@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+# Gmusicproxy host IP
+readonly host=localhost
+
+# Gmusicproxy default port
+readonly port=9999
+
+readonly numtracks=100
+readonly url=http://$host:$port
+readonly progn=gmusichandler
+
+has() {
+    hash "$1" &> /dev/null
+}
+
+puts() {
+    printf -- "$1\n" "${@:2}"
+}
+
+err() {
+    local msg
+
+    puts "$progn: $@" >&2
+    if has notify-send; then
+        msg="$(puts "$@")"
+        notify-send -u critical -- "$progn" "$msg"
+    fi
+}	
+
+receive_playlist() {
+
+    curl -s "$url/"$1"num_tracks=$numtracks" > "${XDG_CONFIG_HOME:-$HOME/.config}"/mpd/playlists/"$2".m3u 
+}
+
+play_list() { # artist\ song\ etc
+    mpc load "$1"
+    mpc shuffle 
+    mpc play &
+    exit 0 
+}
+
+get_ifl() {
+    mpc clear
+    receive_playlist "get_ifl_station?" "ifl"
+    play_list "ifl"
+}
+
+get_station() { 
+    local list
+    list="$@"
+    mpc clear
+    receive_playlist "get_new_station_by_search?type=artist&artist=${list// /%20}&exact=no" "radio"
+    play_list "radio"
+}
+
+play_song() {
+    echo "$@"    
+}
+
+case $@ in
+    ifl) get_ifl ;;  
+    *) get_station "$@" ;;
+    
+esac
+

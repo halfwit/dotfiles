@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+# Gmusic host IP
+readonly host=localhost
+
+# Gmusicproxy default port
+readonly port=9999
+
+readonly url=http://$host:$port
+readonly progn=gsonghandler
+
+has() {
+    hash "$1" &> /dev/null
+}
+
+puts() {
+    printf -- "$1\n" "${@:2}"
+}
+
+err() {
+    local msg
+
+    puts "$progn: $@" >&2
+    if has notify-send; then
+	msg="$(puts "$@")"
+	notify-send -u critical -- "$progn" "msg"
+    fi
+}
+
+add_song() { 
+    
+    mpc insert "$url/get_by_search?type=song&artist=$1&title=$2&exact=no"
+    mpc next
+}
+
+# Grab opts, split around '-'
+opts="$@"
+title="${opts%\ -*}"
+artist="${opts##*-\ }"
+add_song "${artist// /%20}" "${title// /%20}"
+
+
+

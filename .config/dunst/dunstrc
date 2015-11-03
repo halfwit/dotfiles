@@ -1,0 +1,61 @@
+[global]
+    font = "Inconsolatazi4 12"
+    allow_markup = yes
+    format = "<b>%s %p</b>\n%b"
+    sort = yes
+    indicate_hidden = true
+    # geometry = "x5"
+    idle_threshold = 0
+    geometry = "335x5-20+20"
+    alignment = center
+    show_age_threshold = 60
+    sticky_history = yes
+    follow = mouse
+    word_wrap = yes
+    separator_height = 2
+    padding = 4
+    horizontal_padding = 2
+    separator_color = frame
+    startup_notification = false
+    dmenu = /usr/bin/dmenu -p Load:
+    browser = /usr/bin/qutebrowser
+
+
+[frame]
+    width = 4
+    color =  #928374
+
+[shortcuts]
+    close = ctrl+space
+    context = ctrl+shift+space
+
+
+[urgency_low]
+    background = #a89984
+    foreground =  #282828
+
+    timeout = 15
+
+[urgency_normal]
+    background =  #689d6a
+    foreground =  #282828
+    timeout = 20
+
+[urgency_critical]
+    background =  #b8bb26
+    foreground =  #282828
+    timeout = 30
+    
+[dunst-sum]
+    appname = gmailnotify.py
+    summary = "*[dD]unst*"
+    urgency = critical
+
+[dunst-body]
+    appname = gmailnotify.py
+    body = "*[dD]unst*"
+    urgency = critical
+
+[test]
+    summary = "*test*"
+    background="#22dd22"

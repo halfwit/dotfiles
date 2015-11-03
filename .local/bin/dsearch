@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# Dmenu search 
+
+readonly progn=dsearch
+read -r font < "${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/font
+. "${XDG_CONFIG_HOME:-$HOME.config}"/dmenu/bemenucolors
+
+has() {
+	hash "$1" &> /dev/null
+}
+
+puts() {
+	printf -- "$1\n" "${@:2}"
+}
+
+err() {
+	local msg
+
+	puts "$progn: $@" >&2
+
+	if has notify-send; then
+		msg="$(puts "$@")"
+		notify-send -u critical -- "$progn" "$msg"
+	fi
+}
+
+handle_results() { # args -> launch
+	case "$1" in
+		!yt*) "$HOME"/.local/bin/ythandler "${1:4}" ;;
+		!radio*) "$HOME"/.local/bin/gmusichandler "${1:7}" ;;    
+		!song*) "$HOME"/.local/bin/gsonghandler "${1:6}" ;;
+		!aw*) qutebrowser https://wiki.archlinux.org/?search="${1:4}" ;;
+		*) qutebrowser "$1" ;; 
+	esac
+	exit 0
+	# case [0] == youtube, etc.
+}
+
+query="$(echo | bemenu "${opts[@]}" -p "Search:")"
+
+if [[ "$query" ]]; then
+	handle_results "$query"
+else
+	err "Usage = <g|yt|gi> <string>"
+	exit 1read
+fi
+
