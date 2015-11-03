@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+# Script to iterate over and build files from AUR and ASP.
+
+readonly progn=builder
+readonly reposeroot=$HOME/Build/packages
+readonly aurroot=$HOME/Build/aur
+readonly asproot=$HOME/Build/asp
+readonly logroot=$HOME/Build/logs
+
+opts=( -s -c )
+
+puts() {
+    printf -- "$1\n" "${@:2}"
+}
+
+has() {
+    hash "$1" &> /dev/null
+}
+
+err() {
+    local msg
+
+    puts "$progn: $1" "${@:2}" >&2
+
+    if has notify-send; then
+        msg="$(puts "$@")"
+        notify-send -u critical -- "$progn" "$msg"
+    fi
+}
+
+get_options() {
+    # Here we will parse options, and an output for -h
+    # So we should have a herestring for that
+    # Options - f force
+    # -g generate checksums
+    # -c custom builddir
+    # 
+    
+    if [[ $1 == "f" ]]; then
+        opts+=( -f )
+    fi
+
+    if [[ $1 == "g" ]]; then
+        opts+=( -g )
+    fi
+
+}
+
+# Enter each dir and build
+builddir() {
+    cd "$1" || err "Unable to enter $1"
+    for i in *; do
+        (cd "$i" && makepkg "${opts[@]}" &> "$logroot"/"$i".log )
+    done
+}
+
+error_test() {
+    cd "$logroot" || err "Error entering $logroot"
+    for i in *; do
+        if sed -n '/has already been built/q1' "$i"; then
+	    puts "${i/.log/ updated}"
+	fi
+    done
+}
+
+update_repo() {
+    cd "$reposeroot" || err "Error entering $reposeroot"
+    repose -z custom
+}
+
+## Main ##
+# Check for command line arguments
+get_options "$@"
+
+# This would be nice to break out into a seperate config file, which the script will happily iterate through any folder available. 
+builddir "$aurroot"; builddir "$asproot"
+
+# Finally, test for any package that built. 
+error_test
+
+update_repo
