@@ -3,6 +3,8 @@
 
 readonly progn=ythandler
 readonly optsfile="${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/dmenucolors
+read -r font < "${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/font
+read -r KEY < "${XDG_DATA_HOME:-$HOME/.local/share}"/youtube/key
 
 # For Json
 readonly TMPDIR="${TMPDIR:-/tmp}"
@@ -11,7 +13,7 @@ readonly TMPDIR="${TMPDIR:-/tmp}"
 readonly lines=20
 
 has() { # string -> bool
-        hash "$1" &> /dev/null
+    hash "$1" &> /dev/null
 }
 
 puts() { # strings -> stdout
@@ -21,7 +23,7 @@ puts() { # strings -> stdout
 err() { # strings -> stderr
 	local msg
 
-	puts "$progn: $@" >&2
+	puts "$progn: $1" "${@:2}" >&2
         
 	if has notify-send; then
 		msg="$(puts "$@")"
@@ -29,14 +31,13 @@ err() { # strings -> stderr
 	fi
 }
 
-fetch_json() {	
-
-	curl -s "https://www.googleapis.com/youtube/v3/search?q="${@// /%20}"&type=video&part=snippet&maxResults=$lines&key=$KEY" > "$TMPDIR"/ytsearch.json
-
+fetch_json() {
+    curl -s "https://www.googleapis.com/youtube/v3/search?q="${1// /%20}"&type=video&part=snippet&maxResults=$lines&key=$KEY" > "$TMPDIR"/ytsearch.json
 }
+
 parse_json() {
 	# we need to pull out the URL in this same call, to stdout. 
-        jshon -CQ -e items -a -e snippet -e title -uppe id -e videoId -uppe snippet -e thumbnails -e high -e url < "$TMPDIR"/ytsearch.json        
+    jshon -CQ -e items -a -e snippet -e title -uppe id -e videoId -uppe snippet -e thumbnails -e high -e url < "$TMPDIR"/ytsearch.json        
 }
 
 create_menu() {
@@ -44,7 +45,7 @@ create_menu() {
 	# globals are menu and image
 	local key name item
 	for key in "${!menu[@]}"; do
-	        # iterate through keys
+	    # iterate through keys
 		puts 'IMG:%s\t%s' "$TMPDIR/${menu[$key]}.jpg" "$key"
 	done
 }
@@ -63,29 +64,28 @@ populate_menu() {
 	while {
 		read -r title
 		read -r token
-                read -r jpg
+        read -r jpg
 	} do
-	        jpg="${jpg//\\/}" jpg="${jpg//\"/}"
-                if [[ "$title" != null ]]; then
-                        menu["$title"]="$token"
+	    jpg="${jpg//\\/}" jpg="${jpg//\"/}"
+        if [[ "$title" != null ]]; then
+            menu["$title"]="$token"
 			image["$token"]="$jpg"
 		fi 
-                fetch_image "$token" & 	
+        fetch_image "$token" & 	
 	done
 }
 
 process_selection() { # global token
-	local id title
-        while read -r title; do
-        
-	        [[ -z "$title" ]] && title="$id"
+	local id title      
+    while read -r title; do
+        [[ -z "$title" ]] && title="$id"
 		
-	        if [[ "${menu[$title]}" ]]; then 
-		          url="${menu[$title]//\"/}"
-	        else
-		         err '%s: Cannot find video.' "$title"
-		          exit 1
-	        fi
+	    if [[ "${menu[$title]}" ]]; then 
+	        url="${menu[$title]//\"/}"
+	    else
+		    err '%s: Cannot find video.' "$title"
+		    exit 1
+	    fi
 		mpv https://www.youtube.com/watch?v="$url" &
 	done
 }
@@ -93,12 +93,10 @@ process_selection() { # global token
 get_options() {
     if [[ -e "$optsfile" ]]; then
         # Parse optsfile
-        read -r font < "${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/font
         if [[ ! "$font" ]]; then
             err "No font found in ${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/font"
         fi
         source "${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/dmenucolors
-        read -r KEY < "${XDG_DATA_HOME:-$HOME/.local/share}"/youtube/key
     else 
         err "No configuration found for dmenu in ${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/dmenucolors"
     fi

@@ -2,8 +2,7 @@
 # Dmenu search 
 
 readonly progn=dsearch
-read -r font < "${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/font
-. "${XDG_CONFIG_HOME:-$HOME.config}"/dmenu/bemenucolors
+readonly optsfile="${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/bemenucolors
 
 has() {
 	hash "$1" &> /dev/null
@@ -16,7 +15,7 @@ puts() {
 err() {
 	local msg
 
-	puts "$progn: $@" >&2
+    puts "$progn: $1" "${@:2}"
 
 	if has notify-send; then
 		msg="$(puts "$@")"
@@ -27,8 +26,10 @@ err() {
 handle_results() { # args -> launch
 	case "$1" in
 		!yt*) "$HOME"/.local/bin/ythandler "${1:4}" ;;
-		!radio*) "$HOME"/.local/bin/gmusichandler "${1:7}" ;;    
+        !playlist*) "$HOME"/.local/bin/playlisthandler "${1:11} ;;
+        !radio*) "$HOME"/.local/bin/gmusichandler "${1:7}" ;;    
 		!song*) "$HOME"/.local/bin/gsonghandler "${1:6}" ;;
+		!book*) "$HOME"/.local/bin/gbookhandler "${1:6}" ;;
 		!aw*) qutebrowser https://wiki.archlinux.org/?search="${1:4}" ;;
 		*) qutebrowser "$1" ;; 
 	esac
@@ -36,7 +37,21 @@ handle_results() { # args -> launch
 	# case [0] == youtube, etc.
 }
 
-query="$(echo | bemenu "${opts[@]}" -p "Search:")"
+get_options() {
+    if [[ -e "$optsfile" ]]; then
+        # Parse optsfile
+        read -r font < "${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/font
+        if [[ ! "$font" ]]; then
+            err "No font found in ${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/font"
+        fi
+        source "$optsfile"
+        opts+=( -p "Search" )
+    else 
+        err "No configuration found for dmenu in ${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/bemenucolors"
+    fi
+}
+
+query="$(echo | bemenu "${opts[@]}" )"
 
 if [[ "$query" ]]; then
 	handle_results "$query"
