@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Youtube search handler
 
-readonly KEY=AIzaSyCwuEU5JgtiBujCn9PutcZaELCBsxUrw0g
 readonly progn=ythandler
 readonly optsfile="${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/dmenucolors
 
@@ -99,6 +98,7 @@ get_options() {
             err "No font found in ${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/font"
         fi
         source "${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/dmenucolors
+        read -r KEY < "${XDG_DATA_HOME:-$HOME/.local/share}"/youtube/key
     else 
         err "No configuration found for dmenu in ${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/dmenucolors"
     fi
