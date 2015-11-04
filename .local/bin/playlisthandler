@@ -80,7 +80,7 @@ process_selection() { # global token
             err '%s: Cannot find video.' "$title"
             exit 1
         fi
-        mpv https://www.youtube.com/watch?list="$url" &
+        mpv --no-terminal https://www.youtube.com/watch?list="$url" &
 	done
 
 }
