@@ -26,7 +26,7 @@ err() {
 handle_results() { # args -> launch
 	case "$1" in
 		!yt*) "$HOME"/.local/bin/ythandler "${1:4}" ;;
-        !playlist*) "$HOME"/.local/bin/playlisthandler "${1:11} ;;
+        !playlist*) "$HOME"/.local/bin/playlisthandler "${1:11}" ;;
         !radio*) "$HOME"/.local/bin/gmusichandler "${1:7}" ;;    
 		!song*) "$HOME"/.local/bin/gsonghandler "${1:6}" ;;
 		!book*) "$HOME"/.local/bin/gbookhandler "${1:6}" ;;
