@@ -26,13 +26,13 @@ err() { # strings -> stderr
 	puts "$progn: $1" "${@:2}" >&2
         
 	if has notify-send; then
-		msg="$(puts "$@")"
-		notify-send -u critical -- "$progn" "$msg"
+        msg="$(puts "$@")"
+        notify-send -u critical -- "$progn" "$msg"
 	fi
 }
 
 fetch_json() {
-    curl -s "https://www.googleapis.com/youtube/v3/search?q="${1// /%20}"&type=video&part=snippet&maxResults=$lines&key=$KEY" > "$TMPDIR"/ytsearch.json
+    curl -s "https://www.googleapis.com/youtube/v3/search?q=${1// /%20}&type=video&part=snippet&maxResults=$lines&key=$KEY" > "$TMPDIR"/ytsearch.json
 }
 
 parse_json() {
@@ -43,15 +43,15 @@ parse_json() {
 create_menu() {
 	
 	# globals are menu and image
-	local key name item
+	local key
 	for key in "${!menu[@]}"; do
 	    # iterate through keys
-		puts 'IMG:%s\t%s' "$TMPDIR/${menu[$key]}.jpg" "$key"
+        puts 'IMG:%s\t%s' "$TMPDIR/${menu[$key]}.jpg" "$key"
 	done
 }
 
 get_selection() {
-
+    opts+=( -p "Select Video" )
 	create_menu | dmenu "${opts[@]}" -p "Select Video"
 }
 
@@ -69,8 +69,8 @@ populate_menu() {
 	    jpg="${jpg//\\/}" jpg="${jpg//\"/}"
         if [[ "$title" != null ]]; then
             menu["$title"]="$token"
-			image["$token"]="$jpg"
-		fi 
+            image["$token"]="$jpg"
+        fi 
         fetch_image "$token" & 	
 	done
 }
@@ -78,15 +78,14 @@ populate_menu() {
 process_selection() { # global token
 	local id title      
     while read -r title; do
-        [[ -z "$title" ]] && title="$id"
-		
+        [[ -z "$title" ]] && title="$id"		
 	    if [[ "${menu[$title]}" ]]; then 
 	        url="${menu[$title]//\"/}"
 	    else
-		    err '%s: Cannot find video.' "$title"
-		    exit 1
+            err '%s: Cannot find video.' "$title"
+            exit 1
 	    fi
-		mpv https://www.youtube.com/watch?v="$url" &
+        mpv https://www.youtube.com/watch?v="$url" &
 	done
 }
 
@@ -112,6 +111,5 @@ populate_menu < <(parse_json)
 wait
 results="$(get_selection)"
 if [[ "$results" ]]; then
-	process_selection <<< "$results"
+    process_selection <<< "$results"
 fi
-
