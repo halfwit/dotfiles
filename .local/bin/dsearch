@@ -25,15 +25,16 @@ err() {
 
 handle_results() { # args -> launch
 	case "$1" in
-        !yt*) "$HOME"/.local/bin/ythandler "${1:4}" ;;
+		!yt*) "$HOME"/.local/bin/ythandler "${1:4}" ;;
         !playlist*) "$HOME"/.local/bin/playlisthandler "${1:10}" ;;
         !radio*) "$HOME"/.local/bin/gmusichandler "${1:7}" ;;    
-        !song*) "$HOME"/.local/bin/gsonghandler "${1:6}" ;;
-        !book*) "$HOME"/.local/bin/gbookhandler "${1:6}" ;;
-        !aw*) qutebrowser https://wiki.archlinux.org/?search="${1:4}" ;;
-        *) qutebrowser "$1" ;; 
+		!song*) "$HOME"/.local/bin/gsonghandler "${1:6}" ;;
+		!book*) "$HOME"/.local/bin/gbookhandler "${1:6}" ;;
+		!aw*) qutebrowser https://wiki.archlinux.org/?search="${1:4}" ;;
+		*) qutebrowser "$1" ;; 
 	esac
 	exit 0
+	# case [0] == youtube, etc.
 }
 
 get_options() {
