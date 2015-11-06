@@ -1,0 +1,6 @@
+#!/bin/bash
+
+redshift -b 0.7:0.5 -l 55:-118 -m randr -t 5700:3800 &
+dunst &
+exec dwm
+go run ~/pkg/go-dwmstatus/dwmstatus.go &
