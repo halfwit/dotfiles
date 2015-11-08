@@ -184,9 +184,7 @@ client.urgent $base02 $base08 $base07 $base08
 ## remember to add the rest of your configuration
 
 bar {
-    ## remember to add your favourite status bar, i.e.,
-    # status_command i3status
-    
+    status_command i3status    
         colors {
         separator $base03
         background $base00
