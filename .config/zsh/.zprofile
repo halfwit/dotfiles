@@ -13,6 +13,7 @@ export GIMP2_DIRECTORY=$XDG_CONFIG_HOME/gimp
 export ELINKS_CONFDIR=$XDG_CONFIG_HOME/elinks
 export XCOMPOSEFILE=$XDG_CONFIG_HOME/x11/xcompose
 export NOTMUCH_CONFIG=$XDG_CONFIG_HOME/notmuch/config
+export WEECHAT_HOME=$XDG_CONFIG_HOME/weechat
 
 #Trying to get WLC
 export XKB_DEFAULT_LAYOUT=us

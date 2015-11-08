@@ -1,6 +1,5 @@
 # XDG_CONFIG_HOME/zsh/.zshrc
 
-
 # Modules.
 autoload -Uz edit-command-line run-help compinit zmv colors 
 zmodload zsh/complist
@@ -171,10 +170,6 @@ man() {
 }
 
 # Aliases
-
-
-alias -g ...='../..'
-alias -g ....='../../..'
 alias rr='rm -rvI'
 alias rm='rm -vI'
 alias cp='cp -vi'
@@ -183,9 +178,6 @@ alias ln='ln -vi'
 alias mkdir='mkdir -vp'
 alias grep='grep --color=auto'
 
-
-alias e='emacsclient -nw'
-alias v='vim'
 alias chmod='chmod -c --preserve-root'
 alias chown='chown -c --preserve-root'
 alias chgrp='chgrp -c --preserve-root'
@@ -196,33 +188,12 @@ alias ll='ls --color=auto --group-directories-first -AlhXF'
 alias dmesg=dmesg -exL
 
 alias gdb="gdb -n -x $XDG_CONFIG_HOME/gdb/init"
-alias ncmpcpp="ncmpcpp -c $XDG_CONFIG_HOME/ncmpcpp/ncmpcpp.conf"
-alias aria2c="aria2c --dht-file-path $XDG_CACHE_HOME/aria2/dht.dat"
-
+alias weechat="weechat -d $XDG_CONFIG_HOME/weechat"
 alias k='rlwrap k'
 
 alias i="curl -F 'f:1=<-' ix.io"
 alias s="curl -F 'sprunge=<-' sprunge.us"
-alias p="curl -F 'c=@-' https://ptpb.pw"
 alias pb='pbpst -S'
-alias xc='xclip -o | i' 
 alias spaced="sed 's:\(.\):\1 :g'"
-# Directory hashes.
-if [[ -d $HOME/dev ]]; then
-    for d in $HOME/dev/*(/); do
-        hash -d ${d##*/}=$d
-    done
-fi
 
 alias sysupdate="sudo snp pacman -Syu"
-
-# Enable C-S-t in (vte) termite which opens a new terminal in the same working
-# directory.
-if [[ -n $VTE_VERSION ]]; then
-    source /etc/profile.d/vte.sh
-    __vte_prompt_command
-fi
-
-# Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
