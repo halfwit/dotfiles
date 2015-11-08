@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Start Wayland
 
-#export XDG_DEFAULT_LAYOUT=dvorak
+export XDG_DEFAULT_LAYOUT=dvorak
 export CLUTTER_BACKEND=wayland
 export GDK_BACKEND=wayland
 export QT_QPA_PLAYTFORM=wayland-egl

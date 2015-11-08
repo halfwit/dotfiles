@@ -16,7 +16,8 @@ export NOTMUCH_CONFIG=$XDG_CONFIG_HOME/notmuch/config
 export WEECHAT_HOME=$XDG_CONFIG_HOME/weechat
 
 #Trying to get WLC
-export XKB_DEFAULT_LAYOUT=us
+export XKB_DEFAULT_LAYOUT=dvorak
+export XKB_DEFAULT_OPTION=compose:caps
 export WLC_BG=0
 
 #More verbosity with Wayland errors
