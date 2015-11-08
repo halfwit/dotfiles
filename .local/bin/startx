@@ -51,5 +51,4 @@ exec xinit "${1:-$xinitrc}" -- "$DISPLAY" "${serveropts[@]}" "${@:2}"
 #    --description="Simple xinit wrapper"
 #)
 
-#exec systemd-run "${sysdopts[@]}" xinit "${1:-$xinitrc}" -- "$DISPLAY" 
-"${serveropts[@]}" "${@:2}"
+#exec systemd-run "${sysdopts[@]}" xinit "${1:-$xinitrc}" -- "$DISPLAY" "${serveropts[@]}" "${@:2}"
