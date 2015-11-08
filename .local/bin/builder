@@ -39,9 +39,10 @@ get_options() {
 
 # Enter each dir and build
 builddir() {
+
     cd "$1" || err "Unable to enter $1"
     for i in *; do
-        (cd "$i" && makepkg -L "${opts[@]}" &> /dev/null)
+        (cd "$i" && BUILDIR=$(mktemp -d) makepkg -L "${opts[@]}" &> /dev/null)
     done
 }
 
