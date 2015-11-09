@@ -187,7 +187,7 @@ alias ll='ls --color=auto --group-directories-first -AlhXF'
 
 alias dmesg=dmesg -exL
 
-alias mutt="mutt -F "$XDG_CONFIG_HOME/mutt/muttrc"
+alias mutt="mutt -F $XDG_CONFIG_HOME/mutt/muttrc"
 alias gdb="gdb -n -x $XDG_CONFIG_HOME/gdb/init"
 alias weechat="weechat -d $XDG_CONFIG_HOME/weechat"
 alias k='rlwrap k'
