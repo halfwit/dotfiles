@@ -35,7 +35,9 @@ export EDITOR=nvim
 export VISUAL=nvim
 export SUDO_EDITOR=rvim
 
-export BROWSER=jumanji
+# ASP
+export ASPROOT=$HOME/build/asp
+export BROWSER=qutebrowser
 export TERMINAL=termite
 
 # For nvim true colors
