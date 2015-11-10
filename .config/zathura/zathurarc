@@ -1,12 +1,13 @@
-set font                        Inconsolatazi4
+set font                        "Inconsolatazi4 9.5"
 
-set recolor                     true
+set recolor                     "true"
+set recolor-keephue             "true"
 
-set recolor-lightcolor          "#fbf1c7
-set recolor-darkcolor           "#3c3836"
+set recolor-darkcolor           "#fbf1c7
+set recolor-lightcolor          "#3c3836"
 
-set default-bg                  "#fbf1c7"
-set default-fg                  "#3c3836"
+set default-fg                  "#fbf1c7"
+set default-bg                  "#3c3836"
 
 set statusbar-fg                "#282828"
 set statusbar-bg                "#928374"
