@@ -16,7 +16,7 @@ set background=light
 let base16colorspace=256
 let g:airline_powerline_fonts = 1
 let g:indentLine_char = '┆'
-:set tabstop=4 shiftwidth=4 expandtab
+:set softtabstop=4 shiftwidth=4 expandtab
 
 set number
 syntax on
