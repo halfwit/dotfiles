@@ -2,10 +2,10 @@
 # Script to iterate over and build files from AUR and ASP.
 # Make sure $LOGDEST is set.
 readonly progn=builder
-readonly reposeroot=$HOME/Build/packages
-readonly aurroot=$HOME/Build/aur
-readonly asproot=$HOME/Build/asp
-readonly logroot=$HOME/Build/logs
+readonly reposeroot=$HOME/build/packages
+readonly aurroot=$HOME/build/aur
+readonly asproot=$HOME/build/asp
+readonly logroot=$HOME/build/logs
 
 opts=( -s -c )
 
@@ -42,7 +42,7 @@ builddir() {
 
     cd "$1" || err "Unable to enter $1"
     for i in *; do
-        (cd "$i" && BUILDIR=$(mktemp -d) makepkg -L "${opts[@]}" &> /dev/null)
+        (cd "$i" && BUILDIR=$(mktemp -d) makepkg "${opts[@]}" &> "$logroot"/$i.log)
     done
 }
 
