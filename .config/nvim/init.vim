@@ -9,14 +9,19 @@ Plug 'benekastah/neomake'
 Plug 'tpope/vim-fugitive'
 autocmd! BufWritePost * Neomake
 
+"Remove trailing whitespace haxx
+autocmd BufWritePre * :%s/\s\+$//e
+
 " Add plugins to &runtimepath
 call plug#end() 
 colorscheme gruvbox
 set background=light
-let base16colorspace=256
+let g:gruvbox_termcolors=16
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 let g:indentLine_char = '┆'
-:set softtabstop=4 shiftwidth=4 expandtab
-
+set softtabstop=4 shiftwidth=4 expandtab
+set title
 set number
 syntax on
+

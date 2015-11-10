@@ -198,3 +198,5 @@ alias pb='pbpst -S'
 alias spaced="sed 's:\(.\):\1 :g'"
 
 alias sysupdate="sudo snp pacman -Syu"
+
+source "$XDG_DATA_HOME/plugged/gruvbox/gruvbox_256palette.sh"
