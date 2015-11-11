@@ -31,7 +31,7 @@ create_menu() {
     done < "${XDG_CONFIG_HOME:-$HOME/.config}"/qutebrowser/quickmarks
 
     # Next bookmarks
-    while read -r url; do
+    while read -r url _; do
         printf -- '%s\n' "$url"
     done < "${XDG_CONFIG_HOME:-$HOME/.config}"/qutebrowser/bookmarks/urls
 
