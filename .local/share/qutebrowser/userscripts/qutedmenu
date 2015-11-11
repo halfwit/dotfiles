@@ -36,8 +36,8 @@ create_menu() {
     done < "${XDG_CONFIG_HOME:-$HOME/.config}"/qutebrowser/bookmarks/urls
 
     # Finally history
-    while read -r url; do
-        printf -- '%s\n' "${url:11}"
+    while read -r _ url; do
+        printf -- '%s\n' "${url}"
     done < "${XDG_DATA_HOME:-$HOME/.local/share}"/qutebrowser/history
     }
 
