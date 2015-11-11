@@ -7,11 +7,12 @@
 
 # If you would like to set a custom colorscheme/font use these dirs.
 # https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/bemenucolors
-readonly optsfile="${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/bemenucolors
+readonly cfg="${XDG_CONFIG_HOME:-$HOME/.config}"
+readonly optsfile=$cfg/dmenu/bemenucolors
 
 # https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
-if [[ -e "${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/font ]]; then
-    read -r font < "${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/font
+if [[ -e $cfg/font ]]; then
+    read -r font < $cfg/dmenu/font
 fi
 
 get_options() {
@@ -28,12 +29,12 @@ create_menu() {
     # Check quickmarks
     while read -r url; do
         printf -- '%s\n' "$url"
-    done < "${XDG_CONFIG_HOME:-$HOME/.config}"/qutebrowser/quickmarks
+    done < $cfg/qutebrowser/quickmarks
 
     # Next bookmarks
     while read -r url _; do
         printf -- '%s\n' "$url"
-    done < "${XDG_CONFIG_HOME:-$HOME/.config}"/qutebrowser/bookmarks/urls
+    done < $cfg/qutebrowser/bookmarks/urls
 
     # Finally history
     while read -r _ url; do
