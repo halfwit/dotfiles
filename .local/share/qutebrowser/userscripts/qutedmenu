@@ -5,7 +5,7 @@
 #:bind o spawn --userscript /path/to/userscripts/openpage
 #:bind O spawn --userscript /path/to/userscripts/qutedmenu
 
-# If you would like to set a custom font use these dirs.
+# If you would like to set a custom colorscheme/font use these dirs.
 # https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/bemenucolors
 readonly optsfile="${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/bemenucolors
 
