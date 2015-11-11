@@ -7,57 +7,56 @@
 
 # If you would like to set a custom colorscheme/font use these dirs.
 # https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/bemenucolors
-readonly cfg="${XDG_CONFIG_HOME:-$HOME/.config}"
-readonly optsfile=$cfg/dmenu/bemenucolors
+readonly confdir=${XDG_CONFIG_HOME:-$HOME/.config}
+readonly datadir=${XDG_DATA_HOME:-$HOME/.local/share}
 
-# https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
-if [[ -e $cfg/font ]]; then
-    read -r font < $cfg/dmenu/font
-fi
-
-get_options() {
-    if [[ -e "$font" ]]; then
-        opts+=( -fn "$font" )
-    fi
-
-    if [[ -e "$optsfile" ]]; then
-        source "$optsfile"
-    fi
-}
+readonly optsfile=$confdir/dmenu/bemenucolors
 
 create_menu() {
     # Check quickmarks
     while read -r url; do
         printf -- '%s\n' "$url"
-    done < $cfg/qutebrowser/quickmarks
+    done < "$confdir"/qutebrowser/quickmarks
 
     # Next bookmarks
     while read -r url _; do
         printf -- '%s\n' "$url"
-    done < $cfg/qutebrowser/bookmarks/urls
+    done < "$confdir"/qutebrowser/bookmarks/urls
 
     # Finally history
     while read -r _ url; do
-        printf -- '%s\n' "${url}"
-    done < "${XDG_DATA_HOME:-$HOME/.local/share}"/qutebrowser/history
+        printf -- '%s\n' "$url"
+    done < "$datadir"/qutebrowser/history
     }
 
 get_selection() {
-    opts+=( -p "Qutebrowser" )
+    opts+=(-p Qutebrowser)
     #create_menu | dmenu -l 10 "${opts[@]}"
     create_menu | bemenu -l 10 "${opts[@]}"
 }
 
 # Main
-
-get_options
-
-url="$(get_selection)"
-url="${url/*http/http}"
-
-if [[ $1 == "open" && $url ]]; then
-    printf '%s' "open $url" >> "$QUTE_FIFO" || qutebrowser "$url"
-elif [[ $url ]]; then
-    printf '%s' "open -t $url" >> "$QUTE_FIFO"
+# https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
+if [[ -s $confdir/dmenu/font ]]; then
+    read -r font < "$confdir"/dmenu/font
 fi
+
+if [[ $font ]]; then
+    opts+=(-fn "$font")
+fi
+
+if [[ -s $optsfile ]]; then
+    source "$optsfile"
+fi
+
+url=$(get_selection)
+url=${url/*http/http}
+
+# If no selection is made, exit (escape pressed, e.g.)
+[[ ! $url ]] && exit 1
+
+case $1 in
+    open) printf '%s' "open $url" >> "$QUTE_FIFO" || qutebrowser "$url" ;;
+    *)    printf '%s' "open -t $url" >> "$QUTE_FIFO" || qutebrowser "$url"  ;;
+esac
 
