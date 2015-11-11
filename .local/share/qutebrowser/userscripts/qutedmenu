@@ -53,7 +53,7 @@ url=$(get_selection)
 url=${url/*http/http}
 
 # If no selection is made, exit (escape pressed, e.g.)
-[[ ! $url ]] && exit 1
+[[ ! $url ]] && exit 0
 
 case $1 in
     open) printf '%s' "open $url" >> "$QUTE_FIFO" || qutebrowser "$url" ;;
