@@ -15,7 +15,7 @@ cursor_shape = block
 scrollback_lines = 10000
 search_wrap = true
 browser = qutebrowser
-#font = Droid Sans Mono 
+#font = Droid Sans Mono
 font = Inconsolata-dz for Powerline 8.5
 #font = FiraMono Regular 9.5
 
@@ -45,6 +45,7 @@ color12 = #076678
 color13 = #8f3f71
 color14 = #427b57
 color15 = #3c3836
+
 [hints]
 
 

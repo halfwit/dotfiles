@@ -9,7 +9,7 @@ workspace_auto_back_and_forth yes
 font pango: Cousine 12
 
 # Border for hints
-new_window pixel 4
+new_window pixel 2
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -63,13 +63,10 @@ bindsym $mod+a focus parent
 
 mode "MENU MODE" {
     bindsym s exec --no-startup-id dsearch; mode "default"
-    bindsym w exec --no-startup-id dwall; mode "default"
-    bindsym y exec --no-startup-id dclip; mode "default"
     bindsym d exec --no-startup-id dmenu_run; mode "default"
+    bindsym q exec --no-startup-id ~/.local/share/qutebrowser/userscripts/qutedmenu; mode "default"
     bindsym g exec --no-startup-id taverner; mode "default"
     bindsym b exec --no-startup-id librarian; mode "default"
-    bindsym u exec --no-startup-id bemenu_loader ~/.local/share/plaid/plaid_dmenu; mode "default"
-    bindsym o exec --no-startup-id bemenu_loader ~/.local/share/dmenu/dmenu_pdf; mode "default"
     bindsym q mode "default"
     bindsym Escape mode "default"
 }
