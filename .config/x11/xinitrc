@@ -1,5 +1,5 @@
 #!/bin/bash
 
-redshift -b 0.7:0.5 -l 55:-118 -m randr -t 5700:3800 &
+redshift -b 0.7:0.3 -l 55:-118 -g 0.8 -m randr -t 5700:3800 &
 dunst &
 exec i3
