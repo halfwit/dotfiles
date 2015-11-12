@@ -56,11 +56,9 @@ handle_results() { # args -> launch
         !radio*) "$HOME"/.local/bin/gmusichandler "${1:7}" ;;
         !song*) "$HOME"/.local/bin/gsonghandler "${1:6}" ;;
         !book*) "$HOME"/.local/bin/gbookhandler "${1:6}" ;;
-        !aw*) qutebrowser https://wiki.archlinux.org/?search="${1:4}" ;;
-        *) printf '%s' "open -t $1" >> "QUTE_FIFO" || qutebrowser "$1" ;;
+        !aw*) printf -- '%s' "open -t https://wiki.archlinux.org/?search=${1:4}" >> "$QUTE_FIFO" || qutebrowser https://wiki.archlinux.org/?search="${1:4}" & ;;
+        *) printf -- '%s' "open -t $1" >> "$QUTE_FIFO" || qutebrowser "$1" & ;;
     esac
-    exit 0
-    # case [0] == youtube, etc.
 }
 
 # Main
