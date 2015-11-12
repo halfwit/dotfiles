@@ -1,13 +1,15 @@
 set font                        "Inconsolatazi4 9.5"
 
-set recolor                     "true"
-set recolor-keephue             "true"
+set selection-clipboard         "clipboard"
 
 set recolor-darkcolor           "#fbf1c7
 set recolor-lightcolor          "#3c3836"
 
-set default-fg                  "#fbf1c7"
-set default-bg                  "#3c3836"
+set recolor                     "true"
+set recolor-keephue             "true"
+
+set default-bg                  "#fbf1c7"
+set default-fg                  "#3c3836"
 
 set statusbar-fg                "#282828"
 set statusbar-bg                "#928374"
@@ -33,3 +35,7 @@ set completion-fg               "#689d6a"
 set notification-bg             "#98971a"
 set notification-fg             "#fbf1c7"
 
+map [normal]        j           scroll up
+map [fullscreen]    j           scroll up
+map [normal]        k           scroll down
+map [fullscreen]    k           scroll down

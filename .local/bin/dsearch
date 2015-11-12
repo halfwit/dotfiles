@@ -57,6 +57,8 @@ handle_results() { # args -> launch
         !song*) "$HOME"/.local/bin/gsonghandler "${1:6}" ;;
         !book*) "$HOME"/.local/bin/gbookhandler "${1:6}" ;;
         !aw*) printf -- '%s' "open -t https://wiki.archlinux.org/?search=${1:4}" >> "$QUTE_FIFO" || qutebrowser https://wiki.archlinux.org/?search="${1:4}" & ;;
+        !fb*) chromium https://www.facebook.com/ ;;
+        !gplus*) chromium https://plus.google.com/ ;;
         *) printf -- '%s' "open -t $1" >> "$QUTE_FIFO" || qutebrowser "$1" & ;;
     esac
 }
