@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
-# Dmenu search 
+# Dmenu search with Qutebrowser history
 
 readonly progn=dsearch
+readonly confdir=${XDG_CONFIG_HOME:-$HOME/.config}
+readonly datadir=${XDG_DATA_HOME:-$HOME/.local/share}
+
 readonly optsfile="${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/bemenucolors
 
 has() {
@@ -23,40 +26,61 @@ err() {
 	fi
 }
 
+create_menu() {
+    # Check quickmarks
+    while read -r url; do
+        printf -- '%s\n' "$url"
+    done < "$confdir"/qutebrowser/quickmarks
+
+    # Next bookmarks
+    while read -r url _; do
+        printf -- '%s\n' "$url"
+    done < "$confdir"/qutebrowser/bookmarks/urls
+
+    # Finally history
+    while read -r _ url; do
+        printf -- '%s\n' "$url"
+    done < "$datadir"/qutebrowser/history
+}
+
+get_selection() {
+    opts+=(-p Search)
+    #create_menu | dmenu -l 10 "${opts[@]}"
+    create_menu | bemenu -l 10 "${opts[@]}"
+}
+
 handle_results() { # args -> launch
-	case "$1" in
-		!yt*) "$HOME"/.local/bin/ythandler "${1:4}" ;;
+    case "$1" in
+        !yt*) "$HOME"/.local/bin/ythandler "${1:4}" ;;
         !playlist*) "$HOME"/.local/bin/playlisthandler "${1:10}" ;;
-        !radio*) "$HOME"/.local/bin/gmusichandler "${1:7}" ;;    
-		!song*) "$HOME"/.local/bin/gsonghandler "${1:6}" ;;
-		!book*) "$HOME"/.local/bin/gbookhandler "${1:6}" ;;
-		!aw*) qutebrowser https://wiki.archlinux.org/?search="${1:4}" ;;
-		*) qutebrowser "$1" ;; 
-	esac
-	exit 0
-	# case [0] == youtube, etc.
+        !radio*) "$HOME"/.local/bin/gmusichandler "${1:7}" ;;
+        !song*) "$HOME"/.local/bin/gsonghandler "${1:6}" ;;
+        !book*) "$HOME"/.local/bin/gbookhandler "${1:6}" ;;
+        !aw*) qutebrowser https://wiki.archlinux.org/?search="${1:4}" ;;
+        *) printf '%s' "open -t $1" >> "QUTE_FIFO" || qutebrowser "$1" ;;
+    esac
+    exit 0
+    # case [0] == youtube, etc.
 }
 
-get_options() {
-    if [[ -e "$optsfile" ]]; then
-        # Parse optsfile
-        read -r font < "${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/font
-        if [[ ! "$font" ]]; then
-            err "No font found in ${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/font"
-        fi
-        source "$optsfile"
-        opts+=( -p "Search" )
-    else 
-        err "No configuration found for dmenu in ${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/bemenucolors"
-    fi
-}
-get_options
-query="$(echo | bemenu "${opts[@]}" )"
-
-if [[ "$query" ]]; then
-	handle_results "$query"
-else
-	err "Usage = <g|yt|gi> <string>"
-	exit 1read
+# Main
+# https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
+if [[ -s $confdir/dmenu/font ]]; then
+    read -r font < "$confdir"/dmenu/font
 fi
 
+if [[ $font ]]; then
+    opts+=(-fn "$font")
+fi
+
+if [[ -s $optsfile ]]; then
+    source "$optsfile"
+fi
+
+query=$(get_selection)
+query=${query/*http/http}
+
+# If no selection is made, exit (escape pressed, e.g.)
+[[ ! $query ]] && exit 0
+
+handle_results "$query"
