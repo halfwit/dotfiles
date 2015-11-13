@@ -1,16 +1,5 @@
-opts=(
-    -i -w -ia top-gapless -is 300x250
+ -w -ia top-gapless -is 300x250
     -fn "$font"
-<<<<<<< HEAD
-<<<<<<< HEAD
-    -nf '#839496' -nb '#002b36'
-    -sf '#93a1a1' -sb '#586e75
-=======
     -nf '#f2e5bc' -nb '#282828'
     -sf '#f2e5bc' -sb '#928374'
->>>>>>> parent of c5c3d61... Changing to solarized.
-=======
-    -nf '#839496' -nb '#002b36'
-    -sf '#93a1a1' -sb '#586e75'
->>>>>>> e3cba417b848d54c2e4636cce156b5c108d7c71a
 )

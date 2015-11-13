@@ -22,8 +22,8 @@
 
 
 [frame]
-    width = 1
-    color =  #073642
+    width = 4
+    color =  #928374
 
 [shortcuts]
     close = ctrl+space
@@ -31,18 +31,31 @@
 
 
 [urgency_low]
-    background = #93a1a1
-    foreground = #073642
+    background = #a89984
+    foreground =  #282828
 
     timeout = 15
 
 [urgency_normal]
-    background =  #657b83
-    foreground =  #073642
+    background =  #689d6a
+    foreground =  #282828
     timeout = 20
 
 [urgency_critical]
-    background =  #dc322f
-    foreground =  #073642
+    background =  #b8bb26
+    foreground =  #282828
     timeout = 30
 
+[dunst-sum]
+    appname = gmailnotify.py
+    summary = "*[dD]unst*"
+    urgency = critical
+
+[dunst-body]
+    appname = gmailnotify.py
+    body = "*[dD]unst*"
+    urgency = critical
+
+[test]
+    summary = "*test*"
+    background="#22dd22"
