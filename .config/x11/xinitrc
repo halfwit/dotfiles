@@ -1,5 +1,2 @@
 #!/bin/bash
-
-redshift -b 0.8:0.6 -l 55:-118 -m randr -t 5700:3800 &
-dunst &
 exec dwm
