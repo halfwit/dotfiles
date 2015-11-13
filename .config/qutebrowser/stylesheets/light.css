@@ -2,7 +2,7 @@
 
 *, ::before, ::after {
 
-color: #586e75 !important;
+color: #073642 !important;
 background: transparent !important;
 
 }
@@ -78,10 +78,10 @@ color: #3c3836 !important;
 
 }
 
-a:link         {color: #586e75 !important;} /* hyperlink */
+a:link         {color: #076678 !important;} /* hyperlink */
 a:visited      {color: #8f3f71 !important;}
 a:hover        {color: #427b57 !important;}
-a:active       {color: #586e75 !important;}
+a:active       {color: #076678 !important;}
 
 /* "Top level" div */
 
@@ -115,7 +115,7 @@ pre,
 samp,
 blockquote  {
 
-background-color: #f9f5d7 !important;
+background-color: #fdf6e3 !important;
 
 }
 
@@ -133,8 +133,8 @@ select,
 option,
 optgroup {
 
-color: #586e75 !important;
-background-color: #fdf6e3 !important;
+color: #3c3836 !important;
+background-color: #f2e5bc !important;
 
 }
 
@@ -174,7 +174,7 @@ input[type="submit"]:hover,
 input[type="reset"]:hover,
 button:hover {
 
-color: #586e75 !important;
+color: #3c3836 !important;
 background: #a89984 !important;
 
 }
