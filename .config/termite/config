@@ -20,70 +20,77 @@ font = Inconsolata-dz for Powerline 8.5
 #font = FiraMono Regular 9.5
 
 [colors]
-# Base16 gruvbox
-# Scheme: Morhetz
 
-foreground      = #3c3836
+foreground      = #073642
 foreground_bold = #282828
 cursor          = #282828
-background      = #f2e5bc
+background      = #fdf6e3
 
 # 16 color space
-color0      = #282828
-color1      = #cc241d
-color2      = #98971a
-color3      = #d79921
-color4      = #458588
-color5      = #b16286
-color6      = #689d6a
-color7      = #7c6f64
-color8      = #928374
-color9      = #9d0006
-color10     = #79740e
-color11     = #b57614
-color12     = #076678
-color13     = #8f3f71
-color14     = #427b57
-color15     = #3c3836
+# Blacks
+color0      = #073642
+color8      = #002b36
+
+# Reds
+color1      = #dc322f
+color9      = #cb4b16
+
+# Greens
+color2      = #859900
+color10     = #587e75
+
+# Yellows
+color3      = #b58900
+color11     = #657b83
+
+# Blues
+color4      = #268bd2
+color12     = #839496
+
+# Magentas
+color5      = #d33682
+color13     = #6c71c4
+
+# Cyans
+color6      = #2aa198
+color14     = #93a1a1
+
+# Whites
+color7      = #eee8d5
+color15     = #fdf6e3
 
 #256 color space
-color24     = #076678
-color66     = #458588
-color72     = #689d6a
-color88     = #9d0006
-color96     = #8f3f71
-color100    = #79740e
-color106    = #98971a
-color124    = #cc241d
-color130    = #af3a03
-color132    = #b16286
-color136    = #b57614
-color142    = #b8bb26
-color166    = #d65d0e
-color167    = #fb4934
-color172    = #d79921
-color175    = #83a598
-color188    = #8ec07c
-color189    = #83a598
-color214    = #fabd2f
-color223    = #ebdbb2
-color228    = #f2e5bc
-color229    = #fbf1c7
-color230    = #f9f5d7
-color234    = #1d2021
-color235    = #282828
-color236    = #32302f
-color237    = #3c3836
-color239    = #504945
-color241    = #665c54
-color243    = #7c6f64
-color244    = #928374
-color245    = #928374
-color246    = #a89984
-color248    = #bdae93
-color250    = #d5c4a1
-color288    = #fe8019
+# Blacks
+color234    = #1c1c1c
+color235    = #262626
+
+# Reds
+color160    = #d70000
+color166    = #d75f00
+
+# Greens
+color64     = #5f8700
+color240    = #585858
+
+# Yellows
+color136    = #af8700
+color241    = #626262
+
+# Blues
+color33     = #0087ff
+color244    = #808080
+
+# Magentas
+color61     = #5f5faf
+color125    = #af005f
+
+# Cyans
+color37     = #00afaf
+color245    = #8a8a8a
+
+# Whites
+color230    = #ffffd7
+color254    = #e4e4e4
 
 [hints]
-
 

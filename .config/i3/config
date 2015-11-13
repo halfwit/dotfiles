@@ -153,25 +153,23 @@ for_window [class="^mpv"] focus right; splitv; focus left, move right; layout ta
 
 # compton
 exec compton --config ~/.config/compton/compton.conf -b -c
-# Base16 gruvbox by Morhetz
-# template by Matt Parnell, @parnmatt
 
-set $base00 #282828
-set $base01 #cc241d
-set $base02 #83a598
-set $base03 #928374
-set $base04 #d3869b
-set $base05 #a89984
-set $base06 #8ec97c
-set $base07 #f2e5bc
-set $base08 #cc241d
-set $base09 #fb4934
-set $base0A #d79921
-set $base0B #98971a
-set $base0C #689d6a
-set $base0D #458588
-set $base0E #b16286
-set $base0F #b8bb26
+set $base00 #073642
+set $base01 #dc322f
+set $base02 #859900
+set $base03 #b58900
+set $base04 #268bd2
+set $base05 #d33682
+set $base06 #2aa198
+set $base07 #eee8d5
+set $base08 #002b36
+set $base09 #cb4b16
+set $base0A #586e75
+set $base0B #657b83
+set $base0C #839496
+set $base0D #6c71c4
+set $base0E #93a1a1
+set $base0F #fdf6e3
 
 client.focused $base0D $base0D $base00 $base01
 client.focused_inactive $base02 $base02 $base03 $base01

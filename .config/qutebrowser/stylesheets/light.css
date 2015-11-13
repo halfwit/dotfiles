@@ -2,8 +2,8 @@
 
 *, ::before, ::after {
 
-color: #3c3836 !important;
-background-color: transparent !important;
+color: #073642 !important;
+background: transparent !important;
 
 }
 
@@ -57,7 +57,7 @@ body div[class*="container"],
 div[style*="display: block"],
 div[style*="visibility: visible"] {
 
-background-color: #f2e5bc !important;
+background-color: #fdf6e3 !important;
 
 }
 
@@ -65,8 +65,8 @@ background-color: #f2e5bc !important;
 
 ::-moz-selection {
 
-background-color: #f2e5bc !important;
-color: #3c3836 !important;
+background-color: #fdf6e3 !important;
+color: #073642 !important;
 
 }
 
@@ -74,14 +74,14 @@ color: #3c3836 !important;
 
 a {
 
-color: #3c3836 !important;
+color: #073642 !important;
 
 }
 
-a:link         {color: #076678 !important;} /* hyperlink */
-a:visited      {color: #8f3f71 !important;}
-a:hover        {color: #427b57 !important;}
-a:active       {color: #076678 !important;}
+a:link         {color: #268bd2 !important;} /* hyperlink */
+a:visited      {color: #268bd2 !important;}
+a:hover        {color: #6c71c4 !important;}
+a:active       {color: #268bd2 !important;}
 
 /* "Top level" div */
 
@@ -105,7 +105,7 @@ time,
 label,
 .date  {
 
-color: #3c3836 !important
+color: #073642 !important
 
 }
 
@@ -115,14 +115,14 @@ pre,
 samp,
 blockquote  {
 
-background-color: #f9f5d7 !important;
+background-color: #fdf6e3 !important;
 
 }
 
 /* :::::: Tables, cells :::::: */
 
-table table {background: #ebdbb2 !important;}
-th, caption {background: #d5c4a1 !important;}
+table table {background: #eee8d5 !important;}
+th, caption {background: #93a1a1 !important;}
 
 /* ::: Inputs, textareas ::: */
 
@@ -133,8 +133,8 @@ select,
 option,
 optgroup {
 
-color: #3c3836 !important;
-background-color: #f2e5bc !important;
+color: #073642 !important;
+background-color: #fdf6e3 !important;
 
 }
 
@@ -142,7 +142,7 @@ input,
 textarea,
 button {
 
-border-color: #458588 !important;
+border-color: #eee8d5 !important;
 
 }
 
@@ -165,7 +165,7 @@ input[type="submit"],
 input[type="reset"],
 button {
 
-background: #bdae93 !important;
+background: #eee8d5 !important;
 
 }
 
@@ -174,14 +174,14 @@ input[type="submit"]:hover,
 input[type="reset"]:hover,
 button:hover {
 
-color: #3c3836 !important;
-background: #a89984 !important;
+color: #073642 !important;
+background: #93a1a1 !important;
 
 }
 
 .qutehint {
-    background: #af3a03 !important;
-    color: #f2e5bc !important;
+    background: #6c71c4 !important;
+    color: #073642 !important;
     font-size: 12px !important;
 }
 
