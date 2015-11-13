@@ -23,10 +23,17 @@ font = Inconsolata-dz for Powerline 8.5
 # Base16 gruvbox
 # Scheme: Morhetz
 
+<<<<<<< HEAD
+foreground      = #586e75
+foreground_bold = #073642
+cursor          = #073642
+background      = #fdf6e3
+=======
 foreground      = #3c3836
 foreground_bold = #282828
 cursor          = #282828
 background      = #f2e5bc
+>>>>>>> parent of c5c3d61... Changing to solarized.
 
 # 16 color space
 color0      = #282828

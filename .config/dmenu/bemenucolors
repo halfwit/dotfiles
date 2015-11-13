@@ -1,7 +1,13 @@
 opts=(
     --fn "$font" -p 'Run'
+<<<<<<< HEAD
+    --tf '#839496' --tb '#002b36'
+    --nf '#839496' --nb '#002b36'
+    --hf '#93a1a1' --hb '#586e75'
+=======
     --tf '#a89984' --tb '#f2e5bc'
     --nf '#f2e5bc' --nb '#282828'
     --hf '#f2e5bc' --hb '#928374'
     --scf '#cc241d' --scb '#cc241d'
+>>>>>>> parent of c5c3d61... Changing to solarized.
 )

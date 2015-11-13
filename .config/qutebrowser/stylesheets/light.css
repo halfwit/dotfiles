@@ -65,8 +65,13 @@ background-color: #f2e5bc !important;
 
 ::-moz-selection {
 
+<<<<<<< HEAD
+background-color: #fdf6e3 !important;
+color: #002b36 !important;
+=======
 background-color: #f2e5bc !important;
 color: #3c3836 !important;
+>>>>>>> parent of c5c3d61... Changing to solarized.
 
 }
 
@@ -134,7 +139,11 @@ option,
 optgroup {
 
 color: #3c3836 !important;
+<<<<<<< HEAD
+background-color: #fdf6e3 !important;
+=======
 background-color: #f2e5bc !important;
+>>>>>>> parent of c5c3d61... Changing to solarized.
 
 }
 
