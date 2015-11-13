@@ -16,6 +16,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 call plug#end()
 colorscheme gruvbox
 set background=light
+
 let g:gruvbox_italicize_comments = 0
 let g:gruvbox_contrast_light = "hard"
 let g:airline_powerline_fonts = 1

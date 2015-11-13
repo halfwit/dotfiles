@@ -2,8 +2,8 @@
 
 *, ::before, ::after {
 
-color: #3c3836 !important;
-background-color: transparent !important;
+color: #073642 !important;
+background: transparent !important;
 
 }
 
@@ -65,8 +65,8 @@ background-color: #f9f5d7 !important;
 
 ::-moz-selection {
 
-background-color: #f9f5d7 !important;
-color: #3c3836 !important;
+background-color: #fdf6e3 !important;
+color: #002b36 !important;
 
 }
 
@@ -79,7 +79,7 @@ color: #3c3836 !important;
 }
 
 a:link         {color: #076678 !important;} /* hyperlink */
-a:visited      {color: #8f3f71 !important;}
+a:visited      {color: #076678 !important;}
 a:hover        {color: #427b57 !important;}
 a:active       {color: #076678 !important;}
 

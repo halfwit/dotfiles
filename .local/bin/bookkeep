@@ -26,7 +26,7 @@ usage_mk() {
 	            entry   The name for the new launcher script.
 
 EOF
-    
+
 }
 
 usage_ls() {
@@ -57,20 +57,20 @@ EOF
 
 usage_rm() {
         cat <<EOF
-Remove selected entries and corresponding covers. 
-                                                            
+Remove selected entries and corresponding covers.
+
     rm [entry [entry]]
-    If no argument given, attempt to remove all entires.         
-                                                                     
+    If no argument given, attempt to remove all entires.
+
 EOF
 }
-  
-usage() {                                                             
-    cat <<EOF                                                         
-Usage: bookeep [-h] mk | ls | ed | rm                                 
+
+usage() {
+    cat <<EOF
+Usage: bookeep [-h] mk | ls | ed | rm
     Each mode has an -h flag which produces a summary of its help section
 EOF
-    
+
 usage_mk
 usage_ls
 usage_ed
@@ -224,7 +224,7 @@ mk_cover() {
     fi
 
     if [[ -e "$cover" ]]; then
-	command gm mogrify -resize 240x240\! "$cover"
+	command gm mogrify -resize 240x340\! "$cover"
 	mv -fv -- "$cover" "$coverdir"/"$entry"
     else
 	err '%s: Unable to find cover.' "$cover"
