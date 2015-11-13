@@ -2,8 +2,8 @@
 
 *, ::before, ::after {
 
-color: #3c3836 !important;
-background-color: transparent !important;
+color: #073642 !important;
+background: transparent !important;
 
 }
 
@@ -57,7 +57,7 @@ body div[class*="container"],
 div[style*="display: block"],
 div[style*="visibility: visible"] {
 
-background-color: #f2e5bc !important;
+background-color: #fdf6e3 !important;
 
 }
 
@@ -66,12 +66,17 @@ background-color: #f2e5bc !important;
 ::-moz-selection {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 background-color: #fdf6e3 !important;
 color: #002b36 !important;
 =======
 background-color: #f2e5bc !important;
 color: #3c3836 !important;
 >>>>>>> parent of c5c3d61... Changing to solarized.
+=======
+background-color: #fdf6e3 !important;
+color: #002b36 !important;
+>>>>>>> e3cba417b848d54c2e4636cce156b5c108d7c71a
 
 }
 
@@ -120,7 +125,7 @@ pre,
 samp,
 blockquote  {
 
-background-color: #f9f5d7 !important;
+background-color: #fdf6e3 !important;
 
 }
 
@@ -140,10 +145,14 @@ optgroup {
 
 color: #3c3836 !important;
 <<<<<<< HEAD
+<<<<<<< HEAD
 background-color: #fdf6e3 !important;
 =======
 background-color: #f2e5bc !important;
 >>>>>>> parent of c5c3d61... Changing to solarized.
+=======
+background-color: #fdf6e3 !important;
+>>>>>>> e3cba417b848d54c2e4636cce156b5c108d7c71a
 
 }
 

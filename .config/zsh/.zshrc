@@ -1,7 +1,7 @@
 # XDG_CONFIG_HOME/zsh/.zshrc
 
 # Modules.
-autoload -Uz edit-command-line run-help compinit zmv colors 
+autoload -Uz edit-command-line run-help compinit zmv colors
 zmodload zsh/complist
 compinit
 
@@ -157,7 +157,7 @@ bindkey -M isearch '^M' accept-search
 # Quote the current or previous word.
 bindkey -M vicmd 'Q' quote-word
 
-# Colored manpages 
+# Colored manpages
 man() {
     env LESS_TERMCAP_mb=$'\E[01;31m' \
     LESS_TERMCAP_md=$'\E[01;38;5;74m' \
@@ -199,4 +199,3 @@ alias spaced="sed 's:\(.\):\1 :g'"
 
 alias sysupdate="sudo snp pacman -Syu"
 
-source "$XDG_DATA_HOME/plugged/gruvbox/gruvbox_256palette.sh"
