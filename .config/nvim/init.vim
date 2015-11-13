@@ -17,8 +17,7 @@ call plug#end()
 colorscheme gruvbox
 set background=light
 let g:gruvbox_italicize_comments = 0
-let g:gruvbox_termcolors=256
-let g:gruvbox_contrast_light = "soft"
+let g:gruvbox_contrast_light = "hard"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:indentLine_char = '┆'

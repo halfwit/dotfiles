@@ -26,7 +26,7 @@ font = Inconsolata-dz for Powerline 8.5
 foreground      = #3c3836
 foreground_bold = #282828
 cursor          = #282828
-background      = #f2e5bc
+background      = #f9f5d7
 
 # 16 color space
 color0      = #282828

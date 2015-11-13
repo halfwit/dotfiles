@@ -57,7 +57,7 @@ body div[class*="container"],
 div[style*="display: block"],
 div[style*="visibility: visible"] {
 
-background-color: #f2e5bc !important;
+background-color: #f9f5d7 !important;
 
 }
 
@@ -65,7 +65,7 @@ background-color: #f2e5bc !important;
 
 ::-moz-selection {
 
-background-color: #f2e5bc !important;
+background-color: #f9f5d7 !important;
 color: #3c3836 !important;
 
 }
@@ -134,7 +134,7 @@ option,
 optgroup {
 
 color: #3c3836 !important;
-background-color: #f2e5bc !important;
+background-color: #f9f5d7 !important;
 
 }
 
@@ -181,7 +181,7 @@ background: #a89984 !important;
 
 .qutehint {
     background: #af3a03 !important;
-    color: #f2e5bc !important;
+    color: #f9f5d7 !important;
     font-size: 12px !important;
 }
 

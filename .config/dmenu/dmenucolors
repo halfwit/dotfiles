@@ -1,5 +1,5 @@
  -w -ia top-gapless -is 300x250
     -fn "$font"
-    -nf '#f2e5bc' -nb '#282828'
-    -sf '#f2e5bc' -sb '#928374'
+    -nf '#f9f5d7' -nb '#282828'
+    -sf '#f9f5d7' -sb '#928374'
 )

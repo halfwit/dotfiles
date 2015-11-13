@@ -1,7 +1,7 @@
 opts=(
     --fn "$font" -p 'Run'
-    --tf '#a89984' --tb '#f2e5bc'
-    --nf '#f2e5bc' --nb '#282828'
-    --hf '#f2e5bc' --hb '#928374'
+    --tf '#a89984' --tb '#f9f5d7'
+    --nf '#f9f5d7' --nb '#282828'
+    --hf '#f9f5d7' --hb '#928374'
     --scf '#cc241d' --scb '#cc241d'
 )
