@@ -2,5 +2,5 @@ opts=(
     -i -w -ia top-gapless -is 300x250
     -fn "$font"
     -nf '#839496' -nb '#002b36'
-    -sf '#93a1a1' -sb '#586e75
+    -sf '#93a1a1' -sb '#586e75'
 )
