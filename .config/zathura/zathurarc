@@ -2,11 +2,10 @@ set font                        "Inconsolatazi4 9.5"
 
 set selection-clipboard         "clipboard"
 
-set recolor-darkcolor           "#fbf1c7
-set recolor-lightcolor          "#3c3836"
+set recolor-darkcolor           "#3c3836"
+set recolor-lightcolor          "#f9f5d7"
 
 set recolor                     "true"
-set recolor-keephue             "true"
 
 set default-bg                  "#fbf1c7"
 set default-fg                  "#3c3836"
