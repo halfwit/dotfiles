@@ -47,7 +47,6 @@ set shiftwidth=4
 set expandtab
 set title
 set hidden
-set cc=68
 set number
 set smartcase
 set ignorecase
