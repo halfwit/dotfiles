@@ -11,10 +11,6 @@ Plug 'benekastah/neomake'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'Shougo/deoplete.nvim', { 'on' : 'InsertLeave' }
-Plug 'Shougo/neosnippet', { 'on' : 'InsertLeave' }
-Plug 'Shougo/neosnippet-snippets', { 'on' : 'InsertLeave' }
-Plug 'honza/vim-snippets', { 'on' : 'InsertLeave' }
 call plug#end()
 " }}}
 
@@ -24,7 +20,6 @@ augroup filetype_vim
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
 " }}}
-
 
 "Remove trailing whitespace haxx
 autocmd! BufWritePre * :%s/\s\+$//e
