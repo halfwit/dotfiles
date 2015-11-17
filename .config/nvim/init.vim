@@ -43,6 +43,7 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-k>k
 noremap <C-l> <C-w>l
 
+let g:neomake_cpp_clang_args = neomake#makers#ft#c#clang()['args']+['-std=c99']
 let g:clang_auto = 0
 let g:clang_dotfile = ".clang"
 let g:clang_c_completeopt = 'menuone'

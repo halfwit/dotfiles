@@ -1,12 +1,11 @@
 /* Base */
 
-*, ::before, ::after {
+*,::before, ::after {
 
 color: #073642 !important;
 background: transparent !important;
 
 }
-
 html * {
 
 color: inherit !important;
@@ -52,10 +51,14 @@ div[class*="description"],
 body div[class*="content"],
 body div[class*="container"],
 
+/* This is for Facebook! */
+div[id*="blueBarNAXAnchor"],
+
 /* Popup divs that use visibility: hidden and display: none */
 
 div[style*="display: block"],
 div[style*="visibility: visible"] {
+
 
 background-color: #f9f5d7 !important;
 
@@ -143,29 +146,6 @@ textarea,
 button {
 
 border-color: #458588 !important;
-
-}
-
-/*: No BG :*/
-
-*:not(:empty):not(span):not([class="html5-volume-slider html5-draggable"]):not([class="html5-player-chrome html5-stop-propagation"]),
-*::before,
-*::after,
-td:empty,
-p:empty, div:empty:not([role]):not([style*="flashblock"]):not([class^="html5"]):not([class*="noscriptPlaceholder"]) {
-
-background-image: none !important;
-
-}
-
-/* :::::: Button styling :::::: */
-
-input[type="button"],
-input[type="submit"],
-input[type="reset"],
-button {
-
-background: #bdae93 !important;
 
 }
 
