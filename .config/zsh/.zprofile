@@ -2,7 +2,7 @@
 
 export PATH=$HOME/.local/bin:$HOME/.cabal/bin:${PATH}
 
-# XDG file paths 
+# XDG file paths
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_DATA_HOME=$HOME/.local/share
@@ -17,6 +17,7 @@ export WEECHAT_HOME=$XDG_CONFIG_HOME/weechat
 
 #Trying to get WLC
 export XKB_DEFAULT_LAYOUT=dvorak
+export XKB_DEFAULT_OPTION=compose:menu
 export WLC_BG=0
 
 #More verbosity with Wayland errors
