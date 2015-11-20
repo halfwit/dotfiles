@@ -186,7 +186,6 @@ alias ls='ls --color=auto --group-directories-first -AhXF'
 alias ll='ls --color=auto --group-directories-first -AlhXF'
 
 alias dmesg=dmesg -exL
-
 alias newsbeuter="newsbeuter -C $XDG_CONFIG_HOME/newsbeuter/config"
 
 alias gdb="gdb -n -x $XDG_CONFIG_HOME/gdb/init"
