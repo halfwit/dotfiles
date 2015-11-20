@@ -9,6 +9,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'benekastah/neomake'
 Plug 'justmao945/vim-clang'
 Plug 'tpope/vim-fugitive'
+Plug 'Shougo/deoplete.nvim'
 Plug 'honza/vim-snippets'
 
 call plug#end()
@@ -25,6 +26,7 @@ let g:gruvbox_contrast_light = "hard"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:indentLine_char = '┆'
+let g:deoplete#enable_at_startup = 1
 
 filetype indent plugin on
 set softtabstop=4
@@ -46,6 +48,17 @@ noremap <C-l> <C-w>l
 let g:neomake_cpp_clang_args = neomake#makers#ft#c#clang()['args']+['-std=c99']
 let g:clang_auto = 0
 let g:clang_dotfile = ".clang"
-let g:clang_c_completeopt = 'menuone'
-let g:clang_cpp_completeopt = 'menuone'
+let g:clang_c_completeopt = 'menuone,preview'
+let g:clang_cpp_completeopt = 'menuone,preview'
 let g:clang_exec = '/usr/bin/clang'
+
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#deoplete_omni_patterns = get(g:, 'deoplete#force_omni__input_patterns', {})
+let g:deoplete#deoplete_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+let g:deoplete#deoplete_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+
+let g:deoplete#disable_auto_complete = 1
+inoremap <silent><expr><Tab>
+        \ pumvisible() ? "\<C-n>" :
+        \ deoplete#mappings#manual_complete(['buffer','omni'])
+
