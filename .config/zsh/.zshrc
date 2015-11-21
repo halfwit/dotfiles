@@ -184,7 +184,7 @@ alias chgrp='chgrp -c --preserve-root'
 
 alias ls='ls --color=auto --group-directories-first -AhXF'
 alias ll='ls --color=auto --group-directories-first -AlhXF'
-
+alias nvim='NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim'
 alias dmesg=dmesg -exL
 alias newsbeuter="newsbeuter -C $XDG_CONFIG_HOME/newsbeuter/config"
 
