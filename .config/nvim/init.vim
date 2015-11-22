@@ -7,8 +7,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'Yggdroot/indentLine'
 Plug 'benekastah/neomake'
-Plug 'justmao945/vim-clang'
 Plug 'tpope/vim-fugitive'
+Plug 'osyo-manga/vim-marching'
 Plug 'Shougo/deoplete.nvim'
 
 call plug#end()
@@ -42,17 +42,15 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-k>k
 noremap <C-l> <C-w>l
 
+let g:marching_enable_neocomplete = 1
 let g:neomake_cpp_clang_args = neomake#makers#ft#c#clang()['args']+['-std=c99']
-let g:clang_auto = 0
-let g:clang_c_completeopt = 'menuone,preview'
-let g:clang_cpp_completeopt = 'menuone,preview'
+let g:deoplete#deoplete_omni_patterns = get(g:, 'deoplete#force_omni_input_patterns', {})
+let g:deoplete#deoplete_omni_patterns.c =
+            \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+let g:deoplete#deoplete_omni_patterns.cpp =
+            \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 let g:deoplete#disable_auto_complete = 1
-
-let g:deoplete#deoplete_omni_patterns = get(g:, 'deoplete#force_omni_input_patterns', {} )
-let g:deoplete#deoplete_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-let g:deoplete#deoplete_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-let g:deoplete#disable_auto_complete = 1
-
+set completeopt+=noinsert
 imap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" :
     \ <SID>check_back_space() ? "\<TAB>" :
