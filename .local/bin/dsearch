@@ -8,22 +8,22 @@ readonly datadir=${XDG_DATA_HOME:-$HOME/.local/share}
 readonly optsfile="${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/bemenucolors
 
 has() {
-	hash "$1" &> /dev/null
+    hash "$1" &> /dev/null
 }
 
 puts() {
-	printf -- "$1\n" "${@:2}"
+    printf -- "$1\n" "${@:2}"
 }
 
 err() {
-	local msg
+    local msg
 
     puts "$progn: $1" "${@:2}"
 
-	if has notify-send; then
-		msg="$(puts "$@")"
-		notify-send -u critical -- "$progn" "$msg"
-	fi
+    if has notify-send; then
+	msg="$(puts "$@")"
+	notify-send -u critical -- "$progn" "$msg"
+    fi
 }
 
 create_menu() {
