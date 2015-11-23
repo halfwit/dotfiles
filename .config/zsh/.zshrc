@@ -5,6 +5,13 @@ autoload -Uz edit-command-line run-help compinit zmv colors
 zmodload zsh/complist
 compinit
 
+# Some verbosity for completions
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:descriptions' format '%B%d%b'
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format 'No matches for: %d'
+zstyle ':completion:*' group-name
+
 # Vimode functions
 zle -N edit-command-line
 zle -N zle-line-init
@@ -187,8 +194,8 @@ alias ll='ls --color=auto --group-directories-first -AlhXF'
 alias nvim='NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim'
 alias dmesg=dmesg -exL
 alias newsbeuter="newsbeuter -C $XDG_CONFIG_HOME/newsbeuter/config"
-alias maim="maim -s --format png /dev/stdout | pb -S -e png -m"
 alias gdb="gdb -n -x $XDG_CONFIG_HOME/gdb/init"
+alias maim="maim -s --format png /dev/stdout | pb -S -e png -m"
 alias weechat="weechat -d $XDG_CONFIG_HOME/weechat"
 alias k='rlwrap k'
 
