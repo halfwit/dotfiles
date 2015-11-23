@@ -6,11 +6,11 @@ zmodload zsh/complist
 compinit
 
 # Some verbosity for completions
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*:descriptions' format '%B%d%b'
-zstyle ':completion:*:messages' format '%d'
-zstyle ':completion:*:warnings' format 'No matches for: %d'
-zstyle ':completion:*' group-name
+#zstyle ':completion:*' verbose yes
+#zstyle ':completion:*:descriptions' format '%B%d%b'
+#zstyle ':completion:*:messages' format '%d'
+#zstyle ':completion:*:warnings' format 'No matches for: %d'
+#zstyle ':completion:*' group-name
 
 # Vimode functions
 zle -N edit-command-line
