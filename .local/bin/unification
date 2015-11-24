@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# Unite implementation for Neovim using bemenu
+# Requires bemenu, tree, neovim, and python
+
+readonly confdir=${XDG_CONFIG_HOME:-$HOME/.config}
+readonly optsfile=$confdir/dmenu/bemenucolors
+readonly terminal=/usr/bin/termite
+
+get_selection() {
+    tree -fi "$HOME" | bemenu -l 10 "${opts[@]}"
+}
+
+handle_result() {
+
+local result="$1"
+
+if ! pgrep nvim; then
+    exec $terminal --exec="/usr/bin/nvim $result" &
+else
+python - <<END
+import sys
+from neovim import attach
+nvim = attach('socket', path='/tmp/nvimsocket')
+nvim.command('e $result')
+END
+fi
+
+}
+
+# Main
+
+
+# https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
+if [[ -s $confdir/dmenu/font ]]; then
+    read -r font < "$confdir"/dmenu/font
+fi
+
+if [[ $font ]]; then
+    opts+=(-fn "$font")
+fi
+
+if [[ -s $optsfile ]]; then
+    source "$optsfile"
+fi
+
+result=$(get_selection)
+handle_result "$result"
