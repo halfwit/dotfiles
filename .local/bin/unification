@@ -43,4 +43,7 @@ if [[ -s $optsfile ]]; then
 fi
 
 result=$(get_selection)
-handle_result "$result"
+
+if [[ $result ]]; then
+    handle_result "$result"
+fi
