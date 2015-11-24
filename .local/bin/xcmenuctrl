@@ -36,7 +36,7 @@ EOF
 # urls
 urlmode() {
    local protos="https?|ftps?|mailto|ssh|git|file"
-   local url="$("$XCMENU" -l | grep -aoP "((($protos):\/\/|www\..*\.)[-/.\?=&%()#@~:\w]+)" | bemenu -p "clipboard" "${opts[@]}" )"
+   local url="$("$XCMENU" -l | grep -aoP "((($protos):\/\/|www\..*\.)[-/.\?=&%()#@~:\w]+)" | bemenu -l 10 "${opts[@]}" -p "clipboard" )"
    [[ -n "$url" ]] || exit 1
    printf %s "#LC:skip_history:$url" | "$XCMENU" -i --${CLIPBOARD}
    echo "$url"
@@ -45,7 +45,7 @@ urlmode() {
 
 # syncmode
 syncmode() {
-   local synf="$(echo -e "primary\nsecondary\nclipboard" | bemenu "${opts[@]}" -p "sync_from")"
+   local synf="$(echo -e "primary\nsecondary\nclipboard" | bemenu "${opts[@]}" -l 10 -p "sync_from")"
    [[ -n "$synf" ]] || exit 1
    local synt="$(echo -e "primary\nsecondary\nclipboard" | bemenu "${opts[@]}" -p "sync_to")"
    [[ -n "$synt" ]] || exit 1
@@ -57,7 +57,7 @@ syncmode() {
 
 # clipmode
 clipmode() {
-   id="$("$XCMENU" -m | bemenu "${opts[@]}" -p "xcmenu" | sed 's/^[^0-9]*\([^:]*\):.*/\1/g')"
+   id="$("$XCMENU" -m | bemenu -l 10 "${opts[@]}" -p "xcmenu" | sed 's/^[^0-9]*\([^:]*\):.*/\1/g')"
    [[ -n "$id" ]] || exit 1
    local data="$(echo "$id" | "$XCMENU" -g)"
    printf %s "$data" | "$XCMENU" -i --${CLIPBOARD}
