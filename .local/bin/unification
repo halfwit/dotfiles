@@ -7,7 +7,7 @@ readonly optsfile=$confdir/dmenu/bemenucolors
 readonly terminal=/usr/bin/termite
 
 get_selection() {
-    tree -fi "$HOME" | bemenu -l 10 "${opts[@]}"
+    tree -afi "$HOME" | bemenu -l 10 "${opts[@]}"
 }
 
 handle_result() {
@@ -18,7 +18,6 @@ if ! pgrep nvim; then
     exec $terminal --exec="/usr/bin/nvim $result" &
 else
 python - <<END
-import sys
 from neovim import attach
 nvim = attach('socket', path='/tmp/nvimsocket')
 nvim.command('e $result')
