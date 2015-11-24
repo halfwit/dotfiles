@@ -7,7 +7,7 @@ readonly optsfile=$confdir/dmenu/bemenucolors
 readonly terminal=/usr/bin/termite
 
 get_selection() {
-    tree -afi "$HOME" | bemenu -l 10 -p "Edit" "${opts[@]}"
+    tree -afi "$HOME" | bemenu -l 10 "${opts[@]}" -p "Edit"
 }
 
 handle_result() {
