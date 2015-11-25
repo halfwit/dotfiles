@@ -24,12 +24,14 @@ handle_result() {
     if ! pgrep nvim; then
         exec $terminal --exec="/usr/bin/nvim $result" &
     else
+
 python - <<END
 from neovim import attach
 nvim = attach('socket', path='/tmp/nvimsocket')
 nvim.command('e $result')
 END
-    fi
+
+fi
 }
 
 # Main

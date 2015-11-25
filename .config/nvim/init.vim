@@ -57,6 +57,6 @@ imap <silent><expr> <TAB>
     \ deoplete#mappings#manual_complete()
 function! s:check_back_space() "{{{
     let col = col('.') - 1
-    return !col || getline('.')[col - 1] !~ '\v'
+    return !col || getline('.')[col - 1] !~ '[a-zA-Z0-9]'
 endfunction"}}}
 
