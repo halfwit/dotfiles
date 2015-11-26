@@ -5,35 +5,39 @@
 readonly confdir=${XDG_CONFIG_HOME:-$HOME/.config}
 readonly optsfile=$confdir/dmenu/bemenucolors
 readonly terminal=/usr/bin/termite
-readonly locations=( ~/programming
-                     ~/piecemeal
-                     ~/piecemealdb
-                     ~/.config
-                     ~/.local
-                     ~/quartz
-                     ~/stuff );
+
+# Whilelist of locations to search
+readonly locations=( ~/programming \
+                     ~/.config     \
+                     ~/.local );
 
 get_selection() {
-    grep -Ire "$1" "${locations[@]}" | bemenu -l 10 "${opts[@]}" -p "Edit"
+    grep -Iri "$1" "${locations[@]}" | bemenu -l 10 "${opts[@]}" -p "Edit"
 }
 
 handle_result() {
 
     local result="$1"
 
+    # If no neovim is running, start
     if ! pgrep nvim; then
+        export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
         exec $terminal --exec="/usr/bin/nvim $result" &
     else
+
+# Connect to the running neovim instance
 python - <<END
 from neovim import attach
 nvim = attach('socket', path='/tmp/nvimsocket')
 nvim.command('e $result')
 END
-    fi
+
+fi
 }
 
 # Main
 
+# Configuration
 # https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
 if [[ -s $confdir/dmenu/font ]]; then
     read -r font < "$confdir"/dmenu/font
@@ -47,8 +51,11 @@ if [[ -s $optsfile ]]; then
     source "$optsfile"
 fi
 
-result=$(get_selection "$1")
+# Chain multiple arguments like.*this for grep
+token="$*"
+result=$(get_selection "${token// /.\*}")
 
+# Verify a selection was made
 if [[ $result ]]; then
-    handle_result "$result"
+    handle_result "${result%:*}"
 fi

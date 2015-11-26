@@ -37,14 +37,26 @@ set smartcase
 set ignorecase
 syntax on
 
+" Buffer jumping
+noremap <C-n> :bn<CR>
+noremap <C-p> :bp<CR>
+
+" Buffer window jumps
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-k>k
 noremap <C-l> <C-w>l
 
+
+
+" Buffer close
+noremap <C-c> :bdelete<CR>
+
 let g:marching_enable_neocomplete = 1
 let g:neomake_cpp_clang_args = neomake#makers#ft#c#clang()['args']+['-std=c99']
 let g:deoplete#deoplete_omni_patterns = get(g:, 'deoplete#force_omni_input_patterns', {})
+let g:deoplete#sources = {}
+let g:deoplete#sources_ = ['omni','buffer']
 let g:deoplete#deoplete_omni_patterns.c =
             \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
 let g:deoplete#deoplete_omni_patterns.cpp =
@@ -57,6 +69,6 @@ imap <silent><expr> <TAB>
     \ deoplete#mappings#manual_complete()
 function! s:check_back_space() "{{{
     let col = col('.') - 1
-    return !col || getline('.')[col - 1] !~ '\v'
+    return !col || getline('.')[col - 1] !~ '[a-zA-Z0-9]'
 endfunction"}}}
 

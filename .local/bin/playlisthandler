@@ -21,20 +21,20 @@ puts() { # strings -> stdout
 err() { # strings -> stderr
     local msg
     puts "$progn: $1" "${@:2}"  >&2
-        
+
     if has notify-send; then
         msg="$(puts "$@")"
         notify-send -u critical -- "$progn" "$msg"
     fi
 }
 
-fetch_json() {	
+fetch_json() {
     curl -s "https://www.googleapis.com/youtube/v3/search?q="${1// /%20}"&type=playlist&part=snippet&maxResults=$lines&key=$KEY" > "$TMPDIR"/ytsearch.json
 }
 
 parse_json() {
-	# we need to pull out the URL in this same call, to stdout. 
-    jshon -CQ -e items -a -e snippet -e title -uppe id -e playlistId -uppe snippet -e thumbnails -e high -e url < "$TMPDIR"/ytsearch.json        
+	# we need to pull out the URL in this same call, to stdout.
+    jshon -CQ -e items -a -e snippet -e title -uppe id -e playlistId -uppe snippet -e thumbnails -e high -e url < "$TMPDIR"/ytsearch.json
 }
 
 create_menu() {
@@ -65,8 +65,8 @@ populate_menu() {
         if [[ "$title" != null ]]; then
             menu["$title"]="$token"
             image["$token"]="$jpg"
-        fi 
-        fetch_image "$token" & 	
+        fi
+        fetch_image "$token" &
 	done
 }
 
@@ -74,7 +74,7 @@ process_selection() { # global token
 	local id title
     while read -r title; do
         [[ -z "$title" ]] && title="$id"
-        if [[ "${menu[$title]}" ]]; then 
+        if [[ "${menu[$title]}" ]]; then
             url="${menu[$title]//\"/}"
         else
             err '%s: Cannot find video.' "$title"
@@ -94,7 +94,7 @@ get_options() {
         fi
         source "${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/dmenucolors
         read -r KEY < "${XDG_DATA_HOME:-$HOME/.local/share}"/youtube/key
-    else 
+    else
         err "No configuration found for dmenu in ${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/dmenucolors"
     fi
 }
@@ -102,7 +102,7 @@ get_options() {
 # Main
 get_options
 declare -A menu title image
-fetch_json "$@" 
+fetch_json "$@"
 
 populate_menu < <(parse_json)
 wait

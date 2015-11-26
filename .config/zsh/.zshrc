@@ -195,7 +195,7 @@ alias nvim='NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim'
 alias dmesg=dmesg -exL
 alias newsbeuter="newsbeuter -C $XDG_CONFIG_HOME/newsbeuter/config"
 alias gdb="gdb -n -x $XDG_CONFIG_HOME/gdb/init"
-alias maim="maim -s --format png /dev/stdout | pb -S -e png -m"
+alias sshot="maim -s --format png /dev/stdout | pb -S -e png -m"
 alias weechat="weechat -d $XDG_CONFIG_HOME/weechat"
 alias k='rlwrap k'
 
