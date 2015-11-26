@@ -3,5 +3,4 @@ opts+=(
     -fn "$font"
     -nf '#f9f5d7' -nb '#282828'
     -sf '#f9f5d7' -sb '#928374'
-    -b
 )
