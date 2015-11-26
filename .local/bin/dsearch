@@ -47,6 +47,7 @@ get_selection() {
     opts+=(-p Search)
     #create_menu | dmenu -l 10 "${opts[@]}"
     create_menu | bemenu -l 10 "${opts[@]}"
+    #create_menu | rofi -dmenu -p "Search" -fg '#f9f5d7' -bg '#282828' -hlfg '#f9f5d7' -hlbg '#928374' -font "$font"
 }
 
 handle_results() { # args -> launch

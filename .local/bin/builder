@@ -50,8 +50,12 @@ error_test() {
     cd "$logroot" || err "Error entering $logroot"
     for i in *; do
         if sed -n '/has already been built/q1' "$i"; then
-	    puts "${i/.log/ updated}"
-	fi
+	    if sed -n '/Finished making/q1' "$i"; then
+                err "${i/.log/ has an error}"
+            else
+                puts "${i/.log/ updated}"
+	    fi
+        fi
     done
 }
 

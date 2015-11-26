@@ -4,4 +4,5 @@ opts=(
     --nf '#f9f5d7' --nb '#282828'
     --hf '#f9f5d7' --hb '#928374'
     --scf '#cc241d' --scb '#cc241d'
+    -b
 )
