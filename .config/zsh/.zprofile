@@ -17,7 +17,7 @@ export WEECHAT_HOME=$XDG_CONFIG_HOME/weechat
 
 #Trying to get WLC
 export XKB_DEFAULT_LAYOUT=dvorak
-export XKB_DEFAULT_OPTION=compose:menu
+export XKB_DEFAULT_OPTION=compose:menu,caps:escape
 export WLC_BG=0
 
 #More verbosity with Wayland errors
