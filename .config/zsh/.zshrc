@@ -6,15 +6,15 @@ zmodload zsh/complist
 compinit
 
 # Some verbosity for completions
-#zstyle ':completion:*' verbose yes
-#zstyle ':completion:*:descriptions' format '%B%d%b'
-#zstyle ':completion:*:messages' format '%d'
-#zstyle ':completion:*:warnings' format 'No matches for: %d'
-#zstyle ':completion:*' group-name
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:descriptions' format '%B%d%b'
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*' group-name
 
 # Vimode functions
 zle -N edit-command-line
 zle -N zle-line-init
+
 # Every time keymap is switched, this is invoked (for vicmd)
 zle -N zle-keymap-select
 
@@ -191,14 +191,13 @@ alias chgrp='chgrp -c --preserve-root'
 
 alias ls='ls --color=auto --group-directories-first -AhXF'
 alias ll='ls --color=auto --group-directories-first -AlhXF'
-alias nvim='NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim'
+alias nvim="NVIM_LISTEN_ADDRESS=/tmp/nvimsocket /usr/bin/nvim"
 alias dmesg=dmesg -exL
 alias newsbeuter="newsbeuter -C $XDG_CONFIG_HOME/newsbeuter/config"
 alias gdb="gdb -n -x $XDG_CONFIG_HOME/gdb/init"
 alias sshot="maim -s --format png /dev/stdout | pb -S -e png -m"
 alias weechat="weechat -d $XDG_CONFIG_HOME/weechat"
 alias k='rlwrap k'
-alias vim="vim -u $XDG_CONFIG_HOME/nvim/vimrc"
 alias i="curl -F 'f:1=<-' ix.io"
 alias s="curl -F 'sprunge=<-' sprunge.us"
 alias pb='pbpst -S'
