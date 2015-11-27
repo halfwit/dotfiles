@@ -28,7 +28,7 @@ let s:vimrc_local = findfile('rc/vimrc_local.vim', '.;')
 if s:vimrc_local !=# ''
     " Load development versions of plugins
     call neobundle#local(fnamemodify(s:vimrc_local, ':h'),
-        \ {}, ['vim*', 'unite-*', 'neco-*', '*.vim', '*.nvim'])
+        \ {}, ['*.vim', '*.nvim'])
 endif
 
 " Neobundle configurations
@@ -50,7 +50,7 @@ endif
 set ignorecase
 set smartcase
 set incsearch
-"set nohlsearch
+set nohlsearch
 set wrapscan
 
 "--------------------------------------------------

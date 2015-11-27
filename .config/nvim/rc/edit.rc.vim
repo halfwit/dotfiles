@@ -7,8 +7,9 @@ set title
 " Tabs to spaces, etc
 set smarttab
 set expandtab
-set shiftwidth=4
 set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 
 " Numbers on
 set number
@@ -17,7 +18,11 @@ set backspace=indent,eol,start
 
 " Highlight parethesis
 set showmatch
+
 set matchpairs+=<:>
+
+" Auto reload if file is changed
+set autoread
 
 " Make directory automatically.
 " --------------------------------------

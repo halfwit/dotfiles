@@ -1,5 +1,5 @@
 [[plugins]]
-repository = 'Shougo/tabpagebuffer.vim'
+repository = 'Shougo/context_filetype.vim'
 filetypes = 'all'
 
 [[plugins]]
@@ -11,11 +11,6 @@ repository = 'Shougo/neosnippet.vim'
 depends = ['Shougo/neosnippet-snippets', 'Shougo/context_filetype.vim']
 insert = 1
 filetypes = 'snippet'
-unite_sources = ['neosnippet', 'neosnippet/user', 'neosnippet/runtime']
-
-[[plugins]]
-repository = 'Shougo/junkfile.vim'
-unite_sources = 'junkfile'
 
 [[plugins]]
 repository = 'Shougo/neco-vim'
@@ -29,13 +24,6 @@ filetypes = 'all'
 [[plugins]]
 repository = 'Shougo/neco-syntax'
 insert = 1
-
-[[plugins]]
-repository = 'Shougo/vinarise.vim'
-
-  [plugins.commands]
-  name = 'Vinarise'
-  complete = 'file'
 
 [[plugins]]
 repository = 'davidhalter/jedi-vim'

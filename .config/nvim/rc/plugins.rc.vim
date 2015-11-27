@@ -5,27 +5,14 @@ let python_highlight_all = 1
 
 if neobundle#tap('deoplete.nvim') && has('nvim') "{{{
   let g:deoplete#enable_at_startup = 1
-  let g:deoplete#disable_auto_complete = 1  
   let neobundle#hooks.on_source =
-        \ '$XDG_CONFIG_HOME/nvim/rc/plugins/deoplete.rc.vim'
+        \ "$XDG_CONFIG_HOME/nvim/rc/plugins/deoplete.rc.vim"
   call neobundle#untap()
 endif "}}}
 
 if neobundle#tap('neosnippet.vim') "{{{
   let neobundle#hooks.on_source =
         \ '$XDG_CONFIG_HOME/nvim/rc/plugins/neosnippet.rc.vim'
-
-  call neobundle#untap()
-endif "}}}
-
-if neobundle#tap('vinarise.vim') "{{{
-  let g:vinarise_enable_auto_detect = 1
-
-  call neobundle#untap()
-endif "}}}
-
-if neobundle#tap('junkfile.vim') "{{{
-  nnoremap <silent> [Window]e  :<C-u>Unite junkfile/new junkfile -start-insert<CR>
 
   call neobundle#untap()
 endif "}}}
