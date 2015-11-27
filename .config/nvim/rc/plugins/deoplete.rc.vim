@@ -3,7 +3,7 @@
 "
 
 set completeopt+=noinsert
-
+let g:deoplete#disable_auto_complete = 1
 " <TAB>: completion.
 imap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -11,7 +11,7 @@ imap <silent><expr> <TAB>
       \ deoplete#mappings#manual_complete()
 function! s:check_back_space() "{{{
   let col = col('.') - 1
-  return !col || getline('.')[col - 1] =~ '\s'
+  return !col || getline('.')[col - 1] !~ '[a-zA-Z0-9]'
 endfunction"}}}
 
 " <S-TAB>: completion back.

@@ -3,7 +3,7 @@ let python_highlight_all = 1
 
 " neobundle#tap if foo plugin is installed and enabled
 
-if neobundle#tap('deoplete.nvim') && has('nvim') "{{{
+if neobundle#tap('deoplete.nvim') "{{{
   let g:deoplete#enable_at_startup = 1
   let neobundle#hooks.on_source =
         \ "$XDG_CONFIG_HOME/nvim/rc/plugins/deoplete.rc.vim"

@@ -3,6 +3,11 @@ repository = 'Shougo/context_filetype.vim'
 filetypes = 'all'
 
 [[plugins]]
+repository = 'Shougo/deoplete.nvim'
+depends = 'Shougo/context_filetype.vim'
+insert = 1
+
+[[plugins]]
 repository = 'Shougo/neopairs.vim'
 insert = 1
 
