@@ -1,0 +1,21 @@
+[[plugins]]
+repository = 'Shougo/vimproc.vim'
+build = 'make'
+
+[[plugins]]
+repository = 'morhetz/gruvbox'
+
+[[plugins]]
+repository = 'airblade/vim-gitgutter'
+
+[[plugins]]
+repository = 'bling/vim-airline'
+
+[[plugins]]
+repository = 'Yggdroot/indentLine'
+
+[[plugins]]
+repository = 'benekastah/neomake'
+
+[[plugins]]
+repository = 'tpope/vim-fugitive'
