@@ -198,7 +198,7 @@ alias gdb="gdb -n -x $XDG_CONFIG_HOME/gdb/init"
 alias sshot="maim -s --format png /dev/stdout | pb -S -e png -m"
 alias weechat="weechat -d $XDG_CONFIG_HOME/weechat"
 alias k='rlwrap k'
-
+alias vim="vim -u $XDG_CONFIG_HOME/nvim/vimrc"
 alias i="curl -F 'f:1=<-' ix.io"
 alias s="curl -F 'sprunge=<-' sprunge.us"
 alias pb='pbpst -S'
