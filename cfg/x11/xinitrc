@@ -3,4 +3,5 @@ redshift &
 dunst &
 barM &
 xcmenu &
+[[ ! -s ~/local/cfg/mpd/pid ]] && mpd
 exec dwm
