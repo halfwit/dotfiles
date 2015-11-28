@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-# Title: "title" ("year")
-
-url=""
-
-exec qutebrowser "$url"
-

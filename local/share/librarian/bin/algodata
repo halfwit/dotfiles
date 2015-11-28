@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-# Title: Algorithms + Data Structures = Programs [Wirth] (1976)
-
-executable="[Niklaus_Wirth]_Algorithms_+_Data_Structures_=_Pro(BookZZ.org).djvu"
-prefix="$HOME/docs/djvu"
-
-exec zathura "$prefix"/"$executable"
-

@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-# Title: Systematic Programming [Wirth] (1973)
-
-executable="[Niklaus_Wirth]_Systematic_programming_(PH_1973)(BookZZ.org).djvu"
-prefix="$HOME/docs/djvu"
-
-exec zathura "$prefix"/"$executable"
-

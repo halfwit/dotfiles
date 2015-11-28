@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-# Title: A Discipline Of Programming [Dijkstra] (1976)
-
-executable="[Edsger_W._Dijkstra]_A_discipline_of_programming(BookZZ.org).djvu"
-prefix="$HOME/docs/djvu"
-
-exec zathura "$prefix"/"$executable"
-

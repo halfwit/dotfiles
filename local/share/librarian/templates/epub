@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-# Title: "title" ("year")
-
-executable=""
-prefix="$HOME/docs/epub"
-
-exec zathura "$prefix"/"$executable"
-

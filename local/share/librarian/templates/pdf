@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-# Title: "title" ("year")
-
-executable=""
-prefix="$HOME/docs/pdf"
-
-exec zathura "$prefix"/"$executable"
-
