@@ -55,8 +55,8 @@ PROMPT='[%T%F{blue}] [%f%m%F{blue}] [%f%F{magenta}%~%f%F{blue}]%f %F{green}${bra
 # Functions.
 # All I want is the git branch for now, vcs_info is way overkill to do this.
 function get_git_branch {
-    if [[ -d .git ]]; then
-        read -r branch < .git/HEAD
+    if [[ -d git ]]; then
+        read -r branch < git/HEAD
         branch=" ${branch##*/} "
     else
         branch=" "

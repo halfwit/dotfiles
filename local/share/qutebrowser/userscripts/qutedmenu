@@ -46,6 +46,7 @@ if [[ $font ]]; then
 fi
 
 if [[ -s $optsfile ]]; then
+
     source "$optsfile"
 fi
 
