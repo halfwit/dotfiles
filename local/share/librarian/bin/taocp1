@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Title: The Art Of Computer Programming (1997)
+
+executable="taocpvol1"
+prefix="$HOME/docs/djvu"
+
+exec zathura "$prefix"/"$executable"
+

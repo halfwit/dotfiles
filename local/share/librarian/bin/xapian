@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Title: USDA Nutritional Outline
+
+executable="sr28"
+prefix="$HOME/docs/pdf"
+
+exec zathura "$prefix"/"$executable"
+

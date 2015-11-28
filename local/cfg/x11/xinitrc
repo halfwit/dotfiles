@@ -1,0 +1,6 @@
+#!/bin/bash
+redshift &
+dunst &
+barM &
+xcmenu &
+exec dwm

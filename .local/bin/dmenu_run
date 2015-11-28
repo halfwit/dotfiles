@@ -1,6 +1,0 @@
-#!/bin/zsh
-read -r font < ${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/font
-. ~/.config/dmenu/bemenucolors
-
-opts+=( -p "Run" )
-bemenu-run $opts

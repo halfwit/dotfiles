@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+# Google Books search handler
+
+readonly progn=gbookhandler
+
+# For Json
+readonly TMPDIR="${TMPDIR:-/tmp}"
+
+# Number of results to fetch
+readonly lines=10
+
+readonly dmenu_opts=(
+    -i -p 'Read book'
+    -l $lines
+)
+
+has() { # string -> bool
+        hash "$1" &> /dev/null
+}
+
+puts() { # strings -> stdout
+	printf -- "$1\n" "${@:2}"
+}
+
+err() { # strings -> stderr
+	local msg
+
+	puts "$progn: $@" >&2
+        
+	if has notify-send; then
+		msg="$(puts "$@")"
+		notify-send -u critical -- "$progn" "$msg"
+	fi
+}
+
+fetch_json() {	
+   curl -s "https://www.googleapis.com/books/v1/volumes?q=${@// /%20}&maxResults=40&orderBy=relevance" > $TMPDIR/gbook.json
+}
+
+parse_info() {
+	# we need to pull out the URL in this same call, to stdout. 
+        jshon -CQ -e items -a -e volumeInfo -e title -upe authors -e 0 -uppe infoLink < "$TMPDIR"/gbook.json        
+}
+
+create_menu() {
+	local key
+	for key in "${!menu[@]}"; do
+	        # iterate through keys
+		puts '%s' "$key" 		
+	done
+}
+
+get_selection() {
+
+	create_menu | dmenu "${dmenu_opts[@]}"
+}
+
+populate_info() { # title pagecount isbn # isbn #
+    while {
+        read -r title
+	read -r authors
+	read -r infolink
+	} do
+	menu["$authors - $title"]=1
+	info["$authors - $title"]="${infolink//\\/}"
+    done
+}
+
+process_selection() { # global token
+	url="${info[$1]}"
+	qutebrowser "${url//\"/}"
+}
+
+
+# Main
+declare -A menu info
+
+fetch_json "$@" 
+
+populate_info < <(parse_info)
+wait
+
+results="$(get_selection)"
+if [[ "$results" ]]; then
+	process_selection "$results"
+fi
+

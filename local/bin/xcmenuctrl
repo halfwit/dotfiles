@@ -1,0 +1,107 @@
+#!/bin/bash
+# dmenu access to xcmenu daemon
+#
+
+# binaries and their parameters
+readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
+readonly datadir=${XDG_DATA_HOME:-$HOME/local/share}
+readonly optsfile="${XDG_CONFIG_HOME:-$HOME/local/cfg}"/dmenu/bemenucolors
+
+XCMENU="xcmenu"
+
+# clipboard to copy to
+# primary   = XA_PRIMARY
+# secondary = XA_SECONDARY
+# clipboard = XA_CLIPBOARD
+CLIPBOARD="clipboard"
+
+err() { echo -e "$@" 1>&2; exit 1; }
+
+# usage
+usage() {
+   cat << EOF
+usage: $(basename $@) [-us]
+   -u : url mode
+   -s : sync selection to another selection
+        -spc : sync primary to clipboard
+        -scp : sync clipboard to primary
+        -ssc : sync secondary to clipboard
+        -scs : sync clipboard to secondary
+        -sps : sync primary to secondary
+        -ssp : sync secondary to primary
+EOF
+   exit 0
+}
+
+# urls
+urlmode() {
+   local protos="https?|ftps?|mailto|ssh|git|file"
+   local url="$("$XCMENU" -l | grep -aoP "((($protos):\/\/|www\..*\.)[-/.\?=&%()#@~:\w]+)" | bemenu -l 10 "${opts[@]}" -p "clipboard" )"
+   [[ -n "$url" ]] || exit 1
+   printf %s "#LC:skip_history:$url" | "$XCMENU" -i --${CLIPBOARD}
+   echo "$url"
+   exit 0
+}
+
+# syncmode
+syncmode() {
+   local synf="$(echo -e "primary\nsecondary\nclipboard" | bemenu "${opts[@]}" -l 10 -p "sync_from")"
+   [[ -n "$synf" ]] || exit 1
+   local synt="$(echo -e "primary\nsecondary\nclipboard" | bemenu "${opts[@]}" -p "sync_to")"
+   [[ -n "$synt" ]] || exit 1
+   local data="$("$XCMENU" --${synf})"
+   printf %s "$data" | "$XCMENU" -i --${synt}
+   echo "$data"
+   exit 0
+}
+
+# clipmode
+clipmode() {
+   id="$("$XCMENU" -m | bemenu -l 10 "${opts[@]}" -p "xcmenu" | sed 's/^[^0-9]*\([^:]*\):.*/\1/g')"
+   [[ -n "$id" ]] || exit 1
+   local data="$(echo "$id" | "$XCMENU" -g)"
+   printf %s "$data" | "$XCMENU" -i --${CLIPBOARD}
+   echo "$data"
+   exit 0
+}
+
+# sync
+sync() {
+   local data="$("$XCMENU" --$1)"
+   printf %s "$data" | "$XCMENU" -i --$2
+   echo "$data"
+   exit 0;
+}
+
+# main
+main() {
+   [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]] && usage "$0"
+   "$XCMENU" -q &> /dev/null ||
+      err "xcmenu returned non zero.\ncheck that it's installed and daemon is running."
+   [[ "$1" == "-u" ]] && urlmode
+   [[ "$1" == "-spc" ]] && sync "primary"    "clipboard"
+   [[ "$1" == "-scp" ]] && sync "clipboard"  "primary"
+   [[ "$1" == "-ssc" ]] && sync "secondary"  "clipboard"
+   [[ "$1" == "-scs" ]] && sync "clipboard"  "secondary"
+   [[ "$1" == "-sps" ]] && sync "primary"    "secondary"
+   [[ "$1" == "-ssp" ]] && sync "secondary"  "primary"
+   [[ "$1" == "-s" ]] && syncmode
+   clipmode
+}
+
+# https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
+if [[ -s $confdir/dmenu/font ]]; then
+    read -r font < "$confdir"/dmenu/font
+fi
+
+if [[ $font ]]; then
+    opts+=(-fn "$font")
+fi
+
+if [[ -s $optsfile ]]; then
+    source "$optsfile"
+fi
+
+main "$@"
+
+# vim: set ts=8 sw=3 tw=0 :
