@@ -16,8 +16,7 @@ augroup MyAutoCmd
   autocmd FileType ref nnoremap <buffer> <TAB> <C-w>w
 
   " Enable omni completion.
-  autocmd FileType c setlocal omnifunc=ccomplete#Complete
-  autocmd Filetype cpp setlocal omnifunc=cppcomplete#Complete
+  autocmd Filetype cpp setlocal omnifunc=omni#cpp#complete#Main
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags

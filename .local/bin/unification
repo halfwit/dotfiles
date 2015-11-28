@@ -6,12 +6,8 @@ readonly confdir=${XDG_CONFIG_HOME:-$HOME/.config}
 readonly optsfile=$confdir/dmenu/bemenucolors
 readonly TERMINAL=/usr/bin/termite
 readonly locations=( ~/programming
-                     ~/piecemeal
-                     ~/piecemealdb
                      ~/.config
-                     ~/.local
-                     ~/quartz
-                     ~/stuff )
+                     ~/.local)
 get_selection() {
     tree -Uafi "${locations[@]}"  | bemenu -l 10 "${opts[@]}" -p "Edit"
 }

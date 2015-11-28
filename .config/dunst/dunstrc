@@ -1,5 +1,5 @@
 [global]
-    font = "Inconsolatazi4 12"
+    font = "DejaVu Sans Mono 9.5"
     allow_markup = yes
     format = "<b>%s %p</b>\n%b"
     sort = yes

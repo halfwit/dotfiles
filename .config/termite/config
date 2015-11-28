@@ -15,9 +15,10 @@ cursor_shape = block
 scrollback_lines = 10000
 search_wrap = true
 browser = qutebrowser
-#font = Droid Sans Mono
-font = Inconsolata-dz for Powerline 8.5
-#font = FiraMono Regular 9.5
+
+font = DejaVu Sans Mono for Powerline 9.5
+#font = Inconsolata-dz for Powerline 9
+
 
 [colors]
 # Base16 gruvbox
