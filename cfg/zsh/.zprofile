@@ -35,9 +35,6 @@ export ASPROOT=$HOME/build/asp
 export BROWSER=qutebrowser
 export TERMINAL=termite
 
-# Git
-export GIT_DIR=git
-
 # This is for the Nvidia .nv file that normally shows at $HOME
 export __GL_SHADER_DISK_CACHE_PATH=$XDG_CACHE_HOME/nv
 

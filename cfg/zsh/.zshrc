@@ -55,8 +55,8 @@ PROMPT='[%T%F{blue}] [%f%m%F{blue}] [%f%F{magenta}%~%f%F{blue}]%f %F{green}${bra
 # Functions.
 # All I want is the git branch for now, vcs_info is way overkill to do this.
 function get_git_branch {
-    if [[ -d git ]]; then
-        read -r branch < git/HEAD
+    if [[ -d .git ]]; then
+        read -r branch < .git/HEAD
         branch=" ${branch##*/} "
     else
         branch=" "
@@ -189,19 +189,24 @@ alias chmod='chmod -c --preserve-root'
 alias chown='chown -c --preserve-root'
 alias chgrp='chgrp -c --preserve-root'
 
+alias pb='pbpst -S'
+alias sysupdate="sudo snp pacman -Syu"
 alias ls='ls --color=auto --group-directories-first -AhXF'
 alias ll='ls --color=auto --group-directories-first -AlhXF'
-alias nvim="NVIM_LISTEN_ADDRESS=/tmp/nvimsocket /usr/bin/nvim"
-alias dmesg=dmesg -exL
-alias newsbeuter="newsbeuter -C $XDG_CONFIG_HOME/newsbeuter/config"
-alias gdb="gdb -n -x $XDG_CONFIG_HOME/gdb/init"
-alias sshot="maim -s --format png /dev/stdout | pb -S -e png -m"
-alias weechat="weechat -d $XDG_CONFIG_HOME/weechat"
-alias k='rlwrap k'
+
+# Vimb tabs
+alias vimb='tabbedvimb'
+
+# Pastebins
+alias dmesg='dmesg -exL'
 alias i="curl -F 'f:1=<-' ix.io"
 alias s="curl -F 'sprunge=<-' sprunge.us"
-alias pb='pbpst -S'
-alias spaced="sed 's:\(.\):\1 :g'"
+alias sshot="maim -s --format png /dev/stdout | pb -S -e png -m"
 
-alias sysupdate="sudo snp pacman -Syu"
+# Nvim socket for msgpack
+alias nvim="NVIM_LISTEN_ADDRESS=/tmp/nvimsocket /usr/bin/nvim"
 
+# For proper XDG dirs
+alias newsbeuter="newsbeuter -C $XDG_CONFIG_HOME/newsbeuter/config"
+alias gdb="gdb -n -x $XDG_CONFIG_HOME/gdb/init"
+alias weechat="weechat -d $XDG_CONFIG_HOME/weechat"
