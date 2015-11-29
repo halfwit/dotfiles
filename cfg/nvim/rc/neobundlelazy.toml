@@ -33,3 +33,8 @@ insert = 1
 [[plugins]]
 repository = 'davidhalter/jedi-vim'
 filetypes = 'python'
+
+[[plugins]]
+repository = 'honza/vim-snippets'
+insert = 1
+filetypes = 'all'

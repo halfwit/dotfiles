@@ -7,13 +7,13 @@ set recolor-lightcolor          "#f9f5d7"
 
 set recolor                     "true"
 
-set default-bg                  "#fbf1c7"
+set default-bg                  "#f9f5d7"
 set default-fg                  "#3c3836"
 
 set statusbar-fg                "#282828"
 set statusbar-bg                "#928374"
 
-set inputbar-bg                 "#fbf1c7"
+set inputbar-bg                 "#f9f5d7"
 set inputbar-fg                 "#3c3836"
 
 set notification-error-bg       "#cc241d"
@@ -32,7 +32,7 @@ set completion-bg               "#a89984"
 set completion-fg               "#689d6a"
 
 set notification-bg             "#98971a"
-set notification-fg             "#fbf1c7"
+set notification-fg             "#f9f5d7"
 
 map [normal]        j           scroll up
 map [fullscreen]    j           scroll up
