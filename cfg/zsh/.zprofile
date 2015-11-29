@@ -30,8 +30,10 @@ export EDITOR=nvim
 export VISUAL=nvim
 export SUDO_EDITOR=rvim
 
+export CCACHE_DIR="$XDG_CACHE_HOME"/ccache
+
 # ASP
-export ASPROOT=$HOME/build/asp
+export ASPROOT=$XDG_CACHE_HOME/build/asp
 export BROWSER=qutebrowser
 export TERMINAL=termite
 

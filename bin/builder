@@ -2,10 +2,10 @@
 # Script to iterate over and build files from AUR and ASP.
 # Make sure $LOGDEST is set.
 readonly progn=builder
-readonly reposeroot=$HOME/build/packages
-readonly aurroot=$HOME/build/aur
-readonly asproot=$HOME/build/asp
-readonly logroot=$HOME/build/logs
+readonly reposeroot="$XDG_CACHE_DIR"/build/packages
+readonly aurroot="$XDG_CACHE_DIR"/build/aur
+readonly asproot="$XDG_CACHE_DIR"/build/asp
+readonly logroot="$XDG_CACHE_DIR"/build/logs
 
 opts=( -s -c )
 
