@@ -51,7 +51,7 @@ vimb-run() {
     else
         local socket
         socket=$(< "$XDG_CACHE_HOME"/vimb/socket)
-        printf '%s' ":o $1<CR>" | socat - unix-connect:"$socket"
+        printf '%s' ":tabopen $1<CR>" | socat - unix-connect:"$socket"
     fi
 }
 

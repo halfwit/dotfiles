@@ -6,6 +6,7 @@
     background-size: 0,0 !important;
     color: #3c3836 !important;
 }
+
 h1,h2,h3,h4 {
     background-color: #f9f5d7 !important;
     color: #282828 !important
@@ -26,22 +27,23 @@ a:hover,a:focus {
 }
 a:visited {
     color: #3c3836 !important
+}
 
 /* :::::: Hints Coloring :::::: */
 
 ._hintLabel {
-    -webkit-transform:translate(-4px,0px) !important;
+    /*-webkit-transform:translate(px,-2px) !important;*/
     position: absolute !important;
     z-index: 100000 !important;
     color: #f9f5d7 !important;
     font:bold 1em monospace !important;
     background-color: #282828 !important;
-    margin: 1 !important;
+    margin: 0 !important;
     padding: 1px 1px !important;
     border: 0px solid !important;
     opacity: 0.5 !important
 }
-._hintLabel._hintFocus{
+._hintLabel._hintFocus {
     z-index: 100001 !important;
     opacity: 1 !important
 }
