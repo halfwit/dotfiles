@@ -45,14 +45,6 @@ get_selection() {
     #create_menu | rofi -dmenu -p "Search" -fg '#f9f5d7' -bg '#282828' -hlfg '#f9f5d7' -hlbg '#928374' -font "$font"
 }
 
-vimb-run() {
-    if ! pgrep vimb; then
-        tabbed -c -d -p -2 >/tmp/tabbed.xid; exec vimb -e "$(</tmp/tabbed.xid)" "$1"
-    else
-        exec vimb-run "$1"
-    fi
-}
-
 handle_results() { # args -> launch
     case "$1" in
         !yt*) exec ythandler "${1:4}" ;;
