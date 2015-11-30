@@ -47,11 +47,9 @@ get_selection() {
 
 vimb-run() {
     if ! pgrep vimb; then
-        sh -c "vimb $1 -s -d" > "$XDG_CACHE_HOME"/vimb/socket &
+        tabbed -c -d -p -2 >/tmp/tabbed.xid; exec vimb -e "$(</tmp/tabbed.xid)" "$1"
     else
-        local socket
-        socket=$(< "$XDG_CACHE_HOME"/vimb/socket)
-        printf '%s' ":tabopen $1<CR>" | socat - unix-connect:"$socket"
+        exec vimb-run "$1"
     fi
 }
 

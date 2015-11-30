@@ -194,9 +194,6 @@ alias sysupdate="sudo snp pacman -Syu"
 alias ls='ls --color=auto --group-directories-first -AhXF'
 alias ll='ls --color=auto --group-directories-first -AlhXF'
 
-# Vimb tabs
-alias vimb='tabbedvimb'
-
 # Pastebins
 alias dmesg='dmesg -exL'
 alias i="curl -F 'f:1=<-' ix.io"
