@@ -17,7 +17,7 @@ search_wrap = true
 browser = vimb-run
 
 font = DejaVu Sans Mono for Powerline 9.5
-#font = Inconsolata-dz for Powerline 9
+#font = Inconsolata-dz for Powerline 9.8
 
 
 [colors]

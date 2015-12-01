@@ -5,6 +5,12 @@ set spell-checking=true
 set monofontsize=9.5
 set fontsize=9.5
 
+set cursivfont="DejaVu Serif"
+set defaultfont="DejaVu Sans"
+set monofont="DejaVu Sans Mono"
+set sansfont="DejaVu Sans"
+set seriffont="DejaVu Serif"
+
 set hintkeys=asdfghjkl
 set home-page=https://www.google.com
 
@@ -27,6 +33,6 @@ set status-ssl-color-bg=#ebdbb2
 set status-ssl-color-fg=#504945
 set status-sslinvalid-color-bg=#ebdbb2
 set status-sslinvalid-color-fg=#504945
-set status-font="DejaVu Sans Mono for Powerline"
-set status-ssl-font="DejaVu Sans Mono for Powerline"
-set status-sslinvalid-font="DejaVu Sans Mono for Powerline"
+set status-font="DejaVu Sans Mono"
+set status-ssl-font="DejaVu Sans Mono"
+set status-sslinvalid-font="DejaVu Sans Mono"

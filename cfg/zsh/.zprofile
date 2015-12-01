@@ -1,7 +1,7 @@
 # XDG_CONFIG_HOME/zsh/.zprofile
 
 export PATH=$HOME/local/bin:${PATH}
-
+export FT2_SUBPIXEL_HINTING=1
 
 #XDG Compliance enforcing
 export GNUPGHOME=$XDG_CONFIG_HOME/gnupg
