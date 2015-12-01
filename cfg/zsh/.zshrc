@@ -177,6 +177,7 @@ man() {
 }
 
 # Aliases
+alias :q='exit'
 alias rr='rm -rvI'
 alias rm='rm -vI'
 alias cp='cp -vi'
