@@ -55,13 +55,13 @@ get_selection() {
 
 handle_results() { # args -> launch
     case "$1" in
-        !yt*) exec ythandler "${1:4}" ;;
-        !pl*) exec playlisthandler "${1:4}" ;;
-        !radio*) exec gmusichandler "${1:7}" ;;
-        !song*) exec gsonghandler "${1:6}" ;;
-        !book*) exec gbookhandler "${1:6}" ;;
-        !code*) exec codehandler "${1:6}" ;;
-        !mpv*) exec mpvhandler "${1:5}" ;;
+        !yt*) exec "$XDG_DATA_HOME"/dsearch/ythandler "${1:4}" ;;
+        !pl*) exec "$XDG_DATA_HOME"/dsearch/playlisthandler "${1:4}" ;;
+        !radio*) exec "$XDG_DATA_HOME"/dsearch/gmusichandler "${1:7}" ;;
+        !song*) exec "$XDG_DATA_HOME"/dsearch/gsonghandler "${1:6}" ;;
+        !book*) exec "$XDG_DATA_HOME"/dsearch/gbookhandler "${1:6}" ;;
+        !code*) exec "$XDG_DATA_HOME"/dsearch/codehandler "${1:6}" ;;
+        !mpv*) exec "$XDG_DATA_HOME"/dsearch/mpvhandler "${1:5}" ;;
         *) vimb-run "$1" ;;
     esac
 }

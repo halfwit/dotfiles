@@ -1,5 +1,0 @@
-#!/bin/bash
-mpc clear
-curl -s 'http://localhost:9999/get_ifl_station?num_tracks=100' >> "$XDG_CONFIG_HOME"/mpd/playlists/ifl.m3u
-mpc load ifl
-mpc play
