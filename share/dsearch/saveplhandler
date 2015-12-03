@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+# Appends to playlists, or creates new ones.
+
+readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
+readonly datadir=${XDG_DATA_HOME:-$HOME/local/share}
+readonly optsfile="${XDG_CONFIG_HOME:-$HOME/local/cfg}"/dmenu/bemenucolors
+
+create_menu() {
+    ( cd "$datadir"/mpv || exit 1
+    for i in *; do
+        echo "$i"
+    done
+    )
+}
+
+append_selection() {
+    create_menu | bemenu -l 10 "${opts[@]}" -p "Append to"
+}
+
+fetch_current() {
+    echo '{ "command": ["get_property", "path"] }' | socat - /tmp/mpvsocket
+}
+
+parse_json() {
+    echo "$1" | jshon -CQ -e data
+}
+
+# Main
+# https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
+
+if [[ -s $confdir/dmenu/font ]]; then
+    read -r font < "$confdir"/dmenu/font
+fi
+
+if [[ $font ]]; then
+    opts+=(-fn "$font")
+fi
+
+if [[ -s $optsfile ]]; then
+    source "$optsfile"
+fi
+
+current=$(fetch_current)
+# Make sure mpv returns a result
+if [[ $current ]]; then
+    # parse and unwrap json
+    current=$(parse_json "$current")
+    current="${current//\\\///}"
+    current="${current//\"/}"
+
+fi
+
+if [[ "$1" ]]; then
+    file="$1\ playlist"
+else
+    file=$(append_selection)
+fi
+
+# Make sure we have a selection
+if [[ $file ]]; then
+    (cd "$datadir"/mpv || exit 1
+    echo "$current" >> "$file")
+fi
+
+
