@@ -13,7 +13,11 @@ get_result() {
 
 handle_result() {
     case "$1" in
-        *youtu*) mpv "$1" & ;;
+        *youtu*)
+            if [[ ! -e /tmp/mpvsocket ]]; then
+                touch /tmp/mpvsocket
+            fi
+            mpv --input-unix-socket=/tmp/mpvsocket "$1" & ;;
         *) vimb-run "$1" & ;;
     esac
 }

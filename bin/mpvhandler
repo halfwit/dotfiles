@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Create menu based on URLs and titles.
+readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
+readonly datadir=${XDG_DATA_HOME:-$HOME/local/share}
+readonly optsfile="${XDG_CONFIG_HOME:-$HOME/local/cfg}"/dmenu/bemenucolors
+
+create_menu() {
+    while read -r line; do
+        # Using echo, some printf weirdness was occuring
+        echo "$line"
+    done < "$datadir/mpv/$1"
+}
+
+get_selection() {
+    create_menu "$1" | bemenu -l 10 "${opts[@]}" -p "Video"
+}
+
+# Main
+# https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
+if [[ -s $confdir/dmenu/font ]]; then
+    read -r font < "$confdir"/dmenu/font
+fi
+
+if [[ $font ]]; then
+    opts+=(-fn "$font")
+fi
+
+if [[ -s $optsfile ]]; then
+    source "$optsfile"
+fi
+
+result=$(get_selection "$1")
+
+[[ ! $result ]] && exit 0
+
+mpv "$result"

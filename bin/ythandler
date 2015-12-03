@@ -85,7 +85,10 @@ process_selection() { # global token
             err '%s: Cannot find video.' "$title"
             exit 1
 	    fi
-        mpv https://www.youtube.com/watch?v="$url" &
+        if [[ ! -e /tmp/mpvsocket ]]; then
+            touch /tmp/mpvsocket
+        fi
+        mpv https://www.youtube.com/watch?v="$url" --input-unix-socket=/tmp/mpvsocket &
 	done
 }
 
