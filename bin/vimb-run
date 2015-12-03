@@ -4,4 +4,4 @@ if ! pgrep vimb; then
     tabbed -u \#ebdbb2 -U \#a89984 -t \#665c54 -T \#f9f5d7 -c -d -p 2 >/tmp/tabbed.xid
 fi
 
-exec vimb -e "$(</tmp/tabbed.xid)" "$1"
+exec vimb -e "$(</tmp/tabbed.xid)" "$@"
