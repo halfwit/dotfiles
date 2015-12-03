@@ -83,7 +83,7 @@ process_selection() { # global token
         if [[ ! -e /tmp/mpvsocket ]]; then
             touch /tmp/mpvsocket
         fi
-        mpv https://www.youtube.com/watch?list="$url" --input-unix-socket=/tmp/mvpsocket &
+        mpv https://www.youtube.com/watch?list="$url" --input-unix-socket=/tmp/mpvsocket &
 	done
 
 }

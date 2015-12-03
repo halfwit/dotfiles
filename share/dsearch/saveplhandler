@@ -17,12 +17,24 @@ append_selection() {
     create_menu | bemenu -l 10 "${opts[@]}" -p "Append to"
 }
 
-fetch_current() {
-    echo '{ "command": ["get_property", "path"] }' | socat - /tmp/mpvsocket
+fetch_path() {
+    echo '{ "command": ["get_property", "path"] } ' | socat - /tmp/mpvsocket
+}
+
+fetch_title(){
+    echo '{ "command": ["get_property", "media-title"] } ' | socat - /tmp/mpvsocket
 }
 
 parse_json() {
     echo "$1" | jshon -CQ -e data
+}
+
+unwrap_json() {
+    local value
+    value=$(parse_json "$1")
+    value="${value//\\\///}"
+    value="${value//\"/}"
+    printf -- '%b' "$value"
 }
 
 # Main
@@ -40,26 +52,21 @@ if [[ -s $optsfile ]]; then
     source "$optsfile"
 fi
 
-current=$(fetch_current)
-# Make sure mpv returns a result
-if [[ $current ]]; then
-    # parse and unwrap json
-    current=$(parse_json "$current")
-    current="${current//\\\///}"
-    current="${current//\"/}"
-
-fi
+current=$(fetch_path "path")
+current=$(unwrap_json "$current")
+title=$(fetch_title "media-title")
+title=$(unwrap_json "$title")
 
 if [[ "$1" ]]; then
-    file="$1\ playlist"
+    file="$1 playlist"
+    (cd "$datadir"/mpv || exit 1
+    printf '%b' "Title=$1\nCommand=mpv\n" > "$file")
 else
     file=$(append_selection)
 fi
 
 # Make sure we have a selection
-if [[ $file ]]; then
+if [[ $file && $current && $title ]]; then
     (cd "$datadir"/mpv || exit 1
-    echo "$current" >> "$file")
+    printf '%b' "$title=${current/*v=/ytdl:\/\/}" >> "$file")
 fi
-
-

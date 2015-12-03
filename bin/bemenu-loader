@@ -1,6 +1,5 @@
 #!/bin/bash
 # ~/.local/bin/bemenu_loader
-. ~/.config/dmenu/dmenucolors
 
 # bemenu_loader <file>
 
@@ -21,7 +20,7 @@ readonly input="$1"
 # Number of entries to display at once.
 readonly lines=20
 read -r font < "${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/font
-. ~/.config/dmenu/bemenucolors
+. "$XDG_CONFIG_HOME"/dmenu/bemenucolors
 
 typeset -a cmd # Some commands might have arguments.
 typeset -A index
@@ -32,31 +31,31 @@ title="${title:-Title}"
 if [[ -f "$input" ]]; then
     while IFS='=' read k v; do
         case "$k" in
-            '') 
+            '')
                 ;; # ignore blank lines
-            '#'*) 
+            '#'*)
                 ;;
-            'Title') 
+            'Title')
                 title="$v"
                 ;;
-            'Command') 
+            'Command')
                 cmd=($v)
                 ;;
-            *) 
-                index["$k"]="$v" 
+            *)
+                index["$k"]="$v"
                 ;;
         esac
     done < "$input"
 else
-    printf -- 'No configuration specified.\n' >&2 
+    printf -- 'No configuration specified.\n' >&2
     exit 1
 fi
 
 # Append the number of elements to the title.
-bemenu_opts+=(-p "$title")
+opts+=(-p "$title" -l 10 )
 
 # Print the keys for bemenu consumption.
-selection="$(printf '%s\n' "${!index[@]}" | bemenu "${bemenu_opts[@]}")"
+selection="$(printf '%s\n' "${!index[@]}" | bemenu "${opts[@]}")"
 
 # Make sure we get a selection before continuing
 [[ -z "$selection" ]] && exit 0
@@ -77,11 +76,8 @@ for c in "${cmd[@]}"; do
     fi
 done
 
-# Append the number of elements to the title.
-bemenu_opts+=(-p "$title")
-
 # Print the keys for bemenu consumption.
-selection="$(printf '%s\n' "${!index[@]}" | sort | bemenu "${bemenu_opts[@]}")"
+selection="$(printf '%s\n' "${!index[@]}" | sort | bemenu "${opts[@]}")"
 
 # Make sure we get a selection before continuing
 [[ -z "$selection" ]] && exit 0

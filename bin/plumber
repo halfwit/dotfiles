@@ -4,11 +4,12 @@
 readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
 readonly optsfile=$confdir/dmenu/bemenucolors
 
-get_result() {
-    # https://github.com/mvdan/xurls
-    # https://github.com/Cloudef/bemenu
-    # Doesn't yet deal well with line wraps, etc.
-    xurls "$@" | tac | bemenu -l 10 "${opts[@]}" -p "URLs"
+# https://github.com/mvdan/xurls
+# https://github.com/Cloudef/bemenu
+# Doesn't yet deal well with line wraps, etc.
+
+create_menu() {
+    xurls "$@" | tac | bemenu -l 10 "${opts[@]}" -p URLs
 }
 
 handle_result() {
@@ -35,7 +36,7 @@ if [[ -s $optsfile ]]; then
     source "$optsfile"
 fi
 
-result=$(get_result "$@")
+result=$(create_menu "$@")
 if [[ "$result" ]]; then
     handle_result "$result"
 fi

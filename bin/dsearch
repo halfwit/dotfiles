@@ -54,15 +54,15 @@ get_selection() {
 }
 
 handle_results() { # args -> launch
-    case "$1" in
-        !yt*) exec "$XDG_DATA_HOME"/dsearch/ythandler "${1:4}" ;;
-        !pl*) exec "$XDG_DATA_HOME"/dsearch/playlisthandler "${1:4}" ;;
-        !radio*) exec "$XDG_DATA_HOME"/dsearch/gmusichandler "${1:7}" ;;
-        !song*) exec "$XDG_DATA_HOME"/dsearch/gsonghandler "${1:6}" ;;
-        !book*) exec "$XDG_DATA_HOME"/dsearch/gbookhandler "${1:6}" ;;
-        !code*) exec "$XDG_DATA_HOME"/dsearch/codehandler "${1:6}" ;;
-        !mpv*) exec "$XDG_DATA_HOME"/dsearch/mpvhandler "${1:5}" ;;
-        !save*) exec "$XDG_DATA_HOME"/dsearch/saveplhandler "${1:6}" ;;
+    case "$@" in
+        !yt*) exec "$XDG_DATA_HOME"/dsearch/ythandler "${1##*yt }" ;;
+        !pl*) exec "$XDG_DATA_HOME"/dsearch/playlisthandler "${1##*pl }" ;;
+        !radio*) exec "$XDG_DATA_HOME"/dsearch/gmusichandler "${1##*radio }" ;;
+        !song*) exec "$XDG_DATA_HOME"/dsearch/gsonghandler "${1##*song }" ;;
+        !book*) exec "$XDG_DATA_HOME"/dsearch/gbookhandler "${1##*book }" ;;
+        !code*) exec "$XDG_DATA_HOME"/dsearch/codehandler "${1##*code }" ;;
+        !mpv*) exec bemenu-loader "$XDG_DATA_HOME/mpv/${1##*mpv }" ;;
+        !save*) shift; exec "$XDG_DATA_HOME"/dsearch/saveplhandler "$1" ;;
         *) vimb-run "$1" ;;
     esac
 }
