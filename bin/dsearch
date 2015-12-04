@@ -62,7 +62,7 @@ handle_results() { # args -> launch
         !book*) exec "$XDG_DATA_HOME"/dsearch/gbookhandler "${1##*book }" ;;
         !code*) exec "$XDG_DATA_HOME"/dsearch/codehandler "${1##*code }" ;;
         !mpv*) exec bemenu-loader "$XDG_DATA_HOME/mpv/${1##*mpv }" ;;
-        !save*) shift; exec "$XDG_DATA_HOME"/dsearch/saveplhandler "$1" ;;
+        !save*) exec "$XDG_DATA_HOME"/dsearch/saveplhandler "${1:7}" ;;
         *) vimb-run "$1" ;;
     esac
 }
