@@ -3,7 +3,7 @@ readonly TERMINAL=/usr/bin/st
 
 if ! pgrep nvim; then
     export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
-    exec "$TERMINAL" --exec="/usr/bin/nvim $1" &
+    exec "$TERMINAL" -e "/usr/bin/nvim $1"
 else
 
 python - <<END
