@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+readonly TERMINAL=/usr/bin/st
+
+if ! pgrep nvim; then
+    export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
+    exec "$TERMINAL" --exec="/usr/bin/nvim $1" &
+else
+
+python - <<END
+from neovim import attach
+nvim = attach('socket', path='/tmp/nvimsocket')
+nvim.command('e $1')
+END
+
+fi
