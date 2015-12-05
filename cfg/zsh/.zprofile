@@ -34,7 +34,7 @@ export CCACHE_DIR="$XDG_CACHE_HOME"/ccache
 
 # ASP
 export ASPROOT=$XDG_CACHE_HOME/build/asp
-export BROWSER=qutebrowser
+export BROWSER=vimb-run
 export TERMINAL=termite
 
 # This is for the Nvidia .nv file that normally shows at $HOME
