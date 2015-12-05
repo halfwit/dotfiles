@@ -34,8 +34,13 @@ export CCACHE_DIR="$XDG_CACHE_HOME"/ccache
 
 # ASP
 export ASPROOT=$XDG_CACHE_HOME/build/asp
+<<<<<<< HEAD
 export BROWSER=vimb-run
 export TERMINAL=termite
+=======
+export BROWSER=vimb
+export TERMINAL=st
+>>>>>>> 26a800b20be7537af0c053d4e8872dd627edeca1
 
 # This is for the Nvidia .nv file that normally shows at $HOME
 export __GL_SHADER_DISK_CACHE_PATH=$XDG_CACHE_HOME/nv
@@ -45,4 +50,4 @@ export GTK_IM_MODULE=xim
 export XAUTHORITY=$XDG_RUNTIME_DIR/x11/xauthority
 
 source <(dircolors $XDG_CONFIG_HOME/terminal-colors.d/ls.enable)
-
+source "$XDG_CONFIG_DIR"/proxy

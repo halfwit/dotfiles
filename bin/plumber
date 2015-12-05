@@ -1,42 +1,8 @@
 #!/usr/bin/env bash
-# Cheapo url spawner for st
 
-readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
-readonly optsfile=$confdir/dmenu/bemenucolors
-
-# https://github.com/mvdan/xurls
-# https://github.com/Cloudef/bemenu
-# Doesn't yet deal well with line wraps, etc.
-
-create_menu() {
-    xurls "$@" | tac | bemenu -l 10 "${opts[@]}" -p URLs
-}
-
-handle_result() {
-    case "$1" in
-        *youtu*)
-            if [[ ! -e /tmp/mpvsocket ]]; then
-                touch /tmp/mpvsocket
-            fi
-            mpv --input-unix-socket=/tmp/mpvsocket "$1" & ;;
-        *) vimb-run "$1" & ;;
-    esac
-}
-
-# https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
-if [[ -s $confdir/dmenu/font ]]; then
-    read -r font < "$confdir"/dmenu/font
-fi
-
-if [[ $font ]]; then
-    opts+=(-fn "$font")
-fi
-
-if [[ -s $optsfile ]]; then
-    source "$optsfile"
-fi
-
-result=$(create_menu "$@")
-if [[ "$result" ]]; then
-    handle_result "$result"
-fi
+case "$1" in
+    *youtu*)    mpv --input-file=/tmp/socket "$1"   ;;
+    http*)      vimb-run "$1"                       ;;
+    *)          notify-send "handle $1 plumber"
+                nvim-run "$1"                       ;;
+esac

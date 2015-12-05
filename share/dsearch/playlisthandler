@@ -47,7 +47,8 @@ create_menu() {
 }
 
 get_selection() {
-    create_menu | dmenu "${opts[@]}" -p "Select Video"
+    opts+=( -p "Select Video" )
+    create_menu | dmenu "${opts[@]}"
 }
 
 fetch_image() { # global image, token
@@ -67,7 +68,7 @@ populate_menu() {
             image["$token"]="$jpg"
         fi
         fetch_image "$token" &
-	done
+    done
 }
 
 process_selection() { # global token
@@ -83,8 +84,9 @@ process_selection() { # global token
         if [[ ! -e /tmp/mpvsocket ]]; then
             touch /tmp/mpvsocket
         fi
+        printf '%s' "$url" > /tmp/tmpplaylist
         mpv https://www.youtube.com/watch?list="$url" --input-unix-socket=/tmp/mpvsocket &
-	done
+    done
 
 }
 
@@ -103,6 +105,7 @@ get_options() {
 }
 
 # Main
+
 get_options
 declare -A menu title image
 fetch_json "$@"

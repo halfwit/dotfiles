@@ -54,6 +54,7 @@ fi
 
 current=$(fetch_path "path")
 current=$(unwrap_json "$current")
+
 title=$(fetch_title "media-title")
 title=$(unwrap_json "$title")
 

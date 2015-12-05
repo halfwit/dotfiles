@@ -1,17 +1,16 @@
 #!/usr/bin/env bash
-# Unite implementation for Neovim using bemenu
-# Requires bemenu, tree, neovim, and python
+# Cheapo url spawner for st
 
 readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
 readonly optsfile=$confdir/dmenu/bemenucolors
-readonly TERMINAL=/usr/bin/st
-readonly locations=( ~/programming
-                     ~/local)
-get_selection() {
-    tree -Uafi "${locations[@]}"  | bemenu -l 10 "${opts[@]}" -p "Edit"
-}
 
-# Main
+# https://github.com/mvdan/xurls
+# https://github.com/Cloudef/bemenu
+# Doesn't yet deal well with line wraps, etc.
+
+create_menu() {
+    xurls "$@" | tac | bemenu -l 10 "${opts[@]}" -p URLs
+}
 
 # https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
 if [[ -s $confdir/dmenu/font ]]; then
@@ -26,8 +25,7 @@ if [[ -s $optsfile ]]; then
     source "$optsfile"
 fi
 
-result=$(get_selection)
-
-if [[ $result ]]; then
-    nvim-run "$result"
+result=$(create_menu "$@")
+if [[ "$result" ]]; then
+    plumber "$result"
 fi
