@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-readonly TERMINAL=/usr/bin/st
+readonly TERMINAL=termite
 
 if ! pgrep nvim; then
     export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
