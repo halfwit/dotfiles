@@ -17,6 +17,18 @@ append_selection() {
     create_menu | bemenu -l 10 "${opts[@]}" -p "Append to"
 }
 
+fetch_number() {
+    declare -i number
+    local v k
+    while IFS='=' read -r k v; do
+        case "$k" in
+            NumberOfEntries*)
+                number="$v" ;;
+        esac
+    done < "$1"
+    echo $(( number=number + 1))
+}
+
 fetch_path() {
     echo '{ "command": ["get_property", "path"] } ' | socat - /tmp/mpvsocket
 }
@@ -59,15 +71,18 @@ title=$(fetch_title "media-title")
 title=$(unwrap_json "$title")
 
 if [[ "$1" ]]; then
-    file="$1 playlist"
+    file="$1.pls"
     (cd "$datadir"/mpv || exit 1
-    printf '%b' "Title=$1\nCommand=mpv\n" > "$file")
+    printf '%s' "[playlist]\nNumberOfEntries=0" > "$file")
 else
     file=$(append_selection)
 fi
 
+number=$(fetch_number "$datadir/mpv/$file")
+
 # Make sure we have a selection
-if [[ $file && $current && $title ]]; then
+if [[ $file && $current && $title && $number ]]; then
     (cd "$datadir"/mpv || exit 1
-    printf '%b' "$title=${current/*v=/ytdl:\/\/}" >> "$file")
+    sed -i '/NumberOfEntries=[0-9]*[0-9]/d' "$file"
+    printf -- '%b' "Title$number=$title\nFile$number=${current/*v=/ytdl:\/\/}\nNumberOfEntries=$number" >> "$file")
 fi

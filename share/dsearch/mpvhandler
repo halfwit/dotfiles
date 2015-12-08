@@ -1,16 +1,39 @@
 #!/usr/bin/env bash
 # Create menu based on URLs and titles.
-# https://github.com/Earnestly/dotfiles/blob/master/local/bin/bemenu-loader
+readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
+readonly datadir=${XDG_DATA_HOME:-$HOME/local/share}
+readonly optsfile="$confdir"/dmenu/bemenucolors
 
-
+create_menu() {
+    sed -n -e 's/^.*Title[0-9]*[0-9]=//p' "$1"
+}
 
 get_selection() {
-    bemenu-loader "$XDG_DATA_HOME/mpv/$1"
+    opts+=( -p "Select video" -l 10 )
+    create_menu "$datadir/mpv/$1" | bemenu "${opts[@]}"
+}
+
+get_position() {
+    awk -v result="$2" 's=index($0,result) { print int(NR/2)-1 }' "$datadir/mpv/$1"
 }
 
 # Main
+# https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
+if [[ -s $confdir/dmenu/font ]]; then
+    read -r font < "$confdir"/dmenu/font
+fi
+
+if [[ $font ]]; then
+    opts+=(-fn "$font")
+fi
+
+if [[ -s $optsfile ]]; then
+    source "$optsfile"
+fi
 result=$(get_selection "$1")
 
 [[ ! $result ]] && exit 0
 
-mpv "$result"
+result=$(get_position "$1" "$result")
+
+mpv "$datadir/mpv$1" --playlist-pos="$result"
