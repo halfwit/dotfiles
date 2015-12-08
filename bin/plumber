@@ -2,6 +2,7 @@
 
 case "$1" in
     *youtu*)    mpv --input-file=/tmp/socket "$1"   ;;
+    *twitch*)   mpv --input-file=/tmp/socket "$1"   ;;
     http*)      vimb-run "$1"                       ;;
     *)          notify-send "handle $1 plumber"
                 nvim-run "$1"                       ;;
