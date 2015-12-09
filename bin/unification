@@ -5,10 +5,16 @@
 readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
 readonly optsfile=$confdir/dmenu/bemenucolors
 readonly TERMINAL=/usr/bin/st
-readonly locations=( ~/programming
-                     ~/local)
+readonly locations=( ~/programming          \
+                     ~/local/share          \
+                     ~/local/cfg            \
+                     ~/local/bin            \
+                     ~/local/cache/build
+)
+readonly omissions=( ".git*|font*" )
+
 get_selection() {
-    tree -Uafi "${locations[@]}"  | bemenu -l 10 "${opts[@]}" -p "Edit"
+    tree -Uafi "${locations[@]}" -I "${omissions[@]}" | bemenu -l 10 "${opts[@]}" -p "Edit"
 }
 
 # Main

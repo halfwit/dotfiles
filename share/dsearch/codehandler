@@ -8,12 +8,13 @@ readonly terminal=/usr/bin/termite
 
 # Whilelist of locations to search
 readonly locations=( ~/programming \
-                     ~/local/cfg     \
-                     ~/local/bin
+                     ~/local/cfg   \
+                     ~/local/bin   \
+                     ~/local/share
 );
 
 get_selection() {
-    grep -Iri "$1" "${locations[@]}" | bemenu -l 10 "${opts[@]}" -p "Edit"
+    grep -Iri "$1" "${locations[@]}" --exclude="*.git" | bemenu -l 10 "${opts[@]}" -p "Edit"
 }
 
 # Main
