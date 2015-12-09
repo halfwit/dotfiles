@@ -88,6 +88,7 @@ process_selection() { # global token
         if [[ ! -e /tmp/mpvsocket ]]; then
             touch /tmp/mpvsocket
         fi
+        rm /tmp/*.jpg
         mpv https://www.youtube.com/watch?v="$url" --input-unix-socket=/tmp/mpvsocket &
 	done
 }

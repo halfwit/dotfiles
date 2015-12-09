@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+readonly datadir="$XDG_DATA_HOME"
+
+read -r KEY < "$datadir/youtube/key"
+
+create_playlist() {
+    local -i number=1
+    while {
+        IFS=$'\n' read -r key
+        read -r value
+    } do
+        printf -- '%s\n%s\n' "Title$number=$key" "File$number=ytdl://${value//\"/}" >> "$datadir/mpv/$title.pls"
+        number=$(( number + 1 ))
+    done <<< "$( curl -s "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=$KEY&playlistId=$url&maxResults=50" | jshon -CQ -e items -a -e snippet -e title -upe resourceId -e videoId )"
+    printf -- '%b' "NumberOfEntries=$(( number - 1 ))" >> "$datadir/mpv/$title.pls"
+}
+
+case "$1" in
+    local*)
+        read -r url < /tmp/tmpplaylist
+        title="${1:6}"
+        ;;
+    *)
+        url="$1"
+        title="${url##*\ }"
+        url="${url%\ *}"
+        ;;
+esac
+printf -- '%s' "[playlist]\n" > "$datadir/mpv/$title.pls"
+create_playlist
