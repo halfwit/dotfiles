@@ -88,6 +88,7 @@ process_selection() { # global token
     # These are for possible saving of playlist later
     printf '%s' "$url" > /tmp/tmpplaylist
     printf '%s' "$title" > /tmp/tmptitle
+    rm /tmp/*.jpg
     exec mpv https://www.youtube.com/watch?list="$url" --input-unix-socket=/tmp/mpvsocket
 
 }
