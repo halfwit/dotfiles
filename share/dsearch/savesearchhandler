@@ -15,16 +15,12 @@ create_playlist() {
     printf -- '%b' "NumberOfEntries=$(( number - 1 ))" >> "$datadir/mpv/$title.pls"
 }
 
-case "$1" in
-    local*)
-        read -r url < /tmp/tmpplaylist
-        title="${1:6}"
-        ;;
-    *)
-        url="$1"
-        title="${url##*\ }"
-        url="${url%\ *}"
-        ;;
-esac
+url="${1%\ *}"
+title="${1##*\ }"
+
+if [[ $url == "local" ]] && read -r url < /tmp/tmpplaylist
+if [[ ! $title ]] && exit 0
+
 printf -- '%s' "[playlist]\n" > "$datadir/mpv/$title.pls"
+
 create_playlist

@@ -30,6 +30,7 @@ export EDITOR=nvim
 export VISUAL=nvim
 export SUDO_EDITOR=rvim
 
+export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
 export CCACHE_DIR="$XDG_CACHE_HOME"/ccache
 
 # ASP

@@ -2,8 +2,7 @@
 readonly TERMINAL=termite
 
 if ! pgrep nvim; then
-    export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
-    exec "$TERMINAL" -e "/usr/bin/nvim $1"
+    exec termite --exec="/usr/bin/nvim $1"
 else
 
 python - <<END
