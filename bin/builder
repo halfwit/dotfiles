@@ -42,7 +42,8 @@ builddir() {
 
     cd "$1" || err "Unable to enter $1"
     for i in *; do
-        (cd "$i" && BUILDIR=$(mktemp -d) makepkg "${opts[@]}" 2>&1 | tee "$logroot"/$i.log)
+        # Build in /tmp/tmp.foo, clean up foo after
+        (cd "$i" && BUILDIR=$(mktemp -d) makepkg "${opts[@]}" 2>&1 | tee "$logroot"/$i.log && rm -rf /tmp/tmp.*)
     done
 }
 
