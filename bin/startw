@@ -4,8 +4,10 @@
 #export XDG_DEFAULT_LAYOUT=dvorak
 export CLUTTER_BACKEND=wayland
 export GDK_BACKEND=wayland
-export QT_QPA_PLAYTFORM=wayland-egl
+export QT_QPA_PLATFORM=wayland-egl
 export SDL_VIDEODRIVER=wayland
 export ELM_ENGINE=wayland_egl
 
-exec sway
+[[ ! "$1" ]] && exec orbment --log ~/orbment.log
+
+exec "$1"

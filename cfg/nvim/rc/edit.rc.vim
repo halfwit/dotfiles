@@ -51,5 +51,5 @@ autocmd MyAutoCmd BufWritePost init.vim,*.rc.vim,neobundle*.toml
       \ NeoBundleClearCache | source $MYVIMRC | redraw
 
 " Remove trailing whitespace haxx
-autocmd! BufWritePre * :%s/\s\+$//e
+autocmd FileType c,cpp,shell,vim BufWritePre <buffer> :%s/\s\+$//e
 autocmd! BufWritePost * Neomake
