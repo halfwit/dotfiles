@@ -8,4 +8,4 @@ export QT_QPA_PLAYTFORM=wayland-egl
 export SDL_VIDEODRIVER=wayland
 export ELM_ENGINE=wayland_egl
 
-exec orbment --log ~/orbment.log
+exec sway

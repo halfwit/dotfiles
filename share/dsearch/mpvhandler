@@ -14,7 +14,7 @@ get_selection() {
 }
 
 get_position() {
-    awk -v result="$2" 's=index($0,result) { print int(NR/2)-1 }' "$datadir/mpv/$1"
+    awk -v result="$2" 's=index($0,result) { print int((NR-1)/2) }' "$datadir/mpv/$1"
 }
 
 # Main
