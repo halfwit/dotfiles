@@ -1,7 +1,6 @@
 #!/bin/bash
-redshift &
 dunst &
-barM &
+dstat &
 xcmenu &
-[[ ! -s ~/local/cfg/mpd/pid ]] && mpd
+[[ ! -s ~/local/cfg/mpd/pid ]] && mpd &
 exec dwm

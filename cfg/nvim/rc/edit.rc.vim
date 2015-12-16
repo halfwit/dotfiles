@@ -6,10 +6,10 @@ set title
 
 " Tabs to spaces, etc
 set smarttab
+set tabstop=3
+set softtabstop=3
+set shiftwidth=3
 set expandtab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
 
 " Numbers on
 set number
@@ -51,5 +51,5 @@ autocmd MyAutoCmd BufWritePost init.vim,*.rc.vim,neobundle*.toml
       \ NeoBundleClearCache | source $MYVIMRC | redraw
 
 " Remove trailing whitespace haxx
-autocmd FileType c,cpp,shell,vim BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType c,cpp BufWritePre <buffer> :%s/\s\+$//e
 autocmd! BufWritePost * Neomake
