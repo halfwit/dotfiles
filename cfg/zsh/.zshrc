@@ -199,7 +199,7 @@ alias ll='ls --color=auto --group-directories-first -AlhXF'
 alias dmesg='dmesg -exL'
 alias i="curl -F 'f:1=<-' ix.io"
 alias s="curl -F 'sprunge=<-' sprunge.us"
-alias sshot="maim -s --format png /dev/stdout | pb -S -e png -m"
+alias sshot="maim -s --format png /dev/stdout | pb -S -e png -m | xcmenu | xclip -f"
 
 # Nvim socket for msgpack
 alias nvim="NVIM_LISTEN_ADDRESS=/tmp/nvimsocket /usr/bin/nvim"
