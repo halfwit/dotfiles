@@ -2,14 +2,14 @@ set editor-command=nvim-run %s
 
 set spell-checking=true
 
-set monofontsize=9.5
-set fontsize=9.5
+set monofontsize=11.5
+set fontsize=11.5
 
-set cursivfont="DejaVu Serif 9.5"
-set defaultfont="DejaVu Sans 9.5 "
-set monofont="DejaVu Sans Mono 9.5"
-set sansfont="DejaVu Sans 9.5"
-set seriffont="DejaVu Serif 9.5"
+set cursivfont=DejaVu Serif 12.5
+set defaultfont=DejaVu Sans 11.5
+set monofont=DejaVu Sans Mono 11.5
+set sansfont=DejaVu Sans 11.5
+set seriffont=DejaVu Serif 12.5
 
 set hintkeys=asdfghjkl
 set home-page=https://www.google.com
@@ -18,14 +18,14 @@ set completion-bg-active=#928374
 set completion-fg-active=#f9f5d7
 set completion-bg-normal=#282828
 set completion-fg-normal=#f9f5d7
-set completion-font="DejaVu Sans Mono 9.5"
+set completion-font=DejaVu Sans Mono 7.5
 
 set input-bg-normal=#f9f5d7
 set input-fg-normal=#3c3836
 set input-bg-error=#f9f5d7
 set input-fg-error=#8f3f71
-set input-font-normal="DevaVu Sans Mono 8.5"
-set input-font-error="DevaVu Sans Mono 8.5"
+set input-font-normal=DejaVu Sans Mono 7.5
+set input-font-error=DejaVu Sans Mono 7.5
 
 set status-color-bg=#ebdbb2
 set status-color-fg=#504945
@@ -33,8 +33,8 @@ set status-ssl-color-bg=#ebdbb2
 set status-ssl-color-fg=#504945
 set status-sslinvalid-color-bg=#ebdbb2
 set status-sslinvalid-color-fg=#504945
-set status-font="DejaVu Sans Mono 8.5"
-set status-ssl-font="DejaVu Sans Mono 8.5"
-set status-sslinvalid-font="DejaVu Sans Mono 8.5"
+set status-font=DejaVu Sans Mono 7.5
+set status-ssl-font=DejaVu Sans Mono 7.5
+set status-sslinvalid-font=DejaVu Sans Mono 7.5
 
 set x-hint-command=:sh! ~/local/bin/plumber <C-R>; <CR>

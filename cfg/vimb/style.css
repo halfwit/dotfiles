@@ -32,11 +32,11 @@ a:visited {
 /* :::::: Hints Coloring :::::: */
 
 ._hintLabel {
-    /*-webkit-transform:translate(px,-2px) !important;*/
+    -webkit-transform:translate(px,-2px) !important;
     position: absolute !important;
     z-index: 100000 !important;
     color: #f9f5d7 !important;
-    font:bold 1em monospace !important;
+    font:bold .8em monospace !important;
     background-color: #282828 !important;
     margin: 0 !important;
     padding: 1px 1px !important;

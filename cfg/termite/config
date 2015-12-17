@@ -16,7 +16,7 @@ scrollback_lines = 10000
 search_wrap = true
 browser = vimb-run
 
-font = DejaVu Sans Mono for Powerline 9.5
+font = DejaVu Sans Mono 9.5
 #font = Inconsolata-dz for Powerline 9.8
 
 

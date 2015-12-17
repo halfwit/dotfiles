@@ -1,4 +1,5 @@
 #!/bin/bash
+xrandr --dpi 125
 dunst &
 dstat &
 xcmenu &
