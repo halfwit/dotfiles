@@ -1,5 +1,5 @@
 #!/bin/bash
-xrandr --dpi 125
+xrdb -load ~/local/cfg/x11/xresources
 dunst &
 dstat &
 xcmenu &
