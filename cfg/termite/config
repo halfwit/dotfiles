@@ -16,7 +16,7 @@ scrollback_lines = 10000
 search_wrap = true
 browser = vimb-run
 
-font = DejaVu Sans Mono 9.5
+font = DejaVu Sans Mono for Powerline 9.5
 #font = Inconsolata-dz for Powerline 9.8
 
 # solarized light color scheme
@@ -26,7 +26,7 @@ foreground = #657b83
 foreground_bold = #073642
 #foreground_dim = #888888
 background = #fdf6e3
-cursor = #586e75
+#cursor = #586e75
 
 # if unset, will reverse foreground and background
 highlight = #839496
