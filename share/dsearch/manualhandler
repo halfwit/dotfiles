@@ -1,3 +1,40 @@
 #!/usr/bin/env bash
 
-exec termite --title="manpage" --exec="man $1"
+readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
+readonly optsfile=$confdir/dmenu/bemenucolors
+
+handle_result() {
+   exec termite --role="manpage" --title="manpage" --exec="man $1"
+}
+
+get_selection() {
+   apropos . | bemenu -l 10 "${opts[@]}" -p "Manual"
+}
+
+# Main
+# Configuration
+# https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
+
+if [[ -s $confdir/dmenu/font ]]; then
+    read -r font < "$confdir"/dmenu/font
+fi
+
+if [[ $font ]]; then
+    opts+=(-fn "$font")
+fi
+
+if [[ -s $optsfile ]]; then
+    source "$optsfile"
+fi
+
+if [[ "$1" == "!man" ]]; then
+   result="$(get_selection)"
+else
+   result="$1"
+fi
+
+if [[ "$result" ]]; then
+   # This bears some testing, but it seems the description
+   # is ignored by `man`
+   handle_result "$result"
+fi
