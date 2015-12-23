@@ -2,39 +2,40 @@ set font                        "DejaVu Sans Mono 9.5"
 
 set selection-clipboard         "clipboard"
 
-set recolor-darkcolor           "#3c3836"
-set recolor-lightcolor          "#f9f5d7"
+set default-bg                  "#fdf6e3" 
+set default-fg                  "#657b83"
+
+set statusbar-fg                "#303030"
+set statusbar-bg                "#B0B0B0"
+
+set inputbar-bg                 "#fdf6e3"
+set inputbar-fg                 "#657b83"
+
+set notification-error-bg       "#AC4142"
+set notification-error-fg       "#E0E0E0"
+
+set notification-warning-bg     "#AC4142"
+set notification-warning-fg     "#E0E0E0"
+
+set highlight-color             "#F4BF75"
+set highlight-active-color      "#AA759F"
+
+set completion-highlight-fg     "#D0D0D0"
+set completion-highlight-bg     "#75B5AA"
+
+set completion-bg               "#D0D0D0"
+set completion-fg               "#75B5AA"
+
+set notification-bg             "#90A959"
+set notification-fg             "#F5F5F5"
+
+set recolor-darkcolor           "#657b83"
+set recolor-lightcolor          "#fdf6e3"
 
 set recolor                     "true"
-
-set default-bg                  "#f9f5d7"
-set default-fg                  "#3c3836"
-
-set statusbar-fg                "#282828"
-set statusbar-bg                "#928374"
-
-set inputbar-bg                 "#f9f5d7"
-set inputbar-fg                 "#3c3836"
-
-set notification-error-bg       "#cc241d"
-set notification-error-fg       "#8ec97c"
-
-set notification-warning-bg     "#cc241d"
-set notification-warning-fg     "#8ec97c"
-
-set highlight-color             "#d79921"
-set highlight-active-color      "#cc241d"
-
-set completion-highlight-fg     "#a89984"
-set completion-highlight-bg     "#689d6a"
-
-set completion-bg               "#a89984"
-set completion-fg               "#689d6a"
-
-set notification-bg             "#98971a"
-set notification-fg             "#f9f5d7"
 
 map [normal]        j           scroll up
 map [fullscreen]    j           scroll up
 map [normal]        k           scroll down
 map [fullscreen]    k           scroll down
+unmap               q 
