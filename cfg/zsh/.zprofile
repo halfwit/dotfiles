@@ -36,7 +36,7 @@ export CCACHE_DIR="$XDG_CACHE_HOME"/ccache
 # ASP
 export ASPROOT=$XDG_CACHE_HOME/build/asp
 export BROWSER=vimb-run
-export TERMINAL=termite
+export TERMINAL=st
 # This is for the Nvidia .nv file that normally shows at $HOME
 export __GL_SHADER_DISK_CACHE_PATH=$XDG_CACHE_HOME/nv
 

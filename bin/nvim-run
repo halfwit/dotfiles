@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-readonly TERMINAL=termite
+readonly TERMINAL=st
 
 if ! pgrep nvim; then
-    exec termite --exec="/usr/bin/nvim $1"
+    exec $TERMINAL -e /usr/bin/nvim "$1"
 else
 
 python - <<END
