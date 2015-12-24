@@ -4,7 +4,7 @@ readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
 readonly optsfile=$confdir/dmenu/bemenucolors
 
 handle_result() {
-   exec termite --role="manpage" --title="manpage" --exec="man $1"
+   exec st -t manpage -e /usr/bin/man "$1"
 }
 
 get_selection() {

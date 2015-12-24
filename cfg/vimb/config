@@ -39,3 +39,4 @@ set status-ssl-font=DejaVu Sans Mono 9.5
 set status-sslinvalid-font=DejaVu Sans Mono 9.5
 
 set x-hint-command=:sh! ~/local/bin/plumber <C-R>; <CR>
+set useragent=Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko
