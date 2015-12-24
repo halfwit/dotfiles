@@ -6,5 +6,5 @@ case "$1" in
     *twitch*)              mpv --input-file=/tmp/socket "$1"   ;;
     http*)                 vimb-run "$1"                       ;;
     *)                     notify-send "handle $1 plumber"
-                           nvim-run "$1"                       ;;
+                           nvim-run ~/local/bin/plumber        ;;
 esac
