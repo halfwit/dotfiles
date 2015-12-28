@@ -1,44 +1,44 @@
 [[plugins]]
 repository = 'Shougo/context_filetype.vim'
-filetypes = 'all'
+on_ft = 'all'
 
 [[plugins]]
 repository = 'Shougo/deoplete.nvim'
 depends = 'Shougo/context_filetype.vim'
-insert = 1
+on_i = 1
 
 [[plugins]]
 repository = 'Shougo/neopairs.vim'
-insert = 1
+on_i = 1
 
 [[plugins]]
 repository = 'Shougo/neosnippet.vim'
 depends = ['Shougo/neosnippet-snippets', 'Shougo/context_filetype.vim']
-insert = 1
-filetypes = 'snippet'
+on_i = 1
+on_ft = 'snippet'
 
 [[plugins]]
 repository = 'Shougo/neco-vim'
-filetypes = 'vim'
-insert = 1
+on_i = 1
+on_ft = 'vim'
 
 [[plugins]]
 repository = 'Shougo/neoinclude.vim'
-filetypes = 'all'
+on_ft = 'all'
 
 [[plugins]]
 repository = 'Shougo/neco-syntax'
-insert = 1
+on_i = 1
 
 [[plugins]]
 repository = 'davidhalter/jedi-vim'
-filetypes = 'python'
+on_ft = 'python'
 
 [[plugins]]
 repository = 'honza/vim-snippets'
-insert = 1
-filetypes = 'all'
+on_i = 1
+on_ft = 'all'
 
 [[plugins]]
 repository = 'euclio/vim-markdown-composer'
-filetypes = 'mkd'
+on_ft = ['mkd', 'markdown']
