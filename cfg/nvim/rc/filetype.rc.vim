@@ -29,4 +29,7 @@ augroup MyAutoCmd
   \ |   filetype detect
   \ | endif
 
+  autocmd BufRead,BufNewFile *.mkd,*.markdown,*.md,*.adoc
+        \ setlocal filetype=mkd autoindent comments=n:>
+
 augroup END

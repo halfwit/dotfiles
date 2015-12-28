@@ -41,4 +41,4 @@ filetypes = 'all'
 
 [[plugins]]
 repository = 'euclio/vim-markdown-composer'
-filetypes = 'md'
+filetypes = 'mkd'
