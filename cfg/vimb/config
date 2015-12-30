@@ -29,11 +29,11 @@ set input-font-normal=DejaVu Sans Mono 9.5
 set input-font-error=DejaVu Sans Mono 9.5
 
 set status-color-bg=#3c3836
-set status-color-fg=#a89984
+set status-color-fg=#076678
 set status-ssl-color-bg=#3c3836
-set status-ssl-color-fg=#a89984
+set status-ssl-color-fg=#076678
 set status-sslinvalid-color-bg=#3c3836
-set status-sslinvalid-color-fg=#a89984
+set status-sslinvalid-color-fg=#076678
 set status-font=DejaVu Sans Mono 9.5
 set status-ssl-font=DejaVu Sans Mono 9.5
 set status-sslinvalid-font=DejaVu Sans Mono 9.5

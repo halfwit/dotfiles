@@ -49,9 +49,8 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' rehash yes
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-RPROMPT='%F{green}${branch}'
-PROMPT='%B%K{${vimode}}%F{black}%m%f%k%b %F{magenta}%~%f
-λ '
+PROMPT='%F{${vimode}}%m%f %F{blue}%<..<%3~%f
+%B%F{cyan}λ%f%b %F{green}${branch} %f%$'
 
 # Functions.
 # All I want is the git branch for now, vcs_info is way overkill to do this.
@@ -60,7 +59,7 @@ function get_git_branch {
         read -r branch < .git/HEAD
         branch=" ${branch##*/} "%
     else
-        branch=" "
+        branch=""
     fi
 }
 
