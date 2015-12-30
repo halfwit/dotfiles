@@ -209,5 +209,5 @@ alias newsbeuter="newsbeuter -C $XDG_CONFIG_HOME/newsbeuter/config"
 alias gdb="gdb -n -x $XDG_CONFIG_HOME/gdb/init"
 alias weechat="weechat -d $XDG_CONFIG_HOME/weechat"
 
-#source "$XDG_CONFIG_HOME"/gruvbox.sh
+source "$XDG_CONFIG_HOME"/gruvbox.sh
 fortune -o | cowthink
