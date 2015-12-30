@@ -2,31 +2,31 @@
 
 
 *:not(a),body,td,tr,p {
-    background-color: #fdf6e3 !important;
+    background-color: #32302f !important;
     background-size: 0,0 !important;
-    color: #657b83 !important;
+    color: #ebdbb2 !important;
 }
 
 h1,h2,h3,h4 {
-    background-color: #fdf6e3 !important;
-    color: #303030 !important
+    background-color: #32302f !important;
+    color: #bdae93 !important
 }
 
 button {
     background-size: auto !important;
-    background-color: #eee8d5 !important;
-    color: #303030 !important
+    background-color: #504945 !important;
+    color: #ebdbb2 !important
 }
 
 a {
-    color: #073642 !important;
-    background-color: #fdf6e3 !important
+    color: #458588 !important;
+    background-color: #32302f !important
 }
 a:hover,a:focus {
-    color: #427b57 !important
+    color: #458588 !important
 }
 a:visited {
-    color: #657b84 !important
+    color: #458588 !important
 }
 
 /* :::::: Hints Coloring :::::: */
@@ -35,13 +35,13 @@ a:visited {
     -webkit-transform:translate(px,-2px) !important;
     position: absolute !important;
     z-index: 100000 !important;
-    color: #fdf6e3 !important;
+    color: #ebdbb2 !important;
     font:bold .8em monospace !important;
-    background-color: #303030 !important;
+    background-color: #fe8019 !important;
     margin: 0 !important;
     padding: 1px 1px !important;
     border: 0px solid !important;
-    opacity: 0.5 !important
+    opacity: 1 !important
 }
 ._hintLabel._hintFocus {
     z-index: 100001 !important;

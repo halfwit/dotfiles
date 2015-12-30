@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Script to open Vimb instances in tabbed
 if ! pgrep vimb; then
-    tabbed -u \#eee8d5 -U \#839496 -t \#657b83 -T \#fdf6e3 -c -d -p 2 >/tmp/tabbed.xid
+    tabbed -U \#ebdbb2 -u \#504945 -T \#ebdbb2 -t \#32302f -c -d -p 2 >/tmp/tabbed.xid
 fi
 
 exec vimb -e "$(</tmp/tabbed.xid)" "$@"

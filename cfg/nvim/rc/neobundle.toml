@@ -3,7 +3,7 @@ repository = 'Shougo/vimproc.vim'
 build = 'make'
 
 [[plugins]]
-repository = 'altercation/vim-colors-solarized'
+repository = 'morhetz/gruvbox'
 on_ft = 'all'
 
 [[plugins]]

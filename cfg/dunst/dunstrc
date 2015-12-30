@@ -22,8 +22,8 @@
 
 
 [frame]
-    width = 4
-    color =  #928374
+    width = 2
+    color =  #32302f
 
 [shortcuts]
     close = ctrl+space
@@ -31,19 +31,19 @@
 
 
 [urgency_low]
-    background = #a89984
-    foreground =  #282828
+    background = #928374
+    foreground =#32302f
 
     timeout = 15
 
 [urgency_normal]
-    background =  #689d6a
-    foreground =  #282828
+    background =  #83a598
+    foreground =  #32302f
     timeout = 20
 
 [urgency_critical]
-    background =  #b8bb26
-    foreground =  #282828
+    background =  #cc241d
+    foreground =  #32302f
     timeout = 30
 
 [dunst-sum]
