@@ -49,15 +49,16 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' rehash yes
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-PROMPT='[%T%F{blue}] [%f%m%F{blue}] [%f%F{magenta}%~%f%F{blue}]%f %F{green}${branch}%f
-%F{black}[%F{blue}%n%f%F{black}(${vimode})]%f '
+RPROMPT='%F{green}${branch}'
+PROMPT='%B%K{${vimode}}%F{black}%m%f%k%b %F{magenta}%~%f
+λ '
 
 # Functions.
 # All I want is the git branch for now, vcs_info is way overkill to do this.
 function get_git_branch {
     if [[ -d .git ]]; then
         read -r branch < .git/HEAD
-        branch=" ${branch##*/} "
+        branch=" ${branch##*/} "%
     else
         branch=" "
     fi
@@ -79,7 +80,7 @@ function preexec {
 
 # Replace vimode indicators.
 function zle-line-init zle-keymap-select {
-    vimode=${${KEYMAP/vicmd/c}/(main|viins)/i}
+    vimode=${${KEYMAP/vicmd/white}/(main|viins)/blue}
     zle reset-prompt
 }
 
