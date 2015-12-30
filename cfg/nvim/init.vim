@@ -2,10 +2,9 @@
 " We be doing some fun things nao!
 " --------------------------------
 
-function! s:source_rc(path)"{{{
+function! s:source_rc(path)
     execute 'source' fnameescape('$XDG_CONFIG_HOME/nvim/rc/' . a:path)
 endfunction
-"}}}
 
 "-----------------------------------------------------
 " Initialization

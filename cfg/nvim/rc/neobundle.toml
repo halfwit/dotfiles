@@ -4,18 +4,24 @@ build = 'make'
 
 [[plugins]]
 repository = 'altercation/vim-colors-solarized'
+on_ft = 'all'
 
 [[plugins]]
 repository = 'airblade/vim-gitgutter'
+on_ft = 'all'
 
 [[plugins]]
 repository = 'bling/vim-airline'
+on_ft = 'all'
 
 [[plugins]]
 repository = 'Yggdroot/indentLine'
+on_ft = 'all'
 
 [[plugins]]
 repository = 'benekastah/neomake'
+on_ft = 'all'
 
 [[plugins]]
 repository = 'tpope/vim-fugitive'
+on_ft = 'all'

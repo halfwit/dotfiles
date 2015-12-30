@@ -14,6 +14,9 @@ augroup MyAutoCmd
   autocmd FileType gitcommit,qfreplace setlocal nofoldenable
 
   autocmd FileType ref nnoremap <buffer> <TAB> <C-w>w
+  
+  autocmd BufRead,BufNewFile *.mkd,*.markdown,*.md,*.adoc,*.mkdn
+        \ setlocal filetype=mkd
 
   " Enable omni completion.
   autocmd Filetype cpp setlocal omnifunc=omni#cpp#complete#Main
@@ -29,7 +32,5 @@ augroup MyAutoCmd
   \ |   filetype detect
   \ | endif
 
-  autocmd BufRead,BufNewFile *.mkd,*.markdown,*.md,*.adoc,*.mkdn
-        \ setlocal filetype=mkd
 
 augroup END

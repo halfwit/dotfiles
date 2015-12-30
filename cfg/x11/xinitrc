@@ -1,6 +1,7 @@
 #!/bin/bash
-xrdb -load ~/local/cfg/x11/xresources
+compton --config ~/local/cfg/compton/config &
 dunst &
-# dstat &
+dstat &
 xcmenu &
+feh --bg-scale ~/media/pictures/patent.jpg
 exec dwm

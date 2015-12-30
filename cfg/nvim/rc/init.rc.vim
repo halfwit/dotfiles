@@ -12,7 +12,7 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
-if has('vim_starting') "{{{
+if has('vim_starting')
     " Load neobundle
     let s:neobundle_dir = finddir('neobundle.vim', '.;')
     if s:neobundle_dir != ''
@@ -30,19 +30,13 @@ if has('vim_starting') "{{{
     execute 'set runtimepath^=' . s:neobundle_dir
   endif
 endif
-"}}}
 
 let g:neobundle#default_options = {}
 
-"---------------------------------------------------------------------------
+"---------------------------------------------------------------
 " Disable default plugins
 
 " Disable GetLatestVimPlugin.vim
 if !&verbose
   let g:loaded_getscriptPlugin = 1
 endif
-
-let g:loaded_netrwPlugin = 1
-let g:loaded_matchparen = 1
-let g:loaded_2html_plugin = 1
-let g:loaded_vimballPlugin = 1

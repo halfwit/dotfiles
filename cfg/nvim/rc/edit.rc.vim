@@ -38,14 +38,6 @@ function! s:mkdir_as_necessary(dir, force)
   endif
 endfunction
 
-
-" Folding
-set foldenable
-set foldmethod=marker
-set foldcolumn=1
-set fillchars=vert:\|
-set commentstring=%s
-
 " Reload rc files
 autocmd MyAutoCmd BufWritePost init.vim,*.rc.vim,neobundle*.toml
       \ NeoBundleClearCache | source $MYVIMRC | redraw
