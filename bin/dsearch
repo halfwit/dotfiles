@@ -61,6 +61,7 @@ handle_results() { # args -> launch
         !song*)  exec "$XDG_DATA_HOME"/dsearch/gsonghandler      "${1##*song }"  ;;
         !book*)  exec "$XDG_DATA_HOME"/dsearch/gbookhandler      "${1##*book }"  ;;
         !code*)  exec "$XDG_DATA_HOME"/dsearch/codehandler       "${1##*code }"  ;;
+        !dict*)  exec "$XDG_DATA_HOME"/dsearch/dictionaryhandler "${1##*dict }"  ;;
         !mpv*)   exec "$XDG_DATA_HOME"/dsearch/mpvhandler        "${1##*mpv }"   ;;
         !man*)   exec "$XDG_DATA_HOME"/dsearch/manualhandler     "${1##*man }"   ;;
         !pl*)    exec "$XDG_DATA_HOME"/dsearch/playlisthandler   "${1##*pl }"    ;;

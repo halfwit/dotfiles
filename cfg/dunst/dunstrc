@@ -7,7 +7,6 @@
     # geometry = "x5"
     idle_threshold = 0
     geometry = "335x5-20+20"
-    alignment = center
     show_age_threshold = 60
     sticky_history = yes
     follow = mouse
@@ -15,6 +14,7 @@
     separator_height = 2
     padding = 4
     horizontal_padding = 2
+    alignment = center
     separator_color = frame
     startup_notification = false
     dmenu = /usr/bin/dmenu -p Load:
@@ -33,18 +33,20 @@
 [urgency_low]
     background = #928374
     foreground =#32302f
-
+    alignment = center
     timeout = 15
 
 [urgency_normal]
     background =  #83a598
     foreground =  #32302f
     timeout = 20
+    alignment = center
 
 [urgency_critical]
     background =  #cc241d
     foreground =  #32302f
     timeout = 30
+    alignment = center
 
 [dunst-sum]
     appname = gmailnotify.py
@@ -59,3 +61,10 @@
 [test]
     summary = "*test*"
     background="#22dd22"
+
+[dictionaryhelper]
+   appname = "dictionary"
+   alignment = left
+   timeout = 30
+   urgency = normal
+
