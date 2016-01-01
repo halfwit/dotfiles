@@ -14,7 +14,7 @@
     separator_height = 2
     padding = 4
     horizontal_padding = 2
-    alignment = center
+    alignment = left
     separator_color = frame
     startup_notification = false
     dmenu = /usr/bin/dmenu -p Load:
