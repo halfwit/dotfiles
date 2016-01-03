@@ -20,6 +20,7 @@ zle -N zle-keymap-select
 
 # Shell Options
 setopt auto_cd \
+    correct \
     dot_glob \
     hist_verify \
     hist_append \

@@ -46,3 +46,4 @@ export GTK_IM_MODULE=xim
 export XAUTHORITY=$XDG_RUNTIME_DIR/x11/xauthority
 
 source <(dircolors $XDG_CONFIG_HOME/terminal-colors.d/ls.enable)
+source "$XDG_CONFIG_HOME"/privoxy/proxy
