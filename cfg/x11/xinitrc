@@ -3,5 +3,5 @@ compton --config ~/local/cfg/compton/config &
 dunst &
 dstat &
 xcmenu &
-feh --bg-scale ~/media/pictures/patent.jpg
+feh --bg-scale ~/media/pictures/Ailes_battantes_Luc_Viatour.jpg
 exec dwm
