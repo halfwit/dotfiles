@@ -2,8 +2,11 @@
 
 case "$1" in
     *youtube.com/user/*)   vimb-run "$1"                       ;;
+    *.pdf|*.djvu|*.epub)   curl -s "$1" > /tmp/tmp.book 
+                           zathura /tmp/tmp.book               ;;
     *youtu*)               mpv --input-file=/tmp/socket "$1"   ;;
     *twitch*)              mpv --input-file=/tmp/socket "$1"   ;;
+    *.webm)                mpv --input-file=/tmp/socket "$1"   ;;
     http*)                 vimb-run "$1"                       ;;
     *)                     notify-send "handle $1 plumber"
                            nvim-run ~/local/bin/plumber        ;;
