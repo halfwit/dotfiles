@@ -89,7 +89,7 @@ process_selection() { # global token
             touch /tmp/mpvsocket
         fi
         rm /tmp/*.jpg
-        mpv https://www.youtube.com/watch?v="$url" --input-unix-socket=/tmp/mpvsocket &
+        mpv https://www.youtube.com/watch?v="$url" --input-unix-socket=/tmp/mpvsocket --keepaspect-window 
 	done
 }
 
