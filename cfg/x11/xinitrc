@@ -1,7 +1,8 @@
 #!/bin/bash
 compton --config ~/local/cfg/compton/config &
 dunst &
-dstat &
+runbar &
 xcmenu &
-feh --bg-scale ~/media/pictures/Ailes_battantes_Luc_Viatour.jpg --no-fehbg
-exec dwm
+feh --bg-scale ~/media/pictures/Ailes_battantes_Luc_Viatour.jpg --no-fehbg &
+sxhkd -c /home/halfwit/local/cfg/sxhkd/config &
+exec swm
