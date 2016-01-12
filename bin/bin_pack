@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Requires https://github.com/wmutils
 # and for now, xprop
-# Windows of window ID
 
 WINSIZES="$XDG_CONFIG_HOME"/wmutils/sizes
 
@@ -15,8 +14,8 @@ list_windows() {
    local class wname query
    while read -r id; do
       class=$(xprop -id "$id" | awk '/WM_CLASS/{print $4}')
-      wname=$(xprop -id "$id" | awk '/_NET_WM_NAME/{print $NF}') 
-      
+      wname=$(xprop -id "$id" | awk '/_NET_WM_NAME/{print $NF}')
+
       if [[ ${class//\"/} == "xterm-256color" ]]; then
          query="$id ${wname//\"/}"
       else
@@ -31,12 +30,18 @@ list_windows() {
 }
 
 bin_algorithm() {
-   echo "$1"   
+   while read -r line; do
+      window_list+=( "$line" )
+   done
+   for i in "${window_list[@]}"; do
+      echo "$i"
+   done
 }
+
 
 ## Main ##
 
-declare -a max_bin_w max_bin_h
+declare -a max_bin_w max_bin_h window_list
 
 # Find maximums for window
 screen_dimensions

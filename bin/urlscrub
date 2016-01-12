@@ -6,10 +6,10 @@ readonly optsfile=$confdir/dmenu/bemenucolors
 
 # https://github.com/mvdan/xurls
 # https://github.com/Cloudef/bemenu
-# Doesn't yet deal well with line wraps, etc.
+# Currently strips newlines as well
 
 create_menu() {
-    xurls "$@" | tac | bemenu -l 10 "${opts[@]}" -p URLs
+    tr -cd '\15\40-\176' | xurls | tac | bemenu -l 10 "${opts[@]}" -p URLs
 }
 
 # https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
@@ -24,8 +24,7 @@ fi
 if [[ -s $optsfile ]]; then
     source "$optsfile"
 fi
-
-result=$(create_menu "$@")
+result=$(create_menu "$@" )
 if [[ "$result" ]]; then
     plumber "$result"
 fi
