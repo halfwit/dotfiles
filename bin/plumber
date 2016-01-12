@@ -4,10 +4,10 @@ mpvcmd() {
 }
 
 case "$1" in
-    *youtube.com/user/*)   vimb-run "$1"                       ;;
+    *youtube.com/watch*)   mpvcmd "$1"                         ;;
     *.pdf|*.djvu|*.epub)   curl -s "$1" > /tmp/tmp.book 
                            zathura /tmp/tmp.book               ;;
-    *youtu*)               mpvcmd "$1"                         ;;
+    *youtu.be*)            mpvcmd "$1"                         ;;
     *twitch*)              mpvcmd "$1"                         ;;
     *.webm)                mpvcmd "$1"                         ;;
     http*)                 vimb-run "$1"                       ;;

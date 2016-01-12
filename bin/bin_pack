@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# Requires https://github.com/wmutils
+# and for now, xprop
+# Windows of window ID
+
+WINSIZES="$XDG_CONFIG_HOME"/wmutils/sizes
+
+screen_dimensions() {
+   dispid=$(lsw -r)
+   max_bin_w[0]=$(wattr w "$dispid")
+   max_bin_h[0]=$(wattr h "$dispid")
+}
+
+list_windows() {
+   local class wname query
+   while read -r id; do
+      class=$(xprop -id "$id" | awk '/WM_CLASS/{print $4}')
+      wname=$(xprop -id "$id" | awk '/_NET_WM_NAME/{print $NF}') 
+      
+      if [[ ${class//\"/} == "xterm-256color" ]]; then
+         query="$id ${wname//\"/}"
+      else
+         query="$id ${class//\"/}"
+      fi
+
+      if ! wname="${query%\ *} $(grep "${query##*\ }" "$WINSIZES")"; then
+         wname="$query 200 200 300 300"
+      fi
+      printf '%s\n' "$wname"
+   done
+}
+
+bin_algorithm() {
+   echo "$1"   
+}
+
+## Main ##
+
+declare -a max_bin_w max_bin_h
+
+# Find maximums for window
+screen_dimensions
+
+# list windows -> get min and max sizes -> bin packing algorithm
+lsw | list_windows | bin_algorithm
+#while (cur_bin_w < max_bin_w && cur_bin_h < max_bin_h);
