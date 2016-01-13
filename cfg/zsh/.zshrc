@@ -196,7 +196,7 @@ alias chown='chown -c --preserve-root'
 alias chgrp='chgrp -c --preserve-root'
 
 alias pb='pbpst -S'
-alias sysupdate="sudo snp pacman -Syu"
+alias sysupdate="sudo snp pacman -Syu && builder"
 alias ls='ls --color=auto --group-directories-first -AhXF'
 alias ll='ls --color=auto --group-directories-first -AlhXF'
 
