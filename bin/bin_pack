@@ -6,8 +6,7 @@ WINSIZES="$XDG_CONFIG_HOME"/wmutils/sizes
 
 screen_dimensions() {
    dispid=$(lsw -r)
-   max_bin_w[0]=$(wattr w "$dispid")
-   max_bin_h[0]=$(wattr h "$dispid")
+   printf '%s %s\n' "$(wattr w "$dispid")" "$(wattr h "$dispid")"
 }
 
 list_windows() {
@@ -16,7 +15,7 @@ list_windows() {
       class=$(xprop -id "$id" | awk '/WM_CLASS/{print $4}')
       wname=$(xprop -id "$id" | awk '/_NET_WM_NAME/{print $NF}')
 
-      if [[ ${class//\"/} == "xterm-256color" ]]; then
+      if [[ "${class//\"/}" == "xterm-256color" ]]; then
          query="$id ${wname//\"/}"
       else
          query="$id ${class//\"/}"
@@ -30,22 +29,39 @@ list_windows() {
 }
 
 bin_algorithm() {
+   local -a window_list max_list
    while read -r line; do
       window_list+=( "$line" )
    done
+   max_list[0]="$(screen_dimensions)"
    for i in "${window_list[@]}"; do
-      echo "$i"
+      echo "$i $max_list[0]"
    done
-}
+# Initialize:
+# Set F = {(W,H)},
+# Pack:
+# w = average min/max, h = average min/max
+# IF PACK FAILS:
+# average min/w, average min/h (this effectively binary searches for 
+# a decent best size)
+# foreach Rectangle R = (w,h) in the sequence do
+   # Decide the best free to pack the rectangle into 
+   # Start 0,0, to point w,h
+   # Subdivide remaining rectangles, (current container max_w max_h)
+   # entry (max_w - w, max_h) (max_h - h, max_w)
+   # next rectangle - best_fit of entry[@], and subdivide again.
+# if it becomes an issue, combine rectangles afterwards.
+# Finally, upon all windows being full - square up to first maximum w/h
+# IF PACK SUCCEEDS: average w/max, average h/max
 
+# With the final block, center the blob on screen
+# (just use the final values to wtr)
+# Add each (0,n) location to get max width, and largest height for height.
+}
 
 ## Main ##
 
-declare -a max_bin_w max_bin_h window_list
-
-# Find maximums for window
-screen_dimensions
 
 # list windows -> get min and max sizes -> bin packing algorithm
+#wtr "$(lsw | list_windows | bin_algorithm | center_blob)" 
 lsw | list_windows | bin_algorithm
-#while (cur_bin_w < max_bin_w && cur_bin_h < max_bin_h);
