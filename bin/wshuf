@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# Requires https://github.com/wmutils
+
+# List of sorted min/maxes `name 100 100 200 200`
+WINSIZES="$XDG_CONFIG_HOME"/wmutils/sizes
+# This will be dynamically generated, soon as I find
+# a method of figuring pixel width of given font variant
+
+screen_dimensions() {
+   dispid=$(lsw -r)
+   printf '%s %s\n' "$(wattr w "$dispid")" "$(wattr h "$dispid")"
+}
+
+list_windows() {
+   local class wname query
+   while read -r id; do
+      class=$(xprop -id "$id" | awk '/WM_CLASS/{print $4}')
+      wname=$(xprop -id "$id" | awk '/_NET_WM_NAME/{print $NF}')
+
+      if [[ "${class//\"/}" == "xterm-256color" ]]; then
+         query="${wname//\"/} $id"
+      else
+         query="${class//\"/} $id"
+      fi
+
+      if ! wname="$(grep "${query##*\ }" "$WINSIZES") ${query%\ *}"; then
+         wname="200 200 300 300 $query"
+      fi
+      if ! [[ ${wname%\ *} == "lemonbar" ]]; then
+         printf '%s\n' "$wname"
+      fi
+   done
+}
+
+## Main ##
+lsw | list_windows | bin_pack | while read -r line; do
+   wtp "$line"
+done
