@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# Requires https://github.com/wmutils
+
+screen_dimensions() {
+   dispid=$(lsw -r)
+   printf '%s %s\n' "$(wattr w "$dispid")" "$(wattr h "$dispid")"
+}
+
+list_windows() {
+   local class wname
+   while read -r id; do
+      class=$(xprop -id "$id" | awk '/WM_CLASS/{print $4}')
+      wname=$(xprop -id "$id" | awk '/_NET_WM_NAME/{print $NF}')
+
+      if [[ "${class//\"/}" == "xterm-256color" ]]; then
+         wname="${wname//\"/}"
+      else
+         wname="${class//\"/}"
+      fi
+      [[ ! $wname ]] && break
+      case $wname in
+         Zathura|NVIM|tabbed)
+            wname="$(wattr w "$id") $(( $(wattr h "$(lsw -r)") / 3 )) $(wattr w "$id") $(wattr h "$(lsw -r)") $wname $id" ;;
+         abduco)
+            wname="400 $(( $(wattr h "$(lsw -r)") / 3)) 450 500 $wname $id" ;;
+         mpv)
+            wname="400 $(( $(wattr h "$(lsw -r)") / 3)) $(wattr w "$(lsw -r)") $(wattr h "$(lsw -r)") $wname $id" ;;
+         *)
+            wname="400 $(( $(wattr h "$(lsw -r)") / 3)) 450 $(wattr h "$(lsw -r)") $wname $id" ;;
+      esac  
+      printf '%s\n' "$wname"
+   done
+}
+## Main ##
+lsw | list_windows
+#lsw | list_windows | bin_pack -x 1366 -y 768 | while read -r x y w h wid; do
+#   wtp "$x" "$y" "$w" "$h" "$wid"
+#done

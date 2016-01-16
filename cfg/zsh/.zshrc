@@ -216,4 +216,3 @@ alias weechat="weechat -d $XDG_CONFIG_HOME/weechat"
 
 source "$XDG_CONFIG_HOME"/gruvbox.sh
 fortune -o | cowthink
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

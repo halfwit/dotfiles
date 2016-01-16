@@ -1,0 +1,18 @@
+super + h
+         dmenu_run
+super + u
+         dsearch
+super + i
+         unification
+super + o
+         librarian
+super + k
+         st
+super + period
+         xcmenuctrl
+@F11
+         ~/local/cfg/wmutils/fullscreen $(pfw)
+super + p
+         wrs 10 0 $(pfw)
+super + j
+         wrs -10 0 $(pfw)
