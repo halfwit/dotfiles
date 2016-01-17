@@ -50,8 +50,9 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' rehash yes
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
+_movedown=$'\e[110B'
 
-PROMPT='%F{${vimode}}%m%f %<..<%3~
+PROMPT='${_movedown}%F{${vimode}}%m%f %<..<%3~
  %B%F{cyan}-%f%b%F{green}${branch} %f%$'
 
 # Functions.
@@ -69,14 +70,6 @@ function get_git_branch {
 function precmd {
     print -Pn "\e];%n %~\a"
     get_git_branch
-}
-
-# Print the current running command's name to the window title.
-function preexec {
-    if [[ $TERM == xterm-* ]]; then
-        local cmd=${1[(wr)^(*=*|sudo|exec|ssh|-*)]}
-        print -Pn "\e];$cmd:q\a"
-    fi
 }
 
 # Replace vimode indicators.

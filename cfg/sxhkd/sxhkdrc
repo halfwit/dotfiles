@@ -2,7 +2,7 @@ super + h
          dmenu_run
 super + u
          dsearch
-super + i
+super + y
          unification
 super + o
          librarian
@@ -12,7 +12,13 @@ super + period
          xcmenuctrl
 @F11
          ~/local/cfg/wmutils/fullscreen $(pfw)
-super + p
+super + shift + p
          wrs 10 0 $(pfw)
-super + j
+super + shift + j
          wrs -10 0 $(pfw)
+super + j
+         ~/local/cfg/wmutils/focus next
+super + p
+         ~/local/cfg/wmutils/focus prev
+super + i 
+         killw $(pfw)
