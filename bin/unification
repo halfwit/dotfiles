@@ -11,7 +11,7 @@ readonly locations=( ~/programming          \
                      ~/local/bin            \
                      ~/local/cache/build
 )
-readonly omissions=( ".git*|font*" )
+readonly omissions=( ".git*|font*|ccache*" )
 
 get_selection() {
     tree -Uafi "${locations[@]}" -I "${omissions[@]}" | bemenu -l 10 "${opts[@]}" -p "Edit"
