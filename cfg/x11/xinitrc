@@ -3,6 +3,7 @@ compton --config ~/local/cfg/compton/config &
 dunst &
 #runbar &
 xcmenu &
-feh --bg-scale ~/media/pictures/Ailes_battantes_Luc_Viatour.jpg --no-fehbg &
+feh --bg-scale ~/media/backgrounds/$(( $(( RANDOM % $(find ~/media/backgrounds | wc -l) )) + 1 )).png --no-fehbg &
 sxhkd &
+~/local/cfg/wmutils/focus &
 exec swm
