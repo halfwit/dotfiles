@@ -53,7 +53,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 _movedown=$'\e[110B'
 
 PROMPT='${_movedown}%F{${vimode}}%m%f %<..<%3~
- %B%F{cyan}‣%f%b%F{green}${branch} %f'
+ %B%F{cyan}*%f%b%F{green}${branch} %f'
 
 # Functions.
 # All I want is the git branch for now, vcs_info is way overkill to do this.
