@@ -13,7 +13,7 @@ super + period
 @F11
          ~/local/cfg/wmutils/fullscreen $(pfw)
 super + shift + p
-         wrs 10 0 $(pfw)
+         wrs 10 $(pfw)
 super + shift + j
          wrs -10 0 $(pfw)
 super + j
@@ -22,3 +22,5 @@ super + p
          ~/local/cfg/wmutils/focus prev
 super + i 
          killw $(pfw)
+super + v
+         testy
