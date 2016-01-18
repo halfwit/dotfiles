@@ -1,9 +1,6 @@
 #!/bin/bash
 compton --config ~/local/cfg/compton/config &
+~/local/cfg/wmutils/watcher &
 dunst &
-unclutter &
-xcmenu &
 feh --bg-scale ~/media/backgrounds/$(( $(( RANDOM % $(find ~/media/backgrounds | wc -l) )) + 1 )).png --no-fehbg &
-sxhkd &
-~/local/cfg/wmutils/focus &
-exec swm
+exec dwm
