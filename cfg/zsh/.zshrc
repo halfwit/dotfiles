@@ -66,6 +66,13 @@ function get_git_branch {
     fi
 }
 
+function preexec {
+  if [[ $TERM == st* || $TERM == xterm-* ]]; then
+    local cmd=${1[(wr)^(*=*|sudo|exec|ssh|-*)]}
+    print -Pn "\e];$cmd:q\a"
+  fi
+}
+
 # Print basic prompt to the window title.
 function precmd {
     print -Pn "\e];%n %~\a"
