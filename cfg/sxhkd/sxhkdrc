@@ -13,7 +13,7 @@ super + period
 @F11
          ~/local/cfg/wmutils/fullscreen $(pfw)
 super + shift + p
-         wrs 10 $(pfw)
+         wrs 10 0 $(pfw)
 super + shift + j
          wrs -10 0 $(pfw)
 super + j

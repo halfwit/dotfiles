@@ -9,22 +9,15 @@ screen_dimensions() {
 list_windows() {
    local class wname
    while read -r id; do
-      class=$(xprop -id "$id" | awk '/WM_CLASS/{print $4}')
-      wname=$(xprop -id "$id" | awk '/_NET_WM_NAME/{print $NF}')
-
-      if [[ "${class//\"/}" = "st-256color" ]]; then
-        wname="${wname//\"/}"
-      else
-         wname="${class//\"/}"
-      fi
+      wname=$(xwininfo -id "$id" | awk '/Window id:/{print $NF}')
       [[ ! $wname ]] && break
-      case $wname in
-         Zathura|NVIM|tabbed)
+      case ${wname//\"/} in
+        Zathura|NVIM|name\))
             wname="$(wattr w "$id") $(( 2 + $(wattr h "$(lsw -r)") / 2 )) $(wattr w "$id") $(wattr h "$(lsw -r)") $id" ;;
-         *abduco*)
+         abduco)
             wname="400 $(( $(wattr h "$(lsw -r)") / 3)) 450 500 $id" ;;
          mpv)
-            wname="400 $(( $(wattr h "$(lsw -r)") / 3)) $(wattr w "$(lsw -r)") $(wattr h "$(lsw -r)") $id" ;;
+           wname="420 $(( $(wattr h "$(lsw -r)") / 3)) $(wattr w "$(lsw -r)") $(wattr h "$(lsw -r)") $id" ;;
           float) break ;;
          *)
            wname="420 $(( $(wattr h "$(lsw -r)") / 3)) 450 $(( $(wattr h "$(lsw -r)") / 2 )) $id" ;;
