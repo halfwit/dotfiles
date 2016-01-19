@@ -32,7 +32,6 @@ list_windows() {
    done
 }
 ## Main ##
-lsw | list_windows
-#lsw | list_windows | bin_pack -x 1366 -y 768 | while read -r x y w h wid; do
-#   wtp "$x" "$y" "$w" "$h" "$wid"
-#done
+lsw | list_windows | ~/local/cfg/wmutils/bin_pack -x 1366 -y 768 | while read -r x y w h wid; do
+   wtp "$x" "$y" "$w" "$h" "$wid"
+done

@@ -7,6 +7,8 @@
 wew | while IFS=: read ev wid; do
     case $ev in
         # occurs on mapping requests
+        16|17|18|19) if ! xwininfo -id "$wid" | grep mpv; then 
+        ~/local/cfg/wmutils/wshuf; fi ;;
         19) if ! xwininfo -id "$wid" | grep mpv; then
               wattr o "$wid" || ~/local/cfg/wmutils/focus "$wid"
             fi ;;
