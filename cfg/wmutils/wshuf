@@ -20,7 +20,7 @@ list_windows() {
       [[ ! $wname ]] && break
       case $wname in
          Zathura|NVIM|tabbed)
-            wname="$(wattr w "$id") $(( $(wattr h "$(lsw -r)") / 2 )) $(wattr w "$id") $(wattr h "$(lsw -r)") $id" ;;
+            wname="$(wattr w "$id") $(( 2 + $(wattr h "$(lsw -r)") / 2 )) $(wattr w "$id") $(wattr h "$(lsw -r)") $id" ;;
          abduco)
             wname="400 $(( $(wattr h "$(lsw -r)") / 3)) 450 500 $id" ;;
          mpv)
