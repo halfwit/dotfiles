@@ -3,7 +3,7 @@ readonly TERMINAL=st
 
 if ! pgrep nvim; then
    rm "$XDG_DATA_HOME"/nvim/swap/*
-   exec $TERMINAL -e /usr/bin/nvim "$1"
+   exec $TERMINAL -t NVIM -e /usr/bin/nvim "$1"
 else
 
 python - <<END

@@ -12,8 +12,8 @@ list_windows() {
       class=$(xprop -id "$id" | awk '/WM_CLASS/{print $4}')
       wname=$(xprop -id "$id" | awk '/_NET_WM_NAME/{print $NF}')
 
-      if [[ "${class//\"/}" == "xterm-256color" ]]; then
-         wname="${wname//\"/}"
+      if [[ "${class//\"/}" = "st-256color" ]]; then
+        wname="${wname//\"/}"
       else
          wname="${class//\"/}"
       fi
@@ -21,10 +21,11 @@ list_windows() {
       case $wname in
          Zathura|NVIM|tabbed)
             wname="$(wattr w "$id") $(( 2 + $(wattr h "$(lsw -r)") / 2 )) $(wattr w "$id") $(wattr h "$(lsw -r)") $id" ;;
-         abduco)
+         *abduco*)
             wname="400 $(( $(wattr h "$(lsw -r)") / 3)) 450 500 $id" ;;
          mpv)
             wname="400 $(( $(wattr h "$(lsw -r)") / 3)) $(wattr w "$(lsw -r)") $(wattr h "$(lsw -r)") $id" ;;
+          float) break ;;
          *)
            wname="420 $(( $(wattr h "$(lsw -r)") / 3)) 450 $(( $(wattr h "$(lsw -r)") / 2 )) $id" ;;
       esac  
