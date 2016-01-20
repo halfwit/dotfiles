@@ -50,11 +50,10 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' rehash yes
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-_movedown=$'\e[110B'
+_movedownbottom=$'\e[100B'
 
-PROMPT='${_movedown}%F{${vimode}}%m%f %<..<%3~
- %F{cyan}‣%f'
- RPROMPT='%F{green}${branch} %f'
+PROMPT='${_movedownbottom}%F{${vimode}}%m%f %</../<%2~ %F{green}${branch} %f
+ %F{cyan}‣%f '
 # Functions.
 # All I want is the git branch for now, vcs_info is way overkill to do this.
 function get_git_branch {

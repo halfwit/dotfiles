@@ -89,8 +89,9 @@ shadow-opacity = 0.8;
 # The shadow exclude options are helpful if you have shadows enabled. Due to the way compton draws its shadows, certain applications will have visual glitches
 # (most applications are fine, only apps that do weird things with xshapes or argb are affected).
 # This list includes all the affected apps I found in my testing. The "! name~=''" part excludes shadows on any "Unknown" windows, this prevents a visual glitch with the XFWM alt tab switcher.
-# shadow-exclude = [
+shadow-exclude = [
 #     "! name~=''",
+      "name = 'lemonbar'"
 #     "name = 'Notification'",
 #     "name = 'Plank'",
 #     "name = 'Docky'",
