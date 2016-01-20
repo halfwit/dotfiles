@@ -7,7 +7,7 @@ screen_dimensions() {
 }
 
 list_windows() {
-   local class wname
+   local wname
    while read -r id; do
       wname=$(xwininfo -id "$id" | awk '/Window id:/{print $NF}')
       [[ ! $wname ]] && break
@@ -17,7 +17,7 @@ list_windows() {
          abduco)
             wname="400 $(( $(wattr h "$(lsw -r)") / 3)) 450 500 $id" ;;
          mpv)
-           wname="420 $(( $(wattr h "$(lsw -r)") / 3)) $(wattr w "$(lsw -r)") $(wattr h "$(lsw -r)") $id" ;;
+           wname="$(wattr w "$id") $(wattr h "$id") $(wattr w "$(lsw -r)") $(wattr h "$(lsw -r)") $id" ;;
           float) break ;;
          *)
            wname="420 $(( $(wattr h "$(lsw -r)") / 3)) 450 $(( $(wattr h "$(lsw -r)") / 2 )) $id" ;;

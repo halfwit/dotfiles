@@ -6,5 +6,5 @@ unclutter &
 ~/local/cfg/wmutils/watcher &
 compton --config ~/local/cfg/compton/config &
 feh --bg-scale ~/media/backgrounds/$(( $(( RANDOM % $(find ~/media/backgrounds | wc -l) )) + 1 )).png --no-fehbg &
-lemonbarrun &
+#lemonbarrun &
 exec swm

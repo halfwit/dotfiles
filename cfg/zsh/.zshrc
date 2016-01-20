@@ -50,11 +50,44 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' rehash yes
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-_movedownbottom=$'\e[100B'
+to_bottom=$'\e[100B'
 
-PROMPT='${_movedownbottom}%F{${vimode}}%m%f %</../<%2~ %F{green}${branch} %f
+shorten_prompt() {
+  local result
+  local -a split    # the array we loop over
+  split=(${(s:/:)${(Q)${(D)1:-$PWD}}})
+
+  if [[ $split == "" ]]; then
+    print /
+    return 0
+  fi
+
+  if [[ $split[1] == \~ ]]; then
+    result="\~"
+    shift split
+  fi
+
+  if [[ ${#split} > 3 ]]; then
+    result+="/${split[1]}/../${split[-2]}/${split[-1]}"
+    print $result
+    return 0
+  fi
+
+  for i in ${split[@]}; do
+    result+="/$i"
+  done
+  
+  print $result
+  return 0
+}
+
+
+
+PROMPT='${to_bottom}%F{${vimode}}%m%f $(shorten_prompt)%F{green}${branch} %f
  %F{cyan}‣%f '
+
 # Functions.
+
 # All I want is the git branch for now, vcs_info is way overkill to do this.
 function get_git_branch {
     if [[ -d .git ]]; then

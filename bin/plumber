@@ -9,7 +9,7 @@ case "$1" in
                            zathura /tmp/tmp.book               ;;
     *youtu.be*)            mpvcmd "$1"                         ;;
     *twitch*)              mpvcmd "$1"                         ;;
-    *.webm)                mpvcmd "$1"                         ;;
+    *.mkv|*.mp4|*.webm)    mpvcmd "$1"                         ;;
     http*)                 vimb-run "$1"                       ;;
     *)                     notify-send "handle $1 plumber"
                            nvim-run ~/local/bin/plumber        ;;
