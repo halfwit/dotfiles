@@ -15,17 +15,17 @@ list_windows() {
         Zathura|NVIM|name\))
             wname="$(wattr w "$id") $(( 2 + $(wattr h "$(lsw -r)") / 2 )) $(wattr w "$id") $(wattr h "$(lsw -r)") $id" ;;
          abduco)
-            wname="400 $(( $(wattr h "$(lsw -r)") / 3)) 450 500 $id" ;;
+           wname="400 225 450 338 $id" ;;
          mpv)
            wname="$(wattr w "$id") $(wattr h "$id") $(wattr w "$(lsw -r)") $(wattr h "$(lsw -r)") $id" ;;
           float) break ;;
          *)
-           wname="420 $(( $(wattr h "$(lsw -r)") / 3)) 450 $(( $(wattr h "$(lsw -r)") / 2 )) $id" ;;
+           wname="400 225 450 $(( $(wattr h "$(lsw -r)") / 2 )) $id" ;;
       esac  
       printf '%s\n' "$wname"
    done
 }
 ## Main ##
-lsw | list_windows | ~/local/cfg/wmutils/bin_pack -x 1366 -y 768 | while read -r x y w h wid; do
+lsw | list_windows | ~/local/cfg/wmutils/bin_pack -x 1920 -y 1080 | while read -r x y w h wid; do
    wtp "$x" "$y" "$w" "$h" "$wid"
 done
