@@ -84,5 +84,5 @@ number=$(fetch_number "$datadir/mpv/$file")
 if [[ $file && $current && $title && $number ]]; then
     (cd "$datadir"/mpv || exit 1
     sed -i '/NumberOfEntries=[0-9]*[0-9]/d' "$file"
-    printf -- '%b' "Title$number=$title\nFile$number=${current/*v=/ytdl:\/\/}\nNumberOfEntries=$number" >> "$file")
+    printf -- '%s\n%s\n%s\n' "Title$number=$title" "File$number=${current/*v=/ytdl:\/\/}" "NumberOfEntries=$number" >> "$file")
 fi

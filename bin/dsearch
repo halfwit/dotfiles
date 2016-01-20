@@ -57,7 +57,7 @@ handle_results() { # args -> launch
     case "$@" in
         !radio*) exec "$XDG_DATA_HOME"/dsearch/gmusichandler     "${1##*radio }" ;;
         # Little bit of magic to address an issue where there's no args.
-        !save*)  exec "$XDG_DATA_HOME"/dsearch/saveplhandler     "${1:6}"  ;;
+        !save*)  exec "$XDG_DATA_HOME"/dsearch/saveplhandler     "${1:6}"        ;;
         !song*)  exec "$XDG_DATA_HOME"/dsearch/gsonghandler      "${1##*song }"  ;;
         !book*)  exec "$XDG_DATA_HOME"/dsearch/gbookhandler      "${1##*book }"  ;;
         !code*)  exec "$XDG_DATA_HOME"/dsearch/codehandler       "${1##*code }"  ;;

@@ -16,7 +16,8 @@ create_playlist() {
 }
 
 url="${1%\ *}"
-title="${1##*\ }"
+shift
+title="${1%\ *}"
 
 if [[ "$url" == "local" ]]; then
     read -r url < /tmp/tmpplaylist
@@ -24,6 +25,6 @@ fi
 
 [[ ! "$title" ]] && exit 0
 
-printf -- '%s' "[playlist]\n" > "$datadir/mpv/$title.pls"
+printf -- '%s\n' "[playlist]" > "$datadir/mpv/$title.pls"
 
 create_playlist
