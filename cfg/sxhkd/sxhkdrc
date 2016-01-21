@@ -13,9 +13,9 @@ super + period
 @F11
          ~/local/cfg/wmutils/fullscreen $(pfw)
 super + shift + p
-         wrs 10 0 $(pfw) && ~/local/cfg/wmutils/wshuf
+         wrs 10 0 $(get_window_id) && ~/local/cfg/wmutils/wshuf
 super + shift + j
-         wrs -10 0 $(pfw) && ~/local/cfg/wmutils/wshuf
+         wrs -10 0 $(get_window_id) && ~/local/cfg/wmutils/wshuf
 super + j
          ~/local/cfg/wmutils/focus next
 super + p

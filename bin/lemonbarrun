@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+
+echo "$@" | lemonbar -g $(( $(wattr w "$(lsw -r)") / 3 ))+5+10 -b -n float -F "#ebdbb2" -B "#32302f" -p
