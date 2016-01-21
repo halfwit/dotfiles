@@ -109,7 +109,7 @@ shadow-exclude = [
 #     "class_g ?= 'Cairo-dock'",
 #     "class_g ?= 'Xfce4-notifyd'",
 #     "class_g ?= 'Xfce4-power-manager'"
-# ];
+];
 # Avoid drawing shadow on all shaped windows (see also: --detect-rounded-corners)
 shadow-ignore-shaped = true;
 
