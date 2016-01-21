@@ -6,11 +6,6 @@ source "$XDG_CONFIG_HOME"/wmutils/size
 
 [[ ! $width && $heigh ]] && exit 1
 
-screen_dimensions() {
-   dispid=$(lsw -r)
-   printf '%s %s\n' "$(wattr w "$dispid")" "$(wattr h "$dispid")"
-}
-
 list_windows() {
    local wname
    while read -r id; do
