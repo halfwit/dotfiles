@@ -84,7 +84,7 @@ shorten_prompt() {
 
 
 PROMPT='${to_bottom}%F{${vimode}}%m%f $(shorten_prompt)%F{green}${branch} %f
- %F{cyan}‣%f '
+ %F{cyan}-%f '
 
 # Functions.
 
