@@ -15,7 +15,7 @@ list_windows() {
         *.pdf|*.epub|*.djvu|Zathura|NVIM|name\)|w3m)
             wname="$(wattr w "$id") $(( 2 + $(wattr h "$(lsw -r)") / 2 )) $(wattr w "$id") $(wattr h "$(lsw -r)") $id" ;;
          abduco)
-           wname="400 228 450 338 $id" ;;
+           wname="400 228 450 253 $id" ;;
          mpv)
            # We want our movies to take up as much space as they can!
            wname="$(wattr w "$id") $(wattr h "$id") $(wattr w "$(lsw -r)") $(wattr h "$(lsw -r)") $id" ;;
@@ -33,8 +33,7 @@ source "$XDG_CONFIG_HOME"/wmutils/size
 
 [[ ! $width && $heigh ]] && exit 1
 
-
 ## Main ##
-lsw | list_windows | ~/local/cfg/wmutils/bin_pack -x "$width" -y "$heigh" | while read -r x y w h wid; do
-   wtp "$x" "$y" "$w" "$h" "$wid"
+lsw | list_windows | ~/local/cfg/wmutils/bin_pack -x "$width" -y "$heigh" -g 5 | while read -r x y w h wid; do
+  wtp "$x" "$y" "$w" "$h" "$wid"
 done
