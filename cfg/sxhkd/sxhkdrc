@@ -21,6 +21,30 @@ super + j
 super + p
          ~/local/cfg/wmutils/focus prev
 super + i 
-         killw $(pfw)
+         killw $(get_window_id)
 super + v
          testy
+super + shift + 1
+         ~/local/cfg/wmutils/groups -s $(get_window_id) 1
+super + 1
+         ~/local/cfg/wmutils/groups -t 1
+super + shift + 2
+        ~/local/cfg/wmutils/groups -s $(get_window_id) 2
+super + 2
+         ~/local/cfg/wmutils/groups -t 2
+super + shift + 3
+         ~/local/cfg/wmutils/groups -s $(get_window_id) 3
+super + 3
+         ~/local/cfg/wmutils/groups -t 3
+super + shift + 4
+         ~/local/cfg/wmutils/groups -s $(get_window_id) 4
+super + 4
+         ~/local/cfg/wmutils/groups -t 4
+super + shift + 5
+         ~/local/cfg/wmutils/groups -s $(get_window_id) 5
+super + 5
+         ~/local/cfg/wmutils/groups -t 5
+super + shift + 6
+         ~/local/cfg/wmutils/groups -s $(get_window_id) 6
+super + 6
+         ~/local/cfg/wmutils/groups -t 6
