@@ -11,7 +11,7 @@ super + k
 super + period
          xcmenuctrl
 @F11
-         ~/local/cfg/wmutils/fullscreen $(pfw)
+         ~/local/cfg/wmutils/fullscreen $(get_window_id)
 super + shift + p
          wrs 10 0 $(get_window_id) && ~/local/cfg/wmutils/wshuf
 super + shift + j
