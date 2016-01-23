@@ -32,8 +32,7 @@ else
     # if not, then put the current window in fullscreen mode, after saving its
     # geometry and id to $FSFILE we also remove any border from this window.
     # Fixed here, since xembed is a fuck.
-    printf '%s %s' "$(wattr xywh "$1")" "$(get_window_id "$1")" > "$FSFILE"
-    
+    printf '%s %s' "$(wattr xywh "$1")" "$(get_window_id "$1")" > "$FSFILE"    
     wtp $(wattr xywh `lsw -r`) $1
 fi
 

@@ -4,10 +4,19 @@
 # focus a window when it is created
 # depends on: wew focus.sh
 
+shuffle() {
+  if ! xwininfo -id "$1" | grep mpv; then
+    ~/local/cfg/wmutils/wshuf;
+    ~/local/cfg/wmutils/focus "$2"
+  fi
+}
+
 wew | while IFS=: read ev wid; do
     case $ev in
         # occurs on mapping requests
-        16|17|18|19) if ! xwininfo -id "$wid" | grep mpv; then 
-        ~/local/cfg/wmutils/wshuf; fi ;;
+        17)     ~/local/cfg/wmutils/groups -c "$wid"   
+                shuffle "$wid" "next"                  ;;
+        18)     shuffle "$wid" "next"                  ;;
+        16|19)  shuffle "$wid" "$wid"                  ;;
     esac
 done

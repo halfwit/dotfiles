@@ -1,4 +1,29 @@
 #!/usr/bin/env bash
 
+# Go through files
+WINDIR=${WINDIR:-/tmp/groups}
+# Number of groups
+panels=6
 
-echo "$@" | lemonbar -g $(( $(wattr w "$(lsw -r)") / 3 ))+5+10 -b -n float -F "#ebdbb2" -B "#32302f" -p
+
+run_loop() {
+  cd $WINDIR 
+  local -a items
+  local result
+  for (( i = 1; i <= $panels; i++ )); do
+    if grep "$i" active >/dev/null; then
+      item[$i]="●"
+    elif grep "$i" inactive >/dev/null; then
+      item[$i]="◉"
+    else
+      item[$i]="○"
+    fi
+    result+=${item["$i"]}
+  done
+  printf '%s\n' "$result"
+}
+
+while true; do
+  run_loop
+  sleep 1
+done

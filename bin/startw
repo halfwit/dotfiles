@@ -7,6 +7,7 @@ export GDK_BACKEND=wayland
 export QT_QPA_PLATFORM=wayland-egl
 export SDL_VIDEODRIVER=wayland
 export ELM_ENGINE=wayland_egl
+export WLC_DIM=0
 
 [[ ! "$1" ]] && exec orbment --log ~/orbment.log
 
