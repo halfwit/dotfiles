@@ -25,6 +25,7 @@ if [[ -s $optsfile ]]; then
     source "$optsfile"
 fi
 result=$(create_menu "$@" )
+
 if [[ "$result" ]]; then
     plumber "$result"
 fi

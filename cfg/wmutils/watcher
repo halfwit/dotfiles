@@ -6,7 +6,7 @@
 
 shuffle() {
   if ! xwininfo -id "$1" | grep mpv; then
-    ~/local/cfg/wmutils/wshuf;
+    ~/local/cfg/wmutils/wshuf
     ~/local/cfg/wmutils/focus "$2"
   fi
 }

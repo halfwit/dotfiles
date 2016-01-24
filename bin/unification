@@ -12,20 +12,21 @@ get_selection() {
 
 handle_result() {
   mime=$(file -biL "$1")
-  case $mime in
+  [[ $mime ]] && case $mime in
     text*)
-      nvim-run "$1" ;;
+      exec nvim-run "$1" ;;
     *pdf*|*epub*|*djvu*)
-      zathura "$1"  ;;
+      exec zathura "$1"  ;;
     image*)
-      sxiv "$1"     ;;
+      exec sxiv "$1"     ;;
     video*)
-      mpv "$1"      ;;
+      exec mpv "$1"      ;;
+    zsh*) notify-send "This isn't a file $1" ;;
     *)
-      nvim-run ~/local/bin/unification
       notify-send "Fix mime handling for $mime with $1"
+      exec nvim-run ~/local/bin/unification
   esac
-
+  notify-send "This isn't a file $1"
 }
 
 ## Main ##

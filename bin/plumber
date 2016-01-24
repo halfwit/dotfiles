@@ -10,6 +10,8 @@ case "$1" in
     *youtu.be*)            mpvcmd "$1"                         ;;
     *twitch*)              mpvcmd "$1"                         ;;
     *.mkv|*.mp4|*.webm)    mpvcmd "$1"                         ;;
+    *.jpg|*.gif|*.mpg|*.png) curl -s "$1" > /tmp/image
+                           sxiv /tmp/image                     ;;
     http*)                 vimb-run "$1"                       ;;
     *)                     notify-send "handle $1 plumber"
                            nvim-run ~/local/bin/plumber        ;;
