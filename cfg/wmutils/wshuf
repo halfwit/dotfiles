@@ -15,8 +15,10 @@ list_windows() {
         *.pdf|*.epub|*.djvu|*.book|zathura|NVIM|name\)|w3m)
           wname="$(wattr w "$id") $(( heigh / 2 )) $(wattr w "$id") $(( heigh - gaps )) $id" ;;
          abduco|mpv)
-           wname="400 228 450 257 $id" ;;
-          float) break ;;
+           wname="399 228 450 256 $id" ;;
+         mutt|newsbeuter)
+           wname="400 230 450 600 $id" ;;
+         float|vimb) break ;;
          *)
            wname="400 228 450 257 $id" ;;
       esac  
@@ -25,6 +27,6 @@ list_windows() {
 }
 
 ## Main ##
-lsw | list_windows | ~/local/cfg/wmutils/bin_pack -x "$width" -y "$heigh" -g "$gaps" | while read -r x y w h wid; do
+lsw | list_windows | ~/local/cfg/wmutils/binpack -x "$width" -y "$heigh" -g "$gaps" | while read -r x y w h wid; do
   wtp "$x" "$y" "$w" "$h" "$wid"
 done

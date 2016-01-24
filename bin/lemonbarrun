@@ -7,23 +7,21 @@ panels=6
 
 
 run_loop() {
-  cd $WINDIR 
-  local -a items
-  local result
-  for (( i = 1; i <= $panels; i++ )); do
-    if grep "$i" active >/dev/null; then
-      item[$i]="●"
-    elif grep "$i" inactive >/dev/null; then
-      item[$i]="◉"
-    else
-      item[$i]="○"
-    fi
-    result+=${item["$i"]}
+  while read _; do
+    cd $WINDIR 
+    local -a items
+    local result
+    for (( i = 1; i <= $panels; i++ )); do
+      if grep "$i" active >/dev/null; then
+        item[$i]="●"
+      elif grep "$i" inactive >/dev/null; then
+       item[$i]="◉"
+      else
+        item[$i]="○"
+      fi
+      result+=${item["$i"]}
+    done
+    printf '%s\n' "$result"
   done
-  printf '%s\n' "$result"
 }
-
-while true; do
-  run_loop
-  sleep 1
-done
+wendy -m 2 -f /tmp/groups/ -e echo "run" | "$(run_loop)"

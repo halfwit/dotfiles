@@ -10,8 +10,25 @@ get_selection() {
   find ~/ -print | bemenu -l 10 "${opts[@]}" -p "Edit"
 }
 
-# Main
+handle_result() {
+  mime=$(file -biL "$1")
+  case $mime in
+    text*)
+      nvim-run "$1" ;;
+    *pdf*|*epub*|*djvu*)
+      zathura "$1"  ;;
+    image*)
+      sxiv "$1"     ;;
+    video*)
+      mpv "$1"      ;;
+    *)
+      nvim-run ~/local/bin/unification
+      notify-send "Fix mime handling for $mime with $1"
+  esac
 
+}
+
+## Main ##
 # https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
 if [[ -s $confdir/dmenu/font ]]; then
     read -r font < "$confdir"/dmenu/font
@@ -25,8 +42,12 @@ if [[ -s $optsfile ]]; then
     source "$optsfile"
 fi
 
-result=$(get_selection)
+if [[ $1 ]]; then
+  result="$(pwd)/$1"
+else
+  result=$(get_selection)
+fi
 
 if [[ $result ]]; then
-    nvim-run "$result"
+    handle_result "$result"
 fi
