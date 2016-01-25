@@ -85,12 +85,10 @@ process_selection() { # global token
             err '%s: Cannot find video.' "$title"
             exit 1
 	    fi
-        if [[ ! -e /tmp/mpvsocket ]]; then
-            touch /tmp/mpvsocket
-        fi
         rm /tmp/*.jpg
-        mpv https://www.youtube.com/watch?v="$url" --input-unix-socket=/tmp/mpvsocket --keepaspect-window 
+        exec mpv-run "https://youtube.com/watch?v=$url"
 	done
+  
 }
 
 get_options() {

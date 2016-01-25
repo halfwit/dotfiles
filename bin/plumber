@@ -1,18 +1,15 @@
 #!/usr/bin/env bash
-mpvcmd() {
-   mpv --input-unix-socket=/tmp/socket --keepaspect-window "$1"
-}
 
 case "$1" in
-    *youtube.com/watch*)   mpvcmd "$1"                         ;;
+    *youtube.com/watch*)   mpv-run "$1"                     ;;
     *.pdf|*.djvu|*.epub)   curl -s "$1" > /tmp/tmp.book 
-                           zathura /tmp/tmp.book               ;;
-    *youtu.be*)            mpvcmd "$1"                         ;;
-    *twitch*)              mpvcmd "$1"                         ;;
-    *.mkv|*.mp4|*.webm)    mpvcmd "$1"                         ;;
+                           zathura /tmp/tmp.book            ;;
+    *youtu.be*)            mpv-run "$1"                     ;;
+    *twitch*)              mpv-run "$1"                     ;;
+    *.mkv|*.mp4|*.webm)    mpv-run "$1"                     ;;
     *.jpg|*.gif|*.mpg|*.png) curl -s "$1" > /tmp/image
-                           sxiv /tmp/image                     ;;
-    http*)                 vimb-run "$1"                       ;;
+                           sxiv /tmp/image                  ;;
+    http*)                 vimb-run "$1"                    ;;
     *)                     notify-send "handle $1 plumber"
-                           nvim-run ~/local/bin/plumber        ;;
+                           nvim-run ~/local/bin/plumber     ;;
 esac

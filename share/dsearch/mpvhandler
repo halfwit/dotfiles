@@ -36,4 +36,4 @@ result=$(get_selection "$1")
 
 result=$(get_position "$1" "$result")
 
-mpv "$datadir/mpv/$1" --playlist-pos="$result" --input-file=/tmp/socket --keepaspect-window 
+mpv "$datadir/mpv/$1" --playlist-pos="$result" --input-unix-socket=/tmp/mpvsocket --keepaspect-window 
