@@ -5,7 +5,7 @@
 # depends on: wew focus.sh
 
 shuffle() {
-  if ! xwininfo -id "$1" | grep mpv; then
+  if ! xwininfo -id "$1" | grep dunst; then
     ~/local/cfg/wmutils/wshuf
     ~/local/cfg/wmutils/focus "$2"
   fi
