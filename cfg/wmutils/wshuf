@@ -12,13 +12,15 @@ list_windows() {
       wname=$(xwininfo -id "$id" | awk '/Window id:/{print $NF}')
       [[ ! $wname ]] && break
       case ${wname//\"/} in
+        vimb)
+          mapw -u "$id"                ;;
         *.pdf|*.epub|*.djvu|*.book|zathura|NVIM|name\)|w3m)
           wname="$(wattr w "$id") $(( heigh / 2 )) $(wattr w "$id") $(( heigh - gaps )) $id" ;;
          abduco|mpv)
            wname="400 225 450 245 $id" ;;
          mutt|newsbeuter)
            wname="420 230 450 600 $id" ;;
-         float|vimb) break ;;
+         float) break ;;
          *)
            wname="420 228 450 245 $id" ;;
       esac  
