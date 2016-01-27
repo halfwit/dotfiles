@@ -5,8 +5,10 @@
 # depends on: wew focus.sh
 
 shuffle() {
-  ~/local/cfg/wmutils/wshuf
-  ~/local/cfg/wmutils/focus "$2"
+  if ! xwininfo -id "$1" | grep dunst; then
+    ~/local/cfg/wmutils/wshuf
+    ~/local/cfg/wmutils/focus "$2"
+  fi
 }
 
 wew | while IFS=: read ev wid; do
