@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
 case "$1" in
-    *youtube.com/watch*)   mpv-run "$1"                     ;;
-    *.pdf|*.djvu|*.epub)   curl -s "$1" > /tmp/tmp.book 
-                           zathura /tmp/tmp.book            ;;
-    *youtu.be*)            mpv-run "$1"                     ;;
-    *twitch*)              mpv-run "$1"                     ;;
-    *.mkv|*.mp4|*.webm)    mpv-run "$1"                     ;;
-    *.jpg|*.gif|*.mpg|*.png) curl -s "$1" > /tmp/image
-                           sxiv /tmp/image                  ;;
-    http*)                 vimb-run "$1"                    ;;
-    *)                     notify-send "handle $1 plumber"
-                           nvim-run ~/local/bin/plumber     ;;
+    *youtube.com/watch*)      mpv-run "$1"                     ;;
+    *.pdf|*.djvu|*.epub)      curl -s "$1" > /tmp/tmp.book 
+                              zathura /tmp/tmp.book            ;;
+    *youtu.be*)               mpv-run "$1"                     ;;
+    *twitch*)                 mpv-run "$1"                     ;;
+    *.mkv|*.mp4|*.webm|*.mpg) mpv-run "$1"                     ;;
+    *.jpg|*.png|*.gif)        curl -s "$1" > /tmp/tmp.gif
+                              imv /tmp/tmp.gif                 ;;
+    http*)                    vimb-run "$1"                    ;;
+    *)                        notify-send "handle $1 plumber"
+                              nvim-run ~/local/bin/plumber     ;;
 esac

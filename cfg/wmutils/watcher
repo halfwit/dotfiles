@@ -10,13 +10,10 @@ shuffle() {
 }
 
 wew | while IFS=: read ev wid; do
-    case $ev in
-        # occurs on mapping requests
-        17)
-                ~/local/cfg/wmutils/groups -c "$wid"   ;;
-        18)
-                shuffle "$wid" "next"       ;;
-        19)
-                shuffle "$wid" "$wid"       ;;
-    esac
+  case $ev in
+    # occurs on mapping requests
+    17) ~/local/cfg/wmutils/groups -c "$wid"   ;;
+    18) shuffle "$wid" "next"                  ;;
+    19) shuffle "$wid" "$wid"                  ;;
+  esac
 done
