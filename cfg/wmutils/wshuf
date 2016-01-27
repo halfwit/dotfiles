@@ -15,12 +15,17 @@ list_windows() {
         *.pdf|*.epub|*.djvu|*.book|zathura|NVIM|name\)|w3m)
           wname="$(wattr w "$id") $(( heigh / 2 )) $(wattr w "$id") $(( heigh - gaps )) $id" ;;
          abduco|mpv)
-           wname="400 228 450 256 $id" ;;
+           wname="400 225 450 245 $id" ;;
          mutt|newsbeuter)
+<<<<<<< HEAD
            wname="400 230 450 600 $id" ;;
          float|vimb|Steam) break ;;
+=======
+           wname="420 230 450 600 $id" ;;
+         float|vimb) break ;;
+>>>>>>> c98a542ebf97d0297e9587038f7b1aa06da6d178
          *)
-           wname="400 228 450 257 $id" ;;
+           wname="420 228 450 245 $id" ;;
       esac  
       printf '%s\n' "$wname"
    done

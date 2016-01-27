@@ -5,18 +5,22 @@
 # depends on: wew focus.sh
 
 shuffle() {
+<<<<<<< HEAD
   if ! xwininfo -id "$1" | grep dunst; then
     ~/local/cfg/wmutils/wshuf
     ~/local/cfg/wmutils/focus "$2"
   fi
+=======
+  ~/local/cfg/wmutils/wshuf
+  ~/local/cfg/wmutils/focus "$2"
+>>>>>>> c98a542ebf97d0297e9587038f7b1aa06da6d178
 }
 
 wew | while IFS=: read ev wid; do
-    case $ev in
-        # occurs on mapping requests
-        17)     ~/local/cfg/wmutils/groups -c "$wid"   
-                shuffle "$wid" "next"                  ;;
-        18)     shuffle "$wid" "next"                  ;;
-        16|19)  shuffle "$wid" "$wid"                  ;;
-    esac
+  case $ev in
+    # occurs on mapping requests
+    17) ~/local/cfg/wmutils/groups -c "$wid"   ;;
+    18) shuffle "$wid" "next"                  ;;
+    19) shuffle "$wid" "$wid"                  ;;
+  esac
 done
