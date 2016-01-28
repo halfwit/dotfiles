@@ -32,19 +32,14 @@ FSDIR=${FSDIR:-/tmp/groups}
 # clean WID ($1) from group files
 clean_wid() {
     # TODO: make POSIX compatible, -i is a GNU-ism
-    for i in $FSDIR/group.*; do
-      sed -e "/$1/d" $FSDIR/group.$i > $FSDIR/group.bak
-      mv -- $FSDIR/group.bak $FSDIR/group.$i
-    done
+    sed -i -e "/$1/d" $FSDIR/group.*
 }
 
 # cleans group ($1) from (in)active files
 clean_status() {
     # TODO: make POSIX compatible, -i is a GNU-ism
-    sed -e "/$1/d" $FSDIR/active > $FSDIR/active.bak
-    mv -- $FSDIR/active.bak $FSDIR/active
-    sed -e "/$1/d" $FSDIR/inactive > $FSDIR/inactive.bak
-    mv -- $FSDIR/inactive.bak $FSDIR/inactive
+    sed -i -e "/$1/d" $FSDIR/active
+    sed -i -e "/$1/d" $FSDIR/inactive
 }
 
 # shows all the windows in group ($1)
@@ -151,8 +146,7 @@ cleanup_everything() {
     while read line; do
         if [ ! -f $FSDIR/group.$line ]; then
             # TODO: make POSIX compatible, -i is a GNU-ism
-            sed -e "/$line/d" $FSDIR/all > $FSDIR/all.bak
-            mv -- $FSDIR/all.bak $FSDIR/all
+            sed -i -e "/$line/d" $FSDIR/all
             clean_status $line
         fi
     done < $FSDIR/all

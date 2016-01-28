@@ -13,7 +13,7 @@ run_loop() {
     if grep "$i" active >/dev/null; then
       item[$i]="◉"
     elif grep "$i" inactive >/dev/null; then
-      item[$i]="○"
+      item[$i]="◍"
     else
       item[$i]="◌"
     fi
@@ -21,6 +21,7 @@ run_loop() {
   done
   printf '%s\n' "—${result[@]}—"
 }
+
 wendy -m 2 -f /tmp/groups/ -v | while read item; do
   case $item in
     *active)
@@ -29,3 +30,8 @@ wendy -m 2 -f /tmp/groups/ -v | while read item; do
       run_loop  ;;
   esac
 done | lemonbar -d -b -f "DejaVu Sans" -g +$(( -60 + $(wattr w "$(lsw -r)") / 2)) &
+
+while :; do
+  printf '%s\n' "$(date +'%b %d %H:%M')"
+  sleep 60
+done | lemonbar -d -b -f "DejaVu Mono" -g +4 &
