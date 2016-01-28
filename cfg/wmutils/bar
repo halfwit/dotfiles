@@ -21,7 +21,7 @@ run_loop() {
   done
   printf '%s\n' "—${result[@]}—"
 }
-wendy -m 8 -f /tmp/groups/ -v | while read item; do
+wendy -m 2 -f /tmp/groups/ -v | while read item; do
   case $item in
     *active)
       run_loop  ;;
