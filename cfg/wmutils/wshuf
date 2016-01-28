@@ -20,7 +20,7 @@ list_windows() {
            wname="400 225 450 245 $id" ;;
          mutt|newsbeuter)
            wname="420 230 450 600 $id" ;;
-         float|vimb|Steam) break ;;
+         float|vimb|Steam|bar) break ;;
          *)
            wname="420 228 450 245 $id" ;;
       esac  

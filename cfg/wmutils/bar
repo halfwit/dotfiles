@@ -5,22 +5,27 @@ WINDIR=${WINDIR:-/tmp/groups}
 # Number of groups
 panels=6
 
-
 run_loop() {
   cd $WINDIR 
   local -a items
   local result
   for (( i = 1; i <= $panels; i++ )); do
     if grep "$i" active >/dev/null; then
-      item[$i]="●"
+      item[$i]="◉"
     elif grep "$i" inactive >/dev/null; then
-     item[$i]="◉"
-    else
       item[$i]="○"
+    else
+      item[$i]="◌"
     fi
     result+=${item["$i"]}
   done
-  printf '%s\n' "${result[@]}"
+  printf '%s\n' "—${result[@]}—"
 }
-
-run_loop
+wendy -m 8 -f /tmp/groups/ -v | while read item; do
+  case $item in
+    *active)
+      run_loop  ;;
+    *inactive)  
+      run_loop  ;;
+  esac
+done | lemonbar -d -b -f "DejaVu Sans" -g +$(( -60 + $(wattr w "$(lsw -r)") / 2)) &

@@ -4,7 +4,7 @@ readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
 readonly optsfile=$confdir/dmenu/bemenucolors
 
 handle_result() {
-   local width num
+   local width
    # Coloration, and match width
    width=$(tput cols)
    [[ $width -gt $MANWIDTH ]] && width="$MANWIDTH"

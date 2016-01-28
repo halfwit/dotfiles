@@ -2,8 +2,10 @@
 
 sxhkd &
 dunst &
+compton &
 colortempd -t 4000
 unclutter -grab -idle 1 &
+~/local/cfg/wmutils/bar & 
 ~/local/cfg/wmutils/watcher &
 feh --bg-scale ~/media/backgrounds/$(( $(( RANDOM % $(find ~/media/backgrounds | wc -l) )) + 1 )).png --no-fehbg &
 exec swm
