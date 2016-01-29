@@ -7,11 +7,17 @@ case "$1" in
     *youtu.be*)               mpv-run "$1"                     ;;
     *twitch*)                 mpv-run "$1"                     ;;
     *.mkv|*.mp4|*.webm|*.mpg) mpv-run "$1"                     ;;
-    *.jpg|*.png|*.gif)        curl -s "$1" > /tmp/tmp.gif
+    *.jpg|*.png)              curl -s "$1" > /tmp/tmp.png
+                              imv /tmp/tmp.png                 ;; 
+    *.gif)        curl -s "$1" > /tmp/tmp.gif
                               imv /tmp/tmp.gif                 ;;
     *imgur*)                  curl -s http://i.imgur.com/"${1: -7}".png > /tmp/tmp.png
                               imv /tmp/tmp.png                 ;;
     http*)                    vimb-run "$1"                    ;;
-    *)                        notify-send "handle $1 plumber"
-                              nvim-run ~/local/bin/plumber     ;;
+    *)  
+      if grep "$1" <<< $(apropos .); then
+        exec "$XDG_DATA_HOME"/dsearch/manualhandler "$1" 
+      else
+        vimb-run "!g $1"
+      fi                                                       ;;
 esac

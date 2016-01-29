@@ -21,7 +21,7 @@ super + j
 super + p
          ~/local/cfg/wmutils/focus prev
 super + i 
-         killw $(get_window_id)
+         ~/local/cfg/wmutils/groups -c $(get_window_id) && killw $(get_window_id)
 super + v
          testy
 super + shift + 1

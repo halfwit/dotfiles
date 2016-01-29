@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
+readonly datadir=${XDG_DATA_HOME:-$HOME/local/share}
+readonly optsfile="${XDG_CONFIG_HOME:-$HOME/local/cfg}"/dmenu/bemenucolors
+
+get_results() {
+  while read -r line; do
+    printf '%s\n' "$line"
+  done | sed 's/\s/\n/g' | bemenu -l 10 "${opts[@]}" -p word
+}
+
+
+# Main
+# https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
+
+if [[ -s $confdir/dmenu/font ]]; then
+    read -r font < "$confdir"/dmenu/font
+fi
+
+if [[ $font ]]; then
+    opts+=(-fn "$font")
+fi
+
+if [[ -s $optsfile ]]; then
+    source "$optsfile"
+fi
+
+result="$(get_results "$@")"
+
+plumber "$result"
