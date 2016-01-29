@@ -14,10 +14,15 @@ case "$1" in
     *imgur*)                  curl -s http://i.imgur.com/"${1: -7}".png > /tmp/tmp.png
                               imv /tmp/tmp.png                 ;;
     http*)                    vimb-run "$1"                    ;;
-    *)  
-      if grep "$1" <<< $(apropos .); then
-        exec "$XDG_DATA_HOME"/dsearch/manualhandler "$1" 
+    *\(*\)*)  
+      if grep "${1%*\(*}" <<< "$(apropos .)"; then
+        exec "$XDG_DATA_HOME"/dsearch/manualhandler "${1%\(*}" 
+      elif grep "$1" <<< "$(apropos .)"; then
+        exec "$XDG_DATA_HOME"/dsearch/manualhandler "$1"
       else
         vimb-run "!g $1"
       fi                                                       ;;
+    *)
+      notify-send "Handle case $1"
+      nvim-run ~/local/bin/plumber                             ;;
 esac
