@@ -6,14 +6,14 @@ case "$1" in
                               exec zathura /tmp/tmp.book       ;;
     *youtu.be*)               exec mpv-run "$1"                ;;
     *twitch*)                 exec mpv-run "$1"                ;;
-    *.mkv|*.mp4|*.webm|*.mpg) exec mpv-run "$1"                ;;
+    *.mkv|*.mp4|*.webm|*.mpg|*.ogg) exec mpv-run "$1"                ;;
     *.jpg*)              curl -s "$1" > /tmp/tmp.jpg
                               exec imv /tmp/tmp.jpg            ;; 
     *.png*)              curl -s "$1" > /tmp/tmp.png
                               exec imv /tmp/tmp.png            ;;
     *.jpeg*)             curl -s "$1" > /tmp/tmp.jpeg
                               exec imv /tmp/tmp.jpeg           ;;
-    *.gif)        curl -s "$1" > /tmp/tmp.png
+    *.gif)        curl -s "$1" > /tmp/tmp.gif
                               exec imv /tmp/tmp.gif            ;;
     *imgur*)                  curl -s http://i.imgur.com/"${1: -7}".png > /tmp/tmp.png
                               exec imv /tmp/tmp.png            ;;
