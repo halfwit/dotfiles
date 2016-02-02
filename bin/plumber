@@ -1,32 +1,29 @@
 #!/usr/bin/env bash
 
 case "$1" in
-    *youtube.com/watch*)      exec mpv-run "$1"                ;;
-    *.pdf|*.djvu|*.epub)      curl -s "$1" > /tmp/tmp.book
-                              exec zathura /tmp/tmp.book       ;;
-    *youtu.be*)               exec mpv-run "$1"                ;;
-    *twitch*)                 exec mpv-run "$1"                ;;
+    *youtube.com/watch*)            exec mpv-run "$1"                ;;
+    *.pdf|*.djvu|*.epub)            curl -s "$1" > /tmp/tmp.book
+                                    exec zathura /tmp/tmp.book       ;;
+    *youtu.be*)                     exec mpv-run "$1"                ;;
+    *twitch*)                       exec mpv-run "$1"                ;;
     *.mkv|*.mp4|*.webm|*.mpg|*.ogg) exec mpv-run "$1"                ;;
-    *.jpg*)              curl -s "$1" > /tmp/tmp.jpg
-                              exec imv /tmp/tmp.jpg            ;; 
-    *.png*)              curl -s "$1" > /tmp/tmp.png
-                              exec imv /tmp/tmp.png            ;;
-    *.jpeg*)             curl -s "$1" > /tmp/tmp.jpeg
-                              exec imv /tmp/tmp.jpeg           ;;
-    *.gif)        curl -s "$1" > /tmp/tmp.gif
-                              exec imv /tmp/tmp.gif            ;;
-    *imgur*)                  curl -s http://i.imgur.com/"${1: -7}".png > /tmp/tmp.png
-                              exec imv /tmp/tmp.png            ;;
-    http*)                    exec vimb-run "$1"               ;;
+    *.gifv)                         exec mpv-run "${1::-4}webm"      ;;
+    *.jpg*|*.png|*.jpeg|*.gif)      curl -s "$1" | imv -             ;;
+    *.tar*)                         cd /tmp || exit 0
+                                    curl -s "$1" | tar -xvz
+                                    exec st                          ;;
+    *xkcd*)                         curl -s "$1" | grep hotlink | awk '{ print $NF }' | xargs curl | imv - ;;
+    *imgur*)                        curl -s http://i.imgur.com/"${1: -7}".png | imv - ;;
+    http*)                          exec vimb-run "$1"               ;;
     *\(*)  
       if grep "${1%*\(*}" <<< "$(apropos .)"; then
         exec "$XDG_DATA_HOME"/dsearch/manualhandler "${1%\(*}" 
       else
         exec vimb-run "!g $1"
-      fi                                                       ;;
+      fi                                                             ;;
     *)
     if grep "$1" <<< "$(apropos .)"; then
         exec "$XDG_DATA_HOME"/dsearch/manualhandler "$1"
     fi
-    exec vimb-run "!g $1"                                              ;;
+    exec vimb-run "!g $1"                                            ;;
 esac
