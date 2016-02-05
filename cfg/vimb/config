@@ -11,7 +11,7 @@ set monofont=DejaVu Sans Mono 9.5
 set sansfont=DejaVu Sans 9.5
 set seriffont=DejaVu Serif 9.5
 
-set hintkeys=asdfghjkl
+set hintkeys=aoeuhtns
 set home-page=https://www.google.com
 
 set completion-bg-active=#7c6f64
@@ -43,5 +43,3 @@ set auto-shrink-images=true
 set caret=true
 
 set x-hint-command=:sh! ~/local/bin/plumber <C-R>; <CR>
-aug downloads
-   autocmd LoadCommited * set download-use-external=false|set download-c

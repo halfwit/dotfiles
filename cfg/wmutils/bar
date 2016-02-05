@@ -34,6 +34,7 @@ wendy -m 2 -f /tmp/groups/ -v | while read item; do
 done | lemonbar -d -b -f "DejaVu Sans" -g +$(( -60 + $(wattr w "$(lsw -r)") / 2)) &
 
 while :; do
-  printf '%s\n' "$(date +'%b %d %H:%M')"
+  read -r level < /sys/class/power_supply/BAT0/capacity
+  printf '%s %s %s\n' "$(date +'%b %d %H:%M')" "-" "$level%"
   sleep 60
 done | lemonbar -d -b -f "DejaVu Mono" -g +4 &
