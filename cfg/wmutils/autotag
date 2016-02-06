@@ -8,7 +8,7 @@ wname=$(xwininfo -id "$1" | awk '/Window id:/{print $NF}')
 
 case ${wname//\"/} in
   mpv)                        groups "$1" 1 ;;
-  w3m|name\))                 groups "$1" 2 ;;
+  w3m)                 groups "$1" 2 ;;
   NVIM)                       groups "$1" 3 ;;
   mutt|newsbeuter)            groups "$1" 4 ;;
   zathura)                    groups "$1" 6 ;;
