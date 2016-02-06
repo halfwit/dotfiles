@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+if ! pgrep xcmenu; then
+  xcmenu &
+fi
+
+maim --format png /dev/stdout | pbpst -S -e png -x 600 | xcmenu -ic
+wait
+notify-send "Screenshot taken"

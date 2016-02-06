@@ -7,7 +7,7 @@ case "$1" in
       exec mpv-run "$1"                ;;
     *.pdf|*.djvu|*.epub)            
       curl -s "$1" > /tmp/tmp.book
-      exec zathura /tmp/tmp.book       ;;
+      exec tzathura /tmp/tmp.book       ;;
     *youtu.be*)                     
       exec mpv-run "$1"                ;;
     *twitch*)                       

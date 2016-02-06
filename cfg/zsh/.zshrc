@@ -227,7 +227,6 @@ alias chmod='chmod -c --preserve-root'
 alias chown='chown -c --preserve-root'
 alias chgrp='chgrp -c --preserve-root'
 
-alias pb='pbpst -S'
 alias sysupdate="sudo snp pacman -Syu && builder"
 alias ls='ls --color=auto --group-directories-first -AhXF'
 alias ll='ls --color=auto --group-directories-first -AlhXF'
@@ -236,7 +235,6 @@ alias ll='ls --color=auto --group-directories-first -AlhXF'
 alias dmesg='dmesg -exL'
 alias i="curl -F 'f:1=<-' ix.io"
 alias s="curl -F 'sprunge=<-' sprunge.us"
-alias sshot="maim -s --format png /dev/stdout | pb -S -e png -m"
 
 # Nvim socket for msgpack
 alias nvim="NVIM_LISTEN_ADDRESS=/tmp/nvimsocket /usr/bin/nvim"
