@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
+
 if ! pgrep xcmenu; then
-  xcmenu &
+  xcmenu --daemon &
 fi
 
-maim --format png /dev/stdout | pbpst -S -e png -x 600 | xcmenu -ic
-wait
-notify-send "Screenshot taken"
+maim -d 1 --format png /dev/stdout | pbpst -S -e png -x 600 | xcmenu -ic
+
+curl -s $(xcmenu --get 0) | exec imv -

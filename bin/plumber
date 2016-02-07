@@ -1,5 +1,22 @@
 #!/usr/bin/env bash
 
+if [[ -f "$1" ]]; then
+  mime=$(file -biL "$1")
+  [[ $mime ]] && case $mime in
+    text*)
+      exec nvim-run "$1" ;;
+    *pdf*|*epub*|*djvu*)
+      exec tzathura "$1" ;;
+    image*)
+      exec imv "$1"      ;;
+    video*)
+      exec mpv "$1"      ;;
+    *)
+      notify-send "Error with $1"
+      exec nvim-run ~/local/bin/plumber ;;
+  esac
+fi
+
 printf '%s' "$1" | xcmenu -ic
 
 case "$1" in
@@ -22,8 +39,8 @@ case "$1" in
       cd /tmp || exit 0
       curl -s "$1" | tar -xvz
       exec st                          ;;
-    *xkcd*)                         
-      curl -s "$1" | awk '/hotlink/{ print $NF }' | xargs - curl |imv - ;;
+    *xkcd*)
+      curl -s "https://xkcd.com/${1//[^0-9]/}/" | awk '/hotlink/{ print $NF }' | xargs curl |imv - ;;
     *imgur*)                        
       curl -s http://i.imgur.com/"${1: -7}".png | exec imv - ;;
     http*)                          
