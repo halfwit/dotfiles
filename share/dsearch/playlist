@@ -8,7 +8,7 @@ readonly optsfile="${XDG_CONFIG_HOME:-$HOME/local/cfg}"/dmenu/dmenucolors
 readonly TMPDIR="${TMPDIR:-/tmp}"
 
 # Number of results to fetch
-readonly lines=20
+readonly lines=50
 
 has() { # string -> bool
     hash "$1" &> /dev/null
@@ -119,4 +119,3 @@ results="$(get_selection)"
 if [[ "$results" ]]; then
     process_selection <<< "$results"
 fi
-

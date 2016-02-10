@@ -2,36 +2,11 @@
 # Google Books search handler
 
 readonly progn=gbookhandler
+readonly confdir="$XDG_CONFIG_HOME"
+readonly optsfile="$confdir"/dmenu/bemenucolors
 
 # For Json
 readonly TMPDIR="${TMPDIR:-/tmp}"
-
-# Number of results to fetch
-readonly lines=10
-
-readonly dmenu_opts=(
-    -i -p 'Read book'
-    -l $lines
-)
-
-has() { # string -> bool
-        hash "$1" &> /dev/null
-}
-
-puts() { # strings -> stdout
-	printf -- "$1\n" "${@:2}"
-}
-
-err() { # strings -> stderr
-	local msg
-
-	puts "$progn: $@" >&2
-        
-	if has notify-send; then
-		msg="$(puts "$@")"
-		notify-send -u critical -- "$progn" "$msg"
-	fi
-}
 
 fetch_json() {	
    curl -s "https://www.googleapis.com/books/v1/volumes?q=${@// /%20}&maxResults=40&orderBy=relevance" > $TMPDIR/gbook.json
@@ -46,24 +21,24 @@ create_menu() {
 	local key
 	for key in "${!menu[@]}"; do
 	        # iterate through keys
-		puts '%s' "$key" 		
+		printf '%s' "$key" 		
 	done
 }
 
 get_selection() {
 
-	create_menu | dmenu "${dmenu_opts[@]}"
+	create_menu | bemenu -l 10 "${opts[@]}" -p "Select book"
 }
 
 populate_info() { # title pagecount isbn # isbn #
-    while {
-        read -r title
-	read -r authors
-	read -r infolink
+  while {
+    read -r title
+	  read -r authors
+	  read -r infolink
 	} do
-	menu["$authors - $title"]=1
-	info["$authors - $title"]="${infolink//\\/}"
-    done
+	  menu["$authors - $title"]=1
+	  info["$authors - $title"]="${infolink//\\/}"
+  done
 }
 
 process_selection() { # global token
@@ -75,6 +50,18 @@ process_selection() { # global token
 # Main
 declare -A menu info
 
+if [[ -s $confdir/dmenu/font ]]; then
+  read -r font < "$confdir"/dmenu/font
+fi
+
+if [[ $font ]]; then
+  opts+=(-fn "$font")
+fi
+
+if [[ -s $optsfile ]]; then
+  source "$optsfile"
+fi
+
 fetch_json "$@" 
 
 populate_info < <(parse_info)
@@ -84,4 +71,3 @@ results="$(get_selection)"
 if [[ "$results" ]]; then
 	process_selection "$results"
 fi
-

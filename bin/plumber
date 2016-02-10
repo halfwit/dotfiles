@@ -55,5 +55,5 @@ case "$1" in
       if grep "$1" <<< "$(apropos .)"; then
         exec "$XDG_DATA_HOME"/dsearch/manualhandler "$1"
       fi
-      exec vimb-run "!g $1"            ;;
+      exec vimb-run "$1"            ;;
 esac

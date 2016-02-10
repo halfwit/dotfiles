@@ -1,10 +1,9 @@
-#!/usr/bin/env bash
+
 # Code search using bemenu (single string)
 # Requires bemenu, tree, neovim, and python
 
 readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
 readonly optsfile=$confdir/dmenu/bemenucolors
-readonly terminal=/usr/bin/termite
 
 # Whilelist of locations to search
 readonly locations=( ~/programming \
