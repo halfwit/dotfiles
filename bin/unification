@@ -4,31 +4,12 @@
 
 readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
 readonly optsfile=$confdir/dmenu/bemenucolors
-readonly TERMINAL=/usr/bin/st
 
 get_selection() {
   #find ~/ -print | dmenu -l 10 -p "Edit"
   find ~/ -print | bemenu -l 10 "${opts[@]}" -p "Edit"
 }
 
-handle_result() {
-  mime=$(file -biL "$1")
-  [[ $mime ]] && case $mime in
-    text*)
-      exec nvim-run "$1" ;;
-    *pdf*|*epub*|*djvu*)
-      exec zathura "$1"  ;;
-    image*)
-      exec sxiv "$1"     ;;
-    video*)
-      exec mpv "$1"      ;;
-    zsh*) notify-send "This isn't a file $1" ;;
-    *)
-      notify-send "Fix mime handling for $mime with $1"
-      exec nvim-run ~/local/bin/unification
-  esac
-  notify-send "This isn't a file $1"
-}
 
 ## Main ##
 # https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
@@ -51,5 +32,5 @@ else
 fi
 
 if [[ $result ]]; then
-    handle_result "$result"
+    plumber "$result"
 fi

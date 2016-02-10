@@ -2,6 +2,7 @@
 
 readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
 readonly optsfile=$confdir/dmenu/bemenucolors
+readonly termcmd="st -t float -e man"
 
 handle_result() {
    local width
@@ -17,7 +18,7 @@ handle_result() {
    LESS_TERMCAP_so=$'\E[38;5;246m' \
    LESS_TERMCAP_ue=$'\E[0m' \
    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
-   st -t float -e man $1
+   $termcmd $1
 }
 
 get_selection() {

@@ -14,7 +14,7 @@ shuffle() {
 wew -m 16 -m 32 -m 65536 | while IFS=: read ev wid; do
   case $ev in
     16) if ! xwininfo -d "$wid" | grep feh; then
-        ~/local/cfg/wmutils/autotag "$wid"; fi;;
+        ~/local/cfg/wmutils/autotag "$wid"; fi ;;
     17) ~/local/cfg/wmutils/groups -c "$wid"  ;;
     18) shuffle "$wid" "next"                 ;;
     19) shuffle "$wid" "$wid"                 ;;
