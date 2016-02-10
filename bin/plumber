@@ -25,7 +25,7 @@ case "$1" in
     *.pdf|*.djvu|*.epub)            
       curl -s "$1" > /tmp/tmp.book
       exec tzathura /tmp/tmp.book       ;;
-    *youtu.be*)                     
+    *youtu.be*|ytdl*)                     
       exec mpv-run "$1"                ;;
     *twitch*)                       
       exec mpv-run "$1"                ;;
