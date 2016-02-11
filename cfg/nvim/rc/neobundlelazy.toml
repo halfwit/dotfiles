@@ -42,3 +42,7 @@ on_ft = 'all'
 [[plugins]]
 repository = 'euclio/vim-markdown-composer'
 on_ft = ['mkd', 'markdown']
+
+[[plugins]]
+repository = 'amperser/proselint'
+on_ft = ['mkd', 'markdown']
