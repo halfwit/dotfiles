@@ -10,7 +10,7 @@ read -r KEY < "${XDG_DATA_HOME:-$HOME/local/share}"/youtube/key
 readonly TMPDIR="${TMPDIR:-/tmp}"
 
 # Number of results to fetch
-readonly lines=20
+readonly lines=50
 
 has() { # string -> bool
     hash "$1" &> /dev/null
