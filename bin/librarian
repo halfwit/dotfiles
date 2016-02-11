@@ -85,7 +85,7 @@ create_menu() {
 
 get_user_picks() {
     #global dmenu_opts
-    create_menu | sort | dmenu "${opts[@]}"
+    create_menu | sort -k2 | dmenu "${opts[@]}"
 }
 
 launch() {
