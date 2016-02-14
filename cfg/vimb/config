@@ -37,9 +37,7 @@ set status-font=DejaVu Sans Mono 9.5
 set status-ssl-font=DejaVu Sans Mono 9.5
 set status-sslinvalid-font=DejaVu Sans Mono 9.5
 
-set accelerated-compositing=true
 set auto-resize-window=true
 set auto-shrink-images=true
-set caret=true
 
 set x-hint-command=:sh! ~/local/bin/plumber <C-R>; <CR>

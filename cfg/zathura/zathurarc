@@ -33,6 +33,7 @@ set recolor-darkcolor           "#ebdbb2"
 set recolor-lightcolor          "#32302f"
 
 set recolor                     "true"
+set recolor-reverse-video       "true"
 
 map [normal]        j           scroll up
 map [fullscreen]    j           scroll up

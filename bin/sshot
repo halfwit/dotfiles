@@ -6,4 +6,4 @@ fi
 
 maim -d 1 --format png /dev/stdout | pbpst -S -e png -x 600 | xcmenu -ic
 
-curl -s $(xcmenu --get 0) | exec imv -
+#curl -s $(xcmenu --get 0) | exec imv -
