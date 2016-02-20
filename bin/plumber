@@ -40,7 +40,7 @@ case "$1" in
       curl -s "$1" | tar -xvz
       exec st                          ;;
     *xkcd*)
-      curl -s "https://xkcd.com/${1//[^0-9]/}/" | awk '/hotlink/{ print $NF }' | xargs curl |imv - ;;
+      curl -s "https://xkcd.com/${1//[^0-9]/}/" | awk '/hotlink/{ print $NF }' | xargs curl | exec imv - ;;
     *imgur*)                        
       curl -s http://i.imgur.com/"${1: -7}".png | exec imv - ;;
     http*)                          

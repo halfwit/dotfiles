@@ -8,5 +8,3 @@ function! BuildComposer(info)
     UpdateRemotePlugins
   endif
 endfunction
-
-autocmd! *.md BuildComposer

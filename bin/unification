@@ -32,5 +32,5 @@ else
 fi
 
 if [[ $result ]]; then
-    plumber "$result"
+    exec plumber "$result"
 fi
