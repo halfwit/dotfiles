@@ -46,5 +46,9 @@ export __GL_SHADER_DISK_CACHE_PATH=$XDG_CACHE_HOME/nv
 export GTK_IM_MODULE=xim
 export XAUTHORITY=$XDG_RUNTIME_DIR/x11/xauthority
 
+# WINE
+export WINEPREFIX=$XDG_DATA_HOME/wine/
+export WINEARCH=win64
+
 source <(dircolors $XDG_CONFIG_HOME/terminal-colors.d/ls.enable)
 source "$XDG_CONFIG_HOME"/privoxy/proxy

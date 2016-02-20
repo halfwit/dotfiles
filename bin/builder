@@ -29,12 +29,20 @@ err() {
 }
 
 get_options() {
+  while "$1"; do
     if [[ $1 == "f" ]]; then
         opts+=( -f )
+        shift
+    fi
+    if [[ $1 == "C" ]]; then
+        opts+=( -C )
+        shift
     fi
     if [[ $1 == "g" ]]; then
         opts+=( -g )
+        shift
     fi
+  done
 }
 
 # Enter each dir and build
@@ -66,6 +74,9 @@ update_repo() {
 }
 
 ## Main ##
+
+cower -uddf
+
 # Check for command line arguments
 get_options "$@"
 
