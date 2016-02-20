@@ -6,41 +6,35 @@ function! s:source_rc(path)
     execute 'source' fnameescape('$XDG_CONFIG_HOME/nvim/rc/' . a:path)
 endfunction
 
-"-----------------------------------------------------
+command! -nargs=1 SetFixer execute substitute(<q-args>,
+  \ '^\s*\<set\%[global]\>',
+  \ (has('vim_starting') ? 'set' : 'setglobal'), '')
+
 " Initialization
 call s:source_rc('init.rc.vim')
 
-call neobundle#begin('$XDG_DATA_HOME/bundle/')
+call dein#begin(expand('$CACHE/dein'))
 
-if neobundle#load_cache()
-    NeoBundleFetch 'Shougo/neobundle.vim'
+let s:toml_path = '$XDG_CONFIG_HOME/nvim/rc/dein.toml'
+let s:toml_lazy_path = '$XDG_CONFIG_HOME/nvim/rc/deinlazy.toml'
 
-    call neobundle#load_toml(
-        \ '$XDG_CONFIG_HOME/nvim/rc/neobundle.toml')
-    call neobundle#load_toml(
-        \ '$XDG_CONFIG_HOME/nvim/rc/neobundlelazy.toml', {'lazy' : 1})
-
-    NeoBundleSaveCache
+if dein#load_cache([expand('<sfile>'), s:toml_path, s:toml_lazy_path])
+  call dein#add('Shougo/dein.vim', {'rtp': ''})
+  
+  call dein#load_toml(s:toml_path)
+  call dein#load_toml(s:toml_lazy_path, {'lazy' : 1})
+  
+  call dein#save_cache()
 endif
-
-let s:vimrc_local = findfile('rc/vimrc_local.vim', '.;')
-if s:vimrc_local !=# ''
-    " Load development versions of plugins
-    call neobundle#local(fnamemodify(s:vimrc_local, ':h'),
-        \ {}, ['*.vim', '*.nvim'])
-endif
-
-" Neobundle configurations
-
+  
 call s:source_rc('plugins.rc.vim')
 
-call neobundle#end()
+call dein#end()
 
 filetype indent plugin on
 
-if !has('vim_starting')
-    " Installation check
-    NeoBundleCheck
+if dein#check_install()
+  call dein#install()
 endif
 
 "---------------------------------------------
@@ -72,6 +66,4 @@ call s:source_rc('filetype.rc.vim')
 
 call s:source_rc('mappings.rc.vim')
 
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-

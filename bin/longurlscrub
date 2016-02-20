@@ -27,5 +27,5 @@ fi
 result=$(create_menu "$@" )
 
 if [[ "$result" ]]; then
-    plumber "$result"
+    exec plumber "$result"
 fi

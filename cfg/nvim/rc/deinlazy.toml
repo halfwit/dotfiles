@@ -1,0 +1,57 @@
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+on_i = 1
+
+[[plugins]]
+repo = 'Shougo/neopairs.vim'
+on_i = 1
+
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+depends = ['neosnippet-snippets', 'context_filetype.vim']
+on_i = 1
+on_ft = 'snippet'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
+repo = 'Shougo/neco-vim'
+on_i = 1
+on_ft = 'vim'
+
+[[plugins]]
+repo = 'Shougo/neoinclude.vim'
+on_path = '.*'
+
+[[plugins]]
+repo = 'Shougo/neco-syntax'
+on_i = 1
+
+[[plugins]]
+repo = 'davidhalter/jedi-vim'
+on_ft = 'python'
+
+[[plugins]]
+repo = 'honza/vim-snippets'
+on_i = 1
+on_path = '.*'
+
+[[plugins]]
+repo = 'euclio/vim-markdown-composer'
+on_ft = ['mkd', 'markdown']
+
+[[plugins]]
+repo = 'amperser/proselint'
+on_ft = ['mkd', 'markdown']
+
+[[plugins]]
+repo = 'benekastah/neomake'
+on_path = '.*'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+on_path = '.*'

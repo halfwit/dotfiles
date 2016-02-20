@@ -38,8 +38,4 @@ function! s:mkdir_as_necessary(dir, force)
   endif
 endfunction
 
-" Reload rc files
-autocmd MyAutoCmd BufWritePost init.vim,*.rc.vim,neobundle*.toml
-      \ NeoBundleClearCache | source $MYVIMRC | redraw
-
 autocmd! BufWritePost * Neomake
