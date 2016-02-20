@@ -12,31 +12,16 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
-if has('vim_starting')
-    " Load neobundle
-    let s:neobundle_dir = finddir('neobundle.vim', '.;')
-    if s:neobundle_dir != ''
-    execute 'set runtimepath^=' .
-          \ fnamemodify(s:neobundle_dir, ':p')
-  elseif &runtimepath !~ '/neobundle.vim'
-    let s:neobundle_dir = expand('$CACHE/neobundle').'/neobundle.vim'
+let s:dein_dir = finddir('dein.vim', '.;')
+if s:dein_dir != '' || &runtimepath !~ '/dein.vim'
+	if s:dein_dir == '' && &runtimepath !~ '/dein.vim'
+		let s:dein_dir = expand('$CACHE/dein')
+			\. '/repos/repos/github.com/Shougo/dein.vim'
 
-    if !isdirectory(s:neobundle_dir)
-      execute printf('!git clone %s://github.com/Shougo/neobundle.vim.git',
-            \ (exists('$http_proxy') ? 'https' : 'git'))
-            \ s:neobundle_dir
-    endif
-
-    execute 'set runtimepath^=' . s:neobundle_dir
-  endif
-endif
-
-let g:neobundle#default_options = {}
-
-"---------------------------------------------------------------
-" Disable default plugins
-
-" Disable GetLatestVimPlugin.vim
-if !&verbose
-  let g:loaded_getscriptPlugin = 1
+		if !isdirectory(s:dein_dir)
+			execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
+		endif
+	endif
+	
+	execute 'SetFixer set runtimepath^=' . fnamemodify(s:dein_dir, ':p')
 endif

@@ -1,0 +1,17 @@
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+build = 'make'
+
+[[plugins]]
+repo = 'morhetz/gruvbox'
+
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+if = "has('nvim')"
+
+[[plugins]]
+repo = 'Yggdroot/indentLine'
+if = "has('nvim')"

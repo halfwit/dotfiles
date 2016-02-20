@@ -9,4 +9,4 @@ function! BuildComposer(info)
   endif
 endfunction
 
-autocmd *.md BuildComposer
+autocmd! *.md BuildComposer
