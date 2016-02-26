@@ -6,11 +6,10 @@ readonly datadir=${XDG_DATA_HOME:-$HOME/local/share}
 readonly optsfile="${XDG_CONFIG_HOME:-$HOME/local/cfg}"/dmenu/bemenucolors
 
 create_menu() {
-    ( cd "$datadir"/mpv || exit 1
+    cd "$datadir"/mpv || exit 1
     for i in *; do
         echo "$i"
-    done
-    )
+    done 
 }
 
 append_selection() {

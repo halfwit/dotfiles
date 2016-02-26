@@ -83,7 +83,7 @@ shorten_prompt() {
 
 
 
-PROMPT='${to_bottom}%F{${vimode}}%m%f $(shorten_prompt)%F{green}${branch} %f
+PROMPT='${to_bottom}%F{${vimode}}%m%f $(shorten_prompt)%F{green} ${repo} %f
  %F{cyan}-%f '
 
 # Functions.
@@ -108,8 +108,8 @@ function preexec {
 # Print basic prompt to the window title.
 function precmd {
     print -Pn "\e];%n %~\a"
-    get_git_branch
-}
+    repo=${(%):-%(?.${"$(git rev-parse --show-toplevel 2> /dev/null)"##*/} .)}
+  }
 
 # Replace vimode indicators.
 function zle-line-init zle-keymap-select {

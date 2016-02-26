@@ -47,13 +47,13 @@ case "$1" in
       exec vimb-run "$1"               ;;
     *\(*)  
       if grep "${1%*\(*}" <<< "$(apropos .)"; then
-        exec "$XDG_DATA_HOME"/dsearch/manualhandler "${1%\(*}" 
+        exec "$XDG_DATA_HOME"/dsearch/manual "${1%\(*}" 
       else
         exec vimb-run "!g $1"
       fi                               ;;
     *)
       if grep "$1" <<< "$(apropos .)"; then
-        exec "$XDG_DATA_HOME"/dsearch/manualhandler "$1"
+        exec "$XDG_DATA_HOME"/dsearch/manual "$1"
       fi
       exec vimb-run "$1"            ;;
 esac

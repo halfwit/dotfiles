@@ -46,5 +46,6 @@ aug whitelistjs
   au LoadCommited https://www.facebook.com/* set scripts=on
   au LoadCommited https://plus.google.com/* set scripts=on
   au LoadCommited http://gist* set scripts=on
+  au LoadCommited https://github.com/* set scripts=on
 aug end
 nmap <F1> :eval! simplyread()<CR>
