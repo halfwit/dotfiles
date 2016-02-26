@@ -37,14 +37,14 @@ set status-font=DejaVu Sans Mono 9.5
 set status-ssl-font=DejaVu Sans Mono 9.5
 set status-sslinvalid-font=DejaVu Sans Mono 9.5
 
-set auto-resize-window=true
+#set auto-resize-window=true
 set auto-shrink-images=true
 
 set x-hint-command=:sh! ~/local/bin/plumber <C-R>; <CR>
 aug whitelistjs
   au LoadCommited * set scripts=off|set cookie-accept=never
   au LoadCommited https://www.facebook.com/* set scripts=on
-  au LoadCommited https://plus.google.com/* set scripts=on
+  au LoadCommited https://*google.com/* set scripts=on
   au LoadCommited http://gist* set scripts=on
 aug end
 nmap <F1> :eval! simplyread()<CR>
