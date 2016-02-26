@@ -1,50 +1,14 @@
-super + h
-         dmenu_run
-super + u
-         dsearch
-super + y
-         unification
-super + o
-         librarian
-super + k
-         st
-super + period
-         xcmenuctrl
+super + {h,u,y,o,k,period}
+         {dmenu_run,dsearch,unification,libraian,st,xcmenuctrl}
 @F11
          ~/local/cfg/wmutils/fullscreen $(get_window_id)
-super + shift + p
-         winid=$(get_window_id) && wrs 20 0 "$winid" && ~/local/cfg/wmutils/wshuf && wtf "$winid"
-super + shift + j
-         winid=$(get_window_id) && wrs -20 0 "$winid" && ~/local/cfg/wmutils/wshuf && wtf "$winid"
-super + j
-         ~/local/cfg/wmutils/focus next
-super + p
-         ~/local/cfg/wmutils/focus prev
+super + shift + {p,j}
+         winid=$(get_window_id) && wrs {20,-20} 0 "$winid" && ~/local/cfg/wmutils/wshuf && wtf "$winid"
+super + {j,p}
+         ~/local/cfg/wmutils/focus {next,prev}
 super + i 
          ~/local/cfg/wmutils/groups -c $(get_window_id) && killw $(get_window_id)
-super + v
-         testy
-super + shift + 1
-         ~/local/cfg/wmutils/groups -s $(get_window_id) 1
-super + 1
-         ~/local/cfg/wmutils/groups -t 1
-super + shift + 2
-        ~/local/cfg/wmutils/groups -s $(get_window_id) 2
-super + 2
-         ~/local/cfg/wmutils/groups -t 2
-super + shift + 3
-         ~/local/cfg/wmutils/groups -s $(get_window_id) 3
-super + 3
-         ~/local/cfg/wmutils/groups -t 3
-super + shift + 4
-         ~/local/cfg/wmutils/groups -s $(get_window_id) 4
-super + 4
-         ~/local/cfg/wmutils/groups -t 4
-super + shift + 5
-         ~/local/cfg/wmutils/groups -s $(get_window_id) 5
-super + 5
-         ~/local/cfg/wmutils/groups -t 5
-super + shift + 6
-         ~/local/cfg/wmutils/groups -s $(get_window_id) 6
-super + 6
-         ~/local/cfg/wmutils/groups -t 6
+super + shift + {1,2,3,4,5,6}
+         ~/local/cfg/wmutils/groups -s $(get_window_id) {1,2,3,4,5,6}
+super + {1,2,3,4,5,6}
+         ~/local/cfg/wmutils/groups -t {1,2,3,4,5,6}
