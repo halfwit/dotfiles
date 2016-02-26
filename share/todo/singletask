@@ -24,6 +24,7 @@ loop_run() {
       printf '%s\n' "$result" >> "$TASKFILE"
       HEIGHT=$(wc -l < "$TASKFILE")
     fi
+    sed -i '/^$/d' "$TASKFILE"
   done
 }
 
