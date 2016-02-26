@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Front end for notes.
+
+readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
+readonly optsfile=$confdir/dmenu/bemenucolors
+
+
+create_menu() {
+  cd $notedir
+  for i in *; do 
+    if [[ -s $i ]]; then 
+      printf '%s\n' "$i"
+    else 
+      rm "$i"
+    fi
+  done
+}
+
+menu() {
+  create_menu | bemenu -l $(ls "$notedir" | wc -l ) "${opts[@]}" -p "Select or create new note: "
+}
+
+## Main
+
+if [[ -s $confdir/dmenu/font ]]; then
+  read -r font < "$confdir"/dmenu/font
+  opts+=(-fn "$font")
+fi
+
+if [[ -s $optsfile ]]; then
+  source "$optsfile"
+fi
+
+notedir=$XDG_CACHE_HOME/notes
+result=$(menu)
+
+[[ ! $result ]] && exit 
+[[ ! -e $notedir/$result ]] && touch "$notedir/$result"
+
+exec nvim-run "$notedir/$result"
