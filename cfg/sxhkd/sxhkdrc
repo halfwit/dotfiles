@@ -1,5 +1,5 @@
 super + {h,u,y,o,k,period}
-         {dmenu_run,dsearch,unification,libraian,st,xcmenuctrl}
+         {dmenu_run,dsearch,unification,librarian,st,xcmenuctrl}
 @F11
          ~/local/cfg/wmutils/fullscreen $(get_window_id)
 super + shift + {p,j}

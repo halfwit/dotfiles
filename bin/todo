@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Write/remove a task to do later.
+
+readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
+readonly optsfile=$confdir/dmenu/bemenucolors
+
+create_menu() {
+  cd $XDG_CACHE_HOME/todo
+  for i in *; do 
+    printf '%s\n' "$i"
+  done
+}
+
+menu() {
+  create_menu | bemenu -l $(ls "$XDG_CACHE_HOME/todo" | wc -l ) "${opts[@]}" -p "Select or create new task: "
+}
+
+## Main
+
+if [[ -s $confdir/dmenu/font ]]; then
+  read -r font < "$confdir"/dmenu/font
+  opts+=(-fn "$font")
+fi
+
+if [[ -s $optsfile ]]; then
+  source "$optsfile"
+fi
+
+result=$(menu)
+[[ ! $result ]] && exit 
+
+touch "$XDG_CACHE_HOME/todo/$result"
+exec ~/local/share/todo/singletask "$result"

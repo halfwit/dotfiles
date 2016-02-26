@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Write/remove a task to do later.
+
+readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
+readonly optsfile=$confdir/dmenu/bemenucolors
+
+TASKFILE="$XDG_CACHE_HOME/todo/$1"
+HEIGHT=$(wc -l < "$TASKFILE")
+PROMPT="Add/delete a task"
+
+menu() {
+  bemenu -l "$HEIGHT" "${opts[@]}" -p "$PROMPT: " < "$TASKFILE"
+}
+
+loop_run() {
+  while true; do
+    result=$(menu)
+    # Return to main program on exit
+    [[ ! $result ]] && exec todo
+    if grep "$result" "$TASKFILE"; then
+      sed -i "s/$result//g" "$TASKFILE"
+      HEIGHT=$((HEIGHT-1))
+    else
+      printf '%s\n' "$result" >> "$TASKFILE"
+      HEIGHT=$(wc -l < "$TASKFILE")
+    fi
+  done
+}
+
+## Main
+
+if [[ -s $confdir/dmenu/font ]]; then
+  read -r font < "$confdir"/dmenu/font
+  opts+=(-fn "$font")
+fi
+
+if [[ -s $optsfile ]]; then
+  source "$optsfile"
+fi
+
+loop_run
