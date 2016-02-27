@@ -25,26 +25,27 @@ get_selection() {
    apropos . | bemenu -l 10 "${opts[@]}" -p "Manual"
 }
 
-# Main
+## Main ##
 # Configuration
 # https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
 
 if [[ -s $confdir/dmenu/font ]]; then
-    read -r font < "$confdir"/dmenu/font
-    opts+=(-fn "$font")
+  read -r font < "$confdir"/dmenu/font
+  opts+=(-fn "$font")
 fi
 
 if [[ -s $optsfile ]]; then
-    source "$optsfile"
+  source "$optsfile"
 fi
 
-if [[ "$1" == "!man" ]]; then
-   result="$(get_selection)"
-   result="${${result##\(*}%%\)} ${result%% *}"
-else
-   result="$1"
+[[ ! $1 ]] && result="$(get_selection)" || result=$1
+result="${${result##\(*}%%\)} ${result%% *}"
+
+if ! grep "$1" <<< $(apropos .); then
+  exec vimb-run "\!posix $1"
 fi
+
 
 if [[ "$result" ]]; then
-   handle_result "$result"
+  handle_result "$result"
 fi

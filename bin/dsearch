@@ -63,6 +63,7 @@ handle_results() { # args -> launch
         !code*)  exec "$handledir"/code       "${1##*code }"  ;;
         !dict*)  exec "$handledir"/dictionary "${1##*dict }"  ;;
         !mpv*)   exec "$handledir"/mpv        "${1##*mpv }"   ;;
+        !man)    exec "$handledir"/manual ;;
         !man*)   exec "$handledir"/manual     "${1##*man }"   ;;
         !pl*)    exec "$handledir"/playlist   "${1##*pl }"    ;;
         !ps*)    exec "$handledir"/savesearch "${1##*ps }"    ;;
