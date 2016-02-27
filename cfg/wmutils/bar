@@ -22,13 +22,13 @@ run_loop() {
   printf '%s\n' "—${result[@]}—"
 }
 
-wendy -m 2 -f /tmp/groups/ -v | while read item; do
+wendy -m 514 -f /tmp/groups/ -v | while read item; do
   case $item in
     *active)
       run_loop  ;;
     *inactive)  
       run_loop  ;;
-    *cleanup)
+    512*)
       run_loop  ;;
   esac
 done | lemonbar -d -b -f "DejaVu Sans" -g +$(( -60 + $(wattr w "$(lsw -r)") / 2)) &
