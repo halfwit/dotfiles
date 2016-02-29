@@ -37,4 +37,4 @@ result=$(menu)
 [[ ! $result ]] && exit 
 [[ ! -e $notedir/$result ]] && touch "$notedir/$result"
 
-exec nvim-run "$notedir/$result"
+exec st -t center -e /usr/bin/nvim "$notedir/$result"

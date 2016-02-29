@@ -41,6 +41,8 @@ case "$1" in
       exec st                          ;;
     *xkcd*)
       curl -s "https://xkcd.com/${1//[^0-9]/}/" | awk '/hotlink/{ print $NF }' | xargs curl | exec imv - ;;
+    *imgur.com/gallery/*)
+      mpv "$1"                         ;;
     *imgur*)                        
       curl -s http://i.imgur.com/"${1: -7}".png | exec imv - ;;
     http*)                          

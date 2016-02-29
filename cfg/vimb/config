@@ -45,9 +45,10 @@ aug whitelistjs
   au LoadCommited * set scripts=off|set cookie-accept=never
   au LoadCommited https://www.facebook.com/* set scripts=on
   au LoadCommited https://*google.com/* set scripts=on
-  au LoadCommited http://gist* set scripts=on
+  au LoadCommited https://gist* set scripts=on
   au LoadCommited https://github.com/* set scripts=on
   au LoadCommited https://www.reddit.com/* set scripts=on
   au LoadCommited http://www.voidlinux.eu/* set scripts=on
+  au LoadCommited http://*tt-rss/* set scripts=on
 aug end
 nmap <F1> :eval! simplyread()<CR>

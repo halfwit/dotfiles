@@ -1,9 +1,11 @@
 #!/bin/bash
 
+mutt &
 sxhkd &
 dunst &
 xcmenu &
 compton &
+newsbeuter &
 colortempd -t 4000
 ~/local/cfg/wmutils/bar & 
 ~/local/cfg/wmutils/watcher &
