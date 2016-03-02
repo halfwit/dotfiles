@@ -5,6 +5,7 @@ sxhkd &
 dunst &
 xcmenu &
 compton &
+syncthing &
 newsbeuter &
 colortempd -t 4000
 ~/local/cfg/wmutils/bar & 
