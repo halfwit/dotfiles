@@ -50,8 +50,16 @@ builddir() {
 
     cd "$1" || err "Unable to enter $1"
     for i in *; do
-        # Build in /tmp/tmp.foo, clean up foo after
-        (cd "$i" && BUILDIR=$(mktemp -d) makepkg "${opts[@]}" 2>&1 | tee "$logroot"/$i.log && rm -rf /tmp/tmp.*)
+      # Build in /tmp/tmp.foo, clean up foo after
+      (cd "$i" && BUILDIR=$(mktemp -d) makepkg "${opts[@]}" 2>&1 | tee "$logroot"/$i.log && rm -rf /tmp/tmp.*)
+    done
+}
+
+buildpipe() {
+    cd "$aurroot" || err "Unable to enter $aurroot"
+    while read -r i; do
+      (cd "$i" 2>/dev/null || break
+      BUILDDIR=$(mktemp -d) makepkg "${opts[@]}" 2>&1 | tee "$logroot"/$i.log && rm -rf /tmp/tmp.*)
     done
 }
 
@@ -81,7 +89,9 @@ cower -uddf
 get_options "$@"
 
 # Build!
-builddir "$aurroot"; builddir "$asproot"
+#builddir "$aurroot"; 
+aurqueue "$aurroot" | buildpipe
+builddir "$asproot"
 
 # Finally, test for any package that built.
 error_test
