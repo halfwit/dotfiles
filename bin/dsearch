@@ -27,6 +27,10 @@ err() {
 }
 
 create_menu() {
+    
+    # Last selection
+    xcmenu --list | head -n 1
+
     # Check bookmarks
     while read -r url name; do
         printf -- '%s %s\n' "$name" "$url"
