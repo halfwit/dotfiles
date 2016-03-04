@@ -1,69 +1,70 @@
 #!/usr/bin/env bash
 
-if [[ -f "$1" ]]; then
-  mime=$(file -biL "$1")
+input="$1"
+while read -r item; do
+  input+="$item"
+done
+
+if [[ -f "$input" ]]; then
+  mime=$(file -biL "$input")
   [[ $mime ]] && case $mime in
     text/html*)
-      exec vimb-run "$1" ;;
+      exec vimb-run "$input" ;;
     text*)
-      exec nvim-run "$1" ;;
+      exec nvim-run "$input" ;;
     *pdf*|*epub*|*djvu*)
-      exec tzathura "$1" ;;
+      exec tzathura "$input" ;;
     image*)
-      exec imv "$1"      ;;
+      exec imv "$input"      ;;
     video*)
-      exec mpv "$1"      ;;
+      exec mpv "$input"      ;;
     *)
-      notify-send "Error with $1"
+      notify-send "Error with $input"
       exec nvim-run ~/local/bin/plumber ;;
   esac
 fi
 
-printf '%s' "$1" | xcmenu -ic
+printf '%s' "$input" | xcmenu -ic
 
-case "$1" in
+case "$input" in
     gopher://*)
-      exec st -e cgo "$1"              ;;
+      exec st -e cgo "$input"              ;;
     *youtube.com/watch*)            
-      exec mpv-run "$1"                ;;
+      exec mpv-run "$input"                ;;
     *.pdf|*.djvu)            
-      curl -s "$1" > /tmp/tmp.book
+      curl -s "$input" > /tmp/tmp.book
       exec tzathura /tmp/tmp.book      ;;
     *.epub)
-      curl -s "$1" > /tmp/tmp.book
+      curl -s "$input" > /tmp/tmp.book
       pandoc /tmp/tmp.book -o /tmp/tmp.pdf
       exec tzathura /tmp/tmp.pdf       ;;
     *youtu.be*|ytdl*|*livestream.com*)                     
-      exec mpv-run "$1"                ;;
+      exec mpv-run "$input"                ;;
     *twitch*)                       
-      exec mpv-run "$1"                ;;
+      exec mpv-run "$input"                ;;
     *.mkv|*.mp4|*.webm|*.mpg|*.ogg) 
-      exec mpv-run "$1"                ;;
+      exec mpv-run "$input"                ;;
     *.gifv)                         
-      exec mpv-run "${1::-4}webm"      ;;
+      exec mpv-run "${input::-4}webm"      ;;
     *.jpg*|*.png|*.jpeg|*.gif)      
-      curl -s "$1" | imv -             ;;
+      curl -s "$input" | exec imv -             ;;
     *.tar*)                         
       cd /tmp || exit 0
-      curl -s "$1" | tar -xvz
+      curl -s "$input" | tar -xvz
       exec st                          ;;
     *xkcd*)
-      curl -s "https://xkcd.com/${1//[^0-9]/}/" | awk '/hotlink/{ print $NF }' | xargs curl | exec imv - ;;
+      curl -s "https://xkcd.com/${input//[^0-9]/}/" | awk '/hotlink/{ print $NF }' | xargs curl | exec imv - ;;
     *imgur.com/gallery/*)
-      mpv "$1"                         ;;
+      exec mpv "$input"                         ;;
     *imgur*)                        
-      curl -s http://i.imgur.com/"${1: -7}".png | exec imv - ;;
+      curl -s http://i.imgur.com/"${input: -7}".png | exec imv - ;;
     http*)                          
-      exec vimb-run "$1"               ;;
+      exec vimb-run "$input"               ;;
     *\(*)  
-      if grep "${1%*\(*}" <<< "$(apropos .)"; then
-        exec "$XDG_DATA_HOME"/dsearch/manual "${1%\(*}" 
-      else
-        exec vimb-run "!g $1"
-      fi                               ;;
+        exec "$XDG_DATA_HOME"/dsearch/manual "${input%\(*}"      ;;
     *)
-      if grep "$1" <<< "$(apropos .)"; then
-        exec "$XDG_DATA_HOME"/dsearch/manual "$1"
+      if grep "$input" <<< "$(apropos .)"; then
+        exec "$XDG_DATA_HOME"/dsearch/manual "$input"
       fi
-      exec vimb-run "$1"            ;;
+      exec vimb-run "!g $input"            ;;
 esac
