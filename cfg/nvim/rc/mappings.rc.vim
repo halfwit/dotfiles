@@ -17,3 +17,6 @@ noremap <C-c> :bdelete<CR>
 
 " Terminal niceness
 tnoremap    <ESC><ESC>     <C-\><C-n>
+
+" For plumbing arbitrary things
+vmap p :'<,'>w !xargs plumber<CR>

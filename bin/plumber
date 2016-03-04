@@ -3,6 +3,8 @@
 if [[ -f "$1" ]]; then
   mime=$(file -biL "$1")
   [[ $mime ]] && case $mime in
+    text/html*)
+      exec vimb-run "$1" ;;
     text*)
       exec nvim-run "$1" ;;
     *pdf*|*epub*|*djvu*)
@@ -20,11 +22,17 @@ fi
 printf '%s' "$1" | xcmenu -ic
 
 case "$1" in
+    gopher://*)
+      exec st -e cgo "$1"              ;;
     *youtube.com/watch*)            
       exec mpv-run "$1"                ;;
-    *.pdf|*.djvu|*.epub)            
+    *.pdf|*.djvu)            
       curl -s "$1" > /tmp/tmp.book
-      exec tzathura /tmp/tmp.book       ;;
+      exec tzathura /tmp/tmp.book      ;;
+    *.epub)
+      curl -s "$1" > /tmp/tmp.book
+      pandoc /tmp/tmp.book -o /tmp/tmp.pdf
+      exec tzathura /tmp/tmp.pdf       ;;
     *youtu.be*|ytdl*|*livestream.com*)                     
       exec mpv-run "$1"                ;;
     *twitch*)                       
