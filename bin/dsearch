@@ -36,12 +36,6 @@ create_menu() {
         printf -- '%s %s\n' "$name" "$url"
     done < "$confdir"/vimb/bookmark
 
-    # Finally history
-    while read -r url name; do
-        printf -- '%s %s\n' "$name" "$url"
-    done < "$confdir"/vimb/history
-
-
     # This is for mpv playlists
     ( cd "$XDG_DATA_HOME/mpv" || err "$XDG_DATA_HOME/mpv/ not found."
     for file in *; do
