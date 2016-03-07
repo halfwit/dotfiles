@@ -59,7 +59,7 @@ case "$input" in
     *imgur*)                        
       curl -s http://i.imgur.com/"${input: -7}".png | exec imv - ;;
     http*)                          
-      if curl -I "$input" | grep text/html; then
+      if curl -I "$input" | grep html; then
         exec vimb-run "$input" 
       else
         curl -S "$input" > /tmp/tmpfile
