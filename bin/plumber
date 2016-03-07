@@ -59,12 +59,18 @@ case "$input" in
     *imgur*)                        
       curl -s http://i.imgur.com/"${input: -7}".png | exec imv - ;;
     http*)                          
-      exec vimb-run "$input"               ;;
+      if curl -I "$input" | grep text/html; then
+        exec vimb-run "$input" 
+      else
+        curl -S "$input" > /tmp/tmpfile
+        exec plumber /tmp/tmpfile
+      fi ;;
     *\(*)  
         exec "$XDG_DATA_HOME"/dsearch/manual "${input%\(*}"      ;;
     *)
       if grep "$input" <<< "$(apropos .)"; then
         exec "$XDG_DATA_HOME"/dsearch/manual "$input"
-      fi
-      exec vimb-run "!g $input"            ;;
+      else
+        exec vimb-run "!g $input"
+      fi ;;
 esac
