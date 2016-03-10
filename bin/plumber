@@ -48,8 +48,11 @@ case "$input" in
       curl -s "https://xkcd.com/${input//[^0-9]/}/" | awk '/hotlink/{ print $NF }' | xargs curl | exec imv - ;;
     *imgur.com/gallery/*)
       exec mpv "$input"                         ;;
-    *imgur*)                        
+    http://imgur*)                        
       curl -s http://i.imgur.com/"${input: -7}".png | exec imv - ;;
+    *ptpb.pw/t/*)
+      curl -s "https://ptpb.pw/${input: -4}" > /tmp/tmpfile
+      exec st -e asciinema play /tmp/tmpfile ;;
     http*)                          
       if curl -I "$input" | grep -e html -e x-empty; then
         exec vimb-run "$input" 

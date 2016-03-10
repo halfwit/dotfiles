@@ -17,7 +17,7 @@ create_menu() {
 }
 
 menu() {
-  create_menu | bemenu -l $(ls "$notedir" | wc -l ) "${opts[@]}" -p "Select or create new note: "
+  create_menu | bemenu -l $(find "$notedir" | wc -l ) "${opts[@]}" -p "Select or create new note: "
 }
 
 ## Main
