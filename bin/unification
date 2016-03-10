@@ -7,7 +7,7 @@ readonly optsfile=$confdir/dmenu/bemenucolors
 
 get_selection() {
   #find ~/ -print | dmenu -l 10 -p "Edit"
-  find ~/ -print | bemenu -l 10 "${opts[@]}" -p "Edit"
+  find ~/ -type f | bemenu -l 10 "${opts[@]}" -p "Edit"
 }
 
 

@@ -29,8 +29,6 @@ printf '%s' "$input" | xcmenu -ic
 case "$input" in
     gopher://*)
       exec st -e cgo "$input"              ;;
-    *youtube.com/watch*)            
-      exec mpv-run "$input"                ;;
     *.pdf|*.djvu)            
       curl -s "$input" > /tmp/tmp.book
       exec tzathura /tmp/tmp.book      ;;
@@ -38,14 +36,8 @@ case "$input" in
       curl -s "$input" > /tmp/tmp.book
       pandoc /tmp/tmp.book -o /tmp/tmp.pdf
       exec tzathura /tmp/tmp.pdf       ;;
-    *youtu.be*|ytdl*|*livestream.com*)                     
+    *youtube.com/watch*|*youtu.be*|ytdl*|*livestream.com*|*twitch*|*.mkv|*.mp4|*.webm|*.mpg|*.ogg|*.gifv)                     
       exec mpv-run "$input"                ;;
-    *twitch*)                       
-      exec mpv-run "$input"                ;;
-    *.mkv|*.mp4|*.webm|*.mpg|*.ogg) 
-      exec mpv-run "$input"                ;;
-    *.gifv)                         
-      exec mpv-run "${input::-4}webm"      ;;
     *.jpg*|*.png|*.jpeg|*.gif)      
       curl -s "$input" | exec imv -             ;;
     *.tar*)                         
@@ -56,13 +48,19 @@ case "$input" in
       curl -s "https://xkcd.com/${input//[^0-9]/}/" | awk '/hotlink/{ print $NF }' | xargs curl | exec imv - ;;
     *imgur.com/gallery/*)
       exec mpv "$input"                         ;;
-    *imgur*)                        
+    http://imgur*)                        
       curl -s http://i.imgur.com/"${input: -7}".png | exec imv - ;;
+<<<<<<< HEAD
     *0x0*)
       curl -I "$input" | grep Location | awk '{ print $2 }' > /tmp/tmpfile
       exec plumber /tmp/tmpfile ;;
+=======
+    *ptpb.pw/t/*)
+      curl -s "https://ptpb.pw/${input: -4}" > /tmp/tmpfile
+      exec st -e asciinema play /tmp/tmpfile ;;
+>>>>>>> bdba0c6f58fcd5df4021ad4579d37713d5f46ae0
     http*)                          
-      if curl -I "$input" | grep text/html; then
+      if curl -I "$input" | grep -e html -e x-empty; then
         exec vimb-run "$input" 
       else
         curl -S "$input" > /tmp/tmpfile
