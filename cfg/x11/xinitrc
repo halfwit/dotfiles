@@ -8,7 +8,6 @@ syncthing &
 newsbeuter &
 colortempd -t 4000
 ~/local/cfg/wmutils/bar & 
-~/local/cfg/wmutils/watcher &
 compton -Cc --no-fading-openclose &
-feh --bg-scale ~/media/backgrounds/$(( $(( RANDOM % $(find ~/media/backgrounds | wc -l) )) + 1 )).png --no-fehbg &
-exec swm
+feh --bg-scale ~/media/backgrounds/$(( $(( RANDOM % $(find ~/media/backgrounds | wc -l) )) + 1 )).png --no-fehbg $
+exec ~/local/cfg/wmutils/watcher

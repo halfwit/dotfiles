@@ -58,6 +58,9 @@ case "$input" in
       exec mpv "$input"                         ;;
     *imgur*)                        
       curl -s http://i.imgur.com/"${input: -7}".png | exec imv - ;;
+    *0x0*)
+      curl -I "$input" | grep Location | awk '{ print $2 }' > /tmp/tmpfile
+      exec plumber /tmp/tmpfile ;;
     http*)                          
       if curl -I "$input" | grep text/html; then
         exec vimb-run "$input" 
