@@ -7,17 +7,10 @@ xcmenu &
 syncthing &
 newsbeuter &
 colortempd -t 4000
-<<<<<<< HEAD
 ~/local/cfg/wmutils/bar & 
 compton -Cc --no-fading-openclose &
 feh --bg-scale ~/media/backgrounds/$(( $(( RANDOM % $(find ~/media/backgrounds | wc -l) )) + 1 )).png --no-fehbg $
-exec ~/local/cfg/wmutils/watcher
-=======
-#x11fs -o auto_unmount ~/run/x11fs &
-~/local/cfg/wmutils/bar &
+x11fs -o auto_unmount ~/run/x11fs &
 ~/local/cfg/wmutils/watcher &
-compton -Cc --no-fading-openclose &
-feh --bg-scale ~/media/backgrounds/$(( $(( RANDOM % $(find ~/media/backgrounds | wc -l) )) + 1 )).png --no-fehbg
 #exec ~/local/cfg/x11fs/watcher 
 exec swm
->>>>>>> bdba0c6f58fcd5df4021ad4579d37713d5f46ae0

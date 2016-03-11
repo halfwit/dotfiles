@@ -50,15 +50,12 @@ case "$input" in
       exec mpv "$input"                         ;;
     http://imgur*)                        
       curl -s http://i.imgur.com/"${input: -7}".png | exec imv - ;;
-<<<<<<< HEAD
     *0x0*)
       curl -I "$input" | grep Location | awk '{ print $2 }' > /tmp/tmpfile
       exec plumber /tmp/tmpfile ;;
-=======
     *ptpb.pw/t/*)
       curl -s "https://ptpb.pw/${input: -4}" > /tmp/tmpfile
       exec st -e asciinema play /tmp/tmpfile ;;
->>>>>>> bdba0c6f58fcd5df4021ad4579d37713d5f46ae0
     http*)                          
       if curl -I "$input" | grep -e html -e x-empty; then
         exec vimb-run "$input" 
