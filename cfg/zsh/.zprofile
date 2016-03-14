@@ -43,6 +43,7 @@ export TERMINAL=st
 export __GL_SHADER_DISK_CACHE_PATH=$XDG_CACHE_HOME/nv
 
 # Xorg stuffs
+export XINITRC=$XDG_CONFIG_HOME/x11/xinitrc
 export GTK_IM_MODULE=xim
 export XAUTHORITY=$XDG_RUNTIME_DIR/x11/xauthority
 
