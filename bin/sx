@@ -7,7 +7,7 @@
 tty=$(fgconsole) || exit
 
 # Honour XINITRC as per xinit(1) documentation.
-xinitrc=${XINITRC:-$HOME/.xinitrc}
+xinitrc=${XINITRC:-$HOME/local/cfg/x11/xinitrc}
 
 export DISPLAY=:$tty
 

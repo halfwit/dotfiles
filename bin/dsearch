@@ -4,7 +4,7 @@
 readonly progn=dsearch
 readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
 readonly datadir=${XDG_DATA_HOME:-$HOME/local/share}
-readonly handledir="${XDG_DATA_HOME:-$HOME/local/share}/"/dsearch
+readonly handledir="${XDG_DATA_HOME:-$HOME/local/share}"/dsearch
 readonly optsfile="${XDG_CONFIG_HOME:-$HOME/local/cfg}"/dmenu/bemenucolors
 
 has() {

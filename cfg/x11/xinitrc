@@ -11,6 +11,6 @@ colortempd -t 4000
 compton -Cc --no-fading-openclose &
 feh --bg-scale ~/media/backgrounds/$(( $(( RANDOM % $(find ~/media/backgrounds | wc -l) )) + 1 )).png --no-fehbg $
 x11fs -o auto_unmount ~/run/x11fs &
-~/local/cfg/wmutils/watcher &
+exec ~/local/cfg/wmutils/watcher
 #exec ~/local/cfg/x11fs/watcher 
-exec swm
+#exec swm
