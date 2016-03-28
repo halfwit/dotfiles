@@ -47,5 +47,6 @@ aug whitelistjs
   au LoadCommited https://www.acm.org/* set scripts=on
   au LoadCommited https://ptpb.pw/t/* set scripts=on
   au LoadCommited http://192.168.* set scripts=on|set cookie-accept=always
+  au LoadCommited https://gitter.im/* set scripts=on 
 aug end
 nmap <F1> :eval! simplyread()<CR>
