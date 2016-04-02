@@ -4,14 +4,11 @@
 # Make sure we aren't already running in an Xserver.
 [[ $DISPLAY ]] && exit 1
 
-tty=$(fgconsole) || exit
+tty=$(fgconsole) || exit 1
 
 # Honour XINITRC as per xinit(1) documentation.
 xinitrc=${XINITRC:-$HOME/local/cfg/x11/xinitrc}
 
 export DISPLAY=:$tty
-
-# the Xserver socket.
-xhost +si:localuser:"$USER"
 
 exec xinit "${@:-$xinitrc}" -- "$DISPLAY" vt"$tty" -keeptty

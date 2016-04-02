@@ -1,16 +1,17 @@
 #!/bin/bash
 
+# Trying this out!
+xhost +si:localuser:"$USER"
+
+hsetroot -solid '#c8c8c8a'
+
 mutt &
 sxhkd &
 dunst &
 xcmenu &
-syncthing &
 newsbeuter &
 colortempd -t 4000
 ~/local/cfg/wmutils/bar & 
 compton -Cc --no-fading-openclose &
-feh --bg-scale ~/media/backgrounds/$(( $(( RANDOM % $(find ~/media/backgrounds | wc -l) )) + 1 )).png --no-fehbg $
 x11fs -o auto_unmount ~/run/x11fs &
-exec ~/local/cfg/wmutils/watcher
-#exec ~/local/cfg/x11fs/watcher 
-#exec swm
+exec ~/local/cfg/wmutils/watcher 

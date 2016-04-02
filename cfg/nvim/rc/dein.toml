@@ -3,10 +3,7 @@ repo = 'Shougo/vimproc.vim'
 build = 'make'
 
 [[plugins]]
-repo = 'morhetz/gruvbox'
-
-[[plugins]]
-repo = 'vim-airline/vim-airline'
+repo = 'romainl/Apprentice'
 
 [[plugins]]
 repo = 'airblade/vim-gitgutter'

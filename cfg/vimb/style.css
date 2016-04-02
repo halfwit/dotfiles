@@ -2,25 +2,25 @@
 
 
 *:not(a),body,td,tr,p {
-    background-color: #32302f !important;
+    background-color: #f2e5bc !important;
     background-size: 0,0 !important;
-    color: #ebdbb2 !important;
+    color: #3c3836 !important;
 }
 
 h1,h2,h3,h4 {
-    background-color: #32302f !important;
-    color: #bdae93 !important
+    background-color: #f2e5bc !important;
+    color: #282828 !important
 }
 
 button {
     background-size: auto !important;
-    background-color: #504945 !important;
-    color: #ebdbb2 !important
+    background-color: #d5c4a1 !important;
+    color: #3c3836 !important
 }
 
 a {
     color: #458588 !important;
-    background-color: #32302f !important
+    background-color: #f2e5bc !important
 }
 a:hover,a:focus {
     color: #458588 !important
@@ -35,7 +35,7 @@ a:visited {
     -webkit-transform:translate(px,-2px) !important;
     position: absolute !important;
     z-index: 100000 !important;
-    color: #ebdbb2 !important;
+    color: #3c3836 !important;
     font:bold .8em monospace !important;
     background-color: #fe8019 !important;
     margin: 0 !important;

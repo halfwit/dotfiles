@@ -38,7 +38,7 @@ set x-hint-command=:sh! ~/local/bin/plumber <C-R>; <CR>
 aug whitelistjs
   au LoadCommited * set scripts=off|set cookie-accept=never
   au LoadCommited https://www.facebook.com/* set scripts=on
-  au LoadCommited https://*google.com/* set scripts=on
+  au LoadCommited https://*google.com/* set scripts=on|set cookie-accept=always
   au LoadCommited https://gist* set scripts=on
   au LoadCommited https://github.com/* set scripts=on
   au LoadCommited https://www.reddit.com/* set scripts=on
