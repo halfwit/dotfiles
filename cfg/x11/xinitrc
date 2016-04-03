@@ -3,15 +3,14 @@
 # Trying this out!
 xhost +si:localuser:"$USER"
 
-hsetroot -solid '#c8c8c8a'
-
 mutt &
 sxhkd &
 dunst &
 xcmenu &
 newsbeuter &
-colortempd -t 4000
+colortempd -t 4000 &
 ~/local/cfg/wmutils/bar & 
 compton -Cc --no-fading-openclose &
 x11fs -o auto_unmount ~/run/x11fs &
+hsetroot -solid '#c8c8c8a' &
 exec ~/local/cfg/wmutils/watcher 

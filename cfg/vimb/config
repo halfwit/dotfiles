@@ -14,16 +14,16 @@ set seriffont=DejaVu Serif 9.5
 set hintkeys=aoeuhtns
 set home-page=https://www.google.com
 
-set completion-bg-active=#7c6f64
-set completion-fg-active=#ebdbb2
-set completion-bg-normal=#32302f
-set completion-fg-normal=#ebdbb2
+set completion-bg-active=#444444
+set completion-fg-active=#bcbcbc
+set completion-bg-normal=#262626
+set completion-fg-normal=#bcbcbc
 set completion-font=DejaVu Sans Mono 9.5
 
-set input-bg-normal=#32302f
-set input-fg-normal=#ebdbb2
-set input-bg-error=#32302f
-set input-fg-error=#ebdbb2
+set input-bg-normal=#262626
+set input-fg-normal=#bcbcbc
+set input-bg-error=#262626
+set input-fg-error=#bcbcbc
 set input-font-normal=DejaVu Sans Mono 9.5
 set input-font-error=DejaVu Sans Mono 9.5
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Script to open Vimb instances in tabbed
 if ! pgrep vimb; then
-  tabbed -g $(( $(wattr w "$(lsw -r)") / 2))x$(( $(wattr h "$(lsw -r)") / 2 )) -U \#ebdbb2 -u \#504945 -T \#ebdbb2 -t \#32302f -n tabbed -c -d >/tmp/tabbed.xid
+  tabbed -g $(( $(wattr w "$(lsw -r)") / 2))x$(( $(wattr h "$(lsw -r)") / 2 )) -U \#5f87af -u \#262626 -T \#87afd7 -t \#262626 -n tabbed -c -d >/tmp/tabbed.xid
 fi
 
 exec vimb -e "$(</tmp/tabbed.xid)" "$@"

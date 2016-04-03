@@ -31,11 +31,11 @@ wendy -m 514 -f /tmp/groups/ -v | while read item; do
     512*)
       run_loop  ;;
   esac
-done | lemonbar -d -b -f "DejaVu Sans" -g +$(( -60 + $(wattr w "$(lsw -r)") / 2)) &
+done | lemonbar -F '#444444' -d -b -f "DejaVu Sans" -g +$(( -60 + $(wattr w "$(lsw -r)") / 2)) &
 
 while :; do
   level=100
   read -r level < /sys/class/power_supply/BAT0/capacity
   printf '%s %s %s\n' "$(date +'%b %d %H:%M')" "-" "$level%"
   sleep 60
-done | lemonbar -d -b -f "DejaVu Mono" -g +4 &
+done | lemonbar -F '#444444' -d -b -f "DejaVu Mono" -g +4 &
