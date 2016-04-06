@@ -1,15 +1,15 @@
 set font                        "DejaVu Sans Mono 9.5"
 
-set selection-clipboard         "clipboard"
+set selection-clipboard         "primary"
 
-set default-bg                  "#32302f" 
-set default-fg                  "#ebdbb2"
+set default-bg                  "#262626" 
+set default-fg                  "#bcbcbc"
 
-set statusbar-fg                "#3c3836"
-set statusbar-bg                "#ebdbb2"
+set statusbar-fg                "#444444"
+set statusbar-bg                "#bcbcbc"
 
 set inputbar-bg                 "#32302f"
-set inputbar-fg                 "#ebdbb2"
+set inputbar-fg                 "#bcbcbc"
 
 set notification-error-bg       "#AC4142"
 set notification-error-fg       "#E0E0E0"
@@ -29,8 +29,8 @@ set completion-fg               "#75B5AA"
 set notification-bg             "#90A959"
 set notification-fg             "#F5F5F5"
 
-set recolor-darkcolor           "#ebdbb2"
-set recolor-lightcolor          "#32302f"
+set recolor-darkcolor           "#bcbcbc"
+set recolor-lightcolor          "#262626"
 
 set recolor                     "true"
 set recolor-reverse-video       "true"

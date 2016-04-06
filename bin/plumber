@@ -54,8 +54,7 @@ case "$input" in
       curl -I "$input" | grep Location | awk '{ print $2 }' > /tmp/tmpfile
       exec plumber /tmp/tmpfile ;;
     *ptpb.pw/t/*)
-      curl -s "https://ptpb.pw/${input: -4}" > /tmp/tmpfile
-      exec st -e asciinema play /tmp/tmpfile ;;
+      exec st -e asciinema play <(curl -s "${input/\/t/}") ;;
     http*)                          
       if curl -I "$input" | grep -e html -e x-empty; then
         exec vimb-run "$input" 
