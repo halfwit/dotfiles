@@ -33,7 +33,7 @@ else
     # geometry and id to $FSFILE we also remove any border from this window.
     # Fixed here, since xembed is a fuck.
     printf '%s %s' "$(wattr xywh "$1")" "$(get_window_id "$1")" > "$FSFILE"    
-    wtp $(wattr xywh `lsw -r`| awk '{ print $1 + 8, $2 + 8, $3 - 16, $4 - 40}') $1
+    wtp $(wattr xywh `lsw -r`| awk '{ print $1 + 8, $2 + 8, $3 - 16, $4 - 32}') $1
 fi
 
 # now focus the window, and put it in front, no matter which state we're in, and

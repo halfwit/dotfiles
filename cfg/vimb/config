@@ -43,10 +43,12 @@ aug whitelistjs
   au LoadCommited https://github.com/* set scripts=on
   au LoadCommited https://www.reddit.com/* set scripts=on
   au LoadCommited http://*tt-rss/* set scripts=on
-  au LoadCommited http*//www.amazon.* set scripts=on|set cookie-accept=always
   au LoadCommited https://www.acm.org/* set scripts=on
   au LoadCommited https://ptpb.pw/t/* set scripts=on
+  au LoadCommited https://*muut* set scripts=on|set cookie-accept=always
   au LoadCommited http://192.168.* set scripts=on|set cookie-accept=always
-  au LoadCommited https://gitter.im/* set scripts=on 
+  au LoadCommited http://127.0.0.1* set scripts=on
+  au LoadCommited http://teamcool.net/* set scripts=on
+
 aug end
 nmap <F1> :eval! simplyread()<CR>

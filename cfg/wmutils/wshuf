@@ -12,7 +12,7 @@ list_windows() {
       wname=$(xwininfo -id "$id" | awk '/Window id:/{print $NF}')
       [[ ! $wname ]] && break
       case ${wname//\"/} in
-        vimb|zathura)
+        vimb)
           mapw -u "$id"                ;;
         *.pdf|*.epub|*.djvu|*.book|NVIM|name\)|w3m|ELinks|*sandy*|*tetris*|*cgo*|*QEMU*)
           wname="$(wattr w "$id") $(( heigh / 2 )) $(wattr w "$id") $(( heigh - gaps )) $id" ;;
