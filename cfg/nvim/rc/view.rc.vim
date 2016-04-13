@@ -4,7 +4,6 @@
 
 colorscheme apprentice
 
-
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
     hi statusline guifg='#ff8700'

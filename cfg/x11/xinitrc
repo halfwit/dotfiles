@@ -5,12 +5,10 @@ xhost +si:localuser:"$USER"
 
 mutt &
 sxhkd &
-dunst &
 xcmenu &
 newsbeuter &
-colortempd -t 4000 &
+#colortempd -t 4000 &
 ~/local/cfg/wmutils/bar & 
 compton -Cc --no-fading-openclose &
-x11fs -o auto_unmount ~/run/x11fs &
-hsetroot -solid '#c8c8c8a' &
+#x11fs -o auto_unmount ~/run/x11fs &
 exec ~/local/cfg/wmutils/watcher 

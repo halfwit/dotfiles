@@ -4,6 +4,7 @@ build = 'make'
 
 [[plugins]]
 repo = 'romainl/Apprentice'
+if = "has('nvim')"
 
 [[plugins]]
 repo = 'airblade/vim-gitgutter'

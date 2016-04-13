@@ -54,4 +54,4 @@ export WINEARCH=win64
 source <(dircolors $XDG_CONFIG_HOME/terminal-colors.d/ls.enable)
 export NVIM_TUI_ENABLBE_TRUE_COLOR=1
 
-source "$XDG_CONFIG_HOME"/privoxy/proxy
+export DBUS_SESSION_BUS_ADDRESS=$HOME/local/cache/dbus

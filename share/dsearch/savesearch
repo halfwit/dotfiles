@@ -15,9 +15,10 @@ create_playlist() {
     printf -- '%b' "NumberOfEntries=$(( number - 1 ))" >> "$datadir/mpv/$title.pls"
 }
 
-url="${1%\ *}"
-shift
-title="${1%\ *}"
+read -r url title <<< "$1"
+
+echo "$url" 
+echo "$title"
 
 if [[ "$url" == "local" ]]; then
     read -r url < /tmp/tmpplaylist

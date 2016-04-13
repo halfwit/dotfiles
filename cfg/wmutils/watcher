@@ -5,16 +5,13 @@
 # depends on: wew focus.sh
 
 shuffle() {
-  if ! xwininfo -id "$1" | grep -e dunst -e bemenu -e dmenu; then
     ~/local/cfg/wmutils/wshuf
     ~/local/cfg/wmutils/focus "$2"
-  fi
 }
 
 wew | while IFS=: read ev wid; do
   case $ev in
-    16) if ! xwininfo -d "$wid" | grep feh; then
-        ~/local/cfg/wmutils/autotag "$wid"; fi ;;
+    16)         ~/local/cfg/wmutils/autotag "$wid" ;;
     17) ~/local/cfg/wmutils/groups -c "$wid"  ;;
     18) shuffle "$wid" "next"                 ;;
     19) shuffle "$wid" "$wid"                 ;;

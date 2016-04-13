@@ -25,7 +25,7 @@ fetch_number() {
                 number="$v" ;;
         esac
     done < "$1"
-    echo $(( number=number + 1))
+    printf '%s' "$(( number=number + 1))"
 }
 
 fetch_path() {
@@ -72,7 +72,7 @@ title=$(unwrap_json "$title")
 if [[ "$1" ]]; then
     file="$1.pls"
     (cd "$datadir"/mpv || exit 1
-    printf '%s' "[playlist]\nNumberOfEntries=0" > "$file")
+    printf '%s\n%s' "[playlist]" "NumberOfEntries=0" > "$file")
 else
     file=$(append_selection)
 fi

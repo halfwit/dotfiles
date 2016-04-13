@@ -16,6 +16,10 @@ on_ft = 'snippet'
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
+repo = 'Shougo/neocomplcache'
+on_i = 1
+
+[[plugins]]
 repo = 'Shougo/context_filetype.vim'
 
 [[plugins]]
@@ -42,6 +46,10 @@ on_path = '.*'
 
 [[plugins]]
 repo = 'euclio/vim-markdown-composer'
+on_ft = ['mkd', 'markdown']
+
+[[plugins]]
+repo = 'ujihisa/neco-look'
 on_ft = ['mkd', 'markdown']
 
 [[plugins]]
