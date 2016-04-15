@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-if ! pgrep xcmenu; then
-  xcmenu --daemon &
-fi
-
-maim -d 1 --format png /dev/stdout | curl -sF c=@- 'https://ptpb.pw/?u=1' | sed '/s/$/.png/' |  xcmenu -ic
-
-#curl -s $(xcmenu --get 0) | exec imv -

@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
-readonly optsfile=$confdir/dmenu/bemenucolors
+readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
 readonly termcmd="st -t float -e man"
 
 handle_result() {
@@ -22,21 +21,15 @@ handle_result() {
 }
 
 get_selection() {
-   apropos . | bemenu -l 10 "${opts[@]}" -p "Manual"
+  opts+=( -l 10 -p "Manual: " )
+   apropos . | bemenu "${opts[@]}"
 }
 
 ## Main ##
 # Configuration
 # https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
 
-if [[ -s $confdir/dmenu/font ]]; then
-  read -r font < "$confdir"/dmenu/font
-  opts+=(-fn "$font")
-fi
-
-if [[ -s $optsfile ]]; then
-  source "$optsfile"
-fi
+[[ -s $optsfile ]] && source "$optsfile"
 
 [[ ! $1 ]] && result="$(get_selection)" || result=$1
 result="${${result##\(*}%%\)} ${result%% *}"

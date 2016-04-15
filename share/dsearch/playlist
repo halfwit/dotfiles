@@ -2,7 +2,7 @@
 # Youtube playlist search handler
 
 readonly progn=playlisthandler
-readonly optsfile="${XDG_CONFIG_HOME:-$HOME/local/cfg}"/dmenu/dmenucolors
+readonly optsfile="$XDG_CONFIG_HOME"/dmenu/dmenucolors
 
 # For Json
 readonly TMPDIR="${TMPDIR:-/tmp}"
@@ -93,26 +93,14 @@ process_selection() { # global token
 
 }
 
-get_options() {
-    if [[ -e "$optsfile" ]]; then
-        # Parse optsfile
-        read -r font < "${XDG_CONFIG_HOME:-$HOME/local/cfg}"/dmenu/font
-        if [[ ! "$font" ]]; then
-            err "No font found in ${XDG_CONFIG_HOME:-$HOME/local/cfg}/dmenu/font"
-        fi
-        source "${XDG_CONFIG_HOME:-$HOME/local/cfg}"/dmenu/dmenucolors
-        read -r KEY < "${XDG_DATA_HOME:-$HOME/local/share}"/youtube/key
-    else
-        err "No configuration found for dmenu in ${XDG_CONFIG_HOME:-$HOME/local/cfg}/dmenu/dmenucolors"
-    fi
-}
 
 # Main
+declare -A menu title image
 
 [[ "$1" == save ]] && exec "$HOME"/local/share/dsearch/savesearch
 
-get_options
-declare -A menu title image
+[[ -s $optsfile ]] && source "$optsfile"
+
 fetch_json "$@"
 
 populate_menu < <(parse_json)

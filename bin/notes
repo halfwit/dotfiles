@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 # Front end for notes.
 
-readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
-readonly optsfile=$confdir/dmenu/bemenucolors
 
+readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
 
 create_menu() {
   cd $notedir
@@ -17,19 +16,15 @@ create_menu() {
 }
 
 menu() {
-  create_menu | bemenu -l $(find "$notedir" | wc -l ) "${opts[@]}" -p "Select or create new note: "
+  opts+=( -p "Select or create a new note: " )
+  create_menu | bemenu -l $(find "$notedir" | wc -l ) "${opts[@]}"
 }
 
 ## Main
 
-if [[ -s $confdir/dmenu/font ]]; then
-  read -r font < "$confdir"/dmenu/font
-  opts+=(-fn "$font")
-fi
+# Theme for bemenu
+[[ -s $optsfile ]] && source "$optsfile"
 
-if [[ -s $optsfile ]]; then
-  source "$optsfile"
-fi
 
 notedir=$XDG_CACHE_HOME/notes
 result=$(menu)

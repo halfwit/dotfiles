@@ -3,10 +3,10 @@
 # Trying this out!
 xhost +si:localuser:"$USER"
 
-mutt &
+mutt-run &
 sxhkd &
 xcmenu &
-newsbeuter &
+newsbeuter-run &
 #colortempd -t 4000 &
 ~/local/cfg/wmutils/bar & 
 compton -Cc --no-fading-openclose &

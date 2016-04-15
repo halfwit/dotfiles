@@ -2,10 +2,10 @@
 # Dmenu search with Qutebrowser history
 
 readonly progn=dsearch
-readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
 readonly datadir=${XDG_DATA_HOME:-$HOME/local/share}
-readonly handledir="${XDG_DATA_HOME:-$HOME/local/share}"/dsearch
-readonly optsfile="${XDG_CONFIG_HOME:-$HOME/local/cfg}"/dmenu/bemenucolors
+readonly handledir="$datadir"/dsearch
+readonly confdir="$XDG_CONFIG_HOME"
+readonly optsfile="$confdir"/dmenu/bemenucolors
 
 has() {
     hash "$1" &> /dev/null
@@ -66,18 +66,7 @@ handle_results() { # args -> launch
 }
 
 # Main
-# https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
-if [[ -s $confdir/dmenu/font ]]; then
-    read -r font < "$confdir"/dmenu/font
-fi
-
-if [[ $font ]]; then
-    opts+=(-fn "$font")
-fi
-
-if [[ -s $optsfile ]]; then
-    source "$optsfile"
-fi
+[[ -s $optsfile ]] && source "$optsfile"
 
 query=$(get_selection)
 query=${query/*http/http}

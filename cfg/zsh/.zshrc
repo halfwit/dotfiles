@@ -226,8 +226,9 @@ alias grep='grep --color=auto'
 alias chmod='chmod -c --preserve-root'
 alias chown='chown -c --preserve-root'
 alias chgrp='chgrp -c --preserve-root'
+ 
+alias sshot='maim -d 1 --format png /dev/stdout | curl -sF c=@- "https://ptpb.pw/?u=1" | sed "s/$/.png/" | xcmenu -ic'
 
-alias sysupdate="sudo snp pacman -Syu && builder"
 alias ls='ls --color=auto --group-directories-first -AhXF'
 alias ll='ls --color=auto --group-directories-first -AlhXF'
 

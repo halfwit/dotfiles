@@ -2,8 +2,7 @@
 # Google Books search handler
 
 readonly progn=gbookhandler
-readonly confdir="$XDG_CONFIG_HOME"
-readonly optsfile="$confdir"/dmenu/bemenucolors
+readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
 
 # For Json
 readonly TMPDIR="${TMPDIR:-/tmp}"
@@ -26,8 +25,8 @@ create_menu() {
 }
 
 get_selection() {
-
-	create_menu | bemenu -l 10 "${opts[@]}" -p "Select book"
+  opts+=( -l 10 -p "Select book: " )
+	create_menu | bemenu "${opts[@]}"
 }
 
 populate_info() { # title pagecount isbn # isbn #
@@ -50,17 +49,7 @@ process_selection() { # global token
 # Main
 declare -A menu info
 
-if [[ -s $confdir/dmenu/font ]]; then
-  read -r font < "$confdir"/dmenu/font
-fi
-
-if [[ $font ]]; then
-  opts+=(-fn "$font")
-fi
-
-if [[ -s $optsfile ]]; then
-  source "$optsfile"
-fi
+[[ -s $optsfile ]] && source "$optsfile"
 
 fetch_json "$@" 
 

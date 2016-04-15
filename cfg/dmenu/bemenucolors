@@ -1,5 +1,5 @@
 opts=(
-    --fn "$font" -p 'Run'
+    --fn "DejaVu Sans Mono 9.5"
     --tf '#bcbcbc' --tb '#444444'
     --nf '#bcbcbc' --nb '#262626'
     --hf '#bcbcbc' --hb '#444444'

@@ -19,7 +19,7 @@ noremap <C-c> :bdelete<CR>
 tnoremap    <ESC><ESC>     <C-\><C-n>
 
 " For plumbing arbitrary things
-vmap p :'<,'>w !plumber<CR>
+vmap p :'<,'>w !plumber 2>/dev/null<CR>
 vmap m :'<,'>w !sh<CR>
 vmap M :'<,'> !sh<CR>
 

@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Appends to playlists, or creates new ones.
 
-readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
 readonly datadir=${XDG_DATA_HOME:-$HOME/local/share}
 readonly optsfile="${XDG_CONFIG_HOME:-$HOME/local/cfg}"/dmenu/bemenucolors
 
@@ -13,7 +12,8 @@ create_menu() {
 }
 
 append_selection() {
-    create_menu | bemenu -l 10 "${opts[@]}" -p "Append to"
+  opts+=( -l 10 -p "Append to: ")
+    create_menu | bemenu "${opts[@]}"
 }
 
 fetch_number() {
@@ -50,14 +50,6 @@ unwrap_json() {
 
 # Main
 # https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
-
-if [[ -s $confdir/dmenu/font ]]; then
-    read -r font < "$confdir"/dmenu/font
-fi
-
-if [[ $font ]]; then
-    opts+=(-fn "$font")
-fi
 
 if [[ -s $optsfile ]]; then
     source "$optsfile"

@@ -13,7 +13,7 @@ if [[ -f "$input" ]]; then
     text*)
       exec nvim-run "$input" ;;
     *pdf*|*epub*|*djvu*)
-      exec tzathura "$input" ;;
+      exec zathura "$input" ;;
     image*)
       exec imv "$input"      ;;
     video*)
@@ -31,11 +31,11 @@ case "$input" in
       exec st -e cgo "$input"              ;;
     *.pdf|*.djvu)            
       curl -s "$input" > /tmp/tmp.book
-      exec tzathura /tmp/tmp.book      ;;
+      exec zathura /tmp/tmp.book      ;;
     *.epub)
       curl -s "$input" > /tmp/tmp.book
       pandoc /tmp/tmp.book -o /tmp/tmp.pdf
-      exec tzathura /tmp/tmp.pdf       ;;
+      exec zathura /tmp/tmp.pdf       ;;
     *youtube.com/watch*|*youtu.be*|ytdl*|*livestream.com*|*twitch*|*.mkv|*.mp4|*.webm|*.mpg|*.ogg|*.gifv)                     
       exec mpv-run "$input"                ;;
     *.jpg*|*.png|*.jpeg|*.gif)      

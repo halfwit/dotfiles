@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Create menu based on URLs and titles.
-readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
+
 readonly datadir=${XDG_DATA_HOME:-$HOME/local/share}
-readonly optsfile="$confdir"/dmenu/bemenucolors
+readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
 
 create_menu() {
     sed -n -e 's/^.*Title[0-9]*[0-9]=//p' "$1"
@@ -18,18 +18,9 @@ get_position() {
 }
 
 # Main
-# https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
-if [[ -s $confdir/dmenu/font ]]; then
-    read -r font < "$confdir"/dmenu/font
-fi
 
-if [[ $font ]]; then
-    opts+=(-fn "$font")
-fi
+[[ -s $optsfile ]] && source "$optsfile"
 
-if [[ -s $optsfile ]]; then
-    source "$optsfile"
-fi
 result=$(get_selection "$1")
 
 [[ ! $result ]] && exit 0

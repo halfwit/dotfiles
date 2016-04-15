@@ -2,8 +2,7 @@
 # Youtube search handler
 
 readonly progn=ythandler
-readonly optsfile="${XDG_CONFIG_HOME:-$HOME/local/cfg}"/dmenu/dmenucolors
-read -r font < "${XDG_CONFIG_HOME:-$HOME/local/cfg}"/dmenu/font
+readonly optsfile="$XDG_CONFIG_HOME"/dmenu/dmenucolors
 read -r KEY < "${XDG_DATA_HOME:-$HOME/local/share}"/youtube/key
 
 # For Json
@@ -51,8 +50,8 @@ create_menu() {
 }
 
 get_selection() {
-    opts+=( -p "Select Video" )
-	create_menu | dmenu "${opts[@]}" -p "Select Video"
+  opts+=( -p "Select Video" )
+	create_menu | dmenu "${opts[@]}"
 }
 
 fetch_image() { # global image, token
@@ -91,23 +90,12 @@ process_selection() { # global token
   
 }
 
-get_options() {
-    if [[ -e "$optsfile" ]]; then
-        # Parse optsfile
-        if [[ ! "$font" ]]; then
-            err "No font found in ${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/font"
-        fi
-        source "${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/dmenucolors
-    else
-        err "No configuration found for dmenu in ${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/dmenucolors"
-    fi
-}
-
 # Main
 
 [[ "$1" == save ]] && exec "$HOME"/local/share/dsearch/savepl
 
-get_options
+[[ -s $optsfile ]] && source "$optsfile"
+
 declare -A menu title image
 fetch_json "$@"
 

@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # Write/remove a task to do later.
 
-readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
-readonly optsfile=$confdir/dmenu/bemenucolors
+readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
 
 create_menu() {
   cd $XDG_CACHE_HOME/todo
@@ -21,14 +20,7 @@ menu() {
 
 ## Main
 
-if [[ -s $confdir/dmenu/font ]]; then
-  read -r font < "$confdir"/dmenu/font
-  opts+=(-fn "$font")
-fi
-
-if [[ -s $optsfile ]]; then
-  source "$optsfile"
-fi
+[[ -s $optsfile ]] && source "$optsfile"
 
 result=$(menu)
 [[ ! $result ]] && exit 

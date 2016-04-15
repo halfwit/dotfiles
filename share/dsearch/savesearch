@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
-readonly optsfile=$confdir/dmenu/bemenucolors
+readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
 readonly datadir="$XDG_DATA_HOME"
 
 read -r KEY < "$datadir/youtube/key"
@@ -20,17 +19,13 @@ create_playlist() {
 
 # Main
 
-if [[ -s $confdir/dmenu/font ]]; then
-  read -r font < "$confdir"/dmenu/font
-  opts+=(-fn "$font")
-fi
-
-if [[ -s $optsfile ]]; then
-  source "$optsfile"
-fi
-
 read -r url < /tmp/tmpplaylist
-title=$(printf '%s' "" | bemenu -l 1 "${opts[@]}" -p "Playlist name: ")
+
+[[ -s $optsfile ]] && source "$optsfile"
+
+opts+=( -l 1 -p "Playlist name: " )
+
+title=$(printf '%s' "" | bemenu "${opts[@]}")
 
 [[ ! "$title" ]] && exit 0
 
