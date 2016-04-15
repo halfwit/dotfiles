@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+st -e /usr/bin/newsbeuter -C "$XDG_CONFIG_HOME/newsbeuter/config" -l 6 -d "$XDG_CONFIG_HOME/newsbeuter/log"
