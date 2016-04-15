@@ -1,30 +1,10 @@
 #!/usr/bin/env bash
-# Dmenu search with Qutebrowser history
+# Dmenu search with history
 
-readonly progn=dsearch
 readonly datadir=${XDG_DATA_HOME:-$HOME/local/share}
 readonly handledir="$datadir"/dsearch
 readonly confdir="$XDG_CONFIG_HOME"
 readonly optsfile="$confdir"/dmenu/bemenucolors
-
-has() {
-    hash "$1" &> /dev/null
-}
-
-puts() {
-    printf -- "$1\n" "${@:2}"
-}
-
-err() {
-    local msg
-
-    puts "$progn: $1" "${@:2}"
-
-    if has notify-send; then
-	msg="$(puts "$@")"
-	notify-send -u critical -- "$progn" "$msg"
-    fi
-}
 
 create_menu() {
     
@@ -37,9 +17,9 @@ create_menu() {
     done < "$confdir"/vimb/bookmark
 
     # This is for mpv playlists
-    ( cd "$XDG_DATA_HOME/mpv" || err "$XDG_DATA_HOME/mpv/ not found."
+    ( cd "$XDG_DATA_HOME/mpv" ||  exit 1
     for file in *; do
-        puts "!mpv $file"
+        printf '%s' "!mpv $file"
     done
     )
 }
@@ -71,7 +51,7 @@ handle_results() { # args -> launch
 query=$(get_selection)
 query=${query/*http/http}
 
-# If no selection is made, exit (escape pressed, e.g.)
+# Verify selection
 [[ ! $query ]] && exit 0
 
 handle_results "$query"
