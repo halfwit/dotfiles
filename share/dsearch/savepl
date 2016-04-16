@@ -70,12 +70,13 @@ title=$(fetch_title "media-title")
 title=$(unwrap_json "$title")
 title=$(printf '%s' "$title" | bemenu -l 1 "${opts[@]}" -p "Title")
 
-if [[ "$1" ]]; then
-    file="$1.pls"
+
+file=$(append_selection)
+
+if [[ ! -s $file ]]; then
+    file="$file".pls
     (cd "$datadir"/mpv || exit 1
     printf '%s\n%s' "[playlist]" "NumberOfEntries=0" > "$file")
-else
-    file=$(append_selection)
 fi
 
 number=$(fetch_number "$datadir/mpv/$file")

@@ -46,25 +46,20 @@ create_menu() {
 
 get_selection() {
     opts+=(-p Search)
-    #create_menu | dmenu -l 10 "${opts[@]}"
     create_menu | bemenu -l 10 "${opts[@]}"
-    #create_menu | rofi -dmenu -p "Search" -fg '#f9f5d7' -bg '#282828' -hlfg '#f9f5d7' -hlbg '#928374' -font "$font"
 }
 
 handle_results() { # args -> launch
     case "$@" in
         !radio*) exec "$handledir"/gmusic     "${1##*radio }" ;;
-        # Little bit of magic to address an issue where there's no args.
-        !save*)  exec "$handledir"/savepl     "${1:6}"        ;;
         !song*)  exec "$handledir"/gsong      "${1##*song }"  ;;
         !book*)  exec "$handledir"/gbook      "${1##*book }"  ;;
         !code*)  exec "$handledir"/code       "${1##*code }"  ;;
         !dict*)  exec "$handledir"/dictionary "${1##*dict }"  ;;
         !mpv*)   exec "$handledir"/mpv        "${1##*mpv }"   ;;
-        !man)    exec "$handledir"/manual ;;
+        !man)    exec "$handledir"/manual                     ;;
         !man*)   exec "$handledir"/manual     "${1##*man }"   ;;
         !pl*)    exec "$handledir"/playlist   "${1##*pl }"    ;;
-        !ps*)    exec "$handledir"/savesearch "${1##*ps }"    ;;
         !yt*)    exec "$handledir"/yt         "${1##*yt }"    ;;
         *)       exec vimb-run                "$1"            ;;
     esac

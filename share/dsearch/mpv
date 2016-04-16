@@ -17,6 +17,10 @@ get_position() {
     awk -v result="$2" 's=index($0,result) { print int((NR-1)/2) }' "$datadir/mpv/$1"
 }
 
+get_link() {
+  printf '%s' "$1" | xcmenu -ic
+}
+
 # Main
 # https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
 if [[ -s $confdir/dmenu/font ]]; then

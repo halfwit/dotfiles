@@ -109,6 +109,8 @@ get_options() {
 
 # Main
 
+[[ "$1" == save ]] && exec "$HOME"/local/share/dsearch/savesearch
+
 get_options
 declare -A menu title image
 fetch_json "$@"
