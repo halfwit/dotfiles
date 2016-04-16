@@ -36,8 +36,7 @@ receive_playlist() {
 play_list() { # artist\ song\ etc
     mpc load "$1"
     mpc shuffle 
-    mpc play &
-    exit 0 
+    exec mpc play
 }
 
 get_ifl() {

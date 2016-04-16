@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 
 # Code search using bemenu (single string)
 # Requires bemenu, tree, neovim, and python
@@ -38,5 +39,5 @@ result=$(get_selection "${token// /.\*}")
 
 # Verify a selection was made
 if [[ $result ]]; then
-    nvim-run "${result%:*}"
+    exec nvim-run "${result%:*}"
 fi
