@@ -1,5 +1,5 @@
 opts=(
-    --fn "DejaVu Sans Mono 9.5"
+    --fn "DejaVu Sans Mono 9.5" -i
     --tf '#bcbcbc' --tb '#444444'
     --nf '#bcbcbc' --nb '#262626'
     --hf '#bcbcbc' --hb '#444444'

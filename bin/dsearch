@@ -12,13 +12,13 @@ create_menu() {
 
   # Check bookmarks
   ( cd "$datadir/bookmark"
-  find -type f -printf "%f\n"
+  find -type f -printf "%f\n" | sort -u 
   )
 
   # This is for mpv playlists
   ( cd "$datadir/mpv" ||  exit 1
   for file in *; do
-    printf '%s %s\n' "!mpv" "$file"
+    printf '%s %s\n' "!mpv" "$file" | sort -u 
   done
   )
 }
