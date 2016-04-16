@@ -5,7 +5,8 @@
 readonly optsdir=$XDG_CONFIG_HOME/dmenu/bemenucolors
 
 [[ $optsdir ]] && source "$optsdir"
-input=$(xcmenuctrl -u)
+
+[[ $1 ]] && read -r input <<< "$1" || input=$(xcmenuctrl -u)
 
 document() {
   opts+=( -p "Save document" )
@@ -35,8 +36,8 @@ image() {
   *pdf*)   document "pdf"  "$input" ;;
   *video*) exec "$XDG_DATA_HOME/dsearch/savepl" "$input" ;;
   *)
-    opts+=( -l 1 -p "Save bookmark" )
-    result=$(printf '%s\n' | bemenu "${opts[@]}") 
+    opts+=( -l 10 -p "Save bookmark" )
+    result=$(printf '%s\n%s\n%s\n%s\n' "main - " "linux - " "github - " "keyboard - "  "softball - " | bemenu "${opts[@]}") 
     [[ $result ]] && printf '%s' "$input" > "$XDG_DATA_HOME/bookmark/$result"
     ;;
 esac
