@@ -42,7 +42,7 @@ populate_info() { # title pagecount isbn # isbn #
 
 process_selection() { # global token
 	url="${info[$1]}"
-	exec vimb-run "${url//\"/}"
+	exec browse "${url//\"/}"
 }
 
 

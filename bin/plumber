@@ -9,7 +9,7 @@ if [[ -f "$input" ]]; then
   mime=$(file -biL "$input")
   [[ $mime ]] && case $mime in
     text/html*)
-      exec vimb-run "$input" ;;
+      exec browse "$input" ;;
     text*)
       exec nvim-run "$input" ;;
     *pdf*|*epub*|*djvu*)
@@ -57,7 +57,7 @@ case "$input" in
       exec st -e asciinema play <(curl -s "${input/\/t/}") ;;
     http*)                          
       if curl -I "$input" | grep -e html -e x-empty; then
-        exec vimb-run "$input" 
+        exec browse "$input" 
       else
         curl -S "$input" > /tmp/tmpfile
         exec plumber /tmp/tmpfile
@@ -68,6 +68,6 @@ case "$input" in
       if grep "$input" <<< "$(apropos .)"; then
         exec "$XDG_DATA_HOME"/dsearch/manual "$input"
       else
-        exec vimb-run "!g $input"
+        exec browse "!g $input"
       fi ;;
 esac

@@ -36,10 +36,10 @@ result="${${result##\(*}%%\)} ${result%% *}"
 
 if ! grep "$1" <<< $(apropos .); then
   thingmenu -g  160x120 -x \
-    "Posix" "exec vimb-run '\!posix $1'" \
-    "Mankier" "exec vimb-run '\!mankier $1'" \
-    "Man7" "exec vimb-run '\!man7 $1'" \
-    "Man" "exec vimb-run '\!man $1'" 
+    "Posix" "exec browse '\!posix $1'" \
+    "Mankier" "exec browse '\!mankier $1'" \
+    "Man7" "exec browse '\!man7 $1'" \
+    "Man" "exec browse '\!man $1'" 
 fi
 
 

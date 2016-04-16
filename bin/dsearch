@@ -33,7 +33,7 @@ handle_results() { # args -> launch
     playlist\ -\ *)
              exec "$handledir"/mpv "${1##*-\ }"  ;;
     *\ -\ *) read -r result < "$datadir/bookmark/$1" 
-             exec vimb-run  "$result" ;;   
+             exec browse    "$result" ;;   
     !photo)  exec "$handledir"/photo  ;;
     !save)   exec "$handledir"/save   ;;
     !link)   exec "$handledir"/link   ;;
@@ -47,7 +47,9 @@ handle_results() { # args -> launch
     !man*)   exec "$handledir"/manual     "${1##*man }"   ;;
     !pl*)    exec "$handledir"/playlist   "${1##*pl }"    ;;
     !yt*)    exec "$handledir"/yt         "${1##*yt }"    ;;
-    *)       exec vimb-run                "$1"            ;;
+    !*)      exec browse "https://duckduckgo.com/?q=$1"   ;;
+    *)       exec browse "$1"
+
   esac
 }
 
