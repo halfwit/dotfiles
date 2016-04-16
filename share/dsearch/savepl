@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 # Appends to playlists, or creates new ones.
 
-readonly datadir=${XDG_DATA_HOME:-$HOME/local/share}
+readonly datadir=${XDG_DATA_HOME:-$HOME/local/share}/mpv
 readonly optsfile="${XDG_CONFIG_HOME:-$HOME/local/cfg}"/dmenu/bemenucolors
 
 create_menu() {
-    cd "$datadir"/mpv || exit 1
-    for i in *; do
-        echo "$i"
+    cd "$datadir" || exit 1
+    for file in *; do
+        printf '%s\n' "$file"
     done 
 }
 
 append_selection() {
-  opts+=( -l 10 -p "Append to: ")
+    opts+=( -l 10 -p "Append to: ")
     create_menu | bemenu "${opts[@]}"
 }
 
@@ -51,31 +51,33 @@ unwrap_json() {
 # Main
 # https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
 
-if [[ -s $optsfile ]]; then
-    source "$optsfile"
+[[ -s $optsfile ]] && source "$optsfile"
+
+if [[ $1 ]]; then
+  current="$1"
+else
+  current=$(fetch_path "path")
+  current=$(unwrap_json "$current")
+
+  title=$(fetch_title "media-title")
+  title=$(unwrap_json "$title")
 fi
 
-current=$(fetch_path "path")
-current=$(unwrap_json "$current")
-
-title=$(fetch_title "media-title")
-title=$(unwrap_json "$title")
 title=$(printf '%s' "$title" | bemenu -l 1 "${opts[@]}" -p "Title")
-
 
 file=$(append_selection)
 
-if [[ ! -s $file ]]; then
+if [[ ! -s "$datadir/$file" ]]; then
     file="$file".pls
-    (cd "$datadir"/mpv || exit 1
+    (cd "$datadir" || exit 1
     printf '%s\n%s' "[playlist]" "NumberOfEntries=0" > "$file")
 fi
 
-number=$(fetch_number "$datadir/mpv/$file")
+number=$(fetch_number "$datadir/$file")
 
 # Make sure we have a selection
 if [[ $file && $current && $title && $number ]]; then
-    (cd "$datadir"/mpv || exit 1
+    (cd "$datadir" || exit 1
     sed -i '/NumberOfEntries=[0-9]*[0-9]/d' "$file"
     printf -- '%s\n%s\n%s\n' "Title$number=$title" "File$number=${current/*v=/ytdl:\/\/}" "NumberOfEntries=$number" >> "$file")
 fi

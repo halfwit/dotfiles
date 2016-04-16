@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 # Dmenu search with history
 
-readonly datadir=${XDG_DATA_HOME:-$HOME/local/share}
+readonly datadir=$HOME/local/share
 readonly handledir="$datadir"/dsearch
-readonly confdir="$XDG_CONFIG_HOME"
-readonly optsfile="$confdir"/dmenu/bemenucolors
+readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
 
 create_menu() {
     
@@ -12,14 +11,14 @@ create_menu() {
     xcmenu --list | head -n 1
 
     # Check bookmarks
-    while read -r url name; do
-        printf -- '%s %s\n' "$name" "$url"
-    done < "$confdir"/vimb/bookmark
+    ( cd "$datadir/bookmark"
+    find -type f -printf "%f\n"
+    )
 
     # This is for mpv playlists
-    ( cd "$XDG_DATA_HOME/mpv" ||  exit 1
+    ( cd "$datadir/mpv" ||  exit 1
     for file in *; do
-        printf '%s' "!mpv $file"
+        printf '%s %s\n' "!mpv" "$file"
     done
     )
 }

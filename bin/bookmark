@@ -1,1 +1,19 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
+# We're going to save bookmarks - file names containing link.
+# Use namespacing in the title (dead simple, yay!!)
+readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
+
+get_selection() {
+  cd "$XDG_DATA_HOME/bookmark"
+  find -type f -printf "%f\n" | \
+  bemenu -l 10 "${opts[@]}" -p "Site: "
+}
+
+[[ -s $optsfile ]] && source "$optsfile"
+
+result=$(get_selection)
+
+read -r result < "$XDG_DATA_HOME/bookmark/$result"
+
+[[ $result ]] && exec plumber "$result"
