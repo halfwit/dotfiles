@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
-# We're going to save bookmarks - file names containing link.
+# Database of bookmarks for quick linking
 # Use namespacing in the title (dead simple, yay!!)
 readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
 
 get_selection() {
-  cd "$XDG_DATA_HOME/bookmark"
+  opts+=( -l 10 -p "Select bookmark" )
+  cd "$XDG_DATA_HOME/bookmark" || exit 1
   find -type f -printf "%f\n" | \
-  bemenu -l 10 "${opts[@]}" -p "Site: "
+  bemenu "${opts[@]}"
 }
 
 [[ -s $optsfile ]] && source "$optsfile"
@@ -16,4 +17,4 @@ result=$(get_selection)
 
 read -r result < "$XDG_DATA_HOME/bookmark/$result"
 
-[[ $result ]] && exec plumber "$result"
+[[ $result ]] && exec xcmenu -ic "$result"

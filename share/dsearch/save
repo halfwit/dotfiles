@@ -1,28 +1,37 @@
 #!/usr/bin/env bash
 
 # Tool to save arbitrary things from the current clip to various locations
+
 readonly optsdir=$XDG_CONFIG_HOME/dmenu/bemenucolors
 
 [[ $optsdir ]] && source "$optsdir"
+input=$(xcmenuctrl -u)
 
-case $(curl -sI "$@" | grep -i content-type) in
+[[ $input ]] && case $(curl -sI "$input" | grep -i content-type) in
   *pdf*|*epub*|*djvu*)
+    opts+=( -p "Save document" )
     # Add image selection
     cover="https://ptpb.pw/REYs.png"
-    result=$(printf '%s' | bemenu "${opts[@]}" -p "Save document")
-    bookkeep "$result" mk -t pdf -e nvim -c "$cover"
-    curl -s "$1" > media/docs/pdf/"$result"
-    break ;;
+    result=$(printf '%s' "$input" | bemenu "${opts[@]}")
+    [[ $result ]] && bookkeep "$result" mk -t pdf -e nvim -c "$cover"
+    if [[ -s $XDG_DATA_HOME/librarian/bin/$result ]]; then
+      curl -s "$input" > media/docs/pdf/"$result"
+    fi
+    ;;
   *image*)
-    result=$(printf '%s' | bemenu "${opts[@]}" -p "Save picture")
-    curl -s "$1" >  "$HOME/media/pictures/$result"
-    exiftool -overwrite_original -Comment=\"$1\" "$HOME/media/pictures/$result"
-    break ;;
+    opts+=( -l 1 -p "Save picture" )
+    result=$(printf '%s' "$input" | bemenu "${opts[@]}")
+    [[ $result ]] && curl -s "$input" >  "$HOME/media/pictures/$result"
+    if [[ -s "$HOME/media/pictures/$result" ]]; then
+      exiftool -overwrite_original -Comment=\""$input"\"  "$HOME/media/pictures/$result"
+    fi
+    ;;
   *video*)
-    exec "$XDG_DATA_HOME/dsearch/savepl" "$1" 
-    break ;;
+    exec "$XDG_DATA_HOME/dsearch/savepl" "$input" 
+    ;;
   *)
-    result=$(printf '%s' | bemenu "${opts[@]}" -p "Save bookmark") 
-    [[ $result ]] && printf '%s' "$1" > "$XDG_DATA_HOME/bookmark/$result"
-    break ;;
+    opts+=( -l 1 -p "Save bookmark" )
+    result=$(printf '%s\n' | bemenu "${opts[@]}") 
+    [[ $result ]] && printf '%s' "$input" > "$XDG_DATA_HOME/bookmark/$result"
+    ;;
 esac

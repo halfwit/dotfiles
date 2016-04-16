@@ -35,8 +35,9 @@ handle_results() { # args -> launch
         !book*)  exec "$handledir"/gbook      "${1##*book }"  ;;
         !code*)  exec "$handledir"/code       "${1##*code }"  ;;
         !dict*)  exec "$handledir"/dictionary "${1##*dict }"  ;;
-        !save*)  exec "$handledir"/save       "${1##*save }"  ;;
         !mpv*)   exec "$handledir"/mpv        "${1##*mpv }"   ;;
+        !save)   exec "$handledir"/save                       ;;
+        !link)   exec "$handledir"/link                       ;;
         !man)    exec "$handledir"/manual                     ;;
         !man*)   exec "$handledir"/manual     "${1##*man }"   ;;
         !pl*)    exec "$handledir"/playlist   "${1##*pl }"    ;;
