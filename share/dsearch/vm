@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+readonly optsdir=$XDG_CONFIG_HOME/dmenu/bemenucolors
+
+VMDIR=~/media/vm
+
+list_items() {
+  cd $VMDIR
+  for i in *; do
+    printf '%s\n' "$i"
+  done | bemenu "${opts[@]}" -l $(find "$VMDIR" | wc -l )
+}
+
+## Main
+
+[[ -s $optsdir ]] && source "$optsdir"
+
+result=$(list_items)
+[[ $result ]] && qemu-system-x86_64 -drive file=media/vm/"$result",format=raw -cdrom media/iso/"$result".iso -enable-kvm -m 2046
