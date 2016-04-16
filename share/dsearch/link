@@ -5,7 +5,7 @@
 readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
 readonly datadir="$XDG_DATA_HOME"
 get_selection() {
-  find "$datadir"/bookmark -type f 
+  find "$datadir"/bookmark -type f -not -path '*/\.*'
   find "$datadir"/mpv -type f
 }
 
@@ -34,6 +34,6 @@ handle_mpv() {
 [[ -s $optsfile ]] && source "$optsfile"
 
 opts+=( -l 10 -p "Select bookmark" )
-result=$(get_selection | extract_links | bemenu "${opts[@]}" )
+result=$(get_selection | sort -u | extract_links | bemenu "${opts[@]}" )
 [[ -s $datadir/mpv/${result##*-\ }.pls ]] && result=$(handle_mpv "$result") ||  read -r result < "$datadir/bookmark/$result"
 [[ $result ]] && exec xcmenu -ic "$result"

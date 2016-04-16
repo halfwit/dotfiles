@@ -12,7 +12,7 @@ create_menu() {
 
   # Check bookmarks
   ( cd "$datadir/bookmark"
-  find -type f -printf "%f\n" | sort -u 
+  find -not -path '*/\.*' -type f -printf "%f\n" | sort -u 
   )
 
   # This is for mpv playlists
