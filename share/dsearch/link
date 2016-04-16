@@ -2,18 +2,38 @@
 
 # Database of bookmarks for quick linking
 # Use namespacing in the title (dead simple, yay!!)
-readonly optsfile=$XDG_CONFIG_HOME/dmenu/dmenucolors
-
+readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
+readonly datadir="$XDG_DATA_HOME"
 get_selection() {
-  opts+=( -l 10 -p "Select bookmark" )
-  (cd "$XDG_DATA_HOME/bookmark" || exit 1
-  find -type f -printf "%f\n" )
+  find "$datadir"/bookmark -type f 
+  find "$datadir"/mpv -type f
+}
+
+extract_links() {
+  local url
+  while read -r input; do
+    case "$input" in
+      *bookmark*)
+        read -r url < "$input"
+        printf '%s\n' "${input##*bookmark\/}"
+        ;;
+      *mpv*)
+        input="${input/.pls/}"
+        printf '%s\n' "video - ${input##*mpv\/}"
+        ;;
+    esac
+  done
+}
+
+handle_mpv() {
+  result=$(sed -n -e 's/^Title[0-9]=//p' < "$datadir/mpv/${1##*-\ }.pls" | bemenu "${opts[@]}" -p "Select title") 
+  [[ ! $result ]] && exec "$datadir/dsearch/link"
+  sed -n -e "/$result/ { n; s/^File[0-9]=//p }" < "$datadir/mpv/${1##*-\ }.pls"
 }
 
 [[ -s $optsfile ]] && source "$optsfile"
 
-result=$(get_selection | dmenu "${opts[@]}" )
-
-read -r result < "$XDG_DATA_HOME/bookmark/$result"
-
+opts+=( -l 10 -p "Select bookmark" )
+result=$(get_selection | extract_links | bemenu "${opts[@]}" )
+[[ -s $datadir/mpv/${result##*-\ }.pls ]] && result=$(handle_mpv "$result") ||  read -r result < "$datadir/bookmark/$result"
 [[ $result ]] && exec xcmenu -ic "$result"

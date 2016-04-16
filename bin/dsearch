@@ -32,6 +32,7 @@ handle_results() { # args -> launch
   case "$@" in
     *\ -\ *) read -r result < "$datadir/bookmark/$1" 
              exec vimb-run  "$result" ;;   
+    !photo)  exec "$handledir"/photo  ;;
     !save)   exec "$handledir"/save   ;;
     !link)   exec "$handledir"/link   ;;
     !man)    exec "$handledir"/manual ;;

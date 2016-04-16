@@ -6,7 +6,7 @@ readonly optsfile=$XDG_CONFIG_HOME/dmenu/dmenucolors
 
 get_selection() {
   (cd "$HOME/media/pictures"
-  find -type f -printf "IMG: $HOME/media/pictures/%f %f\n" )
+  find -type f -printf "IMG:$HOME/media/pictures/%f\t%f\n" )
 
 }
 
@@ -15,6 +15,7 @@ get_selection() {
 opts+=( -l 10 -p "Select photo" )
 result=$(get_selection | dmenu "${opts[@]}" )
 
-read -r result < "$XDG_DATA_HOME/bookmark/$result"
+result=$(exiftool "$HOME/media/pictures/$result" | awk '/Comment/ { print $NF }')
+result="${result//\"/}"
 
 [[ $result ]] && exec xcmenu -ic "$result"
