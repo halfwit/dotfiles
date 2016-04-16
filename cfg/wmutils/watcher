@@ -11,7 +11,7 @@ shuffle() {
 
 wew | while IFS=: read ev wid; do
   case $ev in
-    16)         ~/local/cfg/wmutils/autotag "$wid" ;;
+    16) ~/local/cfg/wmutils/autotag "$wid"    ;;
     17) ~/local/cfg/wmutils/groups -c "$wid"  ;;
     18) shuffle "$wid" "next"                 ;;
     19) shuffle "$wid" "$wid"                 ;;

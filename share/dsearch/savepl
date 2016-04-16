@@ -68,6 +68,7 @@ current=$(unwrap_json "$current")
 
 title=$(fetch_title "media-title")
 title=$(unwrap_json "$title")
+title=$(printf '%s' "$title" | bemenu -l 1 "${opts[@]}" -p "Title")
 
 if [[ "$1" ]]; then
     file="$1.pls"
