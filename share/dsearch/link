@@ -2,18 +2,17 @@
 
 # Database of bookmarks for quick linking
 # Use namespacing in the title (dead simple, yay!!)
-readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
+readonly optsfile=$XDG_CONFIG_HOME/dmenu/dmenucolors
 
 get_selection() {
   opts+=( -l 10 -p "Select bookmark" )
-  cd "$XDG_DATA_HOME/bookmark" || exit 1
-  find -type f -printf "%f\n" | \
-  bemenu "${opts[@]}"
+  (cd "$XDG_DATA_HOME/bookmark" || exit 1
+  find -type f -printf "%f\n" )
 }
 
 [[ -s $optsfile ]] && source "$optsfile"
 
-result=$(get_selection)
+result=$(get_selection | dmenu "${opts[@]}" )
 
 read -r result < "$XDG_DATA_HOME/bookmark/$result"
 

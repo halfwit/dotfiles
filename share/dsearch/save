@@ -7,28 +7,33 @@ readonly optsdir=$XDG_CONFIG_HOME/dmenu/bemenucolors
 [[ $optsdir ]] && source "$optsdir"
 input=$(xcmenuctrl -u)
 
+document() {
+  opts+=( -p "Save document" )
+  # Add image selection
+  cover="https://ptpb.pw/REYs.png"
+  result=$(printf '%s\n' "$2" | bemenu "${opts[@]}")
+  [[ $result ]] && st - e bookkeep "$result" mk -t "$1" -e nvim -c "$cover"
+  if [[ -s $XDG_DATA_HOME/librarian/bin/$result ]]; then
+    curl -s "$2" > media/docs/"$1/$result"
+  fi
+}
+
+image() {
+  local result input
+  opts+=( -l 1 -p "Save picture" )
+  result=$(printf '%s\n' "$1" | bemenu "${opts[@]}")
+  [[ $result ]] && curl -s "$1" >  "$HOME/media/pictures/$result"
+  if [[ -s "$HOME/media/pictures/$result" ]]; then
+    exiftool -overwrite_original -Comment=\""$1"\"  "$HOME/media/pictures/$result"
+  fi
+}
+
 [[ $input ]] && case $(curl -sI "$input" | grep -i content-type) in
-  *pdf*|*epub*|*djvu*)
-    opts+=( -p "Save document" )
-    # Add image selection
-    cover="https://ptpb.pw/REYs.png"
-    result=$(printf '%s' "$input" | bemenu "${opts[@]}")
-    [[ $result ]] && bookkeep "$result" mk -t pdf -e nvim -c "$cover"
-    if [[ -s $XDG_DATA_HOME/librarian/bin/$result ]]; then
-      curl -s "$input" > media/docs/pdf/"$result"
-    fi
-    ;;
-  *image*)
-    opts+=( -l 1 -p "Save picture" )
-    result=$(printf '%s' "$input" | bemenu "${opts[@]}")
-    [[ $result ]] && curl -s "$input" >  "$HOME/media/pictures/$result"
-    if [[ -s "$HOME/media/pictures/$result" ]]; then
-      exiftool -overwrite_original -Comment=\""$input"\"  "$HOME/media/pictures/$result"
-    fi
-    ;;
-  *video*)
-    exec "$XDG_DATA_HOME/dsearch/savepl" "$input" 
-    ;;
+  *image*) image           "$input" ;;
+  *djvu*)  document "djvu" "$input" ;;
+  *epub*)  document "epub" "$input" ;;
+  *pdf*)   document "pdf"  "$input" ;;
+  *video*) exec "$XDG_DATA_HOME/dsearch/savepl" "$input" ;;
   *)
     opts+=( -l 1 -p "Save bookmark" )
     result=$(printf '%s\n' | bemenu "${opts[@]}") 
