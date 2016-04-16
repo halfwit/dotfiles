@@ -7,43 +7,46 @@ readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
 
 create_menu() {
     
-    # Last selection
-    xcmenu --list | head -n 1
+  # Last selection
+  xcmenu --list | head -n 1
 
-    # Check bookmarks
-    ( cd "$datadir/bookmark"
-    find -type f -printf "%f\n"
-    )
+  # Check bookmarks
+  ( cd "$datadir/bookmark"
+  find -type f -printf "%f\n"
+  )
 
-    # This is for mpv playlists
-    ( cd "$datadir/mpv" ||  exit 1
-    for file in *; do
-        printf '%s %s\n' "!mpv" "$file"
-    done
-    )
+  # This is for mpv playlists
+  ( cd "$datadir/mpv" ||  exit 1
+  for file in *; do
+    printf '%s %s\n' "!mpv" "$file"
+  done
+  )
 }
 
 get_selection() {
-    opts+=(-p Search)
-    create_menu | bemenu -l 10 "${opts[@]}"
+  opts+=(-p Search)
+  create_menu | bemenu -l 10 "${opts[@]}"
 }
 
 handle_results() { # args -> launch
-    case "$@" in
-        !radio*) exec "$handledir"/gmusic     "${1##*radio }" ;;
-        !song*)  exec "$handledir"/gsong      "${1##*song }"  ;;
-        !book*)  exec "$handledir"/gbook      "${1##*book }"  ;;
-        !code*)  exec "$handledir"/code       "${1##*code }"  ;;
-        !dict*)  exec "$handledir"/dictionary "${1##*dict }"  ;;
-        !mpv*)   exec "$handledir"/mpv        "${1##*mpv }"   ;;
-        !save)   exec "$handledir"/save                       ;;
-        !link)   exec "$handledir"/link                       ;;
-        !man)    exec "$handledir"/manual                     ;;
-        !man*)   exec "$handledir"/manual     "${1##*man }"   ;;
-        !pl*)    exec "$handledir"/playlist   "${1##*pl }"    ;;
-        !yt*)    exec "$handledir"/yt         "${1##*yt }"    ;;
-        *)       exec vimb-run                "$1"            ;;
-    esac
+  case "$@" in
+    *\ -\ *) read -r result < "$datadir/bookmark/$1" 
+             exec vimb-run  "$result" ;;   
+    !save)   exec "$handledir"/save   ;;
+    !link)   exec "$handledir"/link   ;;
+    !man)    exec "$handledir"/manual ;;
+
+    !radio*) exec "$handledir"/gmusic     "${1##*radio }" ;;
+    !song*)  exec "$handledir"/gsong      "${1##*song }"  ;;
+    !book*)  exec "$handledir"/gbook      "${1##*book }"  ;;
+    !code*)  exec "$handledir"/code       "${1##*code }"  ;;
+    !dict*)  exec "$handledir"/dictionary "${1##*dict }"  ;;
+    !mpv*)   exec "$handledir"/mpv        "${1##*mpv }"   ;;
+    !man*)   exec "$handledir"/manual     "${1##*man }"   ;;
+    !pl*)    exec "$handledir"/playlist   "${1##*pl }"    ;;
+    !yt*)    exec "$handledir"/yt         "${1##*yt }"    ;;
+    *)       exec vimb-run                "$1"            ;;
+  esac
 }
 
 # Main
