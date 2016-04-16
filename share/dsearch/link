@@ -6,7 +6,7 @@ readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
 readonly datadir="$XDG_DATA_HOME"
 get_selection() {
   find "$datadir"/bookmark -type f -not -path '*/\.*'
-  find "$datadir"/mpv -type f
+  find "$datadir"/mpv -type f -not -path '*/\.*'
 }
 
 extract_links() {

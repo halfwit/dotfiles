@@ -17,7 +17,7 @@ if [[ -f "$input" ]]; then
     image*)
       exec imv "$input"      ;;
     video*)
-      exec mpv "$input"      ;;
+      exec mpv-run "$input"      ;;
     *)
       notify-send "Error with $input"
       exec nvim-run ~/local/bin/plumber ;;
@@ -47,7 +47,7 @@ case "$input" in
     *xkcd*)
       curl -s "https://xkcd.com/${input//[^0-9]/}/" | awk '/hotlink/{ print $NF }' | xargs curl | exec imv - ;;
     *imgur.com/gallery/*)
-      exec mpv "$input"                         ;;
+      exec mpv-run "$input"                         ;;
     http://imgur*)                        
       curl -s http://i.imgur.com/"${input: -7}".png | exec imv - ;;
     *0x0*)
@@ -68,6 +68,6 @@ case "$input" in
       if grep "$input" <<< "$(apropos .)"; then
         exec "$XDG_DATA_HOME"/dsearch/manual "$input"
       else
-        exec browse "!g $input"
+        exec browse "!g%20$input"
       fi ;;
 esac

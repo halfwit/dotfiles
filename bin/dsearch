@@ -35,8 +35,12 @@ handle_results() { # args -> launch
     *\ -\ *) read -r result < "$datadir/bookmark/$1" 
              exec browse    "$result" ;;   
     !photo)  exec "$handledir"/photo  ;;
+    !notes)  exec "$handledir"/notes  ;;
+    !read)   exec "$handledir"/reader ;;
+    !game)   exec "$handledir"/game   ;;
     !save)   exec "$handledir"/save   ;;
     !link)   exec "$handledir"/link   ;;
+    !todo)   exec "$handledir"/todo   ;;
     !man)    exec "$handledir"/manual ;;
 
     !radio*) exec "$handledir"/gmusic     "${1##*radio }" ;;

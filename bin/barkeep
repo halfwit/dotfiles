@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # barkeep
-# Creates a game entry based on a template for use with `taverner`
+# Creates a game entry based on a template for use with `game`
 
 # Options
 shopt -s nullglob
@@ -8,7 +8,7 @@ shopt -s nullglob
 # Globals
 readonly progn=barkeep
 readonly datadir="${XDG_DATA_HOME:-$HOME/.local/share}"
-readonly prefix="$datadir"/taverner
+readonly prefix="$datadir"/game
 readonly bindir="$prefix"/bin
 readonly coverdir="$prefix"/covers
 readonly templatedir="$prefix"/templates

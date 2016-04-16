@@ -1,23 +1,21 @@
 #!/usr/bin/env bash
-# taverner
-# Generate a dmenu for games on various platforms with associated cover images
-# and launch them based on custom shell scripts tailored for their needs.
+# Reader
+# Generate a dmenu for books to be opened with various extensions, with associated cover images
 
 shopt -s nullglob
-readonly progn=taverner
+readonly progn=reader
 readonly optsfile="${XDG_CONFIG_HOME:-$HOME/local/cfg}"/dmenu/dmenucolors
 readonly datadir="${XDG_DATA_HOME:-$HOME/local/share}"
-readonly prefix="$datadir"/taverner
+readonly prefix="$datadir"/reader
 readonly bindir="$prefix"/bin
 readonly coverdir="$prefix"/covers
 
-# Main globals used throughout the code, unfortunately.
+# Main globals used throughout the code
 declare -A titles
 declare -A covers
 
-
 puts() {
-    printf -- "$1\n" "${@:2}"
+       printf -- "$1\n" "${@:2}"
 }
 
 has() {
@@ -34,14 +32,16 @@ err() {
     fi
 }
 
+
+# Read the title from the bins
 title_in() {
     local title
 
     while read -r title; do
-        if [[ "$title" =~ '# Title: '?(.*) ]]; then
-            puts '%s' "${BASH_REMATCH[1]}"
-            break
-        fi
+	if [[ "$title" =~ '# Title: '?(.*) ]]; then
+	    puts '%s' "${BASH_REMATCH[1]}"
+	    break
+	fi
     done
 }
 
@@ -50,27 +50,27 @@ generate_entry_data() {
     local file filename title cover
 
     for file in "$bindir"/*; do
-        if [[ -e "$file" ]]; then
-            title="$(title_in < "$file")"
-        fi
+	if [[ -e "$file" ]]; then
+	    title="$(title_in < "$file")"
+	fi
 
-        filename="${file##*/}"
+	filename="${file##*/}"
 
-        # Use the filename if no title could be found.
-        if [[ -z "$title" ]]; then
-            title="$filename"
-        fi
+	# Use the filename if no title could be found.
+	if [[ -z "$title" ]]; then
+	    title="$filename"
+	fi
 
-        # If a matching cover image isn't found use a placeholder instead.
-        if [[ -e "$coverdir"/"$filename" ]]; then
-            cover="$coverdir"/"$filename"
-        else
-            cover="$coverdir"/placeholder
-        fi
+	# If a matching cover image isn't found use a placeholder instead.
+	if [[ -e "$coverdir"/"$filename" ]]; then
+	    cover="$coverdir"/"$filename"
+	else
+	    cover="$coverdir"/placeholder
+	fi
 
-        puts '%s' "$title"
-        puts '%s' "$file"
-        puts '%s' "$cover"
+	puts '%s' "$title"
+	puts '%s' "$file"
+	puts '%s' "$cover"
     done
 }
 
@@ -78,14 +78,14 @@ create_menu() {
     #global titles covers
     local key
 
-    for key in "${!titles[@]}"; do
-        puts 'IMG:%s\t%s' "${covers[$key]}" "$key"
+    for key in  "${!titles[@]}"; do
+	puts 'IMG:%s\t%s' "${covers[$key]}" "$key"
     done
 }
 
 get_user_picks() {
-    #global opts
-    create_menu | sort | dmenu "${opts[@]}"
+    #global dmenu_opts
+    create_menu | sort -k2 | dmenu "${opts[@]}"
 }
 
 launch() {
@@ -93,7 +93,7 @@ launch() {
     local entry="$1"
 
     if ! err="$(command -- "$entry")"; then
-        err '%s' "${err:-$entry}"
+	err '%s' "${err:-$entry}"
     fi
 }
 
@@ -103,12 +103,12 @@ populate_arrays() {
     # Parse the list into two arrays.  We keep a consistent key so we can access
     # the correct corresonding information for both lookups.
     while {
-        read -r title
-        read -r entry
-        read -r cover
+	read -r title
+	read -r entry
+	read -r cover
     } do
-        titles["$title"]="$entry"
-        covers["$title"]="$cover"
+	  titles["$title"]="$entry"
+	  covers["$title"]="$cover"
     done
 }
 
@@ -117,17 +117,16 @@ process_results() {
     local pick entry
 
     while read -r pick; do
-        if [[ -n "${titles[$pick]}" ]]; then
-            entry="${titles[$pick]}"
-        else
-            err '%s: Cannot find associated launcher.' "$pick"
-            exit 1
-        fi
+	if [[ -n "${titles[$pick]}" ]]; then
+	    entry="${titles[$pick]}"
+	else
+	    err '%s: Cannot find associated launcher.' "$pick"
+	    exit 1
+	fi
 
-        launch "$entry" &
+	launch "$entry" &
     done
 }
-
 get_options() {
     if [[ -e "$optsfile" ]]; then
         # Parse optsfile
@@ -142,7 +141,7 @@ get_options() {
 }
 
 # Main loop
-get_options && opts+=( -p "Play" )
+get_options && opts+=( -p "Select book" )
 
 mkdir -p "$datadir" "$bindir" "$coverdir"
 
@@ -151,5 +150,5 @@ populate_arrays < <(generate_entry_data)
 results="$(get_user_picks)"
 
 if [[ -n "$results" ]]; then
-    process_results <<< "$results"
+        process_results <<< "$results"
 fi
