@@ -12,15 +12,17 @@ create_menu() {
 
   # Check bookmarks
   ( cd "$datadir/bookmark"
-  find -not -path '*/\.*' -type f -printf "%f\n" | sort -u 
+  find -not -path '*/\.*' -type f -printf "%f\n" | sort -u  
   )
 
   # This is for mpv playlists
   ( cd "$datadir/mpv" ||  exit 1
   for file in *; do
-    printf '%s\n' "playlist - $file" | sort -u 
-  done
+    printf '%s\n' "playlist - $file" 
+  done | sort -u
   )
+  ( cd "$handledir" || exit 1
+  find -type f -printf "!%f\n")
 }
 
 get_selection() {
@@ -42,6 +44,7 @@ handle_results() { # args -> launch
     !link)   exec "$handledir"/link   ;;
     !todo)   exec "$handledir"/todo   ;;
     !man)    exec "$handledir"/manual ;;
+    !vm)     exec "$handledir"/vm     ;;
 
     !radio*) exec "$handledir"/gmusic     "${1##*radio }" ;;
     !song*)  exec "$handledir"/gsong      "${1##*song }"  ;;
