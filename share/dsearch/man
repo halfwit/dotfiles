@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 
 readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
-readonly termcmd="st -t float -e man"
 
 handle_result() {
    local width
-   # Coloration, and match width
+   #Coloration, and match width
    width=$(tput cols)
-   [[ $width -gt $MANWIDTH ]] && width="$MANWIDTH"
+   [[ $width -gt $MANWIDTH ]] && \
    exec env LESS=-RX \
    MANWIDTH="$width" \
    LESS_TERMCAP_mb=$'\E[01;31m' \
@@ -17,7 +16,7 @@ handle_result() {
    LESS_TERMCAP_so=$'\E[38;5;246m' \
    LESS_TERMCAP_ue=$'\E[0m' \
    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
-   $termcmd $1
+   st -t float -e man "$1"
 }
 
 get_selection() {
@@ -31,17 +30,15 @@ get_selection() {
 
 [[ -s $optsfile ]] && source "$optsfile"
 
-[[ ! $1 ]] && result="$(get_selection)" || result=$1
-result="${${result##\(*}%%\)} ${result%% *}"
+[[ ! $1 ]] && result="$(get_selection)" || result="$1" 
 
-if ! grep "$1" <<< $(apropos .); then
+if ! grep -q "$1" <<< $(apropos .); then
   thingmenu -g  160x120 -x \
     "Posix" "exec browse '\!posix $1'" \
     "Mankier" "exec browse '\!mankier $1'" \
     "Man7" "exec browse '\!man7 $1'" \
     "Man" "exec browse '\!man $1'" 
 fi
-
 
 if [[ "$result" ]]; then
   handle_result "$result"
