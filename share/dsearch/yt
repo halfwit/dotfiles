@@ -92,7 +92,7 @@ process_selection() { # global token
 
 # Main
 
-[[ "$1" == save ]] && exec "$HOME"/local/share/dsearch/savepl
+[[ "$1" == save ]] && exec "$HOME"/local/share/youtube/savepl
 
 [[ -s $optsfile ]] && source "$optsfile"
 

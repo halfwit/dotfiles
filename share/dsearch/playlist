@@ -97,7 +97,7 @@ process_selection() { # global token
 # Main
 declare -A menu title image
 
-[[ "$1" == save ]] && exec "$HOME"/local/share/dsearch/savesearch
+[[ "$1" == save ]] && exec "$HOME"/local/share/youtube/savesearch
 
 [[ -s $optsfile ]] && source "$optsfile"
 

@@ -22,7 +22,7 @@ create_menu() {
   done | sort -u
   )
   ( cd "$handledir" || exit 1
-  find -type f -printf "!%f\n")
+  find -type f -printf "!%f\n" | sort -u)
 }
 
 get_selection() {
@@ -46,6 +46,8 @@ handle_results() { # args -> launch
     !man)    exec "$handledir"/manual ;;
     !vm)     exec "$handledir"/vm     ;;
 
+    !rec)    exec "$handledir"/rec "pic" ;;
+    !snap)   exec "$handledir"/rec "vid" ;;
     !radio*) exec "$handledir"/gmusic     "${1##*radio }" ;;
     !song*)  exec "$handledir"/gsong      "${1##*song }"  ;;
     !book*)  exec "$handledir"/gbook      "${1##*book }"  ;;

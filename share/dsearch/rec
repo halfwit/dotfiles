@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Screen record or screen shot
+
+readonly pb="https://ptpb.pw/?u=1"
+
+picture() {
+  tmp=$(mktemp --suffix=.png)
+  maim -d 1 --format png /dev/stdout | curl -sF c=@- "$pb" | sed "s/$/.png/" | xcmenu -ic
+}
+
+video() {
+  tmp=$(mktemp --suffix=.mkv)
+  ffmpeg -video_size "$(wattr w "$(lsw -r)")x$(wattr h "$(lsw -r)")" -framerate 25 -f x11grab -i "$DISPLAY" "$tmp" -y 
+  wait
+  curl -sF c=@"$tmp" "$pb" | xcmenu -ic
+}
+
+## Main
+
+if pgrep ffmpeg; then
+  pkill -SIGINT ffmpeg
+  exit 0
+fi
+
+
+case "$1" in
+  pic)
+    picture ;;
+  vid)
+    video ;; 
+esac
