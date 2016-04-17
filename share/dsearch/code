@@ -30,5 +30,5 @@ result=$(get_selection "${token// /.\*}")
 
 # Verify a selection was made
 if [[ $result ]]; then
-    exec nvim-run "${result%:*}"
+    exec plumber "${result%:*}"
 fi

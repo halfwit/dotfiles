@@ -4,16 +4,17 @@
 readonly optsfile=$XDG_CONFIG_HOME/dmenu/dmenucolors
 readonly images="$(mktemp -d /tmp/yt.XXXX)"
 readonly requests=25
+declare type=video
 
 query() {
   local key
 
   read -r key < "$XDG_DATA_HOME/youtube/key"
-  curl -s "https://www.googleapis.com/youtube/v3/search?q=${1// /+}&type=video&part=snippet&maxResults=$requests&key=$key"
+  curl -s "https://www.googleapis.com/youtube/v3/search?q=${1// /+}&type=$type&part=snippet&maxResults=$requests&key=$key"
 }
 
 parse() {
-  jshon -CQ -e items -a -e snippet -e title -uppe id -e videoId -uppe snippet -e thumbnails -e high -e url -u 
+  jshon -CQ -e items -a -e snippet -e title -uppe id -e "$type"Id -uppe snippet -e thumbnails -e high -e url -u 
 }
 
 buildmenu() {
@@ -40,6 +41,7 @@ run() {
 }
 
 [[ "$1" == save ]] && exec "$XDG_DATA_HOME"/youtube/savepl
+[[ "$1" == _pl* ]] && type="playlist"
 
 # Grab theming
 [[ -s $optsfile ]] && source "$optsfile"

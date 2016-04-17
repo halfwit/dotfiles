@@ -1,4 +1,4 @@
-set editor-command=nvim-run %s
+set editor-command=nvim %s
 set spell-checking=true
 
 set minimumfontsize=9.5

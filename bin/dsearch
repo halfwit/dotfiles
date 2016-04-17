@@ -11,18 +11,17 @@ create_menu() {
   xcmenu --list | head -n 1
 
   # Check bookmarks
-  ( cd "$datadir/bookmark"
-  find -not -path '*/\.*' -type f -printf "%f\n" | sort -u  
-  )
+  (cd "$datadir/bookmark"
+  find -not -path '*/\.*' -type f -printf "%f\n" | sort -u)
 
   # This is for mpv playlists
-  ( cd "$datadir/mpv" ||  exit 1
+  (cd "$datadir/mpv" ||  exit 1
   for file in *; do
     printf '%s\n' "playlist - $file" 
-  done | sort -u
-  )
-  ( cd "$handledir" || exit 1
+  done | sort -u)
+  (cd "$handledir" || exit 1
   find -type f -printf "!%f\n" | sort -u)
+  printf '%s\n%s\n' "!snap" "!stop"
 }
 
 get_selection() {
@@ -56,7 +55,7 @@ handle_results() { # args -> launch
     !code*)  exec "$handledir"/code   "${1##*code }"  ;;
     !dict*)  exec "$handledir"/dict   "${1##*dict }"  ;;
     !man*)   exec "$handledir"/man    "${1##*man }"   ;;
-    !pl*)    exec "$handledir"/pl     "${1##*pl }"    ;;
+    !pl*)    exec "$handledir"/yt     "_pl${1##*pl }"    ;;
     !yt*)    exec "$handledir"/yt     "${1##*yt }"    ;;
     
     !*)      exec browse "https://duckduckgo.com/?q=$1"   ;;

@@ -6,12 +6,12 @@ while read -r item; do
 done
 
 if [[ -f "$input" ]]; then
-  mime=$(file -biL "$input")
+  mime=$(file -bL --mime-type "$input")
   [[ $mime ]] && case $mime in
     text/html*)
       exec browse "$input" ;;
     text*)
-      exec nvim-run "$input" ;;
+      exec st -t NVIM -e nvim "$input" ;;
     *pdf*|*epub*|*djvu*)
       exec zathura "$input" ;;
     image*)
@@ -20,7 +20,7 @@ if [[ -f "$input" ]]; then
       exec mpv-run "$input"      ;;
     *)
       notify-send "Error with $input"
-      exec nvim-run ~/local/bin/plumber ;;
+      exec st -t NVIM -e nvim ~/local/bin/plumber ;;
   esac
 fi
 
@@ -28,14 +28,14 @@ printf '%s' "$input" | xcmenu -ic
 
 case "$input" in
     gopher://*)
-      exec st -e cgo "$input"              ;;
+      exec st -e cgo "$input" ;;
     *.pdf|*.djvu)            
       curl -s "$input" > /tmp/tmp.book
       exec zathura /tmp/tmp.book      ;;
     *.epub)
       curl -s "$input" > /tmp/tmp.book
       pandoc /tmp/tmp.book -o /tmp/tmp.pdf
-      exec zathura /tmp/tmp.pdf       ;;
+      exec zathura /tmp/tmp.pdf ;;
     *youtube.com/watch*|*youtu.be*|ytdl*|*livestream.com*|*twitch*|*.mkv|*.mp4|*.webm|*.mpg|*.ogg|*.gifv)                     
       exec mpv-run "$input"                ;;
     *.jpg*|*.png|*.jpeg|*.gif)      
@@ -50,17 +50,15 @@ case "$input" in
       exec mpv-run "$input"                         ;;
     http://imgur*)                        
       curl -s http://i.imgur.com/"${input: -7}".png | exec imv - ;;
-    *0x0*)
-      curl -I "$input" | grep Location | awk '{ print $2 }' > /tmp/tmpfile
-      exec plumber /tmp/tmpfile ;;
     *ptpb.pw/t/*)
       exec st -e asciinema play <(curl -s "${input/\/t/}") ;;
     http*)                          
       if curl -I "$input" | grep -e html -e x-empty; then
         exec browse "$input" 
       else
-        curl -S "$input" > /tmp/tmpfile
-        exec plumber /tmp/tmpfile
+        tmp="$(mktemp)"
+        curl -s "$input" > "$tmp" 
+        exec plumber "$tmp"
       fi ;;
     *\(*)  
         exec "$XDG_DATA_HOME"/dsearch/man "${input%\(*}"      ;;

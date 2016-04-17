@@ -4,7 +4,6 @@
 readonly pb="https://ptpb.pw/?u=1"
 
 picture() {
-  tmp=$(mktemp --suffix=.png)
   maim -d 1 --format png /dev/stdout | curl -sF c=@- "$pb" | sed "s/$/.png/" | xcmenu -ic
 }
 
@@ -19,7 +18,7 @@ video() {
 
 
 case "$1" in
-  pic)
+  snap)
     picture ;;
   vid)
     video ;; 
