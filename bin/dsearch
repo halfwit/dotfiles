@@ -46,16 +46,16 @@ handle_results() { # args -> launch
     !man)    exec "$handledir"/manual ;;
     !vm)     exec "$handledir"/vm     ;;
 
-    !rec)    exec "$handledir"/rec "pic" ;;
-    !snap)   exec "$handledir"/rec "vid" ;;
-    !radio*) exec "$handledir"/gmusic     "${1##*radio }" ;;
-    !song*)  exec "$handledir"/gsong      "${1##*song }"  ;;
-    !book*)  exec "$handledir"/gbook      "${1##*book }"  ;;
-    !code*)  exec "$handledir"/code       "${1##*code }"  ;;
-    !dict*)  exec "$handledir"/dictionary "${1##*dict }"  ;;
-    !man*)   exec "$handledir"/manual     "${1##*man }"   ;;
-    !pl*)    exec "$handledir"/playlist   "${1##*pl }"    ;;
-    !yt*)    exec "$handledir"/yt         "${1##*yt }"    ;;
+    !radio*) exec "$handledir"/gmusic   "${1##*radio }" ;;
+    !song*)  exec "$handledir"/gsong    "${1##*song }"  ;;
+    !book*)  exec "$handledir"/gbook    "${1##*book }"  ;;
+    !code*)  exec "$handledir"/code     "${1##*code }"  ;;
+    !dict*)  exec "$handledir"/dict     "${1##*dict }"  ;;
+    !snap)   exec "$handledir"/rec      "snap"          ;;
+    !rec)    exec "$handledir"/rec      "vid"           ;;
+    !man*)   exec "$handledir"/manual   "${1##*man }"   ;;
+    !pl*)    exec "$handledir"/pl       "${1##*pl }"    ;;
+    !yt*)    exec "$handledir"/yt       "${1##*yt }"    ;;
     !*)      exec browse "https://duckduckgo.com/?q=$1"   ;;
     *)       exec browse "$1"
 

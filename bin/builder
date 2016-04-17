@@ -89,8 +89,8 @@ cower -uddf
 get_options "$@"
 
 # Build!
-#builddir "$aurroot"; 
-aurqueue "$aurroot" | buildpipe
+builddir "$aurroot"; 
+#aurqueue "$aurroot" | buildpipe
 builddir "$asproot"
 
 # Finally, test for any package that built.

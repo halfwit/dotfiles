@@ -14,7 +14,7 @@ list_windows() {
       case ${wname//\"/} in
         vimb)
           mapw -u "$id"                ;;
-        *.pdf|*.epub|*.djvu|*.book|NVIM|name\)|w3m|ELinks|*sandy*|*tetris*|*cgo*|*QEMU*|*surf)
+        *.pdf|*.epub|*.djvu|*.book|NVIM|name\)|w3m|ELinks|*sandy*|*tetris*|*cgo*|*QEMU*|*surf|*Syncthing*)
           wname="$(wattr w "$id") $(( heigh / 2 )) $(wattr w "$id") $(( heigh - gaps )) $id" ;;
          abduco|mpv)
            wname="400 225 450 245 $id" ;;
