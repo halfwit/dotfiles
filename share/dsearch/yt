@@ -1,50 +1,50 @@
 #!/usr/bin/env bash
 # Youtube search handler
 
-readonly optsfile="$XDG_CONFIG_HOME"/dmenu/dmenucolors
+readonly optsfile=$XDG_CONFIG_HOME/dmenu/dmenucolors
 readonly images="$(mktemp -d /tmp/yt.XXXX)"
-readonly requests=5
+readonly requests=25
 
-fetch_json() {
+query() {
   local key
+
   read -r key < "$XDG_DATA_HOME/youtube/key"
-  curl -s "https://www.googleapis.com/youtube/v3/search?q=${1// /%20}&type=video&part=snippet&maxResults=$requests&key=$key"
+  curl -s "https://www.googleapis.com/youtube/v3/search?q=${1// /+}&type=video&part=snippet&maxResults=$requests&key=$key"
 }
 
-parse_json() {
-	# we need to pull out the URL in this same call, to stdout.
+parse() {
   jshon -CQ -e items -a -e snippet -e title -uppe id -e videoId -uppe snippet -e thumbnails -e high -e url -u 
 }
 
-curl_images() {
-  local name url
-  local -A img
+buildmenu() {
+  local name url i=0
 
   while {
     read -r name
     read -r blob
     read -r url 
   } do
-    curl -s "$url" > "$images/$name.jpg"
+    curl -s "$url" -o "$images/$i" &
     printf '%s\n' "$blob" > "$images/$name-url"
-    printf 'IMG:%q\t%s\n' "$images/$name.jpg" "$name"
+    printf 'IMG:%q\t%s\n' "$images/$i" "$name"
+    ((++i))
   done
 }
 
-handle_selection() {
+run() {
   local selection url
-  
-  read -r selection || exit 1
-  read -r url < "$images/$selection-url"
-  [[ $url ]] && exec mpv-run "ytdl:\/\/$url"
-  
+  while read -r selection; do
+    read -r url < "$images/$selection-url"
+    [[ $url ]] && mpv-run "ytdl://$url" &
+  done
 }
 
-# Main
-## Handle instance
 [[ "$1" == save ]] && exec "$XDG_DATA_HOME"/youtube/savepl
 
+# Grab theming
 [[ -s $optsfile ]] && source "$optsfile"
-opts+=( -p "Select video" -l "$requests" )
 
-fetch_json "$@" | parse_json | curl_images | dmenu "${opts[@]}" #| handle_selection
+opts+=(-p "Select video" -l 10)
+
+## Main pipeline
+query "$@" | parse | buildmenu | dmenu "${opts[@]}" | run
