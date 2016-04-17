@@ -10,17 +10,12 @@ picture() {
 
 video() {
   tmp=$(mktemp --suffix=.mkv)
-  ffmpeg -video_size "$(wattr w "$(lsw -r)")x$(wattr h "$(lsw -r)")" -framerate 25 -f x11grab -i "$DISPLAY" "$tmp" -y 
+  ffmpeg -video_size "$(wattr w "$(lsw -r)")x$(wattr h "$(lsw -r)")" -framerate 25 -f x11grab -i "$DISPLAY" "$tmp" -y
   wait
   curl -sF c=@"$tmp" "$pb" | xcmenu -ic
 }
 
 ## Main
-
-if pgrep ffmpeg; then
-  pkill -SIGINT ffmpeg
-  exit 0
-fi
 
 
 case "$1" in
@@ -28,4 +23,6 @@ case "$1" in
     picture ;;
   vid)
     video ;; 
+  stop)
+    pkill -SIGINT ffmpeg ;;
 esac
