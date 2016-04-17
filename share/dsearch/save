@@ -8,11 +8,15 @@ readonly optsdir=$XDG_CONFIG_HOME/dmenu/bemenucolors
 
 [[ $1 ]] && read -r input <<< "$1" || input=$(xcmenuctrl -u)
 
+name() {
+  opts+=(-l 1 -p "Save $1 as:")
+  printf '\n' | bemenu "${opts[@]}" 
+}
+
 document() {
-  opts+=( -p "Save document" )
-  # Add image selection
+  local result cover
+  read -r result
   cover="https://ptpb.pw/REYs.png"
-  result=$(printf '%s\n' "$2" | bemenu "${opts[@]}")
   [[ $result ]] && st - e bookkeep "$result" mk -t "$1" -e nvim -c "$cover"
   if [[ -s $XDG_DATA_HOME/librarian/bin/$result ]]; then
     curl -s "$2" > media/docs/"$1/$result"
@@ -21,20 +25,26 @@ document() {
 
 image() {
   local result input
-  opts+=( -l 1 -p "Save picture" )
-  result=$(printf '%s\n' "$1" | bemenu "${opts[@]}")
+  read -r result
   [[ $result ]] && curl -s "$1" >  "$HOME/media/pictures/$result"
   if [[ -s "$HOME/media/pictures/$result" ]]; then
     exiftool -overwrite_original -Comment=\""$1"\"  "$HOME/media/pictures/$result"
   fi
 }
 
+note() {
+  local result
+  read -r result
+  curl -s "$1" > "$XDG_CACHE_HOME"/notes/"$result"
+}
+
 [[ $input ]] && case $(curl -sI "$input" | grep -i content-type) in
-  *image*) image           "$input" ;;
-  *djvu*)  document "djvu" "$input" ;;
-  *epub*)  document "epub" "$input" ;;
-  *pdf*)   document "pdf"  "$input" ;;
-  *video*) exec "$XDG_DATA_HOME/dsearch/savepl" "$input" ;;
+  *image*) name "picture"  | image      "$input" ;;
+  *djvu*)  name "document" | doc "djvu" "$input" ;;
+  *epub*)  name "document" | doc "epub" "$input" ;;
+  *pdf*)   name "document" | doc "pdf"  "$input" ;;
+  *text*)  name "note"     | note       "$input" ;;
+  *video*) exec "$XDG_DATA_HOME/youtube/savepl" "$input" ;;
   *)
     opts+=( -l 10 -p "Save bookmark" )
     result=$(printf '%s\n%s\n%s\n%s\n' "main - " "linux - " "git - " "keyboard - "  "softball - " | bemenu "${opts[@]}") 
