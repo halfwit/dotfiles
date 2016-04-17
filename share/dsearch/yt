@@ -1,107 +1,40 @@
 #!/usr/bin/env bash
 # Youtube search handler
 
-readonly progn=ythandler
 readonly optsfile="$XDG_CONFIG_HOME"/dmenu/dmenucolors
-read -r KEY < "${XDG_DATA_HOME:-$HOME/local/share}"/youtube/key
-
-# For Json
-readonly TMPDIR="${TMPDIR:-/tmp}"
-
-# Number of results to fetch
-readonly lines=40
-
-has() { # string -> bool
-    hash "$1" &> /dev/null
-}
-
-puts() { # strings -> stdout
-	printf -- "$1\n" "${@:2}"
-}
-
-err() { # strings -> stderr
-	local msg
-
-	puts "$progn: $1" "${@:2}" >&2
-
-	if has notify-send; then
-        msg="$(puts "$@")"
-        notify-send -u critical -- "$progn" "$msg"
-	fi
-}
+readonly images="$(mktemp -d /tmp/yt.XXXX)"
+readonly requests=5
 
 fetch_json() {
-    curl -s "https://www.googleapis.com/youtube/v3/search?q=${1// /%20}&type=video&part=snippet&maxResults=$lines&key=$KEY" > "$TMPDIR"/ytsearch.json
+  local key
+  read -r key < "$XDG_DATA_HOME/youtube/key"
+  curl -s "https://www.googleapis.com/youtube/v3/search?q=${1// /%20}&type=video&part=snippet&maxResults=$requests&key=$key"
 }
 
 parse_json() {
 	# we need to pull out the URL in this same call, to stdout.
-    jshon -CQ -e items -a -e snippet -e title -uppe id -e videoId -uppe snippet -e thumbnails -e high -e url < "$TMPDIR"/ytsearch.json
+  jshon -CQ -e items -a -e snippet -e title -uppe id -e videoId -uppe snippet -e thumbnails -e high -e url -u 
 }
 
-create_menu() {
-
-	# globals are menu and image
-	local key
-	for key in "${!menu[@]}"; do
-	    # iterate through keys
-        puts 'IMG:%s\t%s' "$TMPDIR/${menu[$key]}.jpg" "$key"
-	done
-}
-
-get_selection() {
-  opts+=( -p "Select Video" )
-	create_menu | dmenu "${opts[@]}"
-}
-
-fetch_image() { # global image, token
-	# Dereference with token to pull url to fetch
-	curl -s "${image[$1]}" > "$TMPDIR/$1".jpg
-}
-
-populate_menu() {
-	while {
-		read -r title
-		read -r token
-        read -r jpg
-	} do
-	    jpg="${jpg//\\/}" jpg="${jpg//\"/}"
-        if [[ "$title" != null ]]; then
-            menu["$title"]="$token"
-            image["$token"]="$jpg"
-        fi
-        fetch_image "$token" &
-	done
-}
-
-process_selection() { # global token
-	local id title
-    while read -r title; do
-        [[ -z "$title" ]] && title="$id"
-	    if [[ "${menu[$title]}" ]]; then
-	        url="${menu[$title]//\"/}"
-	    else
-            err '%s: Cannot find video.' "$title"
-            exit 1
-	    fi
-        rm /tmp/*.jpg
-        exec mpv-run "https://youtube.com/watch?v=$url"
-	done
+curl_images() {
+  local name url
   
+  while {
+    read -r name
+    read -r _
+    read -r url 
+  } do
+    curl -s "$url" -o "$images/$name" $ 
+    printf 'IMG:%q\t%s\n' "$images/$name" "$name"
+  done
+  wait
 }
 
 # Main
-
-[[ "$1" == save ]] && exec "$HOME"/local/share/youtube/savepl
+## Handle instance
+[[ "$1" == save ]] && exec "$XDG_DATA_HOME"/youtube/savepl
 
 [[ -s $optsfile ]] && source "$optsfile"
+opts+=( -l "$request" -p "Select video" )
 
-declare -A menu title image
-fetch_json "$@"
-
-populate_menu < <(parse_json)
-wait
-results="$(get_selection)"
-if [[ "$results" ]]; then
-    process_selection <<< "$results"
-fi
+fetch_json "$@" | parse_json | curl_images | dmenu "${opts[@]}"
