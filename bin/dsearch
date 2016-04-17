@@ -52,6 +52,7 @@ handle_results() { # args -> launch
     !code*)  exec "$handledir"/code     "${1##*code }"  ;;
     !dict*)  exec "$handledir"/dict     "${1##*dict }"  ;;
     !snap)   exec "$handledir"/rec      "snap"          ;;
+    !stop)   exec "$handledir"/rec      "stop"          ;;
     !rec)    exec "$handledir"/rec      "vid"           ;;
     !man*)   exec "$handledir"/manual   "${1##*man }"   ;;
     !pl*)    exec "$handledir"/pl       "${1##*pl }"    ;;
