@@ -18,16 +18,26 @@ parse_json() {
 
 curl_images() {
   local name url
-  
+  local -A img
+
   while {
     read -r name
-    read -r _
+    read -r blob
     read -r url 
   } do
-    curl -s "$url" -o "$images/$name" $ 
-    printf 'IMG:%q\t%s\n' "$images/$name" "$name"
+    curl -s "$url" > "$images/$name.jpg"
+    printf '%s\n' "$blob" > "$images/$name-url"
+    printf 'IMG:%q\t%s\n' "$images/$name.jpg" "$name"
   done
-  wait
+}
+
+handle_selection() {
+  local selection url
+  
+  read -r selection || exit 1
+  read -r url < "$images/$selection-url"
+  [[ $url ]] && exec mpv-run "ytdl:\/\/$url"
+  
 }
 
 # Main
@@ -35,6 +45,6 @@ curl_images() {
 [[ "$1" == save ]] && exec "$XDG_DATA_HOME"/youtube/savepl
 
 [[ -s $optsfile ]] && source "$optsfile"
-opts+=( -l "$request" -p "Select video" )
+opts+=( -p "Select video" -l "$requests" )
 
-fetch_json "$@" | parse_json | curl_images | dmenu "${opts[@]}"
+fetch_json "$@" | parse_json | curl_images | dmenu "${opts[@]}" #| handle_selection
