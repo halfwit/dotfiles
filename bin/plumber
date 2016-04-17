@@ -63,10 +63,10 @@ case "$input" in
         exec plumber /tmp/tmpfile
       fi ;;
     *\(*)  
-        exec "$XDG_DATA_HOME"/dsearch/manual "${input%\(*}"      ;;
+        exec "$XDG_DATA_HOME"/dsearch/man "${input%\(*}"      ;;
     *)
       if grep "$input" <<< "$(apropos .)"; then
-        exec "$XDG_DATA_HOME"/dsearch/manual "$input"
+        exec "$XDG_DATA_HOME"/dsearch/man "$input"
       else
         exec browse "!g%20$input"
       fi ;;
