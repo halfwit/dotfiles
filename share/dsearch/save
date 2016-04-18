@@ -39,15 +39,15 @@ note() {
 }
 
 [[ $input ]] && case $(curl -sI "$input" | grep -i content-type) in
-  *image*) name "picture"  | image      "$input" ;;
-  *djvu*)  name "document" | doc "djvu" "$input" ;;
-  *epub*)  name "document" | doc "epub" "$input" ;;
-  *pdf*)   name "document" | doc "pdf"  "$input" ;;
-  *text*)  name "note"     | note       "$input" ;;
+  *text/plain*) name "note"     | note       "$input" ;;
+  *image*)      name "picture"  | image      "$input" ;;
+  *djvu*)       name "document" | doc "djvu" "$input" ;;
+  *epub*)       name "document" | doc "epub" "$input" ;;
+  *pdf*)        name "document" | doc "pdf"  "$input" ;;
   *video*) exec "$XDG_DATA_HOME/youtube/savepl" "$input" ;;
   *)
     opts+=( -l 10 -p "Save bookmark" )
-    result=$(printf '%s\n%s\n%s\n%s\n' "main - " "linux - " "git - " "keyboard - "  "softball - " | bemenu "${opts[@]}") 
+    result=$(printf '%s\n%s\n%s\n%s\n%s\n' "main - " "linux - " "git - " "keyboard - "  "softball - " | bemenu "${opts[@]}") 
     [[ $result ]] && printf '%s' "$input" > "$XDG_DATA_HOME/bookmark/$result"
     ;;
 esac

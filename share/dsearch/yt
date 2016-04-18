@@ -32,7 +32,7 @@ buildmenu() {
   done
 }
 
-run() {
+handle() {
   local selection url
   while read -r selection; do
     read -r url < "$images/$selection-url"
@@ -49,4 +49,4 @@ run() {
 opts+=(-p "Select video" -l 10)
 
 ## Main pipeline
-query "$@" | parse | buildmenu | dmenu "${opts[@]}" | run
+query "$@" | parse | buildmenu | dmenu "${opts[@]}" | handle

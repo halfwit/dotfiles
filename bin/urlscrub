@@ -1,31 +1,23 @@
 #!/usr/bin/env bash
 # Cheapo url spawner for st
 
-readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
-readonly optsfile=$confdir/dmenu/bemenucolors
+readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
 
 # https://github.com/mvdan/xurls
 # https://github.com/Cloudef/bemenu
 # Currently strips newlines as well
 
-create_menu() {
-    tr -cd '\15\40-\176' | xurls | tac | bemenu -l 10 "${opts[@]}" -p URLs
+menu() {
+    xurls | tac | bemenu -l 10 "${opts[@]}" -p URLs
 }
 
-# https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
-if [[ -s $confdir/dmenu/font ]]; then
-    read -r font < "$confdir"/dmenu/font
-fi
+handle() {
+  local selection
+  while read -r selection; do
+    plumber "$selection" 
+  done
+}
 
-if [[ $font ]]; then
-    opts+=(-fn "$font")
-fi
+[[ -s $optsfile ]] && source "$optsfile"
 
-if [[ -s $optsfile ]]; then
-    source "$optsfile"
-fi
-result=$(create_menu "$@" )
-
-if [[ "$result" ]]; then
-    exec plumber "$result"
-fi
+menu "$@" |handle 
