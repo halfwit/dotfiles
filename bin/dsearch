@@ -40,6 +40,17 @@ get_selection() {
 
 handle_results() { # args -> launch
   case "$@" in
+    
+    !photo)  exec "$handledir"/photo  ;;
+    !notes)  exec "$handledir"/notes  ;;
+    !docs)   exec "$handledir"/docs   ;;
+    !game)   exec "$handledir"/game   ;;
+    !save)   exec "$handledir"/save   ;;
+    !link)   exec "$handledir"/link   ;;
+    !todo)   exec "$handledir"/todo   ;;
+    !man)    exec "$handledir"/man    ;;
+    !vm)     exec "$handledir"/vm     ;;
+    
     playlist\ -\ *) exec "$handledir"/mpv   "${1#*-\ }"    ;;
     open\ -\ *)     exec "$handledir"/stack "${1#*-\ }"    ;;
     !radio*)        exec "$handledir"/radio "${1#*adio }"  ;;
@@ -51,16 +62,6 @@ handle_results() { # args -> launch
     !pl*)           exec "$handledir"/yt    "$1"           ;;
     !yt*)           exec "$handledir"/yt    "${1#*yt }"    ;;
 
-    !photo)  exec "$handledir"/photo  ;;
-    !notes)  exec "$handledir"/notes  ;;
-    !docs)   exec "$handledir"/docs   ;;
-    !game)   exec "$handledir"/game   ;;
-    !save)   exec "$handledir"/save   ;;
-    !link)   exec "$handledir"/link   ;;
-    !todo)   exec "$handledir"/todo   ;;
-    !man)    exec "$handledir"/man    ;;
-    !vm)     exec "$handledir"/vm     ;;
-  
     !close)  exec pkill surf                            ;;
     !snap)   exec "$handledir"/rec "snap"               ;;
     !stop)   exec "$handledir"/rec "stop"               ;;

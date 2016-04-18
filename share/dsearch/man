@@ -20,8 +20,8 @@ handle_result() {
 }
 
 get_selection() {
-  opts+=( -l 10 -p "Manual: " )
-   apropos . | bemenu "${opts[@]}"
+  opts+=(-l 10 -p "Manual: ")
+  apropos . | bemenu "${opts[@]}"
 }
 
 ## Main ##
@@ -30,9 +30,9 @@ get_selection() {
 
 [[ -s $optsfile ]] && source "$optsfile"
 
-[[ ! $1 ]] && result="$(get_selection)" || result="$1" 
+[[ $1 ]] && result="$1" || result="$(get_selection)" 
 
-if ! grep -q "$1" <<< $(apropos .); then
+if ! grep -q "$result" <<< $(apropos .); then
   thingmenu -g  160x120 -x \
     "Posix" "exec browse '\!posix $1'" \
     "Mankier" "exec browse '\!mankier $1'" \
@@ -40,6 +40,6 @@ if ! grep -q "$1" <<< $(apropos .); then
     "Man" "exec browse '\!man $1'" 
 fi
 
-if [[ "$result" ]]; then
+if [[ $result ]]; then
   handle_result "$result"
 fi
