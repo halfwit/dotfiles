@@ -5,42 +5,45 @@ mime() {
   if [[ -f $1 ]];then 
     file -bL --mime-type "$1"
   else
-    printf '%s' "$input" | xcmenu -ic
-    curl -sI "$1" | sed -n 's/content-type://p'
+    printf '%s\n' "$1" | xcmenu -ic
+    handle_special
+    curl -sI "$1" | sed -n 's/content-type://pi'
   fi
 }
 
 # Workaround until we have a filesystem based browser
-grab() {
+fetch() {
   local tmp
-  tmp=$(mktemp)
-  curl -s "$1" -o "$tmp"
+  if [[ -f "$1" ]]; then
+    tmp="$1"
+  else tmp=$(mktemp)
+    curl -s "$1" -o "$tmp"
+  fi
   printf '%q\n' "$tmp"
 }
 
 # Presently redundant
 handle() {
   case "$1" in
-    browse) exec browse  $2 ;;
-    watch)  exec watch   $(grab "$2") ;;
-    view)   exec imv     $(grab "$2") ;;
-    docs)   exec zathura $(grab "$2") ;;
-    edit)   exec nvim    $(grab "$2") ;;
-    hear)   exec mpd     $(grab "$2") ;;
+    browse) exec browse     $2 ;;
+    watch)  exec watch      $(fetch "$2") ;;
+    view)   exec imv        $(fetch "$2") ;;
+    docs)   exec zathura    $(fetch "$2") ;;
+    edit)   exec st -e nvim $(fetch "$2") ;;
+    hear)   exec mpd        $(fetch "$2") ;;
   esac
 }
 
 handle_special() {
   case "$1" in
-    *youtube.com/watch*|*youtu.be*|ytdl*) exec handle watch "$1" ;;
-    *livestream.com*|*twitch.tv*|*imgur*) exec handle watch "$1" ;;
-    *ptpb.pw/t/*) exec st -e asciinema play <(curl -s "${1/\/t/}") ;;
-    gopher://*) exec st -e cgo "$1" ;;
     *xkcd*) handle view "$(curl -s "https://xkcd.com/${1//[^0-9]/}/" | awk '/hotlink/{ print $NF }')" ;;  
+    *ptpb.pw/t/*) exec st -e asciinema play <(curl -s "${1/\/t/}") ;;
+    *youtube.com/watch*|*youtu.be*|ytdl*) handle watch "$1" ;;
+    *livestream.com*|*twitch.tv*|*imgur*) handle watch "$1" ;;
+    gopher://*) exec st -e cgo "$1" ;;
   esac
 } 
-
-handle_special "$1" 
+#fetch "$1"
 
 case "$(mime "$1")" in
   application*) handle docs "$1" ;;
@@ -51,3 +54,7 @@ case "$(mime "$1")" in
   text*) handle edit "$1" ;;
   *) handle browse "$1" ;;
 esac
+
+## NOTES: 
+# inode is a directory spec on linux
+
