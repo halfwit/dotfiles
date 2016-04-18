@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Handler to push window to top of stack
+
+lsw -a | while read -r id; do
+  if wname "$id" | grep "$1"; then
+    mapw -m "$id"
+    printf '%s\n' "$id" > /tmp/groups/group.2
+  elif wname "$id" | grep "surf"; then
+    mapw -u "$id"
+  fi
+done
+"$XDG_CONFIG_HOME"/wmutils/wshuf

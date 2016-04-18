@@ -6,12 +6,18 @@ readonly handledir="$datadir"/dsearch
 readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
 
 create_menu() {
-    
+  local open  
   # Last selection
   xcmenu --list | head -n 1
 
+  # Open browsers
+  open=$(lsw -a | xargs wname | grep surf)
+  case $open in
+    *\ -\ surf) printf '%s %s\n' "open - " "${open##*|\ }" ;;
+  esac
+
   # Check bookmarks
-  (cd "$datadir/bookmark"
+  (cd "$datadir/bookmark" || exit 1
   find -not -path '*/\.*' -type f -printf "%f\n" | sort -u)
 
   # This is for mpv playlists
@@ -19,6 +25,8 @@ create_menu() {
   for file in *; do
     printf '%s\n' "playlist - $file" 
   done | sort -u)
+  
+  # Bang completions
   (cd "$handledir" || exit 1
   find -type f -printf "!%f\n" | sort -u)
   printf '%s\n%s\n' "!snap" "!stop"
@@ -31,8 +39,16 @@ get_selection() {
 
 handle_results() { # args -> launch
   case "$@" in
-    playlist\ -\ *)
-             exec "$handledir"/mpv "${1##*-\ }"  ;;
+    playlist\ -\ *) exec "$handledir"/mpv    "${1#*-\ }"    ;;
+    open\ -\ *)     exec "$handledir"/stack  "${1#*-\ }"    ;;
+    !radio*)        exec "$handledir"/gmusic "${1#*adio }"  ;;
+    !song*)         exec "$handledir"/gsong  "${1#*song }"  ;;
+    !book*)         exec "$handledir"/gbook  "${1#*book }"  ;;
+    !code*)         exec "$handledir"/code   "${1#*code }"  ;;
+    !dict*)         exec "$handledir"/dict   "${1#*dict }"  ;;
+    !man*)          exec "$handledir"/man    "${1#*man }"   ;;
+    !pl*)           exec "$handledir"/yt     "_pl${1#*pl }" ;;
+    !yt*)           exec "$handledir"/yt     "${1#*yt }"    ;;
     *\ -\ *) read -r result < "$datadir/bookmark/$1" 
              exec browse    "$result" ;;   
     !photo)  exec "$handledir"/photo  ;;
@@ -49,15 +65,6 @@ handle_results() { # args -> launch
     !stop)   exec "$handledir"/rec "stop" ;;
     !rec)    exec "$handledir"/rec "vid"  ;;
 
-    !radio*) exec "$handledir"/gmusic "${1##*radio }" ;;
-    !song*)  exec "$handledir"/gsong  "${1##*song }"  ;;
-    !book*)  exec "$handledir"/gbook  "${1##*book }"  ;;
-    !code*)  exec "$handledir"/code   "${1##*code }"  ;;
-    !dict*)  exec "$handledir"/dict   "${1##*dict }"  ;;
-    !man*)   exec "$handledir"/man    "${1##*man }"   ;;
-    !pl*)    exec "$handledir"/yt     "_pl${1##*pl }"    ;;
-    !yt*)    exec "$handledir"/yt     "${1##*yt }"    ;;
-    
     !*)      exec browse "https://duckduckgo.com/?q=$1"   ;;
     *)       exec browse "$1"
 
