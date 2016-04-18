@@ -5,8 +5,8 @@ shopt -s extglob
 # Workaround until we have a filesystem based browser
 fetch() {
   local tmp
-  if [[ -f "$1" ]]; then
-    tmp="$1"
+  if [[ -f "$1" ]]; then 
+    tmp="$1" 
   else tmp=$(mktemp)
     curl -s "$1" -o "$tmp"
   fi
@@ -49,7 +49,7 @@ mime() {
 special "$1"
 
 case "$(mime "$1")" in
-  application*) handle docs "$1" ;;
+  *application*) handle docs "$1" ;;
   *video*) handle play "$1" ;;
   *audio*) handle hear "$1" ;;
   *image*) handle view "$1" ;;
