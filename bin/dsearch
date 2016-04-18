@@ -11,9 +11,9 @@ create_menu() {
   xcmenu --list | head -n 1
 
   # Open browsers
-  lsw -a | xargs wname | grep -a surf | while read -r open; do
+  lsw -a | xargs wname | grep -a browse | while read -r open; do
     case "$open" in
-      *-\ surf) printf '%s %s\n' "open - " "${open##*|\ }"  ;;
+      *-\ browse) printf '%s %s\n' "open - " "${open##*|\ }"  ;;
     esac
   done
 

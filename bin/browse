@@ -5,7 +5,7 @@ unmap() {
   # hide other open browser windows. 
   # TODO: Depends on st breakage!
   lsw -a | while read -r name; do
-    if wname "$name" | grep -a surf; then
+    if wname "$name" | grep -a browse; then
       mapw -u "$name"
     fi
   done

@@ -5,7 +5,9 @@ lsw -a | while read -r id; do
   if wname "$id" | grep -a "$1"; then
     mapw -m "$id"
     printf '%s' "$id" > /tmp/groups/group.2
-  elif wname "$id" | grep -a "surf"; then
+    printf '%s' "2" >> /tmp/groups/active
+    printf '%s' "2" >> /tmp/groups/all
+  elif wname "$id" | grep -a "browse"; then
     mapw -u "$id"
   fi
 done
