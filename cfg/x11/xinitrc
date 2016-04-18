@@ -3,12 +3,12 @@
 # Trying this out!
 xhost +si:localuser:"$USER"
 
-mutt-run &
 sxhkd &
 xcmenu &
+mutt-run &
 syncthing &
 newsbeuter-run &
-#colortempd -t 4000 &
+colortempd -t 4000 &
 ~/local/cfg/wmutils/bar & 
 compton -Cc --no-fading-openclose &
 #x11fs -o auto_unmount ~/run/x11fs &

@@ -50,10 +50,11 @@ special "$1"
 
 case "$(mime "$1")" in
   *application*) handle docs "$1" ;;
-  *video*) handle play "$1" ;;
-  *audio*) handle hear "$1" ;;
-  *image*) handle view "$1" ;;
-  *inode*) handle view "$1" ;;
+  *video*) handle play  "$1" ;;
+  *audio*) handle hear  "$1" ;;
+  *image*) handle view  "$1" ;;
+  *inode*) handle view  "$1" ;;
+  *html*) handle browse "$1" ;;
   *text*) handle edit "$1" ;;
   *) handle browse "$1" ;;
 esac
