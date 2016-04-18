@@ -5,18 +5,16 @@ unmap() {
   # hide other open browser windows. 
   # TODO: Depends on st breakage!
   lsw -a | while read -r name; do
-    if wname "$name" | grep surf; then
+    if wname "$name" | grep -a surf; then
       mapw -u "$name"
     fi
   done
   
-  if [[ -s /tmp/group/group.2 ]]; then
-    printf '%s' "" > /tmp/groups/group.2
-  fi
+  printf '%s' "" > /tmp/groups/group.2
 }
 
 
 ## main
 unmap
 
-exec surf -fb "$@"
+exec surf "$@"
