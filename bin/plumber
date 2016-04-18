@@ -1,71 +1,52 @@
 #!/usr/bin/env bash
 
-input="$1"
-while read -r item; do
-  input+="$item"
-done
+# In testing, this outputs a correct mime
+mime() {
+  if [[ -f $1 ]];then 
+    file -bL --mime-type "$1"
+  else
+    printf '%s' "$input" | xcmenu -ic
+    curl -sI "$1" | sed -n 's/content-type://p'
+  fi
+}
 
-if [[ -f "$input" ]]; then
-  mime=$(file -bL --mime-type "$input")
-  [[ $mime ]] && case $mime in
-    text/html*)
-      exec browse "$input" ;;
-    text*)
-      exec st -t NVIM -e nvim "$input" ;;
-    *pdf*|*epub*|*djvu*)
-      exec zathura "$input" ;;
-    image*)
-      exec imv "$input"      ;;
-    video*)
-      exec mpv-run "$input"      ;;
-    *)
-      notify-send "Error with $input"
-      exec st -t NVIM -e nvim ~/local/bin/plumber ;;
+# Workaround until we have a filesystem based browser
+grab() {
+  local tmp
+  tmp=$(mktemp)
+  curl -s "$1" -o "$tmp"
+  printf '%q\n' "$tmp"
+}
+
+handle() {
+  case "$1" in
+    browse) exec browse  $2 ;;
+    watch)  exec watch   $(grab "$2") ;;
+    view)   exec imv     $(grab "$2") ;;
+    docs)   exec zathura $(grab "$2") ;;
+    edit)   exec nvim    $(grab "$2") ;;
+    hear)   exec mpd     $(grab "$2") ;;
   esac
-fi
+}
 
-printf '%s' "$input" | xcmenu -ic
+handle_special() {
+  case "$1" in
+    *youtube.com/watch*|*youtu.be*|ytdl*) exec handle watch "$1" ;;
+    *livestream.com*|*twitch.tv*|*imgur*) exec handle watch "$1" ;;
+    *ptpb.pw/t/*) exec st -e asciinema play <(curl -s "${1/\/t/}") ;;
+    gopher://*) exec st -e cgo "$1" ;;
+    *xkcd*) handle view "$(curl -s "https://xkcd.com/${1//[^0-9]/}/" | awk '/hotlink/{ print $NF }')" ;;  
+  esac
+} 
 
-case "$input" in
-    gopher://*)
-      exec st -e cgo "$input" ;;
-    *.pdf|*.djvu)            
-      curl -s "$input" > /tmp/tmp.book
-      exec zathura /tmp/tmp.book      ;;
-    *.epub)
-      curl -s "$input" > /tmp/tmp.book
-      pandoc /tmp/tmp.book -o /tmp/tmp.pdf
-      exec zathura /tmp/tmp.pdf ;;
-    *youtube.com/watch*|*youtu.be*|ytdl*|*livestream.com*|*twitch*|*.mkv|*.mp4|*.webm|*.mpg|*.ogg|*.gifv)                     
-      exec mpv-run "$input"                ;;
-    *.jpg*|*.png|*.jpeg|*.gif)      
-      curl -s "$input" | exec imv -             ;;
-    *.tar*)                         
-      cd /tmp || exit 0
-      curl -s "$input" | tar -xvz
-      exec st                          ;;
-    *xkcd*)
-      curl -s "https://xkcd.com/${input//[^0-9]/}/" | awk '/hotlink/{ print $NF }' | xargs curl | exec imv - ;;
-    *imgur.com/gallery/*)
-      exec mpv-run "$input"                         ;;
-    http://imgur*)                        
-      curl -s http://i.imgur.com/"${input: -7}".png | exec imv - ;;
-    *ptpb.pw/t/*)
-      exec st -e asciinema play <(curl -s "${input/\/t/}") ;;
-    http*)                          
-      if curl -I "$input" | grep -e html -e x-empty; then
-        exec browse "$input" 
-      else
-        tmp="$(mktemp)"
-        curl -s "$input" > "$tmp" 
-        exec plumber "$tmp"
-      fi ;;
-    *\(*)  
-        exec "$XDG_DATA_HOME"/dsearch/man "${input%\(*}"      ;;
-    *)
-      if grep "$input" <<< "$(apropos .)"; then
-        exec "$XDG_DATA_HOME"/dsearch/man "$input"
-      else
-        exec browse "!g%20$input"
-      fi ;;
+handle_special "$1" 
+
+case "$(mime "$1")" in
+  application*) handle docs "$1" ;;
+  video*) handle watch "$1" ;;
+  audio*) handle hear "$1" ;;
+  image*) handle view "$1" ;;
+  inode*) handle view "$1" ;;
+  text*) handle edit "$1" ;;
+  *) handle browse "$1" ;;
 esac
