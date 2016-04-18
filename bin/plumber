@@ -42,20 +42,20 @@ mime() {
     file -bL --mime-type "$1"
   else
     printf '%s\n' "$1" | xcmenu -ic
-    curl -sI "$1" | sed -n 's/content-type://pi'
+    curl -sI "$1" | sed -n 's/content-type: *//pi'
   fi
 }
 
 special "$1"
 
 case "$(mime "$1")" in
-  *application*) handle docs "$1" ;;
-  *video*) handle play  "$1" ;;
-  *audio*) handle hear  "$1" ;;
-  *image*) handle view  "$1" ;;
-  *inode*) handle view  "$1" ;;
-  *html*) handle browse "$1" ;;
-  *text*) handle edit "$1" ;;
+  application*) handle docs "$1" ;;
+  video*) handle play  "$1" ;;
+  audio*) handle hear  "$1" ;;
+  image*) handle view  "$1" ;;
+  inode*) handle view  "$1" ;;
+  html*) handle browse "$1" ;;
+  text*) handle edit "$1" ;;
   *) handle browse "$1" ;;
 esac
 

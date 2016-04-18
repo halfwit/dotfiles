@@ -1,4 +1,4 @@
-opts=(
+opts+=(
     --fn "DejaVu Sans Mono 9.5" -i
     --tf '#bcbcbc' --tb '#444444'
     --nf '#bcbcbc' --nb '#262626'
