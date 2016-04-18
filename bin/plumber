@@ -1,15 +1,6 @@
 #!/usr/bin/env bash
 
-# In testing, this outputs a correct mime
-mime() {
-  if [[ -f $1 ]];then 
-    file -bL --mime-type "$1"
-  else
-    printf '%s\n' "$1" | xcmenu -ic
-    handle_special
-    curl -sI "$1" | sed -n 's/content-type://pi'
-  fi
-}
+shopt -s extglob
 
 # Workaround until we have a filesystem based browser
 fetch() {
@@ -34,16 +25,28 @@ handle() {
   esac
 }
 
-handle_special() {
+special() {
   case "$1" in
     *xkcd*) handle view "$(curl -s "https://xkcd.com/${1//[^0-9]/}/" | awk '/hotlink/{ print $NF }')" ;;  
     *ptpb.pw/t/*) exec st -e asciinema play <(curl -s "${1/\/t/}") ;;
     *youtube.com/watch*|*youtu.be*|ytdl*) handle watch "$1" ;;
     *livestream.com*|*twitch.tv*|*imgur*) handle watch "$1" ;;
     gopher://*) exec st -e cgo "$1" ;;
+    *ptpb.pw/*/*) handle edit "${1%/*}" ;;
   esac
 } 
-#fetch "$1"
+
+# In testing, this outputs a correct mime
+mime() {
+  if [[ -f $1 ]];then 
+    file -bL --mime-type "$1"
+  else
+    printf '%s\n' "$1" | xcmenu -ic
+    curl -sI "$1" | sed -n 's/content-type://pi'
+  fi
+}
+
+special "$1"
 
 case "$(mime "$1")" in
   application*) handle docs "$1" ;;
@@ -57,4 +60,3 @@ esac
 
 ## NOTES: 
 # inode is a directory spec on linux
-

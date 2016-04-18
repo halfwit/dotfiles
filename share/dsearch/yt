@@ -7,10 +7,11 @@ readonly requests=25
 declare type=video
 
 query() {
-  local key
-
+  local key input
+  [[ $type == "video" ]] && input="$1" || input="${1#*\!pl}"
   read -r key < "$XDG_DATA_HOME/youtube/key"
-  curl -s "https://www.googleapis.com/youtube/v3/search?q=${1// /+}&type=$type&part=snippet&maxResults=$requests&key=$key"
+
+  curl -s "https://www.googleapis.com/youtube/v3/search?q=${input// /+}&type=$type&part=snippet&maxResults=$requests&key=$key"
 }
 
 parse() {
@@ -36,12 +37,12 @@ handle() {
   local selection url
   while read -r selection; do
     read -r url < "$images/$selection-url"
-    [[ $url ]] && mpv-run "ytdl://$url" &
+    [[ $url ]] && watch "ytdl://$url" &
   done
 }
 
 [[ "$1" == save ]] && exec "$XDG_DATA_HOME"/youtube/savepl
-[[ "$1" == _pl* ]] && type="playlist"
+[[ "$1" == *pl* ]] && type="playlist"
 
 # Grab theming
 [[ -s $optsfile ]] && source "$optsfile"
