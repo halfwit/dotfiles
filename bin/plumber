@@ -54,7 +54,7 @@ case "$(mime "$1")" in
   audio*) handle hear  "$1" ;;
   image*) handle view  "$1" ;;
   inode*) handle view  "$1" ;;
-  html*) handle browse "$1" ;;
+  *html*) handle browse "$1" ;;
   text*) handle edit "$1" ;;
   *) handle browse "$1" ;;
 esac

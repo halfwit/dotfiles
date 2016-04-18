@@ -1,18 +1,17 @@
 #!/usr/bin/env bash
 
 # Database of bookmarks for quick linking
-# Use namespacing in the title (dead simple, yay!!)
 readonly optsfile=$XDG_CONFIG_HOME/dmenu/dmenucolors
 readonly datadir="$XDG_DATA_HOME"
 readonly pics="$HOME"/media/pictures
 
-get_selection() {
+list() {
   find "$datadir"/bookmark -type f -not -path '*/\.*'
   find "$datadir"/mpv -type f -not -path '*/\.*'
   find "$pics" -type f -not -path '*/\.*'
 }
 
-extract_links() {
+build() {
   local input
   while read -r input; do
     case "$input" in
@@ -31,25 +30,25 @@ extract_links() {
   done
 }
 
-handle_mpv() {
+video() {
   local result
-  result=$(sed -n -e 's/^Title[0-9]=//p' < "$datadir/mpv/${1##*-\ }.pls" | dmenu "${opts[@]}" -p "Select title") 
+  lnk=$(sed -n -e 's/^Title[0-9]=//p' < "$datadir/mpv/${1##*-\ }.pls" | dmenu "${opts[@]}" -p "Select title") 
   
   # If no selection is made, return to this program
-  [[ ! $result ]] && exec "$datadir/dsearch/link"
+  [[ ! $lnk ]] && exec "$datadir/dsearch/link"
   
-  sed -n -e "/$result/ { n; s/^File[0-9]=//p }" < "$datadir/mpv/${1#*-\ }.pls"
+  sed -n -e "/$lnk/ { n; s/^File[0-9]=//p }" < "$datadir/mpv/${1#*-\ }.pls"
 }
 
 [[ -s $optsfile ]] && source "$optsfile"
 
 opts+=( -l 10 -p "Select bookmark" )
-result=$(get_selection | sort -u | extract_links | dmenu "${opts[@]}")
+lnk=$(list | sort -u | build | dmenu "${opts[@]}")
 
-case $result in
-  video*) result="$(handle_mpv "$result")" ;;
-  image*) result="$(exiftool "$pics/${result#*-\ }" | awk '/Comment/ { print $NF }')" ;;
-  *) read -r result < "$datadir/bookmark/$result"
+case $lnk in
+  video*) lnk="$(video "$lnk")" ;;
+  image*) lnk="$(exiftool "$pics/${lnk#*-\ }" | awk '/Comment/ { print $NF }')" ;;
+  *) read -r lnk < "$datadir/bookmark/$lnk"
 esac
 
-[[ $result ]] && exec xcmenu -ic "$result"
+[[ $lnk ]] && exec xcmenu -ic "$lnk"
