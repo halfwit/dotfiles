@@ -18,6 +18,7 @@ grab() {
   printf '%q\n' "$tmp"
 }
 
+# Presently redundant
 handle() {
   case "$1" in
     browse) exec browse  $2 ;;
