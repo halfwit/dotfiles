@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if ! pgrep mpv; then
+  exec mpv --input-unix-socket=/tmp/mpvsock --keepaspect-window "$1" "$2"
+fi
+
+echo ' { "command": ["loadfile", "'"$1"'", "append-play"] }' | socat - /tmp/mpvsock

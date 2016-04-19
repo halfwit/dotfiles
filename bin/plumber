@@ -17,7 +17,7 @@ fetch() {
 handle() {
   case "$1" in
     browse) exec browse     $2 ;;
-    watch)  exec watch      $(fetch "$2") ;;
+    play)   exec play       $(fetch "$2") ;;
     view)   exec imv        $(fetch "$2") ;;
     docs)   exec zathura    $(fetch "$2") ;;
     edit)   exec st -e nvim $(fetch "$2") ;;
@@ -50,7 +50,7 @@ special "$1"
 
 case "$(mime "$1")" in
   application*) handle docs "$1" ;;
-  video*) handle watch "$1" ;;
+  video*) handle play "$1" ;;
   audio*) handle hear "$1" ;;
   image*) handle view "$1" ;;
   inode*) handle view "$1" ;;
