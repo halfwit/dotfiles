@@ -13,7 +13,7 @@ list_windows() {
       [[ ! $wname ]] && break
       case ${wname//\"/} in
         # Strange windows from surf pop up
-        surf)
+        surf|zathura)
           mapw -u "$id"                ;;
         *.pdf|*.epub|*.djvu|*.book|NVIM|name\)|w3m|ELinks|*sandy*|*tetris*|*cgo*|*QEMU*|*browse|*Syncthing*)
           wname="$(wattr w "$id") $(( heigh / 2 )) $(wattr w "$id") $(( heigh - gaps )) $id" ;;
