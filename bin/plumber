@@ -45,14 +45,15 @@ mime() {
     file -bL --mime-type "$1"
   else
     printf '%s\n' "$1" | xcmenu -ic
-    curl -sI "$1" | sed -n 's/content-type: *//pi'
+    # temporary solution, since I'm tired
+    curl -sI "$1" | sed -n 's/content-type: *//pi' | awk '{ print $1 }' | sed -n 's/;//p'
   fi
 }
 
 # Check the named file for a matching action for the mimetype
 parse() {
   local result
-  result=$(sed -n 's|'"$1"' ||pi' "$XDG_DATA_HOME/plumber/$2")
+  result=$(sed -n 's|'"$1"' ||pi' "$XDG_DATA_HOME/plumber/${1%\/*}")
   if [[ ! $result ]]; then
     printf '%s\n%s\n' "$(mime "$1")" "$1" >> ~/mime_issues
   else
@@ -64,12 +65,12 @@ special "$1"
 
 mime "$1" | while read -r mimetype; do
   case "$mimetype" in
-    appli*) parse "$mimetype" application | handle "$1" ;;
-    video*) parse "$mimetype" video       | handle "$1" ;;
-    audio*) parse "$mimetype" audio       | handle "$1" ;;
-    image*) parse "$mimetype" image       | handle "$1" ;;
-    inode*) parse "$mimetype" inode       | handle "$1" ;;
-    text*)  parse "$mimetype" text        | handle "$1" ;;
+    appli*) parse "$mimetype" | handle "$1" ;;
+    video*) parse "$mimetype" | handle "$1" ;;
+    audio*) parse "$mimetype" | handle "$1" ;;
+    image*) parse "$mimetype" | handle "$1" ;;
+    inode*) parse "$mimetype" | handle "$1" ;;
+    text*)  parse "$mimetype" | handle "$1" ;;
   esac
 done
 
