@@ -15,14 +15,17 @@ fetch() {
 
 # Presently redundant
 handle() {
-  case "$1" in
-    browse) exec browse     "$2" ;;
-    play)   exec play       "$(fetch "$2")" ;;
-    view)   exec imv        "$(fetch "$2")" ;;
-    docs)   exec zathura    "$(fetch "$2")" ;;
-    edit)   exec st -e nvim "$(fetch "$2")" ;;
-    hear)   exec mpd        "$(fetch "$2")" ;;
-  esac
+  local input
+  while read -r input; do
+    case "$input" in
+      browse) exec browse     "$1" ;;
+      play)   exec play       "$(fetch "$1")" ;;
+      view)   exec imv        "$(fetch "$1")" ;;
+      docs)   exec zathura    "$(fetch "$1")" ;;
+      edit)   exec st -e nvim "$(fetch "$1")" ;;
+      hear)   exec mpd        "$(fetch "$1")" ;;
+    esac
+  done
 }
 
 special() {
@@ -38,7 +41,7 @@ special() {
 
 # In testing, this outputs a correct mime
 mime() {
-  if [[ -s $1 ]];then 
+  if [[ -f $1 ]];then 
     file -bL --mime-type "$1"
   else
     printf '%s\n' "$1" | xcmenu -ic
@@ -46,18 +49,29 @@ mime() {
   fi
 }
 
+# Check the named file for a matching action for the mimetype
+parse() {
+  local result
+  result=$(sed -n 's|'"$1"' ||pi' "$XDG_DATA_HOME/plumber/$2")
+  if [[ ! $result ]]; then
+    printf '%s\n%s\n' "$(mime "$1")" "$1" >> ~/mime_issues
+  else
+    printf '%s\n' "$result"
+  fi
+}
+
 special "$1"
 
-case "$(mime "$1")" in
-  application*) handle docs "$1" ;;
-  video*) handle play  "$1" ;;
-  audio*) handle hear  "$1" ;;
-  image*) handle view  "$1" ;;
-  inode*) handle view  "$1" ;;
-  *html*) handle browse "$1" ;;
-  text*) handle edit "$1" ;;
-  *) handle browse "$1" ;;
-esac
+mime "$1" | while read -r mimetype; do
+  case "$mimetype" in
+    appli*) parse "$mimetype" application | handle "$1" ;;
+    video*) parse "$mimetype" video       | handle "$1" ;;
+    audio*) parse "$mimetype" audio       | handle "$1" ;;
+    image*) parse "$mimetype" image       | handle "$1" ;;
+    inode*) parse "$mimetype" inode       | handle "$1" ;;
+    text*)  parse "$mimetype" text        | handle "$1" ;;
+  esac
+done
 
 ## NOTES: 
 # inode is a directory spec on linux
