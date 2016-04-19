@@ -16,12 +16,12 @@ fetch() {
 # Presently redundant
 handle() {
   case "$1" in
-    browse) exec browse     $2 ;;
-    play)   exec play       $(fetch "$2") ;;
-    view)   exec imv        $(fetch "$2") ;;
-    docs)   exec zathura    $(fetch "$2") ;;
-    edit)   exec st -e nvim $(fetch "$2") ;;
-    hear)   exec mpd        $(fetch "$2") ;;
+    browse) exec browse     "$2" ;;
+    play)   exec play       "$(fetch "$2")" ;;
+    view)   exec imv        "$(fetch "$2")" ;;
+    docs)   exec zathura    "$(fetch "$2")" ;;
+    edit)   exec st -e nvim "$(fetch "$2")" ;;
+    hear)   exec mpd        "$(fetch "$2")" ;;
   esac
 }
 
@@ -38,7 +38,7 @@ special() {
 
 # In testing, this outputs a correct mime
 mime() {
-  if [[ -f $1 ]];then 
+  if [[ -s $1 ]];then 
     file -bL --mime-type "$1"
   else
     printf '%s\n' "$1" | xcmenu -ic
@@ -50,11 +50,11 @@ special "$1"
 
 case "$(mime "$1")" in
   application*) handle docs "$1" ;;
-  video*) handle play "$1" ;;
-  audio*) handle hear "$1" ;;
-  image*) handle view "$1" ;;
-  inode*) handle view "$1" ;;
-  text*) handle edit "$1" ;;
+  *video*) handle play "$1" ;;
+  *audio*) handle hear "$1" ;;
+  *image*) handle view "$1" ;;
+  *inode*) handle view "$1" ;;
+  *text*) handle edit "$1" ;;
   *) handle browse "$1" ;;
 esac
 
