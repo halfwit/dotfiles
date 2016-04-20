@@ -6,7 +6,8 @@
 readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
 
 # Whilelist of locations to search
-readonly locations=( ~/programming \
+readonly locations=( ~/build       \
+                     ~/programming \
                      ~/local/cfg   \
                      ~/local/bin   \
                      ~/local/share
