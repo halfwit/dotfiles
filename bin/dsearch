@@ -25,7 +25,7 @@ create_menu() {
   # This is for mpv playlists
   (cd "$datadir/mpv" ||  exit 1
   for file in *; do
-    printf '%s\n' "playlist - $file" 
+    printf '%s\n' "playlist - ${file/.pls/}" 
   done | sort -u)
   
   # Bang completions
@@ -52,7 +52,7 @@ handle_results() { # args -> launch
     !man)    exec "$handledir"/man    ;;
     !vm)     exec "$handledir"/vm     ;;
     
-    playlist\ -\ *) exec "$handledir"/mpv   "${1#*-\ }"    ;;
+    playlist\ -\ *) exec "$handledir"/mpv   "${1#*-\ }.pls"    ;;
     open\ -\ *)     exec "$handledir"/stack "${1#*-\ }"    ;;
     !radio*)        exec "$handledir"/radio "${1#*adio }"  ;;
     !song*)         exec "$handledir"/song  "${1#*song }"  ;;
