@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # Write/remove a task to do later.
 
-readonly confdir=${XDG_CONFIG_HOME:-$HOME/local/cfg}
-readonly optsfile=$confdir/dmenu/bemenucolors
+readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
 
 TASKFILE="$XDG_CACHE_HOME/todo/$1"
 HEIGHT=$(wc -l < "$TASKFILE")
@@ -16,7 +15,7 @@ loop_run() {
   while true; do
     result=$(menu)
     # Return to main program on exit
-    [[ ! $result ]] && exec todo
+    [[ ! $result ]] && exec "$XDG_DATA_HOME"/dsearch/todo
     if grep "$result" "$TASKFILE"; then
       sed -i "s/$result//g" "$TASKFILE"
       HEIGHT=$((HEIGHT-1))
@@ -30,13 +29,6 @@ loop_run() {
 
 ## Main
 
-if [[ -s $confdir/dmenu/font ]]; then
-  read -r font < "$confdir"/dmenu/font
-  opts+=(-fn "$font")
-fi
-
-if [[ -s $optsfile ]]; then
-  source "$optsfile"
-fi
+[[ -s $optsfile ]] && source "$optsfile"
 
 loop_run

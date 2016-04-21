@@ -2,18 +2,24 @@
 
 shopt -s extglob
 
+# Load up the clipboard
+clip() { 
+  printf '%s\n' "$1" | xcmenu -ic 
+}
+
 # Workaround until we have a filesystem based browser
 fetch() {
   local tmp
-  if [[ -f "$1" ]]; then 
+  if [[ -f "$1" ]]; then
     tmp="$1" 
-  else tmp=$(mktemp)
+  else 
+    tmp=$(mktemp)
     curl -s "$1" -o "$tmp"
   fi
   printf '%q\n' "$tmp"
 }
 
-# Presently redundant
+# Fire off the action
 handle() {
   local input
   while read -r input; do
@@ -28,14 +34,14 @@ handle() {
   done
 }
 
+# Special cases demand special handling
 special() {
   case "$1" in
-    *xkcd*) handle view "$(curl -s "https://xkcd.com/${1//[^0-9]/}/" | awk '/hotlink/{ print $NF }')" ;;  
-    *ptpb.pw/t/*) exec st -e asciinema play <(curl -s "${1/\/t/}") ;;
-    *youtube.com/watch*|*youtu.be*|ytdl*) exec play "$1" ;;
-    *livestream.com*|*twitch.tv*|*imgur*) exec play "$1" ;;
+    *xkcd*) clip "$1" && handle view "$(curl -s "https://xkcd.com/${1//[^0-9]/}/" | awk '/hotlink/{ print $NF }')" ;;  
+    *ptpb.pw/t/*) clip "$1" && exec st -e asciinema play <(curl -s "${1/\/t/}") ;;
+    *youtube.com/watch*|*youtu.be*|ytdl*|*livestream.com*|*twitch.tv*|*imgur*) clip "$1" && exec play "$1" ;;
+    *ptpb.pw/*/*) clip "$1" && printf '%s\n' "edit" | handle "${1%/*}" ;;
     gopher://*) exec st -e cgo "$1" ;;
-    *ptpb.pw/*/*) printf '%s\n' "edit" | handle "${1%/*}" ;;
   esac
 } 
 
@@ -44,17 +50,20 @@ mime() {
   if [[ -f $1 ]];then 
     file -bL --mime-type "$1"
   else
-    printf '%s\n' "$1" | xcmenu -ic
-    # messy, but just in case
+    clip "$1"
+    # Because fuck standardization, right?
     curl -sI "$1" | sed -n 's/content-type: *//pi' | tr -cd '\12\40\55-\71\100-\132\141-\172' | awk '{ print $1 }'
   fi
 }
 
+# Match mimetype with action to be taken
 parse() {
-  local result
-  result="$(sed -n 's|'"$1"' ||pi' "$XDG_DATA_HOME/plumber/${1%\/*}")"
-  [[ $result ]] && printf '%s\n' "$result" || printf '%s\n%s\n' "$1" "from parse" >> ~/mime_issues
+  local out
+  out=$(awk -v r="$1" '$0 ~ r { print $2 }' "$XDG_DATA_HOME/plumber/${1%\/*}")
+  [[ $out ]] && printf "$out\n" || printf "$1\n" >> ~/mime_issues
 }
+
+## Main
 
 special "$1"
 
@@ -66,9 +75,12 @@ mime "$1" | while read -r mimetype; do
     image*) parse "$mimetype" | handle "$1" ;;
     inode*) parse "$mimetype" | handle "$1" ;;
     text*)  parse "$mimetype" | handle "$1" ;;
-    *) print '%s\n%s\n' "$mimetype" "from mime" >> ~/mime_issues ;;
+    *) printf '%s\n' "$mimetype" >> ~/mime_issues ;;
   esac
+  exit 0
 done
 
-## NOTES: 
-# inode is a directory spec on linux
+## Manuals here
+[[ $(apropos -f "${1%\(*}") ]] && exec "$XDG_DATA_HOME"/dsearch/man "${1%\(*}"
+
+## If we've gotten this far, hand it off to dsearch

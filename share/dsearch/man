@@ -16,30 +16,36 @@ handle_result() {
    LESS_TERMCAP_so=$'\E[38;5;246m' \
    LESS_TERMCAP_ue=$'\E[0m' \
    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
-   st -t float -e man "$1"
+   st -t float -e man "$1" "$2"
 }
 
 get_selection() {
   opts+=(-l 10 -p "Manual: ")
-  apropos . | bemenu "${opts[@]}"
+  apropos "$1" | bemenu "${opts[@]}"
 }
 
 ## Main ##
-# Configuration
-# https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
+
 
 [[ -s $optsfile ]] && source "$optsfile"
 
-[[ $1 ]] && result="$1" || result="$(get_selection)" 
+num=$(apropos "$1" | wc -l)
 
-if ! apropos "$result"; then
+case "$num" in
+  0) result=$(get_selection .) ;;
+  1) result=$1 ;;
+  *) result=$(get_selection "$1") ;;
+esac
+
+[[ ! $result ]] && exit 0
+
+if [[ ! $(apropos ${result%\(*}) ]]; then
   thingmenu -g  160x120 -x \
     "Posix" "exec browse '\!posix $1'" \
     "Mankier" "exec browse '\!mankier $1'" \
     "Man7" "exec browse '\!man7 $1'" \
     "Man" "exec browse '\!man $1'" 
-fi
-
-if [[ $result ]]; then
-  handle_result "$result"
+else  
+  result="${result%\)*}"
+  handle_result "${result#\(*}" "${result%\(*}"
 fi

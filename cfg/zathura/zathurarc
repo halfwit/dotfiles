@@ -5,29 +5,29 @@ set selection-clipboard         "primary"
 set default-bg                  "#262626" 
 set default-fg                  "#bcbcbc"
 
-set statusbar-fg                "#444444"
 set statusbar-bg                "#bcbcbc"
+set statusbar-fg                "#444444"
 
-set inputbar-bg                 "#32302f"
+set inputbar-bg                 "#262626"
 set inputbar-fg                 "#bcbcbc"
 
-set notification-error-bg       "#AC4142"
-set notification-error-fg       "#E0E0E0"
+set notification-error-bg       "#444444"
+set notification-error-fg       "#bcbcbc"
 
-set notification-warning-bg     "#AC4142"
-set notification-warning-fg     "#E0E0E0"
+set notification-warning-bg     "#444444"
+set notification-warning-fg     "#ff8700"
 
-set highlight-color             "#F4BF75"
-set highlight-active-color      "#AA759F"
+set highlight-color             "#444444"
+set highlight-active-color      "#5f87af"
 
-set completion-highlight-fg     "#D0D0D0"
-set completion-highlight-bg     "#75B5AA"
+set completion-highlight-fg     "#444444"
+set completion-highlight-bg     "#bcbcbc"
 
-set completion-bg               "#D0D0D0"
-set completion-fg               "#75B5AA"
+set completion-bg               "#262626"
+set completion-fg               "#bcbcbc"
 
-set notification-bg             "#90A959"
-set notification-fg             "#F5F5F5"
+set notification-bg             "#262626"
+set notification-fg             "#444444"
 
 set recolor-darkcolor           "#bcbcbc"
 set recolor-lightcolor          "#262626"

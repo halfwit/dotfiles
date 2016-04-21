@@ -4,6 +4,7 @@
 readonly datadir=$HOME/local/share
 readonly handledir="$datadir"/dsearch
 readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
+readonly search="https://duckduckgo.com?q="
 
 create_menu() {
   local open  
@@ -62,14 +63,14 @@ handle_results() { # args -> launch
     !pl*)           exec "$handledir"/yt    "$1"           ;;
     !yt*)           exec "$handledir"/yt    "${1#*yt }"    ;;
 
-    !close)  exec pkill surf                            ;;
-    !snap)   exec "$handledir"/rec "snap"               ;;
-    !stop)   exec "$handledir"/rec "stop"               ;;
-    !rec)    exec "$handledir"/rec "vid"                ;;
+    !close)  exec pkill surf                               ;;
+    !snap)   exec "$handledir"/rec "snap"                  ;;
+    !stop)   exec "$handledir"/rec "stop"                  ;;
+    !rec)    exec "$handledir"/rec "vid"                   ;;
     *\ -\ *) read -r result < "$datadir/bookmark/$1" 
-             exec browse    "$result"                   ;;   
-    !*)      exec browse "https://duckduckgo.com/?q=$1" ;;
-    *)       exec browse "$1"
+             exec browse "$result"     ;;   
+    !*)      exec browse "$search$1"   ;;
+    *)       exec browse "$search\ $1" ;;
 
   esac
 }
@@ -77,7 +78,7 @@ handle_results() { # args -> launch
 # Main
 [[ -s $optsfile ]] && source "$optsfile"
 
-query=$(get_selection)
+[[ $1 ]] && query=$1 || query=$(get_selection)
 query=${query/*http/http}
 
 # Verify selection
