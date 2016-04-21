@@ -32,7 +32,7 @@ get_selection() {
 
 [[ $1 ]] && result="$1" || result="$(get_selection)" 
 
-if ! grep -q "$result" <<< $(apropos .); then
+if ! apropos "$result"; then
   thingmenu -g  160x120 -x \
     "Posix" "exec browse '\!posix $1'" \
     "Mankier" "exec browse '\!mankier $1'" \

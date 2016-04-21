@@ -46,8 +46,10 @@ note() {
   *pdf*)        name "document" | doc "pdf"  "$input" ;;
   *video*) exec "$XDG_DATA_HOME/youtube/savepl" "$input" ;;
   *)
+    items=( "git - " "error - " "keyboards - " "linux - "
+            "main - " "programming - " "electronics - " )
     opts+=( -l 10 -p "Save bookmark" )
-    result=$(printf '%s\n%s\n%s\n%s\n%s\n' "main - " "linux - " "git - " "keyboard - "  "softball - " | bemenu "${opts[@]}") 
+    result=$(printf '%s\n' "${items[@]}" | bemenu "${opts[@]}") 
     [[ $result ]] && printf '%s' "$input" > "$XDG_DATA_HOME/bookmark/$result"
     ;;
 esac
