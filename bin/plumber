@@ -24,12 +24,12 @@ handle() {
   local input
   while read -r input; do
     case "$input" in
-      browse) exec browse     "$1" ;;
-      play)   exec play       "$(fetch "$1")" ;;
-      view)   exec imv        "$(fetch "$1")" ;;
-      docs)   exec zathura    "$(fetch "$1")" ;;
-      edit)   exec st -e nvim "$(fetch "$1")" ;;
-      hear)   exec mpd        "$(fetch "$1")" ;;
+      browse) exec browse     "$1" & ;;
+      play)   exec play       "$(fetch "$1")" & ;;
+      view)   exec imv        "$(fetch "$1")" & ;;
+      docs)   exec zathura    "$(fetch "$1")" & ;;
+      edit)   exec st -e nvim "$(fetch "$1")" & ;;
+      hear)   exec mpd        "$(fetch "$1")" & ;;
     esac
   done
 }
@@ -81,6 +81,6 @@ mime "$1" | while read -r mimetype; do
 done
 
 ## Manuals here
-[[ $(apropos -f "${1%\(*}") ]] && exec "$XDG_DATA_HOME"/dsearch/man "${1%\(*}"
+[[ $(apropos -f "${1%\(*}") ]] && exec "$XDG_DATA_HOME"/dsearch/man "${1%\(*}" &
 
 ## If we've gotten this far, hand it off to dsearch
