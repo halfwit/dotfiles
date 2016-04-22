@@ -1,40 +1,36 @@
 #!/usr/bin/env bash
 
 # Gmusic host IP
-readonly host=localhost
+readonly host=192.168.0.103
 
 # Gmusicproxy default port
 readonly port=9999
-
+readonly optsdir=$XDG_CONFIG_HOME/dmenu/bemenucolors
 readonly url=http://$host:$port
-readonly progn=gsonghandler
 
-has() {
-    hash "$1" &> /dev/null
+add_song() {     
+    mpc insert "$url/get_by_search?type=song&artist=${1// /%20}&title=${2// /%20}&exact=no"
+    mpc next
+    rm "$XDG_CONFIG_HOME"/mpd/playlists/now_playing.m3u
+    mpc save now_playing
 }
 
-puts() {
-    printf -- "$1\n" "${@:2}"
+load() {
+  local i=0
+  mpc playlist | while read -r title; do
+    printf '%s %s\n' "$((++i))" "$title"
+  done
 }
 
-err() {
-    local msg
-
-    puts "$progn: $@" >&2
-    if has notify-send; then
-	  msg="$(puts "$@")"
-	  notify-send -u critical -- "$progn" "msg"
-    fi
-}
-
-add_song() { 
-    
-    mpc insert "$url/get_by_search?type=song&artist=$1&title=$2&exact=no"
-    exec mpc next
-}
-
+if [[ $1 ]]; then 
+  add_song "${1%\ -*}" "${1#*-\ }"
+  exit 0
+fi
 # Grab opts, split around '-'
-opts="$@"
-title="${opts%\ -*}"
-artist="${opts##*-\ }"
-add_song "${artist// /%20}" "${title// /%20}"
+[[ $optsdir ]] && source "$optsdir"
+
+opts+=(-p "Select song: " -l 10 ) 
+
+result=$(load | bemenu "${opts[@]}")
+
+mpc play "${result%%\ *}"

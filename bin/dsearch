@@ -48,6 +48,7 @@ handle_results() { # args -> launch
     !game)   exec "$handledir"/game   ;;
     !save)   exec "$handledir"/save   ;;
     !link)   exec "$handledir"/link   ;;
+    !song)   exec "$handledir"/song   ;;
     !todo)   exec "$handledir"/todo   ;;
     !man)    exec "$handledir"/man    ;;
     !vm)     exec "$handledir"/vm     ;;
