@@ -8,7 +8,9 @@ wew | while IFS=: read ev wid; do
   case $ev in
     16) ~/local/cfg/wmutils/autotag "$wid"    ;;
     17) ~/local/cfg/wmutils/groups -c "$wid"  ;;
-    18) ~/local/cfg/wmutils/wshuf             ;;
-    19) ~/local/cfg/wmutils/wshuf             ;;
+    18) ~/local/cfg/wmutils/focus "$wid"      
+        ~/local/cfg/wmutils/wshuf "next"      ;;
+    19) ~/local/cfg/wmutils/focus "$wid"
+        ~/local/cfg/wmutils/wshuf             ;;
   esac
 done
