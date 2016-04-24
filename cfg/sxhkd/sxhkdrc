@@ -15,7 +15,7 @@ super + {1,2,3,4,5,6}
 XF86Audio{Prev,Next,Stop,Play}
          mpc -q {prev,next,stop,toggle}
 XF86Audio{LowerVolume,RaiseVolume}
-         amixer set Master {-,+}5%
+         amixer set Master 3dB{-,+}
 XF86AudioMute
          amixer set Master toggle
 XF86MonBrightness{Down,Up}

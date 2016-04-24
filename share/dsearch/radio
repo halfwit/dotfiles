@@ -10,19 +10,13 @@ readonly numtracks=100
 readonly url=http://$host:$port
 
 receive_playlist() {
-    curl -s "$url/$1?num_tracks=$numtracks" > "${XDG_CONFIG_HOME:-$HOME/.config}"/mpd/playlists/now_playing.m3u 
+    curl -s "$url/$1?num_tracks=$numtracks" > "$XDG_CONFIG_HOME/mpd/playlists/$2.m3u" 
 }
 
 mpc clear
-mpc rm now_playing
 case $1 in
-    ifl) receive_playlist "get_ifl_station" ;;
-    *) receive_playlist "get_new_station_by_search?type=artist&artist=${1// /+}&exact=no" ;;
+    ifl) receive_playlist "get_ifl_station" "$1" ;;
+    *) receive_playlist "get_new_station_by_search?type=artist&artist=${1// /%20}&exact=no" "$1" ;;
 esac
-
-mpc load now_playing
+mpc load "$1"
 mpc play
-
-# cleaning up playlist
-rm "$XDG_CONFIG_HOME"/mpd/playlists/now_playing.m3u
-mpc save now_playing

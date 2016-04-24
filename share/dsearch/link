@@ -47,7 +47,7 @@ lnk=$(list | sort -u | build | dmenu "${opts[@]}")
 
 case $lnk in
   video*) lnk="$(video "$lnk")" ;;
-  image*) lnk="$(exiftool "$pics/${lnk#*-\ }" | awk '/Comment/ { print $NF }')" ;;
+  image*) lnk="$(exiftool "$pics/${lnk#*-\ }" | awk '/^Comment/ { print $NF }')" ;;
   *) read -r lnk < "$datadir/bookmark/$lnk"
 esac
 
