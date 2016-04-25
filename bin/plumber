@@ -24,12 +24,16 @@ handle() {
   local input
   while read -r input; do
     case "$input" in
-      browse) exec browse     "$1" & ;;
-      play)   exec play       "$(fetch "$1")" & ;;
-      view)   exec imv        "$(fetch "$1")" & ;;
-      docs)   exec zathura    "$(fetch "$1")" & ;;
-      edit)   exec st -e nvim "$(fetch "$1")" & ;;
-      hear)   exec mpd        "$(fetch "$1")" & ;;
+      browse) exec browse               "$1" & 
+              exit 0 ;;
+      play)   exec play                 "$(fetch "$1")" & 
+              exit 0 ;;
+      view)   exec imv                  "$(fetch "$1")" & 
+              exit 0 ;;
+      docs)   exec zathura              "$(fetch "$1")" & 
+              exit 0 ;;
+      edit)   exec st -t "NVIM" -e nvim "$(fetch "$1")" & 
+              exit 0 ;;
     esac
   done
 }
@@ -38,8 +42,8 @@ handle() {
 special() {
   case "$1" in
     *xkcd*) clip "$1" && handle view "$(curl -s "https://xkcd.com/${1//[^0-9]/}/" | awk '/hotlink/{ print $NF }')" ;;  
-    *ptpb.pw/t/*) clip "$1" && exec st -e asciinema play <(curl -s "${1/\/t/}") ;;
     *youtube.com/watch*|*youtu.be*|ytdl*|*livestream.com*|*twitch.tv*|*imgur*) clip "$1" && exec play "$1" ;;
+    *ptpb.pw/t/*) clip "$1" && exec st -e asciinema play <(curl -s "${1/\/t/}") ;;
     *ptpb.pw/*/*) clip "$1" && printf '%s\n' "edit" | handle "${1%/*}" ;;
     gopher://*) exec st -e cgo "$1" ;;
   esac
@@ -77,7 +81,6 @@ mime "$1" | while read -r mimetype; do
     text*)  parse "$mimetype" | handle "$1" ;;
     *) printf '%s\n' "$mimetype" >> ~/mime_issues ;;
   esac
-  exit 0
 done
 
 ## Manuals here

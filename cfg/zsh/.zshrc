@@ -213,6 +213,10 @@ man() {
    man "$@"
 }
 
+math() {
+  print "$1" | bc 
+}
+
 # Aliases
 alias :q='exit'
 alias rr='rm -rvI'

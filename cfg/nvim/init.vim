@@ -13,28 +13,14 @@ command! -nargs=1 SetFixer execute substitute(<q-args>,
 " Initialization
 call s:source_rc('init.rc.vim')
 
-call dein#begin(expand('$CACHE/dein'))
+call s:source_rc('dein.rc.vim')
 
-let s:toml_path = '$XDG_CONFIG_HOME/nvim/rc/dein.toml'
-let s:toml_lazy_path = '$XDG_CONFIG_HOME/nvim/rc/deinlazy.toml'
-
-if dein#load_cache([expand('<sfile>'), s:toml_path, s:toml_lazy_path])
-  call dein#add('Shougo/dein.vim', {'rtp': ''})
+if !has('vim_starting')
+  call dein#call_hook('source')
+  call dein#call_hook('post_source')
   
-  call dein#load_toml(s:toml_path)
-  call dein#load_toml(s:toml_lazy_path, {'lazy' : 1})
-  
-  call dein#save_cache()
-endif
-  
-call s:source_rc('plugins.rc.vim')
-
-call dein#end()
-
-filetype indent plugin on
-
-if dein#check_install()
-  call dein#install()
+  syntax enable
+  filetype indent plugin on
 endif
 
 "---------------------------------------------
