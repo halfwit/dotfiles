@@ -22,9 +22,10 @@ list_windows() {
          mpv)
            wname="400 224 450 244 $id" ;;
          mutt|newsbeuter)
-           wname="420 230 450 600 $id" ;;
+           wname="420 230 450 $(( heigh - gaps )) $id" ;;
          float|bar|dmenu|bemenu|zathura|thingmenu) break ;;
-         
+         htop) 
+           wname="400 100 450 100 $id" ;;
          *)
            wname="420 228 450 245 $id" ;;
       esac  
