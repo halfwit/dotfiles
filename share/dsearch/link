@@ -32,12 +32,12 @@ build() {
 
 video() {
   local result
-  lnk=$(sed -n -e 's/^Title[0-9]=//p' < "$datadir/mpv/${1##*-\ }.pls" | dmenu "${opts[@]}" -p "Select title") 
+  lnk=$(sed -n -e 's/^Title[0-9]\+=//p' < "$datadir/mpv/${1##*-\ }.pls" | dmenu "${opts[@]}" -l 10 -p "Select video" ) 
   
   # If no selection is made, return to this program
   [[ ! $lnk ]] && exec "$datadir/dsearch/link"
   
-  sed -n -e "/$lnk/ { n; s/^File[0-9]=//p }" < "$datadir/mpv/${1#*-\ }.pls"
+  sed -n -e "/$lnk/ { n; s/^File[0-9]\+=//p }" < "$datadir/mpv/${1#*-\ }.pls"
 }
 
 [[ -s $optsfile ]] && source "$optsfile"

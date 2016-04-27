@@ -19,18 +19,18 @@ create_menu() {
   done
 
   # Check bookmarks
-  (cd "$datadir/bookmark" || exit 1
-  find -not -path '*/\.*' -type f -printf "%f\n" | sort -u)
+  cd "$datadir/bookmark" || exit 1
+  find -not -path '*/\.*' -type f -printf "%f\n" | sort -u
 
   # This is for mpv playlists
-  (cd "$datadir/mpv" ||  exit 1
+  cd "$datadir/mpv" ||  exit 1
   for file in *; do
     printf '%s\n' "playlist - ${file/.pls/}" 
-  done | sort -u)
+  done | sort -u
   
   # Bang completions
-  (cd "$handledir" || exit 1
-  find -type f -printf "!%f\n" | sort -u)
+  cd "$handledir" || exit 1
+  find -type f -printf "!%f\n" | sort -u
   printf '%s\n%s\n%s\n' "!snap" "!stop" "!close"
 }
 
@@ -53,7 +53,7 @@ handle_results() { # args -> launch
     !man)    exec "$handledir"/man    ;;
     !vm)     exec "$handledir"/vm     ;;
     
-    playlist\ -\ *) exec "$handledir"/mpv   "${1#*-\ }.pls"    ;;
+    playlist\ -\ *) exec "$handledir"/mpv   "${1#*-\ }.pls" ;;
     open\ -\ *)     exec "$handledir"/stack "${1#*-\ }"    ;;
     !radio*)        exec "$handledir"/radio "${1#*adio }"  ;;
     !song*)         exec "$handledir"/song  "${1#*song }"  ;;
