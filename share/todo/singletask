@@ -23,7 +23,8 @@ loop_run() {
       \(x\)*)  sub="${result/\(x\)/( )}"
                place=$(sed -n "/$result/{=; q;}" "$TASKFILE")
                sed -i "s:$result:$sub:g" "$TASKFILE" ;;
-      *) printf '%s\n' "( ) $result" >> "$TASKFILE" ;;
+      *) place=$(wc -l "$TASKFILE" | awk '{ print $1+1 }') 
+         printf '%s\n' "( ) $result" >> "$TASKFILE" ;;
     esac
   done
 }
