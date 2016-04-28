@@ -4,26 +4,27 @@
 readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
 
 TASKFILE="$XDG_CACHE_HOME/todo/$1"
-HEIGHT=$(wc -l < "$TASKFILE")
-PROMPT="Add/delete a task"
 
 menu() {
-  bemenu -l "$HEIGHT" "${opts[@]}" -p "$PROMPT: " < "$TASKFILE"
+  opts+=(-l 10 -p "Add new or select to toggle task" -I "$(($1 - 1))")
+  bemenu "${opts[@]}" < "$TASKFILE"
 }
 
 loop_run() {
+  local sub result place=1
   while true; do
-    result=$(menu)
+    result=$(menu "$place")
     # Return to main program on exit
     [[ ! $result ]] && exec "$XDG_DATA_HOME"/dsearch/todo
-    if grep "$result" "$TASKFILE"; then
-      sed -i "s/$result//g" "$TASKFILE"
-      HEIGHT=$((HEIGHT-1))
-    else
-      printf '%s\n' "$result" >> "$TASKFILE"
-      HEIGHT=$(wc -l < "$TASKFILE")
-    fi
-    sed -i '/^$/d' "$TASKFILE"
+    case $result in
+      \(\ \)*) sub="${result/\(\ \)/(x)}"
+               place=$(sed -n "/$result/{=; q;}" "$TASKFILE")
+               sed -i "s:$result:$sub:g" "$TASKFILE" ;;
+      \(x\)*)  sub="${result/\(x\)/( )}"
+               place=$(sed -n "/$result/{=; q;}" "$TASKFILE")
+               sed -i "s:$result:$sub:g" "$TASKFILE" ;;
+      *) printf '%s\n' "( ) $result" >> "$TASKFILE" ;;
+    esac
   done
 }
 

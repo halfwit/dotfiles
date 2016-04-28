@@ -2,18 +2,29 @@
 # Write/remove a task to do later.
 
 readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
+readonly todir=$XDG_CACHE_HOME/todo
+
+load() {
+  # count matches with grep vs line count 
+  local match total
+  find "$todir" -not -path '*/\.*' -type f | while read title; do
+    match=$(grep -c "[x]" "$title")
+    total=$(wc -l "$title" | awk '{print $1}')
+    printf '%s\t%s\n' "$(( 100 * match / total ))%" "${title##*\/}"
+  done
+}
 
 menu() {
   opts+=( -p "Select or create new task" -l 10)
-  find "$XDG_CACHE_HOME"/todo -not -path '*/\.*' -type f -printf "%f\n" | bemenu "${opts[@]}"
+  load | bemenu "${opts[@]}"
 }
 
 ## Main
 
 [[ -s $optsfile ]] && source "$optsfile"
 
-result=$(menu)
+result=$(menu | cut -d $'\t' -f2-)
 [[ ! $result ]] && exit 
 
-touch "$XDG_CACHE_HOME/todo/$result"
+touch "$todir/$result"
 exec ~/local/share/todo/singletask "$result"
