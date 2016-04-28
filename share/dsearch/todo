@@ -3,19 +3,9 @@
 
 readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
 
-create_menu() {
-  cd $XDG_CACHE_HOME/todo
-  for i in *; do 
-    if [[ -s $i ]]; then 
-      printf '%s\n' "$i"
-    else 
-      rm "$i"
-    fi
-  done
-}
-
 menu() {
-  create_menu | bemenu -l $(ls "$XDG_CACHE_HOME/todo" | wc -l ) "${opts[@]}" -p "Select or create new task: "
+  opts+=( -p "Select or create new task" -l 10)
+  find "$XDG_CACHE_HOME"/todo -not -path '*/\.*' -type f -printf "%f\n" | bemenu "${opts[@]}"
 }
 
 ## Main
