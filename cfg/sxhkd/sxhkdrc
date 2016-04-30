@@ -5,7 +5,7 @@ super + shift + {p,j}
        winid=$(get_window_id) && wrs {20,-20} 0 "$winid" && ~/local/cfg/wmutils/wshuf && wtf "$winid"
 super + {p,j}
          ~/local/cfg/wmutils/focus {prev,next}
- @F11
+@F11
          ~/local/cfg/wmutils/fullscreen $(get_window_id)
 super + i 
          ~/local/cfg/wmutils/groups -c $(get_window_id) && killw $(get_window_id)

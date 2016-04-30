@@ -2,6 +2,7 @@
 
 # Go through files
 WINDIR=${WINDIR:-/tmp/groups}
+
 # Number of groups
 panels=6
 
@@ -19,7 +20,7 @@ run_loop() {
     fi
     result+=${item["$i"]}
   done
-  printf '%s\n' "—${result[@]}—"
+  printf '%s\n' "%{c}—${result[@]}—"
 }
 
 wendy -m 514 -f /tmp/groups/ -v | while read item; do
@@ -31,11 +32,22 @@ wendy -m 514 -f /tmp/groups/ -v | while read item; do
     512*)
       run_loop  ;;
   esac
-done | lemonbar -F '#444444' -d -b -f "DejaVu Sans" -g +$(( -60 + $(wattr w "$(lsw -r)") / 2)) &
+done | lemonbar -F '#444444' -d -b -f "DejaVu Sans Mono:size=12" &
+
 
 while :; do
+  current=""
+  if mpc status | grep playing >/dev/null; then
+    current="$(mpc current)"
+  elif mpc status | grep paused >/dev/null; then
+    current="[paused] "
+  fi
   level=100
   read -r level < /sys/class/power_supply/BAT0/capacity
-  printf '%s %s %s\n' "$(date +'%b %d %H:%M')" "-" "$level%"
-  sleep 60
-done | lemonbar -F '#444444' -d -b -f "DejaVu Mono" -g +4 &
+  printf ' %s - %s%s\n' "$(date +'%H:%M')" "$level%" "%{r}$current "
+  if [[ $current ]]; then
+    mpc idle player > /dev/null
+  else 
+    sleep 60
+  fi
+done |  lemonbar -F '#444444' -d -b -f "Inconsolatazi4 Regular:size=9.5" &

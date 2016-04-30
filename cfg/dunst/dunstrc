@@ -1,5 +1,5 @@
 [global]
-    font = "DejaVu Sans Mono 9.5"
+    font = "Inconsolatazi Regular 9.8"
     allow_markup = yes
     format = "<b>%s %p</b>\n%b"
     sort = yes
@@ -18,7 +18,7 @@
     separator_color = frame
     startup_notification = false
     dmenu = /usr/bin/dmenu -p Load:
-    browser = /usr/bin/qutebrowser
+    browser = /home/halfwit/local/bin/browse
 
 
 [frame]

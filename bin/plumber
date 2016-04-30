@@ -41,11 +41,13 @@ handle() {
 # Special cases demand special handling
 special() {
   case "$1" in
-    *xkcd*) clip "$1" && handle view "$(curl -s "https://xkcd.com/${1//[^0-9]/}/" | awk '/hotlink/{ print $NF }')" ;;  
+    *xkcd*) clip "$1" && handle view "$(curl -s "https://xkcd.com/${1//[^0-9]/}/" | awk '/hotlink/{ print $NF }')" 
+            return 1 ;;  
     *youtube.com/watch*|*youtu.be*|ytdl*|*livestream.com*|*twitch.tv*|*imgur*) clip "$1" && exec play "$1" ;;
     *ptpb.pw/t/*) clip "$1" && exec st -e asciinema play <(curl -s "${1/\/t/}") ;;
-    *ptpb.pw/*/*) clip "$1" && printf '%s\n' "edit" | handle "${1%/*}" ;;
-    gopher://*) exec st -e cgo "$1" ;;
+    *ptpb.pw/*/*) clip "$1" && printf '%s\n' "edit" | handle "${1%/*}" 
+                  return 1 ;;
+    gopher://*) clip "$1" && exec st -e cgo "$1" ;;
   esac
 } 
 
@@ -69,7 +71,7 @@ parse() {
 
 ## Main
 
-special "$1"
+special "$1" || exit 0
 
 mime "$1" | while read -r mimetype; do
   case "$mimetype" in

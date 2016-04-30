@@ -4,7 +4,7 @@
 xhost +si:localuser:"$USER"
 
 sxhkd &
-#xcmenu &
+xcmenu &
 mutt-run &
 syncthing &
 st -e htop &

@@ -5,7 +5,8 @@
 readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
 
 get_selection() {
-  find ~/ -type f | bemenu -l 10 "${opts[@]}" -p "Edit"
+  opts+=(-l 10 -p "Select file")
+  find ~/ -type f | bemenu "${opts[@]}"
 }
 
 ## Main ##
