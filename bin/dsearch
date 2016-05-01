@@ -42,6 +42,7 @@ get_selection() {
 handle_results() { # args -> launch
   case "$@" in
     
+    !listen) exec "$handledir"/listen ;;
     !photo)  exec "$handledir"/photo  ;;
     !notes)  exec "$handledir"/notes  ;;
     !docs)   exec "$handledir"/docs   ;;
@@ -55,7 +56,6 @@ handle_results() { # args -> launch
     
     playlist\ -\ *) exec "$handledir"/mpv   "${1#*-\ }.pls" ;;
     open\ -\ *)     exec "$handledir"/stack "${1#*-\ }"    ;;
-    !radio*)        exec "$handledir"/radio "${1#*adio }"  ;;
     !song*)         exec "$handledir"/song  "${1#*song }"  ;;
     !book*)         exec "$handledir"/book  "${1#*book }"  ;;
     !code*)         exec "$handledir"/code  "${1#*code }"  ;;

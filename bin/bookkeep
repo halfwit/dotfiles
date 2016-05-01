@@ -8,7 +8,7 @@ shopt -s nullglob
 # Globals
 readonly progn=bookkeep
 readonly datadir="${XDG_DATA_HOME:-$HOME/.local/share}"
-readonly prefix="$datadir"/docs
+readonly prefix="$datadir"/librarian
 readonly bindir="$prefix"/bin
 readonly coverdir="$prefix"/covers
 readonly templatedir="$prefix"/templates

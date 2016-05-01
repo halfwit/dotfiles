@@ -4,9 +4,8 @@
 
 shopt -s nullglob
 readonly progn=docs
-readonly optsfile="${XDG_CONFIG_HOME:-$HOME/local/cfg}"/dmenu/dmenucolors
-readonly datadir="${XDG_DATA_HOME:-$HOME/local/share}"
-readonly prefix="$datadir"/docs
+readonly optsfile="$XDG_CONFIG_HOME"/dmenu/dmenucolors
+readonly prefix="$XDG_DATA_HOME"/librarian
 readonly bindir="$prefix"/bin
 readonly coverdir="$prefix"/covers
 
@@ -127,21 +126,10 @@ process_results() {
 	launch "$entry" &
     done
 }
-get_options() {
-    if [[ -e "$optsfile" ]]; then
-        # Parse optsfile
-        read -r font < "${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/font
-        if [[ ! "$font" ]]; then
-            err "No font found in ${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/font,                 using default."
-        fi
-        source "${XDG_CONFIG_HOME:-$HOME/.config}"/dmenu/dmenucolors
-    else
-        err "No configuration found for dmenu in ${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/dmenucolors"
-    fi
-}
 
-# Main loop
-get_options && opts+=( -p "Select book" )
+## Main loop
+[[ $optsfile ]] && source "$optsfile"
+opts+=(-p "Read document: ")
 
 mkdir -p "$datadir" "$bindir" "$coverdir"
 

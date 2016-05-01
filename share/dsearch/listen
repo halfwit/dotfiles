@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# generate menu of current playlists, wait for input to start up !radio or current playlist
+readonly optsdir="$XDG_CONFIG_HOME"/dmenu/bemenucolors
+
+if ! pgrep mpd; then
+  mpd &
+fi
+
+# Clear out currently playing lists
+mpc clear
+
+[[ -s $optsdir ]] && source "$optsdir"
+opts+=(-p "Select or enter playlist" -l 10)
+result=$(mpc lsplaylists | bemenu "${opts[@]}")
+
+# If playlist exists, load else grab new station
+if ! mpc load "$result"; then
+  exec "$XDG_DATA_HOME"/dsearch/radio "$result"
+else
+  mpc play
+fi

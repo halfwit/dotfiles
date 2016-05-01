@@ -1,5 +1,5 @@
 opts+=(
-    --fn "Inconsolatazi4 Regular 10.8" -i
+    --fn "DejaVu Sans Mono 9.5" -i
     --tf '#bcbcbc' --tb '#444444'
     --nf '#bcbcbc' --nb '#262626'
     --hf '#bcbcbc' --hb '#444444'
