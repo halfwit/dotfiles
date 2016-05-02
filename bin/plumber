@@ -47,6 +47,8 @@ special() {
     *ptpb.pw/t/*) clip "$1" && exec st -e asciinema play <(curl -s "${1/\/t/}") ;;
     *ptpb.pw/*/*) clip "$1" && printf '%s\n' "edit" | handle "${1%/*}" 
                   return 1 ;;
+    *bpaste.net*) clip "$1" && printf '%s\n' "edit" | handle "${1/show/raw}" 
+                  return 1 ;;
     gopher://*) clip "$1" && exec st -e cgo "$1" ;;
   esac
 } 

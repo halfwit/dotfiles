@@ -16,5 +16,6 @@ unmap() {
 
 ## main
 unmap
+#[[ $@ == *reddit* ]] && exec st -t browse -e elinks "$@"
 
 exec surf "$@"

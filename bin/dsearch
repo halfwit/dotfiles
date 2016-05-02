@@ -54,20 +54,21 @@ handle_results() { # args -> launch
     !man)    exec "$handledir"/man    ;;
     !vm)     exec "$handledir"/vm     ;;
     
-    playlist\ -\ *) exec "$handledir"/mpv   "${1#*-\ }.pls" ;;
-    open\ -\ *)     exec "$handledir"/stack "${1#*-\ }"    ;;
-    !song*)         exec "$handledir"/song  "${1#*song }"  ;;
-    !book*)         exec "$handledir"/book  "${1#*book }"  ;;
-    !code*)         exec "$handledir"/code  "${1#*code }"  ;;
-    !dict*)         exec "$handledir"/dict  "${1#*dict }"  ;;
-    !man*)          exec "$handledir"/man   "${1#*man }"   ;;
-    !pl*)           exec "$handledir"/yt    "$1"           ;;
-    !yt*)           exec "$handledir"/yt    "${1#*yt }"    ;;
+    playlist\ -\ *) exec "$handledir"/mpv    "${1#*-\ }.pls" ;;
+    open\ -\ *)     exec "$handledir"/stack  "${1#*-\ }"     ;;
+    !reddit*)       exec "$handledir"/reddit "${1#*reddit }" ;;
+    !song*)         exec "$handledir"/song   "${1#*song }"   ;;
+    !book*)         exec "$handledir"/book   "${1#*book }"   ;;
+    !code*)         exec "$handledir"/code   "${1#*code }"   ;;
+    !dict*)         exec "$handledir"/dict   "${1#*dict }"   ;;
+    !man*)          exec "$handledir"/man    "${1#*man }"    ;;
+    !pl*)           exec "$handledir"/yt     "$1"            ;;
+    !yt*)           exec "$handledir"/yt     "${1#*yt }"     ;;
 
-    !close)  exec pkill surf                               ;;
-    !snap)   exec "$handledir"/rec "snap"                  ;;
-    !stop)   exec "$handledir"/rec "stop"                  ;;
-    !rec)    exec "$handledir"/rec "vid"                   ;;
+    !close)  exec pkill surf                                 ;;
+    !snap)   exec "$handledir"/rec "snap"                    ;;
+    !stop)   exec "$handledir"/rec "stop"                    ;;
+    !rec)    exec "$handledir"/rec "vid"                     ;;
     *\ -\ *) read -r result < "$datadir/bookmark/$1" 
              exec browse "$result"     ;;   
     !*)      exec browse "$search$1"   ;;

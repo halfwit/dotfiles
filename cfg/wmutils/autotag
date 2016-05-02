@@ -11,5 +11,6 @@ case ${wname//\"/} in
   w3m|*browse)                groups "$1" 2 ;;
   NVIM)                       groups "$1" 3 ;;
   mutt|newsbeuter)            groups "$1" 4 ;;
+  irc)                        groups "$1" 5 ;;
   zathura)                    groups "$1" 6 ;;
 esac

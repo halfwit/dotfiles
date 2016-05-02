@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+## Use tt-rss to fetch feeds
+# change this to use a fs as follows
+# /
+# /OC3D
+# /Singularity\ computers
+# /Singularity\ computers/item1 <-- url
+# /Singularity\ computers/item2 <-- url
+
+readonly optsdir="$XDG_CONFIG_HOME"/dmenu/bemenucolors
+readonly address=http://192.168.1.70:28128/tt-rss/api/
+tmp=$(mktemp -d)
+
+
+login() {
+  read -r pass < "$XDG_CONFIG_HOME"/rss/rss
+  curl -d '{"op":"login","user":"halfwit","password":"'$pass'"}' "$address" | jshon -e content -e session_id -u
+}
+
+feeds() {
+  curl -d '{"sid":"'$1'","op":"getFeeds","cat_id":"-4","unread_only":"true"}' "$address" | jshon -e content -a -e unread -upe title -upe id
+}
+
+logoff() {
+  curl -d '{"sid":"'$1'","op":"logout"}' "$address"
+}
+
+feedlist() {
+  while {
+    read -r one
+    read -r two
+    read -r three
+  } do
+    printf '%s %s %s\n' "($one)" "$two" "$three" >> "$tmp/$1"
+  done
+}
+
+fetch_feed() {
+  curl -d '{"sid":"'$1'","op":"getHeadlines","feed_id":"'$2'","view_mode":"unread"}' "$address" | jshon -e content -a -e author -upe title -upe link -u 
+}
+
+markread() {
+  curl -d '{"sid":"'$1'","op":"updateArticle","article_ids":"'$2'","mode":"0","field":"2"}' "$address"
+}
+
+## main
+
+[[ -s $optsdir ]] && source "$optsdir"
+
+session_id=$(login)
+feeds "$session_id" | feedlist "list"
+
+opts+=(-l 10 -p "Select feed")
+result=$(awk '{$(NF--)="";  print}' "$tmp"/list | bemenu "${opts[@]}") 
+
+# currently not working
+markread "$session_id" "$(grep "$result" "$tmp"/list | awk '{ print $NF }')"
+
+[[ ! $result ]] && break
+
+fetch_feed "$session_id" "$(grep "$result" "$tmp"/list | awk '{ print $NF }')" | feedlist "${result#*\ }" 
+
+selection=$(awk '{$(NF--)=""; print}' "$tmp/${result#*\ }" | bemenu "${opts[@]}")
+url=$(grep "$selection" "$tmp/${result#*\ }" | awk '{ print $NF }')
+
+[[ $url ]] && plumber "$url" &
+
+logoff "$session_id" 

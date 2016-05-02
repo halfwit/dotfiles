@@ -17,7 +17,7 @@ list_windows() {
           mapw -u "$id"                ;;
         *.pdf|*.epub|*.djvu|*.book|NVIM|*sandy*|*cgo*|*QEMU*|*browse|*Syncthing*|*retroarch*)
           wname="$(wattr w "$id") $(( heigh / 2 )) $(wattr w "$id") $(( heigh - gaps )) $id" ;;
-         weechat)
+         irc)
            wname="400 225 450 245 $id" ;;
          mpv)
            wname="400 224 450 244 $id" ;;
