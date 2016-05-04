@@ -51,6 +51,7 @@ handle_results() { # args -> launch
     !link)   exec "$handledir"/link   ;;
     !song)   exec "$handledir"/song   ;;
     !todo)   exec "$handledir"/todo   ;;
+    !rss)    exec "$handledir"/rss    ;;
     !man)    exec "$handledir"/man    ;;
     !vm)     exec "$handledir"/vm     ;;
     
@@ -66,6 +67,7 @@ handle_results() { # args -> launch
     !yt*)           exec "$handledir"/yt     "${1#*yt }"     ;;
 
     !close)  exec pkill surf                                 ;;
+    # Not really search related, but useful 
     !snap)   exec "$handledir"/rec "snap"                    ;;
     !stop)   exec "$handledir"/rec "stop"                    ;;
     !rec)    exec "$handledir"/rec "vid"                     ;;

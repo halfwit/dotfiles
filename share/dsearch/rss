@@ -1,14 +1,8 @@
 #!/usr/bin/env bash
 ## Use tt-rss to fetch feeds
-# change this to use a fs as follows
-# /
-# /OC3D
-# /Singularity\ computers
-# /Singularity\ computers/item1 <-- url
-# /Singularity\ computers/item2 <-- url
 
 readonly optsdir="$XDG_CONFIG_HOME"/dmenu/bemenucolors
-readonly address=http://192.168.1.70:28128/tt-rss/api/
+readonly address=http://halfwit.duckdnse.org:28128/tt-rss/api/
 tmp=$(mktemp -d)
 
 

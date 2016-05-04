@@ -60,7 +60,7 @@ mime() {
   else
     clip "$1"
     # Because fuck standardization, right?
-    curl -sI "$1" | sed -n 's/content-type: *//pi' | tr -cd '\12\40\55-\71\100-\132\141-\172' | awk '{ print $1 }'
+    curl -sI "$1" | sed -n 's/content-type: *//pi' | awk '{print $1}' | tr -cd '\12\40\55-\71\100-\132\141-\172'
   fi
 }
 
