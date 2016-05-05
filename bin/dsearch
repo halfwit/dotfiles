@@ -58,6 +58,7 @@ handle_results() { # args -> launch
     playlist\ -\ *) exec "$handledir"/mpv    "${1#*-\ }.pls" ;;
     open\ -\ *)     exec "$handledir"/stack  "${1#*-\ }"     ;;
     !reddit*)       exec "$handledir"/reddit "${1#*reddit }" ;;
+    !album*)        exec "$handledir"/album  "${1#*album }"  ;;
     !song*)         exec "$handledir"/song   "${1#*song }"   ;;
     !book*)         exec "$handledir"/book   "${1#*book }"   ;;
     !code*)         exec "$handledir"/code   "${1#*code }"   ;;

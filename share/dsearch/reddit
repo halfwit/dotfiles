@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+## Requires Lynx
+##TODO: currently only works on sites with Discussion, Screenshot and Video tags.
+
+readonly optsdir="$XDG_CONFIG_HOME"/dmenu/bemenucolors
+readonly datadir="$XDG_DATA_HOME"/reddit
+
+tmp=$(mktemp -d )
+
+createsub() {
+  local sub count url title
+  mkdir "$tmp/$1"
+  sub=$(lynx -dump "https://www.reddit.com/r/$1")
+  count=0
+  grep -e Discussion -e Screenshot -e Video <<< "$sub" | while read -r item; do 
+    url="${item%%\]*}"
+    url=$(grep "${url#*\[}" <<< "$sub" | xurls) 
+    if [[ $url ]]; then 
+      title=${item#*\]}
+      title=${title%%\(*}
+      printf '%s\n' "$url" > "$tmp/$1/$title"
+    fi
+  done
+}
+
+load() {
+  local entry
+  cd "$tmp/$1"
+  for i in *; do
+    [[ $i == *All* || $i == *Meta* ]] || printf '%s\n' "$i"
+  done
+}
+
+[[ -s $optsdir ]] && source "$optsdir"
+
+createsub "$1" || exit 1 
+
+opts+=(-l 10 -p "Select sub")
+load "$1" | bemenu "${opts[@]}" | while IFS=$'\n' read -r result; do
+  [[ ! $result ]] && exit 1
+  read -r url < "$tmp/$1/$result"
+  plumber "$url" & 
+done

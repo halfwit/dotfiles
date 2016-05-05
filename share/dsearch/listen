@@ -10,7 +10,7 @@ fi
 mpc clear
 
 [[ -s $optsdir ]] && source "$optsdir"
-opts+=(-p "Select or enter playlist" -l 10)
+opts+=(-p "Select playlist or enter radio station" -l 10)
 result=$(mpc lsplaylists | bemenu "${opts[@]}")
 
 # If playlist exists, load else grab new station

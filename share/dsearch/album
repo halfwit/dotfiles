@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+## Search for an album, or list albums by artist
+
+
+# Gmusicproxy host IP
+readonly host=localhost
+
+# Gmusicproxy default port
+readonly port=9999
+
+readonly optsdir="$XDG_CONFIG_HOME"/dmenu/bemenucolors
+readonly url=http://$host:$port
+
+search_album() {
+  artist="${1%\ -*}"
+  title="${1#*-\ }"
+  mpc clear
+  curl -s "$url/get_by_search?type=album&artist=${artist//\ /%20}&title=${title//\ /%20}" > "$XDG_CONFIG_HOME/mpd/playlists/$1.m3u" 
+  mpc load "$1"
+  mpc play
+}
+
+tmp=$(mktemp -d)
+
+get_id() {
+  curl -s "$url/search_id?type=artist&artist=${1//\ /%20}"
+}
+
+discography() {
+  curl -s "$url/get_discography_artist?id=$(get_id "$1")&format=text" > "$tmp/$1"
+}
+
+build() {
+  while IFS="|" read -r title year link; do
+    printf '%s - %s\n' "$year" "$title"
+  done
+}
+
+search_artist() {
+  [[ -s $optsdir ]] && source "$optsdir" 
+  discography "${1//\ %20}"
+
+  opts+=(-p "Select album" -l 10)
+  result=$(build < "$tmp/$1" | sort -u | tac | bemenu "${opts[@]}") 
+  [[ ! $result ]] && exit 1
+  result=$(grep "${result#*-\ }" "$tmp/$1")
+  mpc clear
+  curl -s "$url/get_album?id=${result##*id=}" > "$XDG_CONFIG_HOME/mpd/playlists/$1 - ${result%%|*}.m3u"
+  mpc load "$1 - ${result%%|*}"
+  mpc play
+}
+
+case "$@" in
+  *\ -\ *) search_album  "$@" ;;
+  *)      search_artist "$@" ;;
+esac

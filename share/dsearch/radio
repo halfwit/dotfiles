@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Gmusicproxy host IP
-readonly host=192.168.0.103
+readonly host=localhost
 
 # Gmusicproxy default port
 readonly port=9999
