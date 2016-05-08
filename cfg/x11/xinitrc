@@ -6,10 +6,7 @@ xhost +si:localuser:"$USER"
 mpd &
 sxhkd &
 xcmenu &
-mutt-run &
-syncthing &
-st -e htop &
-newsbeuter-run &
+#syncthing &
 colortempd -t 4000 &
 ~/local/cfg/wmutils/bar & 
 GMusicProxy --config ~/local/cfg/gmusicproxy/config

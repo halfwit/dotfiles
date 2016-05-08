@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+## We're going to switch this to grab the album, load the playlist, and then go from there. 
 # Gmusic host IP
 readonly host=localhost
 

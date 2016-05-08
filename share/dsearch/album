@@ -17,7 +17,6 @@ search_album() {
   mpc clear
   curl -s "$url/get_by_search?type=album&artist=${artist//\ /%20}&title=${title//\ /%20}" > "$XDG_CONFIG_HOME/mpd/playlists/$1.m3u" 
   mpc load "$1"
-  mpc play
 }
 
 tmp=$(mktemp -d)
@@ -47,10 +46,12 @@ search_artist() {
   mpc clear
   curl -s "$url/get_album?id=${result##*id=}" > "$XDG_CONFIG_HOME/mpd/playlists/$1 - ${result%%|*}.m3u"
   mpc load "$1 - ${result%%|*}"
-  mpc play
 }
 
-case "$@" in
-  *\ -\ *) search_album  "$@" ;;
-  *)      search_artist "$@" ;;
-esac
+if ! mpc load "$@"; then
+  case "$@" in
+    *\ -\ *) search_album  "$@" ;;
+    *)      search_artist "$@" ;;
+  esac
+fi
+mpc play
