@@ -9,12 +9,12 @@ This all allows me to do the following:
  - best-fit of a set of open windows
 
 ##This is how it all looks 
-[![wmutils and bin packing demo](http://img.youtube.com/vi/MSIjqTgtj2c/0.jpg)](http://www.youtube.com/watch?v=MSIjqTgtj2c)]
+[![wmutils and bin packing demo](http://img.youtube.com/vi/MSIjqTgtj2c/0.jpg)](http://www.youtube.com/watch?v=MSIjqTgtj2c)
 
 #[Dsearch](https://github.com/halfwit/dotfiles/blob/master/bin/dsearch)
 This is a dmenu/bemenu based set of scripts for various search-oriented actions, using a set of [handlers](https://github.com/halfwit/dotfiles/blob/master/share/dsearch).
 
-Each handler is invoked using the traditional DuckDuckGo handler behavior, `!foo bar baz`.
+Each handler is invoked using the traditional DuckDuckGo handler behavior, !foo bar baz. (Anything not matching a handler is simply passed through, to DuckDuckGo)
 
 In addition, bookmarks are handled in dsearch, as I found myself switching browser too frequently [demo](https://ptpb.pw/qR19.mkv), and currently session management as tabbed causes too many issues. [demo](https://ptpb.pw/SyC3.mkv)
 
