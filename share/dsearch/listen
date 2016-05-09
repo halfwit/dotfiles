@@ -15,7 +15,10 @@ result=$(mpc lsplaylists | bemenu "${opts[@]}")
 
 # If playlist exists, load else grab new station
 if ! mpc load "$result"; then
-  exec "$XDG_DATA_HOME"/dsearch/radio "$result"
+  case "$result" in
+    *\ -\ *) exec "$XDG_DATA_HOME"/dsearch/album "$result" ;;
+    *)       exec "$XDG_DATA_HOME"/dsearch/radio "$result" ;;
+  esac 
 else
   mpc play
 fi

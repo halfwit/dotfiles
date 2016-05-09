@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-## Search for an album, or list albums by artist
-
+## List or download album playlists
 
 # Gmusicproxy host IP
 readonly host=localhost
@@ -48,10 +47,9 @@ search_artist() {
   mpc load "$1 - ${result%%|*}"
 }
 
-if ! mpc load "$@"; then
-  case "$@" in
-    *\ -\ *) search_album  "$@" ;;
-    *)      search_artist "$@" ;;
-  esac
-fi
+case "$@" in
+  *\ -\ *) search_album  "$@" ;;
+  *)       search_artist "$@" ;;
+esac
+
 mpc play

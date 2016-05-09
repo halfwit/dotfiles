@@ -1,34 +1,44 @@
 #!/usr/bin/env bash
-## We're going to switch this to grab the album, load the playlist, and then go from there. 
-# Gmusic host IP
-readonly host=localhost
+## List current playlist
 
-# Gmusicproxy default port
-readonly port=9999
 readonly optsdir=$XDG_CONFIG_HOME/dmenu/bemenucolors
-readonly url=http://$host:$port
-
-add_song() {     
-    mpc insert "$url/get_by_search?type=song&artist=${1// /%20}&title=${2// /%20}&exact=no"
-    mpc next
-}
 
 load() {
-  local i=0
-  mpc playlist | while read -r title; do
+  local i=0 result
+  result=$(mpc playlist | while read -r title; do
     printf '%s %s\n' "$((++i))" "$title"
-  done
+  done | bemenu "${opts[@]}")
+  [[ ! $result ]] && exit 1
+  mpc play "${result%%\ *}"
 }
 
-if [[ $1 ]]; then 
-  add_song "${1%\ -*}" "${1#*-\ }"
-  exit 0
-fi
-# Grab opts, split around '-'
+querysong() {
+  echo "Not found!"
+}
+
+findsong() {
+  local result dir num name
+  result="$(grep -Fsrni "$1" ~/local/cfg/mpd/playlists)"
+  if [[ $(wc -l <<< "$result") -gt 1 ]]; then
+    result="$(bemenu "${opts[@]}" -l 10 <<< "$result")"
+  fi
+  [[ ! $result ]] && exit 1
+  while IFS=":" read -r dir num name; do
+    dir="${dir/.m3u/}" 
+    mpc clear
+    mpc load "${dir##*\/}"
+    mpc play "$(( num / 2 ))"
+  break
+  done <<< "$result"
+}
+
+## Main
+
 [[ $optsdir ]] && source "$optsdir"
+opts+=(-p "Select song: " -l 10)
 
-opts+=(-p "Select song: " -l 10 ) 
-
-result=$(load | bemenu "${opts[@]}")
-
-mpc play "${result%%\ *}"
+if [[ $1 ]]; then
+  grep -Fsrni "$1" ~/local/cfg/mpd/playlists && findsong "$1" || querysong "$1"
+else 
+  load
+fi
