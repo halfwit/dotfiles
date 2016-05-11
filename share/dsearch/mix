@@ -6,6 +6,7 @@ if ! pgrep mpd; then
   mpd &
 fi
 
+mpc clear
 mpc lsplaylist | grep "$1" | while read -r item; do 
   mpc load "$item"
 done
