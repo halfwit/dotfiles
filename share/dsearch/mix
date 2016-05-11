@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+## load and play all music, turn on shuffle
+
+if ! pgrep mpd; then
+  mpd &
+fi
+
+mpc lsplaylist | while read -r item; do
+  mpc load "$item"
+done
+
+mpc random on
+mpc play

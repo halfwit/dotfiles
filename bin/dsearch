@@ -53,6 +53,7 @@ handle_results() { # args -> launch
     !todo)   exec "$handledir"/todo   ;;
     !rss)    exec "$handledir"/rss    ;;
     !man)    exec "$handledir"/man    ;;
+    !mix)    exec "$handledir"/mix    ;;
     !vm)     exec "$handledir"/vm     ;;
     
     playlist\ -\ *) exec "$handledir"/mpv    "${1#*-\ }.pls" ;;

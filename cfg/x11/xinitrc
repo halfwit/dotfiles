@@ -9,7 +9,7 @@ xcmenu &
 #syncthing &
 colortempd -t 4000 &
 ~/local/cfg/wmutils/bar & 
-GMusicProxy --config ~/local/cfg/gmusicproxy/config
+GMusicProxy --config ~/local/cfg/gmusicproxy/config &
 compton -Cc --no-fading-openclose --shadow-exclude '!focused' &
 #x11fs -o auto_unmount ~/run/x11fs &
 exec ~/local/cfg/wmutils/watcher 

@@ -9,14 +9,8 @@ readonly port=9999
 readonly numtracks=100
 readonly url=http://$host:$port
 
-receive_playlist() {
-    curl -s "$url/$1?num_tracks=$numtracks" > "$XDG_CONFIG_HOME/mpd/playlists/$2.m3u" 
-}
-
+# Make sure to clear the old list out
 mpc clear
-case $1 in
-    ifl) receive_playlist "get_ifl_station" "$1" ;;
-    *) receive_playlist "get_new_station_by_search?type=artist&artist=${1// /%20}&exact=no" "$1" ;;
-esac
+
+curl -s "$url/get_new_station_by_search?type=artist&artist=${1// /%20}&exact=no&numtracks=$numtracks" > "$XDG_CONFIG_HOME/mpd/playlists/Radio\ -\ $1.m3u"
 mpc load "$1"
-mpc play

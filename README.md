@@ -9,7 +9,7 @@ This all allows me to do the following:
  - best-fit of a set of open windows
 
 ##This is how it all looks 
-[![wmutils and bin packing demo](http://img.youtube.com/vi/MSIjqTgtj2c/0.jpg)](http://www.youtube.com/watch?v=MSIjqTgtj2c)
+[![wmutils and bin packing demo](http://img.youtube.com/vi/MSIjqTgtj2c/0.jpg)](https://www.youtube.com/watch?v=MSIjqTgtj2c)
 
 #[Dsearch](https://github.com/halfwit/dotfiles/blob/master/bin/dsearch)
 This is a dmenu/bemenu based set of scripts for various search-oriented actions, using a set of [handlers](https://github.com/halfwit/dotfiles/blob/master/share/dsearch).

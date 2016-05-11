@@ -77,6 +77,7 @@ special "$1" || exit 0
 
 mime "$1" | while read -r mimetype; do
   case "$mimetype" in
+    X-Arc*) parse "$mimetype" | handle "$1" ;;
     appli*) parse "$mimetype" | handle "$1" ;;
     video*) parse "$mimetype" | handle "$1" ;;
     audio*) parse "$mimetype" | handle "$1" ;;

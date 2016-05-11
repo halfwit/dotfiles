@@ -16,6 +16,7 @@ search_album() {
   mpc clear
   curl -s "$url/get_by_search?type=album&artist=${artist//\ /%20}&title=${title//\ /%20}" > "$XDG_CONFIG_HOME/mpd/playlists/$1.m3u" 
   mpc load "$1"
+  mpc play
 }
 
 tmp=$(mktemp -d)
@@ -39,12 +40,13 @@ search_artist() {
   discography "${1//\ %20}"
 
   opts+=(-p "Select album" -l 10)
-  result=$(build < "$tmp/$1" | sort -u | tac | bemenu "${opts[@]}") 
-  [[ ! $result ]] && exit 1
-  result=$(grep "${result#*-\ }" "$tmp/$1")
   mpc clear
-  curl -s "$url/get_album?id=${result##*id=}" > "$XDG_CONFIG_HOME/mpd/playlists/$1 - ${result%%|*}.m3u"
-  mpc load "$1 - ${result%%|*}"
+  build < "$tmp/$1" | sort -u | tac | bemenu "${opts[@]}" | while read -r result; do
+    result=$(grep "${result#*-\ }" "$tmp/$1")
+    curl -s "$url/get_album?id=${result##*id=}" > "$XDG_CONFIG_HOME/mpd/playlists/$1 - ${result%%|*}.m3u"
+    mpc load "$1 - ${result%%|*}"
+  done
+  mpc play
 }
 
 case "$@" in
@@ -52,4 +54,3 @@ case "$@" in
   *)       search_artist "$@" ;;
 esac
 
-mpc play
