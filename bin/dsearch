@@ -66,6 +66,7 @@ handle_results() { # args -> launch
     !code*)         exec "$handledir"/code   "${1#*code }"   ;;
     !dict*)         exec "$handledir"/dict   "${1#*dict }"   ;;
     !man*)          exec "$handledir"/man    "${1#*man }"    ;;
+    !mix*)          exec "$handledir"/mix    "${1#*mix }"    ;;
     !pl*)           exec "$handledir"/yt     "$1"            ;;
     !yt*)           exec "$handledir"/yt     "${1#*yt }"     ;;
 

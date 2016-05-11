@@ -10,17 +10,6 @@ readonly port=9999
 readonly optsdir="$XDG_CONFIG_HOME"/dmenu/bemenucolors
 readonly url=http://$host:$port
 
-search_album() {
-  artist="${1%\ -*}"
-  title="${1#*-\ }"
-  mpc clear
-  curl -s "$url/get_by_search?type=album&artist=${artist//\ /%20}&title=${title//\ /%20}" > "$XDG_CONFIG_HOME/mpd/playlists/$1.m3u" 
-  mpc load "$1"
-  mpc play
-}
-
-tmp=$(mktemp -d)
-
 get_id() {
   curl -s "$url/search_id?type=artist&artist=${1//\ /%20}"
 }
@@ -42,15 +31,28 @@ search_artist() {
   opts+=(-p "Select album" -l 10)
   mpc clear
   build < "$tmp/$1" | sort -u | tac | bemenu "${opts[@]}" | while read -r result; do
+    [[ ! $result ]] && break
     result=$(grep "${result#*-\ }" "$tmp/$1")
     curl -s "$url/get_album?id=${result##*id=}" > "$XDG_CONFIG_HOME/mpd/playlists/$1 - ${result%%|*}.m3u"
     mpc load "$1 - ${result%%|*}"
   done
-  mpc play
 }
+
+search_album() {
+  artist="${1%\ -*}"
+  title="${1#*-\ }"
+  mpc clear
+  curl -s "$url/get_by_search?type=album&artist=${artist//\ /%20}&title=${title//\ /%20}" > "$XDG_CONFIG_HOME/mpd/playlists/$1.m3u" 
+  mpc load "$1"
+}
+
+
 
 case "$@" in
   *\ -\ *) search_album  "$@" ;;
-  *)       search_artist "$@" ;;
+  *)       tmp=$(mktemp -d)
+           search_artist "$@" ;;
 esac
 
+mpc random off
+mpc play
