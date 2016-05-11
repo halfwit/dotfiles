@@ -14,10 +14,10 @@ menu() {
 handle() {
   local selection
   while read -r selection; do
-    plumber "$selection" 
+    exec plumber "$selection" 
   done
 }
 
 [[ -s $optsfile ]] && source "$optsfile"
 
-menu "$@" |handle 
+menu "$@" | handle 

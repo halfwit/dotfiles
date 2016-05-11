@@ -77,13 +77,13 @@ special "$1" || exit 0
 
 mime "$1" | while read -r mimetype; do
   case "$mimetype" in
-    X-Arc*) parse "$mimetype" | handle "$1" ;;
-    appli*) parse "$mimetype" | handle "$1" ;;
-    video*) parse "$mimetype" | handle "$1" ;;
-    audio*) parse "$mimetype" | handle "$1" ;;
-    image*) parse "$mimetype" | handle "$1" ;;
-    inode*) parse "$mimetype" | handle "$1" ;;
-    text*)  parse "$mimetype" | handle "$1" ;;
+    X-Arc*) parse "${mimetype%;*}" | handle "$1" ;;
+    appli*) parse "${mimetype%;*}" | handle "$1" ;;
+    video*) parse "${mimetype%;*}" | handle "$1" ;;
+    audio*) parse "${mimetype%;*}" | handle "$1" ;;
+    image*) parse "${mimetype%;*}" | handle "$1" ;;
+    inode*) parse "${mimetype%;*}" | handle "$1" ;;
+    text*)  parse "${mimetype%;*}" | handle "$1" ;;
     *) printf '%s\n' "$mimetype" >> ~/mime_issues ;;
   esac
 done
