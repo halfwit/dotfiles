@@ -10,14 +10,9 @@ fi
 mpc clear
 mpc random off
 [[ -s $optsdir ]] && source "$optsdir"
-opts+=(-p "Select playlist or enter radio station" -l 10)
+opts+=(-p "Select playlist" -l 10)
 mpc lsplaylists | bemenu "${opts[@]}" | while read -r result; do
-  # If playlist exists, load everything
-  if ! mpc load "$result"; then
-    case "$result" in
-      radio\ -\ *) "$XDG_DATA_HOME"/dsearch/radio "$result" ;;
-      *\ -\ *)     "$XDG_DATA_HOME"/dsearch/album "$result" ;;
-    esac 
-  fi
+  # If playlist exists, load
+  mpc load "$result"
 done
 mpc play

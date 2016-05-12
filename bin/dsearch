@@ -60,6 +60,7 @@ handle_results() { # args -> launch
     open\ -\ *)     exec "$handledir"/stack  "${1#*-\ }"     ;;
     !reddit*)       exec "$handledir"/reddit "${1#*reddit }" ;;
     !listen*)       exec "$handledir"/listen "${1#*listen }" ;;
+    !radio*)        exec "$handledir"/radio  "${1#*radio }"  ;;
     !album*)        exec "$handledir"/album  "${1#*album }"  ;;
     !song*)         exec "$handledir"/song   "${1#*song }"   ;;
     !book*)         exec "$handledir"/book   "${1#*book }"   ;;

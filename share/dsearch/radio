@@ -6,11 +6,12 @@ readonly host=localhost
 # Gmusicproxy default port
 readonly port=9999
 
-readonly numtracks=100
+readonly numtracks=50
 readonly url=http://$host:$port
 
 # Make sure to clear the old list out
 mpc clear
 
-curl -s "$url/get_new_station_by_search?type=artist&artist=${1// /%20}&exact=no&numtracks=$numtracks" > "$XDG_CONFIG_HOME/mpd/playlists/Radio\ -\ $1.m3u"
-mpc load "$1"
+curl -s "$url/get_new_station_by_search?type=artist&artist=${1// /%20}&exact=no&numtracks=$numtracks" > "$XDG_CONFIG_HOME/mpd/playlists/Radio - $1.m3u"
+mpc load "Radio - $1"
+mpc play
