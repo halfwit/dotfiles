@@ -32,7 +32,7 @@ search_artist() {
   mpc clear
   build < "$tmp/$1" | sort -u | tac | bemenu "${opts[@]}" | while read -r result; do
     [[ ! $result ]] && break
-    result=$(grep "${result#*-\ }" "$tmp/$1")
+    result=$(grep -F "${result#*-\ }" "$tmp/$1")
     curl -s "$url/get_album?id=${result##*id=}" > "$XDG_CONFIG_HOME/mpd/playlists/$1 - ${result%%|*}.m3u"
     mpc load "$1 - ${result%%|*}"
   done
