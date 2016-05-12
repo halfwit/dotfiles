@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+## Find manuals
 
 readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
 
@@ -19,33 +20,33 @@ handle_result() {
    st -t float -e man "$1" "$2"
 }
 
-get_selection() {
-  opts+=(-l 10 -p "Manual: ")
-  apropos "$1" | bemenu "${opts[@]}"
+menu() {
+  thingmenu -g  160x150 -x \
+    "Posix" "exec browse '\!posix $1'" \
+    "Mankier" "exec browse '\!mankier $1'" \
+    "Man7" "exec browse '\!man7 $1'" \
+    "Man" "exec browse '\!man $1'" \
+    "Mandoc" "exec browse '\!mandoc $1'"
 }
 
 ## Main ##
 
-
 [[ -s $optsfile ]] && source "$optsfile"
+opts+=(-l 10 -p "Select manual")
 
-num=$(apropos "$1" | wc -l)
+# No string passed in; search all
+[[ ! $1 ]] && result="$(apropos . | bemenu "${opts[@]}")"
 
-case "$num" in
-  0) result=$(get_selection .) ;;
-  1) result=$1 ;;
-  *) result=$(get_selection "$1") ;;
-esac
+# Strip `(` from input
+[[ $1 ]] && result="$(apropos result"${1%\(*}")"
 
-[[ ! $result ]] && exit 0
+# Clarify ambiguity
+if [[ $(wc -l <<< "$result") > 1 ]]; then
+  result=$(bemenu "${opts[@]}" <<< "$result")
+fi
 
-if [[ ! $(apropos ${result%\(*}) ]]; then
-  thingmenu -g  160x120 -x \
-    "Posix" "exec browse '\!posix $1'" \
-    "Mankier" "exec browse '\!mankier $1'" \
-    "Man7" "exec browse '\!man7 $1'" \
-    "Man" "exec browse '\!man $1'" 
-else  
-  result="${result%\)*}"
-  handle_result "${result#\(*}" "${result%\(*}"
+if [[ $result ]]; then
+  handle_result "${result//[a-zA-Z\(\)]/}" "${result%\(*}"
+else
+  menu "$1"
 fi
