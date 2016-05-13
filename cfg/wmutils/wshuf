@@ -1,41 +1,31 @@
 #!/usr/bin/env bash
 # Requires https://github.com/wmutils
 
-declare width heigh gaps
+# window dimensions and gap
 source "$XDG_CONFIG_HOME"/wmutils/size
 
-[[ ! $width && $heigh ]] && exit 1
+# directory of files that correlate to window names
+readonly windows="$XDG_CONFIG_HOME"/wmutils/windows
 
-list_windows() {
-   local wname
-   while read -r id; do
-      wname=$(xwininfo -id "$id" | awk '/Window id:/{print $NF}')
-      [[ ! $wname ]] && break
-      case ${wname//\"/} in
-        # Strange windows from surf pop up
-        surf|zathura)
-          mapw -u "$id"                ;;
-        *.pdf|*.epub|*.djvu|*.book|NVIM|*sandy*|*cgo*|*QEMU*|*browse|*Syncthing*|*retroarch*)
-          wname="$(wattr w "$id") $(( heigh / 2 )) $(wattr w "$id") $(( heigh - gaps )) $id" ;;
-         irc)
-           wname="400 225 450 245 $id" ;;
-         mpv)
-           wname="400 224 450 244 $id" ;;
-         mutt|newsbeuter)
-           wname="420 230 450 $(( heigh - gaps )) $id" ;;
-         float|bar|dmenu|bemenu|zathura|thingmenu) break ;;
-         htop) 
-           wname="400 100 450 100 $id" ;;
-         news)
-           wname="400 255 565 $(( heigh - gaps )) $id" ;;
-         *)
-           wname="420 228 450 245 $id" ;;
-      esac  
-      printf '%s\n' "$wname"
-   done
+winsize() {
+  local wname
+  while read -r id; do
+    wname=$(xprop -id "$id" | awk '/_NET_WM_NAME/{print $NF}')
+    class=$(xprop -id "$id" | awk '/CLASS/{print $NF}')
+    wname=${wname//\"/}
+    class=${class//\"/}
+    if [[ -s $windows/$wname ]]; then
+      source "$windows/$wname"
+    elif [[ -s $windows/$class ]]; then
+      source "$windows/$class"
+    fi
+  done
 }
 
 ## Main ##
-lsw | list_windows | ~/local/cfg/wmutils/binpack -x "$width" -y "$heigh" -g "$gaps" | while read -r x y w h wid; do
+declare width heigh gaps
+[[ ! $width && $heigh ]] && exit 1
+
+lsw | winsize | ~/local/cfg/wmutils/binpack -x "$width" -y "$heigh" -g "$gaps" | while read -r x y w h wid; do
   wtp "$x" "$y" "$w" "$h" "$wid"
 done

@@ -28,7 +28,7 @@ image() {
   read -r result
   [[ $result ]] && curl -s "$1" >  "$HOME/media/pictures/$result"
   if [[ -s "$HOME/media/pictures/$result" ]]; then
-    exiftool -overwrite_original -Comment='$1'  "$HOME/media/pictures/$result"
+    exiftool -overwrite_original -Comment="$1"  "$HOME/media/pictures/$result"
   fi
 }
 

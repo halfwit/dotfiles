@@ -1,0 +1,1 @@
+printf '%s %s %s %s %s\n' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))" "$id"
