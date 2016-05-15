@@ -39,6 +39,7 @@ while :; do
   current=""
   if mpc status | grep playing >/dev/null; then
     current="$(mpc current)"
+    [[ ${#current} -gt 80 ]] && current="...${current:(-80)}"
   elif mpc status | grep paused >/dev/null; then
     current="[paused] "
   fi
