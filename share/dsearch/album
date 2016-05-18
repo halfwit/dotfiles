@@ -43,7 +43,9 @@ search_album() {
   title="${1#*-\ }"
   mpc clear
   curl -s "$url/get_by_search?type=album&artist=${artist//\ /%20}&title=${title//\ /%20}" > "$XDG_CONFIG_HOME/mpd/playlists/$1.m3u" 
+  [[ ! -s $XDG_CONFIG_HOME/mpd/playlists/$1.m3u ]]
   mpc load "$1"
+
 }
 
 

@@ -1,30 +1,25 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Requires https://github.com/wmutils
 
-# window dimensions and gap
-source "$XDG_CONFIG_HOME"/wmutils/size
 
 # directory of files that correlate to window names
 readonly windows="$XDG_CONFIG_HOME"/wmutils/windows
-
 winsize() {
-  local wname
+  local name
   while read -r id; do
-    wname=$(xprop -id "$id" | awk '/_NET_WM_NAME/{print $NF}')
-    class=$(xprop -id "$id" | awk '/CLASS/{print $NF}')
-    wname=${wname//\"/}
-    class=${class//\"/}
-    if [[ -s $windows/$wname ]]; then
-      source "$windows/$wname"
-    elif [[ -s $windows/$class ]]; then
-      source "$windows/$class"
+    name=$(wname "$id" | awk '{print $NF}')
+    if [ -s $windows/$name ]; then
+      . "$windows/$name"
+    else
+      . "$windows"/default
     fi
   done
 }
 
 ## Main ##
-declare width heigh gaps
-[[ ! $width && $heigh ]] && exit 1
+# sizes
+. "$XDG_CONFIG_HOME"/wmutils/size
+[ ! $width ] && [ ! $heigh ] && exit 1
 
 lsw | winsize | ~/local/cfg/wmutils/binpack -x "$width" -y "$heigh" -g "$gaps" | while read -r x y w h wid; do
   wtp "$x" "$y" "$w" "$h" "$wid"

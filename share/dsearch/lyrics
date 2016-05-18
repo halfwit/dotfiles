@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+tmp=$(mktemp)
+artist="$(mpc current --format "%artist%")"
+title="$(mpc current --format "%title%")"
+[[ $1 ]]&& artist=${1%\ -*} && title=${1#*-\ }
+
+curl -s "http://makeitpersonal.co/lyrics?artist=${artist//\ /+}&title=${title//\ /+}" > "$tmp"
+st -e less "$tmp"

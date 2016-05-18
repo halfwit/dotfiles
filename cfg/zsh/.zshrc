@@ -1,11 +1,12 @@
 # XDG_CONFIG_HOME/zsh/.zshrc
 
 # Modules.
-autoload -Uz edit-command-line run-help compinit zmv colors
+autoload -Uz edit-command-line run-help compinit zmv
 zmodload zsh/complist
 compinit
 
 # Some verbosity for completions
+zstyle ':completion:*:options' list-colors '=^(-- *)=34'
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:descriptions' format '%B%d%b'
 zstyle ':completion:*:messages' format '%d'
@@ -20,23 +21,22 @@ zle -N zle-keymap-select
 
 # Shell Options
 setopt auto_cd \
-    correct \
-    dot_glob \
-    hist_verify \
-    hist_append \
-    prompt_subst \
-    extended_glob \
-    rm_star_silent \
-    hist_fcntl_lock \
-    print_exit_value \
-    complete_aliases \
-    numeric_glob_sort \
-    hist_save_no_dups \
-    hist_ignore_space \
-    hist_ignore_space \
-    hist_reduce_blanks \
+    correct              \
+    dot_glob             \
+    hist_verify          \
+    hist_append          \
+    prompt_subst         \
+    extended_glob        \
+    rm_star_silent       \
+    hist_fcntl_lock      \
+    complete_aliases     \
+    print_exit_value     \
+    numeric_glob_sort    \
+    hist_save_no_dups    \
+    hist_ignore_space    \
+    hist_reduce_blanks   \
     hist_ignore_all_dups \
-    interactive_comments
+    interactive_comments 
 
 READNULLCMD=$PAGER
 HELPDIR=/usr/share/zsh/$ZSH_VERSION/help
@@ -109,13 +109,21 @@ function preexec {
 function precmd {
     print -Pn "\e];%n %~\a"
     repo=${(%):-%(?.${"$(git rev-parse --show-toplevel 2> /dev/null)"##*/} .)}
-  }
+}
 
 # Replace vimode indicators.
 function zle-line-init zle-keymap-select {
     vimode=${${KEYMAP/vicmd/white}/(main|viins)/blue}
     zle reset-prompt
 }
+
+function ft-zshexit {
+    [[ -o hist_ignore_space ]] && BUFFER=' '
+    BUFFER="${BUFFER}exit"
+    zle .accept-line
+}
+zle -N q ft-zshexit
+
 
 # Simple widget for quoting the current word or the previous if cursor
 # positioned on a blank.
@@ -218,7 +226,7 @@ math() {
 }
 
 # Aliases
-alias :q='exit'
+#alias :q='exit'
 alias rr='rm -rvI'
 alias rm='rm -vI'
 alias cp='cp -vi'

@@ -3,6 +3,8 @@
 # Trying this out!
 xhost +si:localuser:"$USER"
 
+x11fs -o auto_unmount ~/run/x11 &
+
 mpd &
 sxhkd &
 xcmenu &
@@ -11,5 +13,4 @@ compton &
 colortempd -t 4000 &
 ~/local/cfg/wmutils/bar & 
 GMusicProxy --config ~/local/cfg/gmusicproxy/config &
-#x11fs -o auto_unmount ~/run/x11fs &
 exec ~/local/cfg/wmutils/watcher 

@@ -43,6 +43,7 @@ handle_results() { # args -> launch
   case "$@" in
     
     !listen) exec "$handledir"/listen ;;
+    !lyrics) exec "$handledir"/listen ;;
     !photo)  exec "$handledir"/photo  ;;
     !notes)  exec "$handledir"/notes  ;;
     !docs)   exec "$handledir"/docs   ;;
@@ -60,6 +61,7 @@ handle_results() { # args -> launch
     open\ -\ *)     exec "$handledir"/stack  "${1#*-\ }"     ;;
     !reddit*)       exec "$handledir"/reddit "${1#*reddit }" ;;
     !listen*)       exec "$handledir"/listen "${1#*listen }" ;;
+    !lyrics*)       exec "$handledir"/lyrics "${1#*lyrics }" ;;
     !radio*)        exec "$handledir"/radio  "${1#*radio }"  ;;
     !album*)        exec "$handledir"/album  "${1#*album }"  ;;
     !song*)         exec "$handledir"/song   "${1#*song }"   ;;
