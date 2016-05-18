@@ -43,7 +43,7 @@ handle_results() { # args -> launch
   case "$@" in
     
     !listen) exec "$handledir"/listen ;;
-    !lyrics) exec "$handledir"/listen ;;
+    !lyrics) exec "$handledir"/lyrics ;;
     !photo)  exec "$handledir"/photo  ;;
     !notes)  exec "$handledir"/notes  ;;
     !docs)   exec "$handledir"/docs   ;;
