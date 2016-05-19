@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Code search using bemenu (single string)
-# Requires bemenu, tree, neovim, and python
+# Requires bemenu, grep, neovim
 
 readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
 
