@@ -2,7 +2,7 @@ super + {h,u,y,k,period}
          {dmenu_run,dsearch,unification,st,xcmenuctrl}
 
 super + shift + {p,j}
-         winid=$(get_window_id) && ~/local/cfg/x11fs/resize {20,-20} "$winid" && ~/local/cfg/x11fs/wshuf && echo "$winid" > ~/run/x11/focused 
+         winid=$(get_window_id) && ~/local/cfg/x11fs/resize {20,-20} 0 "$winid" && ~/local/cfg/x11fs/wshuf && echo "$winid" > ~/run/x11/focused 
 super + {j,c,v,p}
          ~/local/cfg/x11fs/focus {h,j,k,l}
 @F11

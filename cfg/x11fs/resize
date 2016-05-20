@@ -1,2 +1,7 @@
-#!/bin/bash
-wrs "$1" "$2" "$3"
+#!/bin/sh
+X11=${X11FSDIR:-~/run/x11}
+read -r width < $X11/$3/geometry/width
+read -r height < $X11/$3/geometry/height
+
+echo "$(( width  + $1 ))" > $X11/$3/geometry/width 
+echo "$(( height + $2 ))" > $X11/$3/geometry/height
