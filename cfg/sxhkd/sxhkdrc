@@ -2,17 +2,17 @@ super + {h,u,y,k,period}
          {dmenu_run,dsearch,unification,st,xcmenuctrl}
 
 super + shift + {p,j}
-       winid=$(get_window_id) && wrs {20,-20} 0 "$winid" && ~/local/cfg/wmutils/wshuf && wtf "$winid"
-super + {p,j}
-         ~/local/cfg/wmutils/focus {prev,next}
+         winid=$(get_window_id) && ~/local/cfg/x11fs/resize {20,-20} "$winid" && ~/local/cfg/x11fs/wshuf && echo "$winid" > ~/run/x11/focused 
+super + {j,c,v,p}
+         ~/local/cfg/x11fs/focus {h,j,k,l}
 @F11
-         ~/local/cfg/wmutils/fullscreen $(get_window_id)
+         ~/local/cfg/x11fs/fullscreen $(pfw)
 super + i 
-         ~/local/cfg/wmutils/groups -c $(get_window_id) && killw $(get_window_id)
+         killw $(pfw)
 super + shift + {1,2,3,4,5,6}
-         ~/local/cfg/wmutils/groups -s $(get_window_id) {1,2,3,4,5,6}
+         ~/local/cfg/x11fs/groups $(pfw) {1,2,3,4,5,6} && ~/local/cfg/x11fs/groupsbar
 super + {1,2,3,4,5,6}
-         ~/local/cfg/wmutils/groups -t {1,2,3,4,5,6}
+         ~/local/cfg/x11fs/groups {1,2,3,4,5,6} && ~/local/cfg/x11fs/groupsbar
 XF86Audio{Prev,Next,Stop,Play}
          mpc -q {prev,next,stop,toggle}
 XF86Audio{LowerVolume,RaiseVolume}

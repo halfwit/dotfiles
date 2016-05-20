@@ -1,0 +1,32 @@
+#!/bin/sh
+#
+# Copyright (c) 2015 Greduan <me@greduan.com>, licensed under the WTFPL
+# Adds group-like capabilities, sorta like those you find in CWM and such WMs
+
+X11=${X11FSDIR:-~/run/x11}
+
+  
+
+usage() {
+    cat << EOF
+usage: $(basename $0) [wid] "group"
+  wid + group to tag a window to that group
+  group to toggle group on and off
+EOF
+
+    exit 1
+}
+
+toggle() {
+  if grep "$1" $X11/active; then
+    echo "$1" > $X11/inactive
+  else
+    echo "$1" > $X11/active
+  fi
+}
+
+case $# in
+  0) usage ;;
+  1) toggle "$1" ;; 
+  2) echo "$2" > $X11/$1/group ;;
+esac

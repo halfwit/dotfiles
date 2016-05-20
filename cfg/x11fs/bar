@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+while :; do
+  current=""
+  if mpc status | grep playing >/dev/null; then
+    current="$(mpc current --format "%artist% - %title% $(date -d@$(mpdtime) +%-M:%S)/%time%")"
+    [[ ${#current} -gt 80 ]] && current="...${current:(-80)}"
+  elif mpc status | grep paused >/dev/null; then
+    current="[paused] "
+  fi
+  level=100
+  read -r level < /sys/class/power_supply/BAT0/capacity
+  printf ' %s - %s%s\n' "$(date +'%H:%M')" "$level%" "%{r}$current "
+  sleep 1
+done | lemonbar -F '#444444' -d -b -f "DejaVu Mono:size=10.5" &

@@ -16,7 +16,7 @@ get_selection() {
 if [[ $1 ]]; then
   result="$(pwd)/$1"
 else
-  result=$(get_selection)
+  result="$(get_selection)"
 fi
 
 if [[ $result ]]; then

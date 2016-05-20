@@ -1,0 +1,29 @@
+#!/bin/sh
+# Requires lsw https://github.com/wmutils
+# Requires x11fs groups fork https://github.com/halfwit/x11fs
+
+# window dimensions and gap
+. "$XDG_CONFIG_HOME"/x11fs/size
+
+# directory of files that correlate to window names
+WIN="$XDG_CONFIG_HOME"/x11fs/windows
+
+# Filesystem
+X11="$HOME"/run/x11
+
+winsize() {
+  while read -r id; do
+    name=$(awk '{print $NF}' < "$X11/$id"/title)
+    [ -s $WIN/$name ] && . "$WIN/$name" || . "$WIN/default"
+  done
+}
+
+## Main ##
+[ ! $width ] && [ !$heigh ] && exit 1
+
+lsw | winsize | ~/local/cfg/x11fs/binpack -x "$width" -y "$heigh" -g "$gaps" | while read -r x y w h wid; do
+  printf "$x\n" > "$X11"/0x0"$wid"/geometry/x 
+  printf "$y\n" > "$X11"/0x0"$wid"/geometry/y 
+  printf "$w\n" > "$X11"/0x0"$wid"/geometry/width 
+  printf "$h\n" > "$X11"/0x0"$wid"/geometry/height
+done

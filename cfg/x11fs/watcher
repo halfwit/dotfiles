@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+X11=${X11FSDIR:-~/run/x11}
+DIR=$XDG_CONFIG_HOME/x11fs
+
+cat $X11/event | while read -r ev; do
+  case "$ev" in
+    MAP*)     $DIR/wshuf
+              $DIR/focus   ${ev#*\ }
+              $DIR/groupsbar      ;;
+    UNMAP*)   $DIR/wshuf
+              $DIR/groupsbar      ;;
+    CREATE*)  $DIR/autotag ${ev#*\ }
+              $DIR/focus   ${ev#*\ } 
+              $DIR/wshuf          ;;
+    DESTROY*) $DIR/wshuf          ;;
+  esac
+done
