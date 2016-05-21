@@ -10,7 +10,7 @@ fi
 mpc clear
 mpc random off
 [[ -s $optsdir ]] && source "$optsdir"
-opts+=(-p "Select playlist" -l 10)
+opts+=(-p "Select playlist" -l 10 -i)
 mpc lsplaylists | bemenu "${opts[@]}" | while read -r result; do
   # If playlist exists, load
   mpc load "$result"

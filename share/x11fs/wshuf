@@ -11,9 +11,16 @@ WIN="$XDG_CONFIG_HOME"/x11fs/windows
 # Filesystem
 X11="$HOME"/run/x11
 
+getname() {
+  cd $WIN
+  for i in *; do
+    grep -io "$i" $X11/$1/title
+  done
+}
+
 winsize() {
   while read -r id; do
-    name=$(awk '{print $NF}' < "$X11/$id"/title)
+    name=$(awk '{print $NF}' $X11/$id/title)
     [ -s $WIN/$name ] && . "$WIN/$name" || . "$WIN/default"
   done
 }
@@ -21,7 +28,7 @@ winsize() {
 ## Main ##
 [ ! $width ] && [ !$heigh ] && exit 1
 
-lsw | winsize | ~/local/cfg/x11fs/binpack -x "$width" -y "$heigh" -g "$gaps" | while read -r x y w h wid; do
+lsw | winsize | ~/local/share/x11fs/binpack -x "$width" -y "$heigh" -g "$gaps" | while read -r x y w h wid; do
   printf "$x\n" > "$X11"/0x0"$wid"/geometry/x 
   printf "$y\n" > "$X11"/0x0"$wid"/geometry/y 
   printf "$w\n" > "$X11"/0x0"$wid"/geometry/width 

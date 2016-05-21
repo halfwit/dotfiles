@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Copyright (c) 2015 Greduan <me@greduan.com>, licensed under the WTFPL
+# Adds group-like capabilities, sorta like those you find in CWM and such WMs
+
+X11=${X11FSDIR:-~/run/x11}
+
+toggle() {
+  local act
+  grep "$1" "$X11"/active && act=inactive || act=active
+  printf '%s\n' "$1" > "$X11/$act"
+}
+
+case "$1" in
+  0x*) printf "$2" > "$X11/$1"/group ;;
+  *) toggle "$1" ;; 
+esac

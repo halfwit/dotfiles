@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+X11=${X11FSDIR:-~/run/x11}
+
+# Number of groups
+panels=6
+declare -a item
+
+cd $X11
+local result
+for (( i = 1; i <= $panels; i++ )); do
+  if grep -q $i active; then
+    item[$i]="◉"
+  elif grep -q "$i" inactive; then
+    item[$i]="◍"
+  else
+    item[$i]="◌"
+  fi
+  result+=${item["$i"]}
+done
+
+printf '%s\n' "%{c}—${result[@]}—" > /tmp/panel

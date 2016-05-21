@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+## An implementation of lsw in x11fs
+## Keeping around for Wayland, possibly
+
+X11=${X11FSDIR:-~/run/x11}
+
+for i in $X11/0x*; do
+  if grep -q "true" "$i"/mapped && grep -q "false" "$i"/ignored; then
+    printf '%s\n' "${i##*\/}"
+  fi
+done

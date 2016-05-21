@@ -11,7 +11,7 @@ xcmenu &
 compton &
 #syncthing &
 colortempd -t 4000 &
-~/local/cfg/x11fs/bar & 
-~/local/cfg/x11fs/barrun &
+~/local/share/x11fs/barrun &
+~/local/share/x11fs/statsbar & 
 GMusicProxy --config ~/local/cfg/gmusicproxy/config &
-exec ~/local/cfg/x11fs/watcher 
+exec ~/local/share/x11fs/watcher 

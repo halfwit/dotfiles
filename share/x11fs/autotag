@@ -1,0 +1,17 @@
+#!/bin/sh
+X11=${X11FSDIR:-~/run/x11}
+
+read -r title < "$X11/$1"/title
+
+case "$title" in
+  *mpv*)             grp=1 ;;
+  *w3m*|*browse*)    grp=2 ;;
+  *NVIM*)            grp=3 ;;
+  *mutt*|*newsbeut*) grp=4 ;;
+  *irc*)             grp=5 ;;
+  *Zathura*)         grp=6 ;;
+esac
+
+[ $grp ] && printf "$grp" > "$X11/$1"/group
+
+echo "$1" > "$X11"/focused

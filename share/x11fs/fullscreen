@@ -45,7 +45,6 @@ if test -f $FSFILE && grep -q $1 $FSFILE; then
 else
     # if not, then put the current window in fullscreen mode, after saving its
     # geometry and id to $FSFILE we also remove any border from this window.
-    # Fixed here, since xembed is a fuck.
     cat $X11/$1/geometry/* > $FSFILE
     printf '%s\n' "$1" >> $FSFILE
 
@@ -53,6 +52,7 @@ else
     sed -ne 's/fulw=//p' $SIZE > $X11/$1/geometry/width
     sed -ne 's/gaps=//p' $SIZE > $X11/$1/geometry/x
     sed -ne 's/gaps=//p' $SIZE > $X11/$1/geometry/y
+    chwso -r "$1"
     printf '%s\n' "$1" > $X11/focused    
 fi
 

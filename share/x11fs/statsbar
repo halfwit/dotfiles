@@ -2,10 +2,10 @@
 
 while :; do
   current=""
-  if mpc status | grep playing >/dev/null; then
+  if mpc status | grep -q playing; then
     current="$(mpc current --format "%artist% - %title% $(date -d@$(mpdtime) +%-M:%S)/%time%")"
     [[ ${#current} -gt 80 ]] && current="...${current:(-80)}"
-  elif mpc status | grep paused >/dev/null; then
+  elif mpc status | grep -q paused; then
     current="[paused] "
   fi
   level=100
