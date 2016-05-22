@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-if ! lsw | grep "$(pfw)"; then
-  lsw | while read -r id; do
-    xwininfo -id "$id" | grep has\ no\ name | awk '{print $4}'
-  done
-fi
