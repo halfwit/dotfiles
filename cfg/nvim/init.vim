@@ -3,25 +3,21 @@
 " --------------------------------
 
 function! s:source_rc(path)
-    execute 'source' fnameescape('$XDG_CONFIG_HOME/nvim/rc/' . a:path)
+    execute 'source' fnameescape('$XDG_CONFIG_HOME/nvim/nvim.d/' . a:path)
 endfunction
 
-command! -nargs=1 SetFixer execute substitute(<q-args>,
-  \ '^\s*\<set\%[global]\>',
-  \ (has('vim_starting') ? 'set' : 'setglobal'), '')
-
 " Initialization
-call s:source_rc('init.rc.vim')
+call plug#begin('$XDG_DATA_HOME/plugged')
+Plug 'romainl/Apprentice'
+Plug 'Yggdroot/indentLine'
+Plug 'amperser/proselint'
+Plug 'benekastah/neomake'
+call plug#end()
 
-call s:source_rc('dein.rc.vim')
+"------------------------------------------------
+" Plugin settings
 
-if !has('vim_starting')
-  call dein#call_hook('source')
-  call dein#call_hook('post_source')
-  
-  syntax enable
-  filetype indent plugin on
-endif
+call s:source_rc('plugin.rc.vim')
 
 "---------------------------------------------
 " Search - searching, obvs.
@@ -41,11 +37,6 @@ call s:source_rc('edit.rc.vim')
 " View - Aesthetics
 
 call s:source_rc('view.rc.vim')
-
-"---------------------------------------------------
-" FileType - Omnicompletions, file specific autocmds
-
-call s:source_rc('filetype.rc.vim')
 
 "---------------------------------------------------
 " Mappings - key bindings
