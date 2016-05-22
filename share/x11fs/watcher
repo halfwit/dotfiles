@@ -9,7 +9,8 @@ cat $X11/event | while read -r ev; do
              $DIR/groupsbar           ;;
     UNMAP*)  $DIR/wshuf
              $DIR/groupsbar           ;;
-    CREATE*) $DIR/autotag "${ev#*\ }" ;;
+    CREATE*) $DIR/autotag "${ev#*\ }"
+             $DIR/groupsbar           ;;
     DESTRO*) $DIR/groupsbar           ;;
   esac
 done

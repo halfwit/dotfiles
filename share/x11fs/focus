@@ -7,27 +7,11 @@ X11=${X11FSDIR:-~/run/x11}
 # get current window id
 read -r CUR < $X11/focused
 
-right() {
-  lsw | xargs wattr xi | sort -nr | sed "/$CUR/d;1s/^[0-9]* //p;d"
-}
-
-left() {
-  lsw | xargs wattr xi | sort -n | sed "/$CUR/d;1s/^[0-9]* //p;d"
-}
-
-up() {
-  lsw | xargs wattr yi | sort -nr | sed "/$CUR/d;1s/^[0-9]* //p;d"
-}
-
-down() {
-  lsw | xargs wattr yi | sort -n | sed "/$CUR/d;1s/^[0-9]* //p;d"
-}
-
 case $1 in
-  l) wid=$(right)             ;;
-  j) wid=$(down)              ;;
-  h) wid=$(left)              ;;
-  k) wid=$(up)                ;;
+  l) wid=$(lsw | xargs wattr xi | sort -nr | sed "/$CUR/d;1s/^[0-9]* //p;d") ;;
+  j) wid=$(lsw | xargs wattr xi | sort -n | sed "/$CUR/d;1s/^[0-9]* //p;d") ;;
+  h) wid=$(lsw | xargs wattr yi | sort -nr | sed "/$CUR/d;1s/^[0-9]* //p;d") ;;
+  k) wid=$(lsw | xargs wattr yi | sort -n | sed "/$CUR/d;1s/^[0-9]* //p;d") ;;
   *) [ -d $X11/$1 ] && wid=$1 ;;
 esac
 

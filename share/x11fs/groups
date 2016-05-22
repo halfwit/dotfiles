@@ -8,10 +8,11 @@ X11=${X11FSDIR:-~/run/x11}
 toggle() {
   local act
   grep "$1" "$X11"/active && act=inactive || act=active
-  printf '%s\n' "$1" > "$X11/$act"
+  echo "$1" > "$X11/$act"
 }
 
 case "$1" in
-  0x*) printf "$2" > "$X11/$1"/group ;;
+  0x0*) echo "$2" > "$X11/$1"/group 
+        break;;
   *) toggle "$1" ;; 
 esac

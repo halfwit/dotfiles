@@ -12,6 +12,6 @@ case "$title" in
   *Zathura*)         grp=6 ;;
 esac
 
-[ $grp ] && printf "$grp" > "$X11/$1"/group
+[ $grp ] && echo "$grp" > "$X11"/"$1"/group
 
-echo "$1" > "$X11"/focused
+[ $grp ] && echo "$1" > "$X11"/focused
