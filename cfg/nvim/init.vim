@@ -8,10 +8,7 @@ endfunction
 
 " Initialization
 call plug#begin('$XDG_DATA_HOME/plugged')
-Plug 'romainl/Apprentice'
-Plug 'Yggdroot/indentLine'
-Plug 'amperser/proselint'
-Plug 'benekastah/neomake'
+call s:source_rc('init.rc.vim')
 call plug#end()
 
 "------------------------------------------------
