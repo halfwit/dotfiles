@@ -1,0 +1,24 @@
+#!/bin/sh
+X11=${X11FSDIR:-~/run/x11}
+
+getname() {
+  cd "$XDG_CONFIG_HOME"/x11/windows
+  for i in *; do
+    wname "$1" | grep -io "$i" && break
+  done
+}
+
+case "$(getname $1)" in
+  *mpv*)             grp=1 ;;
+  *w3m*|*browse*)    grp=2 ;;
+  *NVIM*)            grp=3 ;;
+  *mutt*|*newsbeut*) grp=4 ;;
+  *irc*)             grp=5 ;;
+  *Zathura*)         grp=6 ;;
+esac
+
+if [ $grp ]; then
+  echo "$grp" > "$X11/$1"/group
+  "$XDG_DATA_HOME"/x11/groupsbar
+  wtf "$1"
+fi

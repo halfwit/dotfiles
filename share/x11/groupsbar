@@ -7,7 +7,6 @@ panels=6
 declare -a item
 
 cd $X11
-local result
 for (( i = 1; i <= $panels; i++ )); do
   if grep -q $i active; then
     item[$i]="◉"

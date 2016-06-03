@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+X11=${X11FSDIR:-~/run/x11}
+DIR=$XDG_DATA_HOME/x11
+
+wew | while read -r ev; do
+  case "$ev" in
+    18*)  $DIR/wshuf
+          $DIR/focus   "${ev#*:}"
+          $DIR/groupsbar           ;;
+    19*)  $DIR/wshuf
+          $DIR/groupsbar           ;;
+    16*)  $DIR/autotag "${ev#*:}"
+          $DIR/groupsbar           ;;
+    17*)  $DIR/groupsbar           ;;
+  esac
+done

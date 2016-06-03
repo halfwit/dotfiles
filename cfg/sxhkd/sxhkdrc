@@ -2,17 +2,17 @@ super + {h,u,y,k,period}
          {dmenu_run,dsearch,unification,st,xcmenuctrl}
 
 super + shift + {p,j}
-         winid=$(pfw) && wrs {20,-20} 0 "$winid" && ~/local/share/x11fs/wshuf && echo "$winid" > ~/run/x11/focused 
+         winid=$(pfw) && wrs {20,-20} 0 "$winid" && ~/local/share/x11/wshuf && wtf "$winid"
 super + {j,c,v,p}
-         ~/local/share/x11fs/focus {h,j,k,l}
+         ~/local/share/x11/focus {h,j,k,l}
 @F11
-         ~/local/share/x11fs/fullscreen $(pfw)
+         ~/local/share/x11/fullscreen $(pfw)
 super + i 
          killw $(pfw)
 super + shift + {1,2,3,4,5,6}
-         ~/local/share/x11fs/groups $(pfw) {1,2,3,4,5,6} && ~/local/share/x11fs/groupsbar
+         ~/local/share/x11/groups $(pfw) {1,2,3,4,5,6} && ~/local/share/x11/groupsbar
 super + {1,2,3,4,5,6}
-         ~/local/share/x11fs/groups {1,2,3,4,5,6} && ~/local/share/x11fs/groupsbar
+         ~/local/share/x11/groups {1,2,3,4,5,6} && ~/local/share/x11/groupsbar
 XF86Audio{Prev,Next,Play}
          mpc -q {prev,next,toggle}
 XF86AudioStop

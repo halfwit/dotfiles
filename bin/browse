@@ -10,7 +10,7 @@ unmap() {
     fi
   done
   
-  printf '%s' "" > /tmp/groups/group.2
+  printf "2" > ~/run/x11/inactive
 }
 
 

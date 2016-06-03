@@ -6,7 +6,7 @@
 
 FSFILE=${FSFILE:-/tmp/fwin}
 X11=${X11FSDIR:-~/run/x11}
-SIZE=$XDG_CONFIG_HOME/x11fs/size
+SIZE=$XDG_CONFIG_HOME/x11/size
 
 if test -f $FSFILE; then
     cat $FSFILE | xargs -n 5 wtp
@@ -18,7 +18,6 @@ else
     sed -ne 's/gaps=//p' $SIZE > $X11/$1/geometry/x
     sed -ne 's/gaps=//p' $SIZE > $X11/$1/geometry/y
     chwso -r "$1"
-    printf '%s\n' "$1" > $X11/focused    
 fi
 
-"$XDG_CONFIG_HOME"/x11fs/focus $1
+wtf "$1"

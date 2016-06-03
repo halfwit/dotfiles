@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-result=$(curl -s dict://dict.org/d:"$1":wn | awk '/151/{flag=1;next}/250/{flag=0}flag' | head -n -1)
+tmp=$(mktemp)
+curl -s dict://dict.org/d:"$1":wn | awk '/151/{flag=1;next}/250/{flag=0}flag' > "$tmp" 
 
-if [[ "$result" ]]; then
-   exec notify-send "$result"
+if [ -f $tmp ]; then
+  st -t dict -e less "$tmp"
+else
+  exec browse "!def $1"
 fi
-exec browse "!def $1"

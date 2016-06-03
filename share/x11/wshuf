@@ -3,7 +3,7 @@
 # Requires x11fs groups fork https://github.com/halfwit/x11fs
 
 # directory of files that correlate to window names
-WIN="$XDG_CONFIG_HOME"/x11fs/windows
+WIN="$XDG_CONFIG_HOME"/x11/windows
 
 # Filesystem
 X11="$HOME"/run/x11
@@ -11,18 +11,18 @@ X11="$HOME"/run/x11
 getname() {
   cd $WIN
   for i in *; do
-    grep -io "$i" $X11/$1/title
+    wname "$1" | grep -io "$i" && break
   done
 }
 
 winsize() {
   while read -r id; do
-    name=$(awk '{print $NF}' $X11/$id/title)
-    [ -s $WIN/$name ] && . "$WIN/$name" || . "$WIN/default"
+    name=$(getname $id)
+    test -f $WIN/$name && . $WIN/$name || . $WIN/default
   done
 }
 
 ## Main ##
 # window dimensions and gap
-. "$XDG_CONFIG_HOME"/x11fs/size && [ ! $width ] && [ !$heigh ] && exit 1
+. "$XDG_CONFIG_HOME"/x11/size && [ ! $width ] && [ !$heigh ] && exit 1
 lsw | winsize | binpack -x "$width" -y "$heigh" -g "$gaps" | xargs -n 5 wtp
