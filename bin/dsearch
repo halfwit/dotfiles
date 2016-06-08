@@ -82,7 +82,7 @@ handle_results() { # args -> launch
     *\ -\ *) read -r result < "$datadir/bookmark/$1" 
              exec browse "$result"     ;;   
     !*)      exec browse "$search$1"   ;;
-    *)       exec browse "$1" ;;
+    *)       exec browse "$search!g%20$1" ;;
 
   esac
 }

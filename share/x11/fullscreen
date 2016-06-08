@@ -5,7 +5,6 @@
 # depends on: focus.sh
 
 FSFILE=${FSFILE:-/tmp/fwin}
-X11=${X11FSDIR:-~/run/x11}
 SIZE=$XDG_CONFIG_HOME/x11/size
 
 if test -f $FSFILE; then
@@ -13,10 +12,10 @@ if test -f $FSFILE; then
     rm -f $FSFILE
 else
     wattr xywhi $1 > $FSFILE
-    sed -ne 's/fulh=//p' $SIZE > $X11/$1/geometry/height
-    sed -ne 's/fulw=//p' $SIZE > $X11/$1/geometry/width
-    sed -ne 's/gaps=//p' $SIZE > $X11/$1/geometry/x
-    sed -ne 's/gaps=//p' $SIZE > $X11/$1/geometry/y
+    wtp $(sed -ne 's/gaps=//p' $SIZE) \
+        $(sed -ne 's/gaps=//p' $SIZE) \
+        $(sed -ne 's/fulw=//p' $SIZE) \
+        $(sed -ne 's/fulh=//p' $SIZE) $1
     chwso -r "$1"
 fi
 

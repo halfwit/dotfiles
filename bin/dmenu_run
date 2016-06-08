@@ -4,5 +4,5 @@ readonly optsdir="$XDG_CONFIG_HOME"/dmenu/bemenucolors
 
 [[ -s "$optsdir" ]] && source "$optsdir" 
 
-opts+=( -p "Run" )
+opts+=(-p "Run" -l 10)
 bemenu-run "${opts[@]}"
