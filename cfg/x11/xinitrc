@@ -3,8 +3,6 @@
 # Trying this out!
 xhost +si:localuser:"$USER"
 
-x11fs -o auto_unmount ~/run/x11 &
-wait
 mpd &
 sxhkd &
 xcmenu &

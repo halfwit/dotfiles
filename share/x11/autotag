@@ -18,7 +18,7 @@ case "$(getname $1)" in
 esac
 
 if [ $grp ]; then
-  echo "$grp" > "$X11/$1"/group
+  grp "$grp" "$1"
   "$XDG_DATA_HOME"/x11/groupsbar
   wtf "$1"
 fi

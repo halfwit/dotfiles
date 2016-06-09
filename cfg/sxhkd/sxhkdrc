@@ -10,9 +10,9 @@ super + {j,c,v,p}
 super + i 
          killw $(pfw)
 super + shift + {1,2,3,4,5,6}
-         ~/local/share/x11/groups $(pfw) {1,2,3,4,5,6} && ~/local/share/x11/groupsbar
+         grp {1,2,3,4,5,6} $(pfw) && ~/local/share/x11/groupsbar
 super + {1,2,3,4,5,6}
-         ~/local/share/x11/groups {1,2,3,4,5,6} && ~/local/share/x11/groupsbar
+         grpls {1,2,3,4,5,6} | xargs mapw -t && ~/local/share/x11/groupsbar
 XF86Audio{Prev,Next,Play}
          mpc -q {prev,next,toggle}
 XF86AudioStop
