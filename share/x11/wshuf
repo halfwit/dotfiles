@@ -5,9 +5,6 @@
 # directory of files that correlate to window names
 WIN="$XDG_CONFIG_HOME"/x11/windows
 
-# Filesystem
-X11="$HOME"/run/x11
-
 getname() {
   cd $WIN
   for i in *; do

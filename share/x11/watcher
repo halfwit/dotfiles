@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-X11=${X11FSDIR:-~/run/x11}
 DIR=$XDG_DATA_HOME/x11
 
 wew | while read -r ev; do

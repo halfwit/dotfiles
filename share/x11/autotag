@@ -1,5 +1,4 @@
 #!/bin/sh
-X11=${X11FSDIR:-~/run/x11}
 
 getname() {
   cd "$XDG_CONFIG_HOME"/x11/windows
