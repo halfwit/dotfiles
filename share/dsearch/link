@@ -6,6 +6,11 @@ readonly datadir="$XDG_DATA_HOME"
 readonly pics="$HOME"/media/pictures
 
 list() {
+  lsw | while read -r w; do
+    case "$(wname $w)" in
+      *browse*) sed -n -e 's/_SURF_URI(STRING) = "//p' <<< "$(xprop -id "$w")" ;;
+    esac
+  done
   find "$datadir"/bookmark -type f -not -path '*/\.*'
   find "$datadir"/mpv -type f -not -path '*/\.*'
   find "$pics" -type f -not -path '*/\.*'
@@ -15,6 +20,8 @@ build() {
   local input
   while read -r input; do
     case "$input" in
+      http*)
+        printf 'current - %s\n' "${input::-1}" ;;
       *bookmark*)
         read -r url < "$input"
         printf '%s\n' "${input##*bookmark\/}"
@@ -46,6 +53,7 @@ opts+=( -l 10 -p "Select bookmark" )
 lnk=$(list | sort -u | build | dmenu "${opts[@]}")
 
 case $lnk in
+  current*) lnk="${lnk#*-\ }" ;;
   video*) lnk="$(video "$lnk")" ;;
   image*) lnk="$(exiftool "$pics/${lnk#*-\ }" | awk '/^Comment/ { print $NF }')" ;;
   *) read -r lnk < "$datadir/bookmark/$lnk"

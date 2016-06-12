@@ -37,6 +37,12 @@ note() {
   curl -s "$1" > "$XDG_CACHE_HOME"/notes/"$result"
 }
 
+lsw | while read -r w; do
+  case $(wname "$w") in
+    *browse*) sed -n -e 's/_SURF_URI(STRING) = "//p' <<< "$(xprop -id "$w")" | tr -d '"' | xcmenu -ic ;;
+  esac
+done
+
 [[ $1 ]] && input="$1" || input=$(xcmenuctrl -u)
 
 [[ $input ]] && case $(curl -sI "$input" | grep -i content-type) in

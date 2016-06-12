@@ -6,7 +6,7 @@
 
 toggle() {
   # like lsw, for groups
-  grpls $1 | while read -r id; do
+  lsgrp $1 | while read -r id; do
     if wattr m "$id"; then
       mapw -t "$id"
     fi

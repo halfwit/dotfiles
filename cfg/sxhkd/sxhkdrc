@@ -12,7 +12,7 @@ super + i
 super + shift + {1,2,3,4,5,6}
          grp {1,2,3,4,5,6} $(pfw) && ~/local/share/x11/groupsbar
 super + {1,2,3,4,5,6}
-         grpls {1,2,3,4,5,6} | xargs mapw -t && ~/local/share/x11/groupsbar
+         lsgrp {1,2,3,4,5,6} | xargs mapw -t && ~/local/share/x11/groupsbar
 XF86Audio{Prev,Next,Play}
          mpc -q {prev,next,toggle}
 XF86AudioStop

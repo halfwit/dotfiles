@@ -4,12 +4,10 @@
 panels=6
 declare -a item
 
-
-
 for (( i = 1; i <= $panels; i++ )); do
-  groups=$(grpls "$i")
+  groups=$(lsgrp "$i")
   if [[ $groups != "" ]]; then
-    if grpls "$i" | xargs wattr m; then
+    if lsgrp "$i" | xargs wattr m; then
       item[$i]="◉"
     else
       item[$i]="◍"

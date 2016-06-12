@@ -14,7 +14,8 @@ create_menu() {
   # Open browsers
   lsw -a | xargs wname | grep -a browse | while read -r open; do
     case "$open" in
-      *-\ browse) printf '%s %s\n' "open - " "${open##*|\ }"  ;;
+      *-\ browse) 
+                  printf '%s %s\n' "open - " "${open##*|\ }"  ;;
     esac
   done
 
@@ -82,7 +83,7 @@ handle_results() { # args -> launch
     *\ -\ *) read -r result < "$datadir/bookmark/$1" 
              exec browse "$result"     ;;   
     !*)      exec browse "$search$1"   ;;
-    *)       exec browse "$search!g%20$1" ;;
+    *)       exec browse "$1" ;;
 
   esac
 }
