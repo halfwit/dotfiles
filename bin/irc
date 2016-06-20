@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-st -t "irc" -e weechat
+exec st -t "irc" -e weechat

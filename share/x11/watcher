@@ -8,7 +8,8 @@ wew | while read -r ev; do
           $DIR/groupsbar           ;;
     19*)  $DIR/wshuf
           $DIR/groupsbar           ;;
-    16*)  $DIR/autotag "${ev#*:}"
+    16*)  $DIR/focus   "${ev#*:}"
+          $DIR/autotag "${ev#*:}"
           $DIR/groupsbar           ;;
     17*)  $DIR/groupsbar           ;;
   esac

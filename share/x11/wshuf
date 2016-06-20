@@ -1,6 +1,5 @@
 #!/bin/sh
-# Requires lsw https://github.com/wmutils
-# Requires x11fs groups fork https://github.com/halfwit/x11fs
+# Requires https://github.com/wmutils
 
 # directory of files that correlate to window names
 WIN="$XDG_CONFIG_HOME"/x11/windows
