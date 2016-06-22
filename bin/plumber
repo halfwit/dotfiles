@@ -47,7 +47,7 @@ special() {
   case "$1" in
     *xkcd*) clip "$1" && handle view "$(curl -s "https://xkcd.com/${1//[^0-9]/}/" | awk '/hotlink/{ print $NF }')" 
             return 1 ;;  
-    *youtube.com/watch*|*youtu.be*|ytdl*|*livestream.com*|*twitch.tv*|*imgur*) clip "$1" && exec play "$1" ;;
+    *youtube.com/watch*|*youtu.be*|ytdl*|*livestream.com*|*twitch.tv*|*imgur*|*webm|*mkv) clip "$1" && exec play "$1" ;;
     *ptpb.pw/t/*) clip "$1" && exec st -e asciinema play <(curl -s "${1/\/t/}") ;;
     *ptpb.pw/*/*) clip "$1" && printf '%s\n' "edit" | handle "${1%/*}" 
                   return 1 ;;

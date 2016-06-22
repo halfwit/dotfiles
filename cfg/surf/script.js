@@ -98,8 +98,8 @@ function keypress(evt) {
             
     // if we're on a editable element, we probably don't want to catch
     // keypress, we just want to write the typed character.
-    if (isEditable(target))
-        return;
+    //if (isEditable(target))
+    //    return;
 
     var key = String.fromCharCode(evt.charCode);
     if (evt.ctrlKey) {
