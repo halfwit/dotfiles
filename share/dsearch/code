@@ -1,21 +1,13 @@
 #!/usr/bin/env bash
 
 # Code search using bemenu (single string)
-# Requires bemenu, grep, neovim
+# Requires bemenu, ag
 
 readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
 
-# Whilelist of locations to search
-readonly locations=( ~/build       \
-                     ~/programming \
-                     ~/local/cfg   \
-                     ~/local/bin   \
-                     ~/local/share
-);
-
 get_selection() {
     opts+=( -l 10 -p "Select file to edit: " )
-    grep -Iri "$1" "${locations[@]}" --exclude="*.git" | bemenu "${opts[@]}"
+    ag --vimgrep "$1" | bemenu "${opts[@]}"
 
 }
 
@@ -25,11 +17,9 @@ get_selection() {
 
 [[ -s $optsfile ]] && source "$optsfile"
 
-# Chain multiple arguments like.*this for grep
-token="$*"
-result=$(get_selection "${token// /.\*}")
+result=$(get_selection "$1")
 
 # Verify a selection was made
 if [[ $result ]]; then
-    exec plumber "${result%:*}"
+    exec plumber "$HOME/${result%%:*}"
 fi
