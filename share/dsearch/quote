@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 
-# Code search using bemenu (single string)
 # Requires bemenu, ag
 
 readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
 
 get_selection() {
     opts+=( -l 10 -p "Select file to edit: " )
-    ag --vimgrep "$1" | bemenu "${opts[@]}"
+    ag -t --nofilename "$1" | bemenu "${opts[@]}"
 }
 
 # Main
@@ -20,6 +19,5 @@ result=$(get_selection "$1")
 
 # Verify a selection was made
 if [[ $result ]]; then
-    subres="${result#*:}"
-    exec st -t NVIM -e nvim +"${subres%%:*}" "$HOME/${result%%:*}"
+  xcmenu -ic <<< "$result" 
 fi

@@ -65,6 +65,7 @@ handle_results() { # args -> launch
     !lyrics*)       exec "$handledir"/lyrics "${1#*lyrics }" ;;
     !radio*)        exec "$handledir"/radio  "${1#*radio }"  ;;
     !album*)        exec "$handledir"/album  "${1#*album }"  ;;
+    !quote*)        exec "$handledir"/quote  "${1#*quote }"  ;;
     !save*)         exec "$handledir"/save   "${1#*save }"   ;;
     !song*)         exec "$handledir"/song   "${1#*song }"   ;;
     !book*)         exec "$handledir"/book   "${1#*book }"   ;;
