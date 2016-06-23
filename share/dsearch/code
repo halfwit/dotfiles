@@ -21,5 +21,6 @@ result=$(get_selection "$1")
 
 # Verify a selection was made
 if [[ $result ]]; then
-    exec plumber "$HOME/${result%%:*}"
+    subres="${result#*:}"
+    exec st -t NVIM -e nvim +"${subres%%:*}" "$HOME/${result%%:*}"
 fi
