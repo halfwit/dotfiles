@@ -4,11 +4,11 @@ DIR=$XDG_DATA_HOME/x11
 wew | while read -r ev; do
   case "$ev" in
     18*)  $DIR/wshuf
-          $DIR/focus   "${ev#*:}"
           $DIR/groupsbar           ;;
     19*)  $DIR/wshuf
+          wtf "${ev#*:}"
           $DIR/groupsbar           ;;
-    16*)  $DIR/focus   "${ev#*:}"
+    16*)  wtf "${ev#*:}"
           $DIR/autotag "${ev#*:}"
           $DIR/groupsbar           ;;
     17*)  $DIR/groupsbar           ;;
