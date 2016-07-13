@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-st -e /usr/bin/mutt -F "$XDG_CONFIG_HOME/mutt/muttrc"

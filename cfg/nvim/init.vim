@@ -40,4 +40,5 @@ call s:source_rc('view.rc.vim')
 
 call s:source_rc('mappings.rc.vim')
 
+highlight LineNr guibg=NONE
 let $NVIM_TUI_ENABLE_TRUE_COLOR = 1

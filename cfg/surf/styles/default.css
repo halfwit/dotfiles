@@ -7,6 +7,10 @@ h3 { font: 14pt monospace !important; }
 h4 { font: 12pt monospace !important; }
 h5 { font: 10pt monospace !important; }
 
+html {
+    margin: 3px;
+}
+
 *:not(a),body,td,tr,p {
     background-color: #262626 !important;
     background-size: 0,0 !important;
