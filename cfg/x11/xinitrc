@@ -6,7 +6,7 @@ xhost +si:localuser:"$USER"
 mpd &
 sxhkd &
 xcmenu &
-compton &
+compton --vsync opengl-swc --backend glx -b &
 #syncthing &
 colortempd -t 4000 &
 ~/local/share/x11/barrun &

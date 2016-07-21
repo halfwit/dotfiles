@@ -32,4 +32,4 @@ result=$(menu)
 [[ ! $result ]] && exit 
 [[ ! -e $notedir/$result ]] && touch "$notedir/$result"
 
-exec st -t center -e /usr/bin/nvim "$notedir/$result"
+exec st -t NVIM -e /usr/bin/nvim "$notedir/$result"
