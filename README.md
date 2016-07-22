@@ -1,7 +1,7 @@
 Halfwits Personal Dotfiles
 #[Wmutils](https://github.com/wmutils)
 (I use a slightly modified set of scripts from those available in the contrib repo) 
-I wanted my windows to lay out a very specific way - and that ended up as a [2D bin-packing algorithm](https://github.com/halfwit/binpack), while allowing some give on the size of any particular window. These are all outlined in [cfg/wmutils/wshuf](https://github.com/halfwit/dotfiles/blob/master/local/share/x11/wshuf)
+I wanted my windows to lay out a very specific way - and that ended up as a [2D bin-packing algorithm](https://github.com/halfwit/binpack), while allowing some give on the size of any particular window. These are all outlined in [cfg/wmutils/wshuf](https://github.com/halfwit/dotfiles/blob/master/share/x11/wshuf)
 
 This all allows me to do the following:
  - strict character for terminal applications
