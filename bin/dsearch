@@ -33,6 +33,8 @@ create_menu() {
   cd "$handledir" || exit 1
   find -type f -printf "!%f\n" | sort -u
   printf '%s\n%s\n%s\n' "!snap" "!stop" "!close"
+
+  find ~/ -type f
 }
 
 get_selection() {
@@ -82,7 +84,7 @@ handle_results() { # args -> launch
     !stop)   exec "$handledir"/rec "stop"                    ;;
     !rec)    exec "$handledir"/rec "vid"                     ;;
     *\ -\ *) read -r result < "$datadir/bookmark/$1" 
-             exec browse "$result"     ;;   
+              exec browse "$result"     ;;   
     !*)      exec browse "$search$1"   ;;
     *)       exec browse "$1" ;;
 
@@ -97,5 +99,5 @@ query=${query/*http/http}
 
 # Verify selection
 [[ ! $query ]] && exit 0
-
+[[ -f $query ]] && exec plumber "$query"
 handle_results "$query"

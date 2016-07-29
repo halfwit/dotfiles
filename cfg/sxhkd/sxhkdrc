@@ -1,5 +1,5 @@
-super + {h,u,y,k,period}
-         {dmenu_run,dsearch,unification,st,xcmenuctrl}
+super + {h,b,k,period}
+         {dmenu_run,dsearch,,st,xcmenuctrl}
 
 super + shift + {p,j}
          winid=$(pfw) && wrs {20,-20} 0 "$winid" && ~/local/share/x11/wshuf && wtf "$winid"

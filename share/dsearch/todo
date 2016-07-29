@@ -8,6 +8,7 @@ load() {
   # count matches with grep vs line count 
   local match total
   find "$todir" -not -path '*/\.*' -type f | while read title; do
+    [[ ! -s "$title" ]] && rm "$title"
     match=$(grep -c "[x]" "$title")
     total=$(wc -l "$title" | awk '{print $1}')
     printf '%s\t%s\n' "$(( 100 * match / total ))%" "${title##*\/}"
