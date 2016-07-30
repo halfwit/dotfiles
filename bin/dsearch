@@ -59,6 +59,7 @@ handle_results() { # args -> launch
     !man)    exec "$handledir"/man    ;;
     !mix)    exec "$handledir"/mix    ;;
     !vm)     exec "$handledir"/vm     ;;
+    !pb)     exec "$handledir"/pb     ;;
     
     playlist\ -\ *) exec "$handledir"/mpv    "${1#*-\ }.pls" ;;
     open\ -\ *)     exec "$handledir"/stack  "${1#*-\ }"     ;;
@@ -77,6 +78,8 @@ handle_results() { # args -> launch
     !mix*)          exec "$handledir"/mix    "${1#*mix }"    ;;
     !pl*)           exec "$handledir"/yt     "$1"            ;;
     !yt*)           exec "$handledir"/yt     "${1#*yt }"     ;;
+    !pb*)           exec "$handledir"/pb     "${1#*pb }"     ;;
+  
 
     !close)  exec pkill surf                                 ;;
     # Not really search related, but useful 
