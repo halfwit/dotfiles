@@ -32,3 +32,4 @@ endfunction
 vmap p :`<,. w !plumber <CR>
 vmap m :`<,. w !sh<CR>
 vmap M :`<,. !sh<CR>
+

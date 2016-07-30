@@ -1,4 +1,4 @@
-super + {h,b,k,period}
+super + {h,l,k,period}
          {dmenu_run,dsearch,,st,xcmenuctrl}
 
 super + shift + {p,j}
