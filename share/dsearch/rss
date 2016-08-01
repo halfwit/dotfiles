@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ## Use tt-rss to fetch feeds
 
-readonly optsdir="$XDG_CONFIG_HOME"/dmenu/bemenucolors
+readonly optsdir="$XDG_CONFIG_HOME"/dmenu/dmenucolors
 readonly address=http://halfwit.duckdnse.org:28128/tt-rss/api/
 tmp=$(mktemp -d)
 
@@ -45,7 +45,7 @@ session_id=$(login)
 feeds "$session_id" | feedlist "list"
 
 opts+=(-l 10 -p "Select feed")
-result=$(awk '{$(NF--)="";  print}' "$tmp"/list | bemenu "${opts[@]}") 
+result=$(awk '{$(NF--)="";  print}' "$tmp"/list | dmenu "${opts[@]}") 
 
 # currently not working
 markread "$session_id" "$(grep "$result" "$tmp"/list | awk '{ print $NF }')"
@@ -54,7 +54,7 @@ markread "$session_id" "$(grep "$result" "$tmp"/list | awk '{ print $NF }')"
 
 fetch_feed "$session_id" "$(grep "$result" "$tmp"/list | awk '{ print $NF }')" | feedlist "${result#*\ }" 
 
-selection=$(awk '{$(NF--)=""; print}' "$tmp/${result#*\ }" | bemenu "${opts[@]}")
+selection=$(awk '{$(NF--)=""; print}' "$tmp/${result#*\ }" | dmenu "${opts[@]}")
 url=$(grep "$selection" "$tmp/${result#*\ }" | awk '{ print $NF }')
 
 [[ $url ]] && plumber "$url" &

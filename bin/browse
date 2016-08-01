@@ -1,21 +1,9 @@
 #!/usr/bin/env bash
 # Script to open Vimb instances in tabbed
 
-unmap() {
-  # hide other open browser windows. 
-  # TODO: Depends on st breakage!
-  lsw -a | while read -r name; do
-    if wname "$name" | grep -a browse; then
-      mapw -u "$name"
-    fi
-  done
-  
-  printf "2" > ~/run/x11/inactive
-}
-
-
 ## main
-unmap
+lsgrp 2 | xargs mapw -u
+
 #[[ $@ == *reddit* ]] && exec st -t browse -e elinks "$@"
 
 exec surf "$@"

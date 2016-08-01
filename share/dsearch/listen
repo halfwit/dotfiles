@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # generate menu of current playlists, wait for input to start up !radio or current playlist
-readonly optsdir="$XDG_CONFIG_HOME"/dmenu/bemenucolors
+readonly optsdir="$XDG_CONFIG_HOME"/dmenu/dmenucolors
 
 if ! pgrep mpd; then
   mpd &
@@ -11,7 +11,7 @@ mpc clear
 mpc random off
 [[ -s $optsdir ]] && source "$optsdir"
 opts+=(-p "Select playlist" -l 10 -i)
-mpc lsplaylists | bemenu "${opts[@]}" | while read -r result; do
+mpc lsplaylists | dmenu "${opts[@]}" | while read -r result; do
   # If playlist exists, load
   mpc load "$result"
 done

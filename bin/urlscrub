@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # Cheapo url spawner for st
 
-readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
+readonly optsfile=$XDG_CONFIG_HOME/dmenu/dmenucolors
 
 # https://github.com/mvdan/xurls
 # https://github.com/Cloudef/bemenu
 # Currently strips newlines as well
 
 menu() {
-    xurls | tac | bemenu -l 10 "${opts[@]}" -p URLs
+    xurls | tac | dmenu -l 10 "${opts[@]}" -p URLs
 }
 
 handle() {

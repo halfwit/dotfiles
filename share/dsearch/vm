@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-readonly optsdir=$XDG_CONFIG_HOME/dmenu/bemenucolors
+readonly optsdir=$XDG_CONFIG_HOME/dmenu/dmenucolors
 
 VMDIR=~/media/vm
 
@@ -8,7 +8,7 @@ list_items() {
   cd $VMDIR
   for i in *; do
     printf '%s\n' "$i"
-  done | bemenu "${opts[@]}" -l $(find "$VMDIR" | wc -l )
+  done | dmenu "${opts[@]}" -l $(find "$VMDIR" | wc -l )
 }
 
 ## Main

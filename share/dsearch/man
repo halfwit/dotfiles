@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ## Find manuals
 
-readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
+readonly optsfile="$XDG_CONFIG_HOME"/dmenu/dmenucolors
 
 handle_result() {
    local width
@@ -35,14 +35,14 @@ menu() {
 opts+=(-l 10 -p "Select manual")
 
 # No string passed in; search all
-[[ ! $1 ]] && result="$(apropos . | bemenu "${opts[@]}")"
+[[ ! $1 ]] && result="$(apropos . | dmenu "${opts[@]}")"
 
 # Strip `(` from input
 [[ $1 ]] && result="$(apropos result"${1%\(*}")"
 
 # Clarify ambiguity
 if [[ $(wc -l <<< "$result") > 1 ]]; then
-  result=$(bemenu "${opts[@]}" <<< "$result")
+  result=$(dmenu "${opts[@]}" <<< "$result")
 fi
 
 if [[ $result ]]; then

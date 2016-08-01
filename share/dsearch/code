@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
-# Code search using bemenu (single string)
-# Requires bemenu, ag
+# Code search using dmenu (single string)
+# Requires dmenu, ag
 
-readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
+readonly optsfile=$XDG_CONFIG_HOME/dmenu/dmenucolors
+
 
 get_selection() {
     opts+=( -l 10 -p "Select file to edit: " )
-    ag --vimgrep "$1" | bemenu "${opts[@]}"
+    ag --vimgrep "$1" | dmenu "${opts[@]}"
 }
 
 # Main

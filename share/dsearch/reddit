@@ -2,7 +2,7 @@
 ## Requires Lynx
 ##TODO: currently only works on sites with Discussion, Screenshot and Video tags.
 
-readonly optsdir="$XDG_CONFIG_HOME"/dmenu/bemenucolors
+readonly optsdir="$XDG_CONFIG_HOME"/dmenu/denucolors
 readonly datadir="$XDG_DATA_HOME"/reddit
 
 tmp=$(mktemp -d )
@@ -36,7 +36,7 @@ load() {
 createsub "$1" || exit 1 
 
 opts+=(-l 10 -p "Select sub")
-load "$1" | bemenu "${opts[@]}" | while IFS=$'\n' read -r result; do
+load "$1" | dmenu "${opts[@]}" | while IFS=$'\n' read -r result; do
   [[ ! $result ]] && exit 1
   read -r url < "$tmp/$1/$result"
   plumber "$url" & 

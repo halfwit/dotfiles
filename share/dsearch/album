@@ -7,7 +7,7 @@ readonly host=localhost
 # Gmusicproxy default port
 readonly port=9999
 
-readonly optsdir="$XDG_CONFIG_HOME"/dmenu/bemenucolors
+readonly optsdir="$XDG_CONFIG_HOME"/dmenu/dmenucolors
 readonly url=http://$host:$port
 
 get_id() {
@@ -30,7 +30,7 @@ search_artist() {
 
   opts+=(-p "Select album" -l 10)
   mpc clear
-  build < "$tmp/$1" | sort -u | tac | bemenu "${opts[@]}" | while read -r result; do
+  build < "$tmp/$1" | sort -u | tac | dmenu "${opts[@]}" | while read -r result; do
     [[ ! $result ]] && break
     result=$(grep -F "${result#*-\ }" "$tmp/$1")
     curl -s "$url/get_album?id=${result##*id=}" > "$XDG_CONFIG_HOME/mpd/playlists/$1 - ${result%%|*}.m3u"
