@@ -48,8 +48,6 @@ search_album() {
 
 }
 
-
-
 case "$@" in
   *\ -\ *) search_album  "$@" ;;
   *)       tmp=$(mktemp -d)

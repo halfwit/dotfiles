@@ -14,7 +14,6 @@ toggle() {
 }
 
 case "$1" in
-  0x0*) grp "$2" "$1" 
-        break ;;
-  *) toggle "$1" ;; 
+  0x0*) grp "$2" "$1" ;;
+  *) toggle "$1"      ;;
 esac
