@@ -12,12 +12,7 @@ create_menu() {
   xcmenu --list | head -n 1
 
   # Open browsers
-  lsw -a | xargs wname | grep -a browse | while read -r open; do
-    case "$open" in
-      *-\ browse) 
-                  printf '%s %s\n' "open - " "${open##*|\ }"  ;;
-    esac
-  done
+  lsw -a | xargs wname | grep -a "browse - "
 
   # Check bookmarks
   cd "$datadir/bookmark" || exit 1
@@ -62,7 +57,7 @@ handle_results() { # args -> launch
     !pb)     exec "$handledir"/pb     ;;
     
     playlist\ -\ *) exec "$handledir"/mpv    "${1#*-\ }.pls" ;;
-    open\ -\ *)     exec "$handledir"/stack  "${1#*-\ }"     ;;
+    browse\ -\ *)   exec "$handledir"/stack  "${1#*-\ }"     ;;
     !reddit*)       exec "$handledir"/reddit "${1#*reddit }" ;;
     !listen*)       exec "$handledir"/listen "${1#*listen }" ;;
     !lyrics*)       exec "$handledir"/lyrics "${1#*lyrics }" ;;

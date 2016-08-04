@@ -2,10 +2,10 @@
 # Handler to push window to top of stack
 
 lsw -a | while read -r id; do
-  if wname "$id" | grep -a "$1"; then
+  if xwininfo "$id" | grep -a "$1"; then
     mapw -m "$id"
     grp 2 "$id"
-  elif wname "$id" | grep -a "browse"; then
+  elif xwininfo "$id" | grep -a "browse - "; then
     mapw -u "$id"
   fi
 done

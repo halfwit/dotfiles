@@ -5,5 +5,14 @@
 lsgrp 2 | xargs mapw -u
 
 #[[ $@ == *reddit* ]] && exec st -t browse -e elinks "$@"
+qt() {
+  exec qutebrowser "$@"
+}
+
+case "$@" in
+  *facebook*) qt "$@" ;;
+  *google*)   qt "$@" ;;
+  *github*)   qt "$@" ;; 
+esac
 
 exec surf "$@"

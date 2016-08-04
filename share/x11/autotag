@@ -9,7 +9,7 @@ getname() {
 
 case "$(getname $1)" in
   mpv)        grp=1 ;;
-  w3m|browse) grp=2 ;;
+  browse)     grp=2 ;;
   NVIM)       grp=3 ;;
   mutt|news*) grp=4 ;;
   irc)        grp=5 ;;
