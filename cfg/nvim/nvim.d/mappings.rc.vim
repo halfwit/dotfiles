@@ -17,7 +17,6 @@ noremap <C-c> :bdelete<CR>
 
 " Terminal niceness
 tnoremap    <ESC><ESC>     <C-\><C-n>
-
 " For plumbing arbitrary things
 function! s:get_visual_selection()
   " Why is this not a built-in Vim script function?!
@@ -29,7 +28,6 @@ function! s:get_visual_selection()
   return join(lines, "\n")
 endfunction
 
-vmap p :`<,. w !plumber <CR>
+vmap p :call get_visual_selection() !plumber <CR>
 vmap m :`<,. w !sh<CR>
 vmap M :`<,. !sh<CR>
-

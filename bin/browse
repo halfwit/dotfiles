@@ -6,13 +6,14 @@ lsgrp 2 | xargs mapw -u
 
 #[[ $@ == *reddit* ]] && exec st -t browse -e elinks "$@"
 qt() {
-  exec qutebrowser "$@"
+  exec qutebrowser --backend webengine "$@"
 }
 
 case "$@" in
   *facebook*) qt "$@" ;;
   *google*)   qt "$@" ;;
   *github*)   qt "$@" ;; 
+  *youtube*)  qt "$@" ;;
 esac
 
 exec surf "$@"
