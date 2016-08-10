@@ -76,13 +76,14 @@ handle_results() { # args -> launch
     !pb*)           exec "$handledir"/pb     "${1#*pb }"     ;;
   
 
-    !close)  exec pkill surf                                 ;;
+    !close) pkill surf && pkill qutebrowser                  ;;
+    
     # Not really search related, but useful 
     !snap)   exec "$handledir"/rec "snap"                    ;;
     !stop)   exec "$handledir"/rec "stop"                    ;;
     !rec)    exec "$handledir"/rec "vid"                     ;;
     *\ -\ *) read -r result < "$datadir/bookmark/$1" 
-              exec browse "$result"     ;;   
+             exec browse "$result"     ;;   
     !*)      exec browse "$search$1"   ;;
     *)       exec browse "$1" ;;
 
