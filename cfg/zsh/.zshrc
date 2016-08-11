@@ -255,3 +255,8 @@ alias newsbeuter="newsbeuter -C $XDG_CONFIG_HOME/newsbeuter/config"
 alias gdb="gdb -n -x $XDG_CONFIG_HOME/gdb/init"
 alias weechat="weechat -d $XDG_CONFIG_HOME/weechat"
 
+# Some --help based completions for things I use
+compdef _gnu_generic clang-format
+compdef _gnu_generic clang-check
+compdef _gnu_generic bemenu
+compdef _gnu_generic xcmenu

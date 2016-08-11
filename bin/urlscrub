@@ -14,7 +14,7 @@ menu() {
 handle() {
   local selection
   while read -r selection; do
-    exec plumber "$selection" 
+    plumber "$selection" 
   done
 }
 
