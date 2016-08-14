@@ -7,4 +7,4 @@ while true; do
   if read info </tmp/panel; then
     printf '%s\n' "$info" 
   fi
-done | lemonbar -F '#444444' -b -d -f "DejaVu Mono:size=12" 
+done | lemonbar -F '#444444' -b -d -f "DejaVu Mono:size=10" 

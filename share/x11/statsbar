@@ -12,4 +12,4 @@ while :; do
   read -r level < /sys/class/power_supply/BAT0/capacity
   printf ' %s - %s%s\n' "$(date +'%H:%M')" "$level%" "%{r}$current "
   sleep 1
-done | lemonbar -F '#444444' -d -b -f "DejaVu Mono:size=10.5" &
+done | lemonbar -F '#444444' -d -b -f "DejaVu Mono:size=9.5" &

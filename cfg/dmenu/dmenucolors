@@ -1,6 +1,6 @@
 opts+=(
     -i -ia top-gapless -is 250x250
-    -fn "DejaVu Sans Mono 9.5"
+    -fn "DejaVu Sans Mono 8"
     -sf '#bcbcbc' -sb '#444444'
     -nf '#bcbcbc' -nb '#262626'
 )

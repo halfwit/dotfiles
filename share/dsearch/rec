@@ -4,7 +4,7 @@
 readonly pb="https://ptpb.pw/?u=1"
 
 picture() {
-  maim -d 1 --format png /dev/stdout | curl -sF c=@- "$pb" | sed "s/$/.png/" | xcmenu -ic
+  maim -d 1 --opengl --format png /dev/stdout | curl -sF c=@- "$pb" | sed "s/$/.png/" | xcmenu -ic
 }
 
 video() {
