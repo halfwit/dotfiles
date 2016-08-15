@@ -54,6 +54,7 @@ special() {
     *bpaste.net*) clip "$1" && printf '%s\n' "edit" | handle "${1/show/raw}" 
                   return 1 ;;
     gopher://*) clip "$1" && exec st -e cgo "$1" ;;
+    *iotek*) clip "$1" && printf '%s\n' "browse" | handle "$1" ;; 
   esac
 } 
 

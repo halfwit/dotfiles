@@ -8,7 +8,7 @@ picture() {
 }
 
 video() {
-  tmp=$(mktemp --suffix=.mkv)
+  tmp=$(mktemp --suffix=.webm)
   ffmpeg -y -video_size "$(wattr w "$(lsw -r)")x$(wattr h "$(lsw -r)")" -framerate 25 -f x11grab -i "$DISPLAY"  "$tmp"
   wait
   curl -sF c=@"$tmp" "$pb" | xcmenu -ic
