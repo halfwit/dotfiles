@@ -15,6 +15,7 @@ case "$@" in
   *github*)   qt "$@" ;; 
   *youtube*)  qt "$@" ;;
   *kijiji*)   qt "$@" ;;
+  *reddit*)   qt "$@" ;;
 esac
 
 exec surf "$@"
