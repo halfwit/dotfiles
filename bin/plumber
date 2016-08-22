@@ -80,7 +80,7 @@ parse() {
 
 special "$1" || exit 0
 
-mime "$1" | while read -r mimetype; do
+while read -r mimetype; do
   case "$mimetype" in
     X-Arc*) parse "${mimetype%;*}" | handle "$1" ;;
     appli*) parse "${mimetype%;*}" | handle "$1" ;;
@@ -91,7 +91,7 @@ mime "$1" | while read -r mimetype; do
     text*)  parse "${mimetype%;*}" | handle "$1" ;;
     *) printf '%s\n' "$mimetype" >> ~/mime_issues ;;
   esac
-done
+done < <(mime "$1")
 
 ## Manuals here
 [[ $(apropos -f "${1%\(*}") ]] && exec "$XDG_DATA_HOME"/dsearch/man "${1%\(*}" &
