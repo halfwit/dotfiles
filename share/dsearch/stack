@@ -3,8 +3,8 @@
 
 lsgrp 2 | xargs mapw -u 
 
-lsgrp 2 | while read -r id; do
-  if wname "$id" | grep -i "$1"
+while read -r id; do
+  if wname "$id" | grep -i "$1"; then
     mapw "$id"
   fi
-done
+done < <(lsgrp 2)
