@@ -64,8 +64,7 @@ mime() {
     file -bL --mime-type "$1"
   else
     clip "$1"
-    # Because fuck standardization, right?
-    ctcurl "$1"
+    content-type "$1"
   fi
 }
 
