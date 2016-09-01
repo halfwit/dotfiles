@@ -19,6 +19,7 @@ fetch() {
   printf '%q\n' "$tmp"
 }
 
+
 # Fire off the action
 handle() {
   local input
@@ -34,9 +35,11 @@ handle() {
               exit 0 ;;
       edit)   exec edit                 "$(fetch "$1")" & 
               exit 0 ;;
-      hear)   mpc clear; mpc random off
-              sed -e '/^#/d' < "$(fetch "$1")" | mpc add
-              mpc play 
+      hear)   mpc insert "$1"
+              mpc play
+              mpc next
+              exit 0 ;;
+      man)    exec "$XDG_DATA_HOME"/dsearch/man "$1" &
               exit 0 ;;
     esac
   done
@@ -60,8 +63,10 @@ special() {
 
 # In testing, this outputs a correct mime
 mime() {
-  if [[ -f $1 ]];then 
+  if [[ -f $1 ]]; then 
     file -bL --mime-type "$1"
+  elif apropos -f "${1%\(*}" >/dev/null; then
+    printf "man\n"
   else
     clip "$1"
     content-type "$1"
@@ -88,11 +93,7 @@ while read -r mimetype; do
     image*) parse "${mimetype%;*}" | handle "$1" ;;
     inode*) parse "${mimetype%;*}" | handle "$1" ;;
     text*)  parse "${mimetype%;*}" | handle "$1" ;;
+    man)    printf "man\n"         | handle "$1" ;;
     *) printf '%s\n' "$mimetype" >> ~/mime_issues ;;
   esac
 done < <(mime "$1")
-
-## Manuals here
-[[ $(apropos -f "${1%\(*}") ]] && exec "$XDG_DATA_HOME"/dsearch/man "${1%\(*}" &
-
-## If we've gotten this far, hand it off to dsearch

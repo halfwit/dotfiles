@@ -4,7 +4,7 @@ while :; do
   current=""
   if mpc status | grep -q playing; then
     current="$(mpc current --format "%artist% - %title% $(date -d@$(mpdtime) +%-M:%S)/%time%")"
-    [[ ${#current} -gt 80 ]] && current="...${current:(-80)}"
+    [[ ${#current} -gt 80 ]] && current="${current:0:10}...${current:(-70)}"
   elif mpc status | grep -q paused; then
     current="[paused] "
   fi

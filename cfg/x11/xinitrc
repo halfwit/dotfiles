@@ -8,8 +8,8 @@ sxhkd &
 xcmenu &
 compton --vsync opengl-swc --backend glx -b &
 #syncthing &
-redshift -l 60:112 -t 5400:3000 & 
 ~/local/share/x11/barrun &
 ~/local/share/x11/statsbar & 
+redshift -c ~/local/cfg/redshift.conf &
 GMusicProxy --config ~/local/cfg/gmusicproxy/config &
 exec ~/local/share/x11/watcher 

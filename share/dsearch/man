@@ -38,7 +38,7 @@ opts+=(-l 10 -p "Select manual")
 [[ ! $1 ]] && result="$(apropos . | dmenu "${opts[@]}")"
 
 # Strip `(` from input
-[[ $1 ]] && result="$(apropos result"${1%\(*}")"
+[[ $1 ]] && result="$(apropos "${1%\(*}")"
 
 # Clarify ambiguity
 if [[ $(wc -l <<< "$result") > 1 ]]; then
@@ -46,7 +46,7 @@ if [[ $(wc -l <<< "$result") > 1 ]]; then
 fi
 
 if [[ $result ]]; then
-  handle_result "${result//[a-zA-Z\(\)]/}" "${result%\(*}"
+  handle_result "${result//[a-zA-Z\(\)-_]/}" "${result%\(*}"
 else
   menu "$1"
 fi

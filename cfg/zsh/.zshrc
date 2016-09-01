@@ -260,3 +260,5 @@ compdef _gnu_generic clang-format
 compdef _gnu_generic clang-check
 compdef _gnu_generic bemenu
 compdef _gnu_generic xcmenu
+compdef _gnu_generic qutebrowser
+compdef _gnu_generic file

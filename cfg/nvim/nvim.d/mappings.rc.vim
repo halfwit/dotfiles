@@ -28,6 +28,6 @@ function! s:get_visual_selection()
   return join(lines, "\n")
 endfunction
 
-vmap p :call get_visual_selection() !plumber <CR>
-vmap m :`<,. w !sh<CR>
-vmap M :`<,. !sh<CR>
+vmap p :'<,'> !plumber <CR>
+vmap m :'<,'> w !sh<CR>
+vmap M :'<,'> !sh<CR>

@@ -9,6 +9,7 @@ fi
 # Clear out currently playing lists
 mpc clear
 mpc random off
+mpc repeat on
 [[ -s $optsdir ]] && source "$optsdir"
 opts+=(-p "Select playlist" -l 10 -i)
 mpc lsplaylists | dmenu "${opts[@]}" | while read -r result; do

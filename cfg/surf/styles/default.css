@@ -32,13 +32,11 @@ a {
     color: #5f87af !important;
     background-color: #262626 !important
 }
-a:hover,a:focus {
-    color: #5f87af !important
-}
-a:visited {
-    color: #5f87af !important
-}
+a:hover,a:focus { color: #5f87af !important }
+a:visited       { color: #5f87af !important }
 
+b   { font: bold monospace !important; }
+em  { font: bold monospace !important; }
 /* :::::: Hints Coloring :::::: */
 
 ._hintLabel {
@@ -61,3 +59,4 @@ a:visited {
 article, .container {
   width: auto !important;
 }
+

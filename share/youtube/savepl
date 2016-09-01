@@ -29,11 +29,11 @@ fetch_number() {
 }
 
 fetch_path() {
-    echo '{ "command": ["get_property", "path"] } ' | socat - /tmp/mpvsocket
+    echo '{ "command": ["get_property", "path"] } ' | socat - /tmp/mpvsock
 }
 
 fetch_title(){
-    echo '{ "command": ["get_property", "media-title"] } ' | socat - /tmp/mpvsocket
+    echo '{ "command": ["get_property", "media-title"] } ' | socat - /tmp/mpvsock
 }
 
 parse_json() {

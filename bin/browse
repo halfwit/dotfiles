@@ -4,7 +4,6 @@
 ## main
 lsgrp 2 | xargs mapw -u
 
-#[[ $@ == *reddit* ]] && exec st -t browse -e elinks "$@"
 qt() {
   exec qutebrowser --backend webengine --target window "$@"
 }

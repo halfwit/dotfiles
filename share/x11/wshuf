@@ -7,10 +7,7 @@ WIN="$XDG_CONFIG_HOME"/x11/windows
 getname() {
   cd $WIN
   for i in *; do
-    # This shouldn't have to happen, ideally
-    watom "$1" WM_NAME UTF8_STRING   | grep -io "$i" && break
-    watom "$1" WM_NAME STRING        | grep -io "$i" && break
-    watom "$1" WM_NAME COMPOUND_TEXT | grep -io "$i" && break
+    watom "$1" WM_NAME | grep -io "$i" && break
   done
 }
 

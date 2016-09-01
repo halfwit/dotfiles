@@ -3,23 +3,21 @@
 getname() {
   cd "$XDG_CONFIG_HOME"/x11/windows
   for i in *; do
-    watom "$1" WM_NAME UTF8_STRING   | grep -io "$i" && break
-    watom "$1" WM_NAME STRING        | grep -io "$i" && break
-    watom "$1" WM_NAME COMPOUND_TEXT | grep -io "$i" && break
+    watom "$1" WM_NAME | grep -io "$i" && break
+    watom "$1" _NET_WM_NAME | grep -io "$i" && break
   done
 }
 
 case "$(getname $1)" in
   mpv)        grp=1 ;;
-  browse)     grp=2 ;;
-  NVIM)       grp=3 ;;
-  mutt|news*) grp=4 ;;
-  irc)        grp=5 ;;
-  Zathura)    grp=6 ;;
+  browse)     wtf "$1" && grp=2 ;;
+  NVIM)       wtf "$1" && grp=3 ;;
+  mutt|news*) wtf "$1" && grp=4 ;;
+  irc)        wtf "$1" && grp=5 ;;
+  Zathura)    wtf "$1" && grp=6 ;;
 esac
 
 if [ $grp ]; then
   grp "$grp" "$1"
   "$XDG_DATA_HOME"/x11/groupsbar
-  wtf "$1"
 fi

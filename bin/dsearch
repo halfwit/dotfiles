@@ -93,7 +93,7 @@ handle_results() { # args -> launch
 # Main
 [[ -s $optsfile ]] && source "$optsfile"
 
-[[ $1 ]] && query=$1 || query=$(get_selection)
+[[ $1 ]] && query=$1 || query="$(get_selection)"
 query=${query/*http/http}
 
 # Verify selection
