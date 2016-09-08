@@ -7,9 +7,9 @@ CUR=$(pfw)
 
 case $1 in
   l) wid=$(lsw | xargs wattr xi | sort -nr | sed "/$CUR/d;1s/^[0-9]* //p;d") ;;
-  j) wid=$(lsw | xargs wattr xi | sort -n | sed "/$CUR/d;1s/^[0-9]* //p;d")  ;;
+  j) wid=$(lsw | xargs wattr xi | sort -n  | sed "/$CUR/d;1s/^[0-9]* //p;d")  ;;
   h) wid=$(lsw | xargs wattr yi | sort -nr | sed "/$CUR/d;1s/^[0-9]* //p;d") ;;
-  k) wid=$(lsw | xargs wattr yi | sort -n | sed "/$CUR/d;1s/^[0-9]* //p;d")  ;;
+  k) wid=$(lsw | xargs wattr yi | sort -n  | sed "/$CUR/d;1s/^[0-9]* //p;d")  ;;
   *) wid=$1 ;;
 esac
 

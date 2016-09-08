@@ -6,9 +6,8 @@ wew | while read -r ev; do
     18*)  $DIR/wshuf
           $DIR/groupsbar           ;;
     19*)  $DIR/wshuf
+          $DIR/autotag "${ev#*:}"
           wtf "${ev#*:}"
-          $DIR/groupsbar           ;;
-    16*)  $DIR/autotag "${ev#*:}"
           $DIR/groupsbar           ;;
     17*)  $DIR/focus l
           $DIR/groupsbar           ;;

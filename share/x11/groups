@@ -3,16 +3,9 @@
 # Copyright (c) 2015 Greduan <me@greduan.com>, licensed under the WTFPL
 # Adds group-like capabilities, sorta like those you find in CWM and such WMs
 
-toggle() {
-  read -r id;
-  mapw -t "$id"
-  while read -r id; do
-    mapw -u "$id"
-  done
-}
-
 case "$1" in
   0x0*) grp "$2" "$1"           ;;
-  2) lsgrp "$1" | toggle        ;; 
-  *) lsgrp "$1" | xargs mapw -t ;;
+  2) lsgrp 2      | xargs mapw -u 
+     lsgrp browse | xargs mapw -u ;;
+  *) lsgrp "$1"   | xargs mapw -t ;;
 esac

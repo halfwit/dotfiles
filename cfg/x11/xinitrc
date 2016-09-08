@@ -5,8 +5,10 @@ xhost +si:localuser:"$USER"
 
 mpd &
 sxhkd &
+dunst &
 xcmenu &
 compton --vsync opengl-swc --backend glx -b &
+
 #syncthing &
 ~/local/share/x11/barrun &
 ~/local/share/x11/statsbar & 

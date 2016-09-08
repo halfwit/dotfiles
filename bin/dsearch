@@ -12,7 +12,9 @@ create_menu() {
   xcmenu --list | head -n 1
 
   # Open browsers
-  lsw -a | xargs wname | grep -a "browse - "
+  while read -r id; do
+    watom "$id" WM_NAME | grep -a "browse - "
+  done < <(lsw -a)
 
   # Check bookmarks
   cd "$datadir/bookmark" || exit 1

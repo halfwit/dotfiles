@@ -10,6 +10,11 @@ while :; do
   fi
   level=100
   read -r level < /sys/class/power_supply/BAT0/capacity
-  printf ' %s - %s%s\n' "$(date +'%H:%M')" "$level%" "%{r}$current "
+  if [ $level -lt 20 ]; then
+    level="- $level%"
+  else
+    level=""
+  fi
+  printf ' %s %s%s\n' "$(date +'%H:%M')" "%{F#AF5F5F}$level%{F-}" "%{r}$current "
   sleep 1
 done | lemonbar -F '#444444' -d -b -f "DejaVu Mono:size=9.5" &

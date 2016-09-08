@@ -14,7 +14,7 @@ fetch() {
     tmp="$1" 
   else 
     tmp=$(mktemp)
-    curl -s "$1" -o "$tmp"
+    curl -Ls "$1" -o "$tmp"
   fi
   printf '%q\n' "$tmp"
 }
@@ -50,7 +50,7 @@ special() {
   case "$1" in
     *xkcd*) clip "$1" && handle view "$(curl -s "https://xkcd.com/${1//[^0-9]/}/" | awk '/hotlink/{ print $NF }')" 
             return 1 ;;  
-    *youtube.com/watch*|*youtu.be*|ytdl*|*livestream.com*|*twitch.tv*|*imgur*|*webm|*mkv) clip "$1" && exec play "$1" ;;
+    *youtube.com/watch*|*youtu.be*|ytdl*|*livestream.com*|*twitch.tv*|*webm|*mkv|*gif*) clip "$1" && exec play "$1" ;;
     *ptpb.pw/t/*) clip "$1" && exec st -e asciinema play <(curl -s "${1/\/t/}") ;;
     *ptpb.pw/*/*) clip "$1" && printf '%s\n' "edit" | handle "${1%/*}" 
                   return 1 ;;

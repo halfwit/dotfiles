@@ -6,6 +6,8 @@ function! s:source_rc(path)
     execute 'source' fnameescape('$XDG_CONFIG_HOME/nvim/nvim.d/' . a:path)
 endfunction
 
+set termguicolors
+
 " Initialization
 call plug#begin('$XDG_DATA_HOME/plugged')
 call s:source_rc('init.rc.vim')

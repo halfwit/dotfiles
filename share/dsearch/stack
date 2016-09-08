@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 # Handler to push window to top of stack
 
-lsgrp 2 | xargs mapw -u 
+lsgrp 2      | xargs mapw -u 
+lsgrp browse | xargs mapw -u
 
 while read -r id; do
-  if wname "$id" | grep -i "$1"; then
-    mapw "$id"
+  if watom "$id" WM_NAME | grep -i "$1"; then
+    mapw -m "$id"
+    grp 2 "$id"
   fi
-done < <(lsgrp 2)
+done < <(lsw -a)

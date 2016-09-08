@@ -2,7 +2,11 @@
 # Script to open Vimb instances in tabbed
 
 ## main
-lsgrp 2 | xargs mapw -u
+while read -r id; do
+  grp browse "$id"
+done < <(lsgrp 2)
+
+lsgrp browse | xargs mapw -u 
 
 qt() {
   exec qutebrowser --backend webengine --target window "$@"
