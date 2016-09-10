@@ -1,5 +1,21 @@
 #!/bin/sh
 #
 # get current window id
+CUR=$(pfw)
+cycle() {
+  case $1 in
+    l) unxt -d h -w $CUR ;;
+    k) unxt -d j -w $CUR ;;
+    h) unxt -d l -w $CUR ;;
+    j) unxt -d k -w $CUR ;;
+  esac
 
-wtf $(unxt -d $1 -w `pfw`) 
+}
+
+
+ret=$(unxt -d $1 -w $CUR)
+if [$ret -eq ""]; then
+  ret=$(cycle $1)
+fi
+
+wtf $ret

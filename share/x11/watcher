@@ -9,7 +9,7 @@ wew | while read -r ev; do
           $DIR/autotag "${ev#*:}"
           wtf "${ev#*:}"
           $DIR/groupsbar           ;;
-    17*)  $DIR/focus l
+    17*)  wtf $(lsw | head -n1)
           $DIR/groupsbar           ;;
   esac
 done
