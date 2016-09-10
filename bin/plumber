@@ -49,15 +49,15 @@ handle() {
 special() {
   case "$1" in
     *xkcd*) clip "$1" && handle view "$(curl -s "https://xkcd.com/${1//[^0-9]/}/" | awk '/hotlink/{ print $NF }')" 
-            return 1 ;;  
-    *youtube.com/watch*|*youtu.be*|ytdl*|*livestream.com*|*twitch.tv*|*webm|*mkv|*gif*) clip "$1" && exec play "$1" ;;
-    *ptpb.pw/t/*) clip "$1" && exec st -e asciinema play <(curl -s "${1/\/t/}") ;;
+            exit 0 ;;  
+    *youtube.com/watch*|*youtu.be*|ytdl*|*livestream.com*|*twitch.tv*|*webm|*mkv|*gif*) clip "$1" && exec play "$1" && exit 0;;
+    *ptpb.pw/t/*) clip "$1" && exec st -e asciinema play <(curl -s "${1/\/t/}") && exit 0;;
     *ptpb.pw/*/*) clip "$1" && printf '%s\n' "edit" | handle "${1%/*}" 
-                  return 1 ;;
+                  exit 0 ;;
     *bpaste.net*) clip "$1" && printf '%s\n' "edit" | handle "${1/show/raw}" 
-                  return 1 ;;
-    gopher://*) clip "$1" && exec st -e cgo "$1" ;;
-    *iotek*) clip "$1" && printf '%s\n' "browse" | handle "$1" ;; 
+                  exit 0 ;;
+    gopher://*) clip "$1" && exec st -e cgo "$1" && exit 0 ;;
+    *iotek*) clip "$1" && printf '%s\n' "browse" | handle "$1" && exit 0 ;; 
   esac
 } 
 

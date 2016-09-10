@@ -262,3 +262,4 @@ compdef _gnu_generic bemenu
 compdef _gnu_generic xcmenu
 compdef _gnu_generic qutebrowser
 compdef _gnu_generic file
+compdef _gnu_generic complexity

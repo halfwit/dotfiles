@@ -9,6 +9,7 @@ export GIMP2_DIRECTORY=$XDG_CONFIG_HOME/gimp
 export XCOMPOSEFILE=$XDG_CONFIG_HOME/x11/xcompose
 export WEECHAT_HOME=$XDG_CONFIG_HOME/weechat
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export GOPATH="$XDG_DATA_HOME"/lib/go
 export ELINKS_CONFDIR="$XDG_CONFIG_HOME/elinks"
 
 #Trying to get WLC

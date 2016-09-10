@@ -1,0 +1,1 @@
+printf '%s %s %s %s %s\n' "$(wattr w "$id")" "$(wattr h "$id")" "$(wattr w "$id")" "$(wattr h "$id")" "$id"

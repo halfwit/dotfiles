@@ -1,18 +1,5 @@
 #!/bin/sh
 #
-# z3bra - 2014 (c) wtfpl
-
 # get current window id
-CUR=$(pfw)
 
-case $1 in
-  l) wid=$(lsw | xargs wattr xi | sort -nr | sed "/$CUR/d;1s/^[0-9]* //p;d") ;;
-  j) wid=$(lsw | xargs wattr xi | sort -n  | sed "/$CUR/d;1s/^[0-9]* //p;d")  ;;
-  h) wid=$(lsw | xargs wattr yi | sort -nr | sed "/$CUR/d;1s/^[0-9]* //p;d") ;;
-  k) wid=$(lsw | xargs wattr yi | sort -n  | sed "/$CUR/d;1s/^[0-9]* //p;d")  ;;
-  *) wid=$1 ;;
-esac
-
-# exit if we can't find another window to focus
-test -z "$wid" && echo "$(basename $0): can't find a window to focus" >&2 && exit 1
-wtf "$wid"
+wtf $(unxt -d $1 -w `pfw`) 
