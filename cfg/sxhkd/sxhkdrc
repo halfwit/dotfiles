@@ -4,7 +4,7 @@ super + {h,l,k,period}
 super + shift + {p,j}
          winid=$(pfw) && wrs {20,-20} 0 "$winid" && ~/local/share/x11/wshuf && wtf "$winid"
 super + {j,c,v,p}
-         ~/local/share/x11/focus {h,j,k,l}
+         wtf $(unxt -d {h,j,k,l} -w $(pfw) -c )
 @F11
          ~/local/share/x11/fullscreen $(pfw)
 super + i 

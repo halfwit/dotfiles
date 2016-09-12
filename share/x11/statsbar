@@ -17,4 +17,4 @@ while :; do
   fi
   printf ' %s %s%s\n' "$(date +'%H:%M')" "%{F#AF5F5F}$level%{F-}" "%{r}$current "
   sleep 1
-done | lemonbar -F '#444444' -d -b -f "DejaVu Mono:size=9.5" &
+done | lemonbar -F '#bcbcbc' -d -b -f "DejaVu Mono:size=9.5" &
