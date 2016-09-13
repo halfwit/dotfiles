@@ -9,9 +9,10 @@ dunst &
 xcmenu &
 unclutter -grab &
 compton --vsync opengl-swc --backend glx -b &
-#syncthing &
+syncthing &
 ~/local/share/x11/barrun &
 ~/local/share/x11/statsbar & 
 redshift -c ~/local/cfg/redshift.conf &
 GMusicProxy --config ~/local/cfg/gmusicproxy/config &
+hsetroot -solid '#444444'
 exec ~/local/share/x11/watcher 
