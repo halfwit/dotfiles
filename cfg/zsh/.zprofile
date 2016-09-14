@@ -1,6 +1,6 @@
 # XDG_CONFIG_HOME/zsh/.zprofile
 
-export PATH=$HOME/local/bin:${PATH}
+export PATH=${PATH}:$HOME/local/bin:$HOME/android/tools:$HOME/android/platform-tools
 export FT2_SUBPIXEL_HINTING=1
 
 #XDG Compliance enforcing
@@ -54,5 +54,7 @@ export WINEARCH=win64
 
 source <(dircolors $XDG_CONFIG_HOME/terminal-colors.d/ls.enable)
 export NVIM_TUI_ENABLBE_TRUE_COLOR=1
+export ANDROID_HOME=$HOME/android
+export ANDROID_SDK=$HOME/android
 
 export DBUS_SESSION_BUS_ADDRESS=$HOME/local/cache/dbus
