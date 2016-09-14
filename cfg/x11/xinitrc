@@ -8,7 +8,7 @@ sxhkd &
 dunst &
 xcmenu &
 unclutter -grab &
-compton --vsync opengl-swc --backend glx -b &
+compton -b &
 syncthing &
 ~/local/share/x11/barrun &
 ~/local/share/x11/statsbar & 

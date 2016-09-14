@@ -5,17 +5,14 @@
 # depends on: focus.sh
 
 FSFILE=${FSFILE:-/tmp/fwin}
-SIZE=$XDG_CONFIG_HOME/x11/size
 
 if test -f $FSFILE; then
-    cat $FSFILE | xargs -n 5 wtp
     rm -f $FSFILE
+    "$XDG_DATA_HOME"/x11/wshuf
 else
-    wattr xywhi $1 > $FSFILE
-    wtp $(sed -ne 's/gaps=//p' $SIZE) \
-        $(sed -ne 's/gaps=//p' $SIZE) \
-        $(sed -ne 's/fulw=//p' $SIZE) \
-        $(sed -ne 's/fulh=//p' $SIZE) $1
+    echo "$1" >  $FSFILE
+    . "$XDG_CONFIG_HOME"/x11/size
+    wtp "$gaps" "$gaps" "$fulw" "$fulh" "$1"
     chwso -r "$1"
 fi
 
