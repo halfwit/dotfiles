@@ -1,6 +1,6 @@
 # XDG_CONFIG_HOME/zsh/.zprofile
 
-export PATH=${PATH}:$HOME/local/bin:$HOME/android/tools:$HOME/android/platform-tools
+export PATH=$HOME/local/bin:$HOME/android/tools:$HOME/android/platform-tools:${PATH}
 export FT2_SUBPIXEL_HINTING=1
 
 #XDG Compliance enforcing
