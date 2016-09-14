@@ -20,7 +20,9 @@ winsize() {
 
 ## Main ##
 # window dimensions and gap
-[ -f /tmp/fwin ] && exit 0
+if watom `lsw -r` FS; then
+  exit 0
+fi
 
 . "$XDG_CONFIG_HOME"/x11/size && [ ! $width ] && [ !$heigh ] && exit 1
 lsw | winsize | binpack -x "$width" -y "$heigh" -g "$gaps" | xargs -n 5 wtp
