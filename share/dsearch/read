@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 RL="$XDG_CACHE_HOME/readlater"
 
@@ -6,7 +6,7 @@ source $XDG_CONFIG_HOME/dmenu/dmenucolors
 opts+=(-l 10 -p "Read next")
 # read items from read later list
 
-RESULT=$(find $RL -type f -printf "%f\n" | dmenu "${opts[@]}")
-test -z $RESULT && exit 0
+RESULT=$(find "$RL" -type f ! -name .stfolder -printf "%f\n" | dmenu "${opts[@]}")
+test -z "$RESULT" && exit 0
 
-plumber $(cat "$RL/$RESULT")
+plumber "$(cat "$RL/$RESULT")"
