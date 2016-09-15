@@ -9,4 +9,4 @@ URL=$(xcmenu --list | dmenu "${opts[@]}")
 # Make sure we have something
 TITLE=$(curl $URL -so - | grep -iPo '(?<=<title>)(.*)(?=</title>)' || echo "" | dmenu "${opts[@]}" -p "Enter title")
 
-printf '%s\n%s\n' "$TITLE" "$URL" >> $XDG_CACHE_HOME/read\ later
+printf '%s\n' "$URL" > "$XDG_CACHE_HOME"/readlater/"$TITLE"

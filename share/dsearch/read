@@ -1,23 +1,12 @@
-#!/bin/sh
+#!/bin/bash
 
-RL="$XDG_CACHE_HOME/read later"
+RL="$XDG_CACHE_HOME/readlater"
 
+source $XDG_CONFIG_HOME/dmenu/dmenucolors
+opts+=(-l 10 -p "Read next")
 # read items from read later list
-result() {
-  while {
-    read -r title 
-    read -r url
-  } do
-    printf '%s\n' "$title"
-  done < "$RL" | dmenu -l 10 
-} 
 
-tmp=$(mktemp)
-
-RESULT="$(result)"
+RESULT=$(find $RL -type f -printf "%f\n" | dmenu "${opts[@]}")
 test -z $RESULT && exit 0
 
-URL=$(grep -A 1 -- "$RESULT" "$RL" | tail -n 1)
-grep -v -e "$RESULT" -e "$URL" "$RL" > "$tmp"
-mv "$tmp" "$RL"
-exec plumber "$URL"
+plumber $(cat "$RL/$RESULT")
