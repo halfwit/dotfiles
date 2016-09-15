@@ -5,6 +5,8 @@ source "$XDG_CONFIG_HOME"/dmenu/dmenucolors
 
 opts+=(-p "Select url" -l 10)
 URL=$(xcmenu --list | dmenu "${opts[@]}")
-TITLE=$(curl $URL -so - | grep -iPo '(?<=<title>)(.*)(?=</title>)')
 
-printf '%s\n%s\n\n' "$TITLE" "$URL" >> $XDG_CACHE_HOME/notes/read\ later
+# Make sure we have something
+TITLE=$(curl $URL -so - | grep -iPo '(?<=<title>)(.*)(?=</title>)' || echo "" | dmenu "${opts[@]}" -p "Enter title")
+
+printf '%s\n%s\n' "$TITLE" "$URL" >> $XDG_CACHE_HOME/read\ later

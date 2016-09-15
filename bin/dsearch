@@ -47,6 +47,7 @@ handle_results() { # args -> launch
     !pocket) exec "$handledir"/pocket ;;
     !photo)  exec "$handledir"/photo  ;;
     !notes)  exec "$handledir"/notes  ;;
+    !read)   exec "$handledir"/read   ;;
     !docs)   exec "$handledir"/docs   ;;
     !game)   exec "$handledir"/game   ;;
     !save)   exec "$handledir"/save   ;;
