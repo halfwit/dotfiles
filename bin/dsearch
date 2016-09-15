@@ -31,7 +31,7 @@ create_menu() {
   find -type f -printf "!%f\n" | sort -u
   printf '%s\n%s\n%s\n' "!snap" "!stop" "!close"
 
-  find ~/ -type f
+  find ~/ -type f ! -name *.git*
 }
 
 get_selection() {
