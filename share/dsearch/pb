@@ -14,4 +14,4 @@ else
   result=$(selection)
 fi
 
-pbpst -Sf "$result" | xcmenu -ic
+pbpst -Sf $result || curl -sT- https://p.iotek.org < $result | xcmenu -ic

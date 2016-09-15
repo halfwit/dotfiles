@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Update RSS feed of "read later"
+source "$XDG_CONFIG_HOME"/dmenu/dmenucolors
+
+opts+=(-p "Select url" -l 10)
+URL=$(xcmenu --list | dmenu "${opts[@]}")
+TITLE=$(curl $URL -so - | grep -iPo '(?<=<title>)(.*)(?=</title>)')
+
+printf '%s\n%s\n\n' "$TITLE" "$URL" >> $XDG_CACHE_HOME/notes/read\ later
