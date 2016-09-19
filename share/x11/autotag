@@ -8,6 +8,7 @@ getname() {
   done
 }
 
+# See if already exists
 case "$(getname $1)" in
   mpv)        grp=1 ;;
   browse)     wtf "$1" && grp=2 ;;

@@ -5,7 +5,5 @@
 
 case "$1" in
   0x0*) grp "$2" "$1"           ;;
-  2) lsgrp 2      | xargs mapw -u 
-     lsgrp browse | xargs mapw -u ;;
-  *) lsgrp "$1"   | xargs mapw -t ;;
+  *) lsgrp "$1" | xargs mapw -t ;;
 esac

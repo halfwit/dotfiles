@@ -15,5 +15,3 @@ wew | while read -r ev; do
           $DIR/groupsbar           ;;
   esac
 done
-
-[ -f /tmp/fwin ] && wtf $(cat /tmp/fwin)

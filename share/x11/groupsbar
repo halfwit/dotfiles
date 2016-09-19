@@ -7,7 +7,7 @@ declare -a item
 for (( i = 1; i <= $panels; i++ )); do
   groups=$(lsgrp "$i")
   if [[ $groups != "" ]]; then
-    if lsgrp "$i" | xargs wattr m; then
+    if wattr m "$(lsgrp "$i" | tail -n 1)"; then
       item[$i]="◉"
     else
       item[$i]="◍"
