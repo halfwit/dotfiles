@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Front end for notes.
+
+
+readonly optsfile=$XDG_CONFIG_HOME/dmenu/dmenucolors
+
+create_menu() {
+  cd $notedir
+  for i in *; do 
+    if [[ -s $i ]]; then 
+      printf '%s\n' "$i"
+    else 
+      rm "$i"
+    fi
+  done
+}
+
+menu() {
+  opts+=(-p "Select a note: " -l 10)
+  create_menu | dmenu "${opts[@]}"
+}
+
+## Main
+
+# Theme for dmenu
+[[ -s $optsfile ]] && source "$optsfile"
+
+
+notedir=$XDG_CACHE_HOME/notes
+result=$(menu)
+
+[[ ! $result ]] && exit 
+width=$(wc -L "$notedir/$result" | awk '{print $1}') 
+height=$(wc -l "$notedir/$result" | awk '{print $1}')
+
+if [[ $width -gt "68" ]]; then
+  width="68"
+fi
+
+exec st -t popup -g "$width"x"$(( height + 1 ))" /usr/bin/less "$notedir/$result"

@@ -1,0 +1,3 @@
+ignw -s $id
+chwso -r $id
+wtp $gaps $gaps $(wattr w $id) $(wattr h $id) $id

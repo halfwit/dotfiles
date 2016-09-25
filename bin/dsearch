@@ -45,6 +45,7 @@ handle_results() { # args -> launch
     !listen) exec "$handledir"/listen ;;
     !lyrics) exec "$handledir"/lyrics ;;
     !pocket) exec "$handledir"/pocket ;;
+    !qnotes) exec "$handledir"/qnotes ;;
     !photo)  exec "$handledir"/photo  ;;
     !notes)  exec "$handledir"/notes  ;;
     !read)   exec "$handledir"/read   ;;
