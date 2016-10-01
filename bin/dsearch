@@ -29,7 +29,7 @@ create_menu() {
   # Bang completions
   cd "$handledir" || exit 1
   find -type f -printf "!%f\n" | sort -u
-  printf '%s\n%s\n%s\n' "!snap" "!stop" "!close"
+  printf '%s\n%s\n%s\n%s\n' "!snap" "!stop" "!close" "!win"
 
   find ~/ -type f ! -name *.git*
 }
@@ -47,6 +47,7 @@ handle_results() { # args -> launch
     !pocket) exec "$handledir"/pocket ;;
     !qnotes) exec "$handledir"/qnotes ;;
     !photo)  exec "$handledir"/photo  ;;
+    !video)  exec "$handledir"/video  ;;
     !notes)  exec "$handledir"/notes  ;;
     !read)   exec "$handledir"/read   ;;
     !docs)   exec "$handledir"/docs   ;;
@@ -86,6 +87,7 @@ handle_results() { # args -> launch
     # Not really search related, but useful 
     !snap)   exec "$handledir"/rec "snap"                    ;;
     !stop)   exec "$handledir"/rec "stop"                    ;;
+    !win)    exec "$handledir"/rec "win"		     ;;
     !rec)    exec "$handledir"/rec "vid"                     ;;
     *\ -\ *) read -r result < "$datadir/bookmark/$1" 
              exec browse "$result"     ;;   

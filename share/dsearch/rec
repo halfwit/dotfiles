@@ -1,17 +1,23 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Screen record or screen shot
 
-readonly pb="https://ptpb.pw/?u=1"
+PB="https://ptpb.pw/?u=1"
 
 picture() {
-  maim -d 1 --opengl --format png /dev/stdout | curl -sF c=@- "$pb" | sed "s/$/.png/" | xcmenu -ic
+  maim -d 1 --format png /dev/stdout | curl -sF c=@- "$PB" | sed 's/$/.png/' | xcmenu -ic
+}
+
+win() {
+  maim -s -d 1 --format png /dev/stdout | curl -sF c=@- "$PB" | sed 's/$/.png/' | xcmenu -ic
+
 }
 
 video() {
   tmp=$(mktemp --suffix=.mkv)
   ffmpeg -y -video_size "$(wattr w "$(lsw -r)")x$(wattr h "$(lsw -r)")" -framerate 60 -f x11grab -i "$DISPLAY"  "$tmp"
   wait
-  curl -sF c=@"$tmp" "$pb" | xcmenu -ic
+  curl -sF c=@"$tmp" "$PB" | xcmenu -ic
+  rm "$tmp"
 }
 
 ## Main
@@ -20,6 +26,8 @@ video() {
 case "$1" in
   snap)
     picture ;;
+  win)
+    win ;;
   vid)
     video ;; 
   stop)

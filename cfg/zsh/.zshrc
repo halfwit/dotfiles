@@ -265,3 +265,4 @@ compdef _gnu_generic file
 compdef _gnu_generic complexity
 compdef _gnu_generic valgrind
 compdef _gnu_generic curl
+compdef _gnu_generic screenkey
