@@ -8,7 +8,12 @@ picture() {
 }
 
 win() {
-  maim -s -d 1 --format png /dev/stdout | curl -sF c=@- "$PB" | sed 's/$/.png/' | xcmenu -ic
+  WID=$(lsw | head -n 1)
+  W=$(wattr w $WID)
+  H=$(wattr h $WID)
+  X=$(wattr x $WID)
+  Y=$(wattr y $WID)
+  maim --geometry="$W"x"$H"+"$X"+"$Y" -d 1 --format png /dev/stdout | curl -sF c=@- "$PB" | sed 's/$/.png/' | xcmenu -ic
 
 }
 
