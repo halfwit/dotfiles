@@ -4,37 +4,28 @@
 PB="https://ptpb.pw/?u=1"
 
 picture() {
-  maim -d 1 --format png /dev/stdout | curl -sF c=@- "$PB" | sed 's/$/.png/' | xcmenu -ic
+	maim -d 1 --format png /dev/stdout | curl -sF c=@- "$PB" | sed 's/$/.png/' | xcmenu -ic
 }
 
 win() {
-  WID=$(lsw | head -n 1)
-  W=$(wattr w $WID)
-  H=$(wattr h $WID)
-  X=$(wattr x $WID)
-  Y=$(wattr y $WID)
-  maim --geometry="$W"x"$H"+"$X"+"$Y" -d 1 --format png /dev/stdout | curl -sF c=@- "$PB" | sed 's/$/.png/' | xcmenu -ic
-
+	WID=$(lsw | tail -n 1)
+	maim -i $WID -d 1 --format png /dev/stdout | curl -sF c=@- "$PB" | sed 's/$/.png/' | xcmenu -ic
 }
 
 video() {
-  tmp=$(mktemp --suffix=.mkv)
-  ffmpeg -y -video_size "$(wattr w "$(lsw -r)")x$(wattr h "$(lsw -r)")" -framerate 60 -f x11grab -i "$DISPLAY"  "$tmp"
-  wait
-  curl -sF c=@"$tmp" "$PB" | xcmenu -ic
-  rm "$tmp"
+ 	tmp=$(mktemp --suffix=.mkv)
+ 	ffmpeg -y -video_size "$(wattr w "$(lsw -r)")x$(wattr h "$(lsw -r)")" -framerate 60 -f x11grab -i "$DISPLAY"  "$tmp"
+ 	wait
+	curl -sF c=@"$tmp" "$PB" | xcmenu -ic
+ 	rm "$tmp"
 }
 
 ## Main
 
 
 case "$1" in
-  snap)
-    picture ;;
-  win)
-    win ;;
-  vid)
-    video ;; 
-  stop)
-    pkill -SIGINT ffmpeg ;;
+ 	snap) picture ;;
+ 	win)  win ;;
+	vid)  video ;; 
+	stop) pkill -SIGINT ffmpeg ;;
 esac

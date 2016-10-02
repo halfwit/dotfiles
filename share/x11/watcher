@@ -4,13 +4,13 @@ DIR=$XDG_DATA_HOME/x11
 wew | while read -r ev; do
   case "$ev" in
     18*)  $DIR/wshuf
-          wtf $(lsw | head -n1)
+          wtf $(lsw | tail -n1)
           $DIR/groupsbar           ;;
     19*)  $DIR/wshuf
           $DIR/autotag "${ev#*:}"
           wtf "${ev#*:}"
           $DIR/groupsbar           ;;
-    17*)  wtf $(lsw | head -n1)
+    17*)  wtf $(lsw | tail -n1)
           watom `lsw -r` FS | grep "${ev#*:}" && xprop -root -remove FS && $DIR/wshuf
           $DIR/groupsbar           ;;
   esac

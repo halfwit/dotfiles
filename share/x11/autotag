@@ -18,6 +18,8 @@ case "$(getname $1)" in
   Zathura)    wtf "$1" && grp=6 ;;
 esac
 
+chwso -r "$1"
+
 if [ $grp ]; then
   grp "$grp" "$1"
   "$XDG_DATA_HOME"/x11/groupsbar
