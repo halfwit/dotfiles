@@ -45,6 +45,14 @@ done
 
 [[ $1 ]] && input="$1" || input=$(xcmenuctrl -u)
 
+if grep "github" <<< "$input"; then
+  cd $HOME/code
+  st -t float -g 45x4+20+20 -e git clone "$input"
+  cd "${input##*/}"
+  st &
+  exit 0
+fi
+
 [[ $input ]] && case $(curl -sI "$input" | grep -i content-type) in
   *text/plain*) name "note"     | note       "$input" ;;
   *image*)      name "picture"  | image      "$input" ;;

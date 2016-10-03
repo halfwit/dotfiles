@@ -37,6 +37,7 @@ create_menu() {
 get_selection() {
   opts+=(-p Search)
   create_menu | dmenu -l 10 "${opts[@]}"
+  #create_menu | rofi -dmenu
 }
 
 handle_results() { # args -> launch

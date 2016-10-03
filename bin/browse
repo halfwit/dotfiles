@@ -10,7 +10,7 @@ qt() {
 
 case "$@" in
   *google*)   qt "$@" ;;
-  *github*)   qt "$@" ;; 
+#  *github*)   qt "$@" ;; 
   *nixers*)   qt "$@" ;;
   *youtube*)  qt "$@" ;;
   *kijiji*)   qt "$@" ;;

@@ -5,19 +5,45 @@ grep / <<< $1 && exec browse "https://github.com/$1"
 
 . $XDG_CONFIG_HOME/dmenu/dmenucolors
 
+build_entries() {
+  while {
+    read -r name 
+    read -r description
+  } do
+    printf '%s |- %s\n' "$name" "$description"
+  done
+}
+
+build_names() {
+  tmp=$(mktemp -d) 
+  while {
+    read -r name
+    read -r url
+  } do
+    curl -s "$url" -o "$tmp/$name" &
+    printf 'IMG:%s\t%s\n' "$tmp/$name" "$name"
+  done
+}
+
 result=$(curl -s "https://api.github.com/search/users?q=$1")
 
 count=$(printf '%s\n' "$result" | jshon -e total_count -u)
 
 if [ $count -gt 1 ]; then
   opts+=(-l 10 -p "Select user")
-  result=$(printf '%s\n' "$result" | jshon -e items -a -e login -u | dmenu "${opts[@]}")
+  result=$(printf '%s\n' "$result" | jshon -e items -a -e login -upe avatar_url -u | build_names | dmenu "${opts[@]}")
 else
   result=$(printf '%s\n' "$result" | jshon -e items -a -e login -u)
 fi
 
+[[ ! $result ]] && exit 0
 repo=$(curl -s "https://api.github.com/search/repositories?q=user:$result") 
 opts+=(-l 10 -p "Select repository")
-url=$(printf '%s\n' "$repo" | jshon -e items -a -e name -u | dmenu "${opts[@]}") 
+url=$(printf '%s\n' "$repo" | jshon -e items -a -e name -upe description -u | build_entries | column -s '|' -t | dmenu "${opts[@]}") 
 
-[ $url ] && browse "https://github.com/$result/$url"
+[[ ! $url ]] && exit 0
+
+url="${url%%\ -*}"
+
+xcmenu -ic "https://github.com/$result/$url"
+browse "https://github.com/$result/$url"
