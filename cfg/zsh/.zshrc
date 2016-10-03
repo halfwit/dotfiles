@@ -267,3 +267,4 @@ compdef _gnu_generic valgrind
 compdef _gnu_generic curl
 compdef _gnu_generic screenkey
 compdef _gnu_generic slop
+compdef _gnu_generic cmake

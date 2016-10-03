@@ -12,13 +12,13 @@ name() {
   printf '\n' | dmenu "${opts[@]}" 
 }
 
-document() {
+doc() {
   local result cover
   read -r result
   cover="https://ptpb.pw/REYs.png"
-  [[ $result ]] && st - e bookkeep "$result" mk -t "$1" -e nvim -c "$cover"
+  [[ $result ]] && st -t float -e /home/halfwit/local/bin/bookkeep mk "$result" -t "$1" -e nvim -c "$cover"
   if [[ -s $XDG_DATA_HOME/librarian/bin/$result ]]; then
-    curl -s "$2" > media/docs/"$1/$result"
+    curl -s "$2" > media/docs/"$result.$1"
   fi
 }
 
