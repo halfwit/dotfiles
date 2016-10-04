@@ -4,15 +4,13 @@
 
 set title
 
-" Tabs to spaces, etc
-set smarttab
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 set expandtab
 
 " Numbers on
-set number
+set nonumber
 set modeline
 set backspace=indent,eol,start
 
@@ -25,3 +23,4 @@ set matchpairs+=<:>
 set autoread
 
 autocmd! BufWritePost * Neomake
+noh
