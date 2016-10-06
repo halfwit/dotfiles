@@ -57,7 +57,7 @@ if [[ $feed == "quit" || ! $feed ]]; then
 fi
 
 opts+=(-p "Select feed")
-select_site "$RSS/$feed" | append "mark all as read" | append "quit" |  dmenu "${opts[@]}" | handle_result "$feed"
+select_site "$RSS/$feed" | tac | append "mark all as read" | append "quit" |  dmenu "${opts[@]}" | handle_result "$feed"
 
 sleep .1
 exec "$XDG_DATA_HOME"/dsearch/rss

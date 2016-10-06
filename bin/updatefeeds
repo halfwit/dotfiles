@@ -10,7 +10,7 @@ generate_files() {
         read -r url
     } do
         
-    title="$(echo "$title" | sed 's/.*title=//' | sed -e 's#/#-##g')"
+    title="$(echo "$title" | sed 's/.*title=//' | tr '/' ' ')"
     if [ ! -f "$RSS/$1/$title" ]; then
         echo "$url" | sed 's/.*url=//' > "$RSS/$1/[new] $title"
     fi
