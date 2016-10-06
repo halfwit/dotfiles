@@ -1,62 +1,63 @@
-#!/usr/bin/env bash
-## Use tt-rss to fetch feeds
+#!/bin/bash
 
-readonly optsdir="$XDG_CONFIG_HOME"/dmenu/dmenucolors
-readonly address=http://halfwit.duckdnse.org:28128/tt-rss/api/
-tmp=$(mktemp -d)
+## Dmenu based frontend to read RSS directory
+RSS=$XDG_CACHE_HOME/rss
+source "$XDG_CONFIG_HOME"/dmenu/dmenucolors
 
-
-login() {
-  read -r pass < "$XDG_CONFIG_HOME"/rss/rss
-  curl -d '{"op":"login","user":"halfwit","password":"'$pass'"}' "$address" | jshon -e content -e session_id -u
+select_site() {
+    cd "$1"
+    for i in *; do
+        [[ "$i" != "url" ]] && printf '%s\n' "$i"
+    done
 }
 
-feeds() {
-  curl -d '{"sid":"'$1'","op":"getFeeds","cat_id":"-4","unread_only":"true"}' "$address" | jshon -e content -a -e unread -upe title -upe id
+filter_read() {
+    while read -r title; do
+        if ls "$RSS/$title"/\[new\]* &>/dev/null; then
+            printf '%s\n' "$title"
+        fi
+    done
+    printf '%s\n%s\n' "view all" "quit"
 }
 
-logoff() {
-  curl -d '{"sid":"'$1'","op":"logout"}' "$address"
+append() {
+    while read -r entry; do
+        printf '%s\n' "$entry"
+    done
+    printf '%s\n' "$1"
 }
 
-feedlist() {
-  while {
-    read -r one
-    read -r two
-    read -r three
-  } do
-    printf '%s %s %s\n' "($one)" "$two" "$three" >> "$tmp/$1"
-  done
+handle_result() {
+    read -r selection
+    if [[ $selection == "mark all as read" ]]; then
+        cd "$RSS/$1"
+        for i in *; do
+            mv "$i" "${i/\[new\]\ /}"
+        done
+        exit 0 
+    fi
+    if [[ $selection == "quit" ]]; then
+        exit 0
+    fi
+
+    read -r url < "$RSS/$1/$selection"
+    mv "$RSS/$1/$selection" "$RSS/$1/${selection/\[new\]\ /}"
+    plumber "$url" & 
 }
 
-fetch_feed() {
-  curl -d '{"sid":"'$1'","op":"getHeadlines","feed_id":"'$2'","view_mode":"unread"}' "$address" | jshon -e content -a -e author -upe title -upe link -u 
-}
+opts+=(-p "Select sub" -l 10)
+feed=$(select_site "$RSS" | filter_read | dmenu "${opts[@]}")
 
-markread() {
-  curl -d '{"sid":"'$1'","op":"updateArticle","article_ids":"'$2'","mode":"0","field":"2"}' "$address"
-}
+if [[ $feed == "view all" ]]; then
+    feed=$(select_site "$RSS" | append "quit" | dmenu "${opts[@]}") 
+fi
 
-## main
+if [[ $feed == "quit" || ! $feed ]]; then
+    exit 0
+fi
 
-[[ -s $optsdir ]] && source "$optsdir"
+opts+=(-p "Select feed")
+select_site "$RSS/$feed" | append "mark all as read" | append "quit" |  dmenu "${opts[@]}" | handle_result "$feed"
 
-session_id=$(login)
-feeds "$session_id" | feedlist "list"
-
-opts+=(-l 10 -p "Select feed")
-result=$(awk '{$(NF--)="";  print}' "$tmp"/list | dmenu "${opts[@]}") 
-
-# currently not working
-markread "$session_id" "$(grep "$result" "$tmp"/list | awk '{ print $NF }')"
-
-[[ ! $result ]] && break
-
-fetch_feed "$session_id" "$(grep "$result" "$tmp"/list | awk '{ print $NF }')" | feedlist "${result#*\ }" 
-
-selection=$(awk '{$(NF--)=""; print}' "$tmp/${result#*\ }" | dmenu "${opts[@]}")
-url=$(grep "$selection" "$tmp/${result#*\ }" | awk '{ print $NF }')
-
-[[ $url ]] && plumber "$url" &
-
-logoff "$session_id" 
+sleep .1
+exec "$XDG_DATA_HOME"/dsearch/rss

@@ -4,4 +4,4 @@ application/pdf docs
 application/epub+zip docs
 application/binary browse
 application/json browse
-
+application/x-shockwave-flash play

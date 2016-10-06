@@ -1,0 +1,26 @@
+#!/bin/sh
+
+## Script to fetch RSS + atom feeds 
+RSS="$XDG_CACHE_HOME"/rss
+
+generate_files() {
+   
+    while {
+        read -r title
+        read -r url
+    } do
+        
+    title="$(echo "$title" | sed 's/.*title=//' | sed -e 's#/###')"
+    if [ ! -f "$RSS/$1/$title" ]; then
+        echo "$url" | sed 's/.*url=//' > "$RSS/$1/[new] $title"
+    fi
+    done
+}
+
+# Download feed 
+cd "$RSS"
+for i in *; do
+    read -r url < "$i"/url
+    curl -s "$url" | xml2 | grep -e 'media:title=.*' -e 'content/@url=.*' | generate_files "$i"
+
+done
