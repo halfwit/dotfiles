@@ -46,18 +46,15 @@ handle_results() { # args -> launch
     !listen) exec "$handledir"/listen ;;
     !lyrics) exec "$handledir"/lyrics ;;
     !pocket) exec "$handledir"/pocket ;;
-    !qnotes) exec "$handledir"/qnotes ;;
+    !notes)  exec "$handledir"/notes  ;;
     !photo)  exec "$handledir"/photo  ;;
     !video)  exec "$handledir"/video  ;;
-    !notes)  exec "$handledir"/notes  ;;
     !read)   exec "$handledir"/read   ;;
     !docs)   exec "$handledir"/docs   ;;
     !game)   exec "$handledir"/game   ;;
     !save)   exec "$handledir"/save   ;;
     !link)   exec "$handledir"/link   ;;
     !song)   exec "$handledir"/song   ;;
-    !todo)   exec "$handledir"/todo   ;;
-    !pass)   exec "$handledir"/pass   ;;	
     !rss)    exec "$handledir"/rss    ;;
     !man)    exec "$handledir"/man    ;;
     !mix)    exec "$handledir"/mix    ;;
@@ -83,6 +80,7 @@ handle_results() { # args -> launch
     !pl*)           exec "$handledir"/yt     "$1"            ;;
     !yt*)           exec "$handledir"/yt     "${1#*yt }"     ;;
     !pb*)           exec "$handledir"/pb     "${1#*pb }"     ;;
+    !rq*)           exec "$handledir"/rq     "${1#*rq }"     ;;
   
 
     !close) pkill surf && pkill qutebrowser                  ;;

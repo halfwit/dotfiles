@@ -16,7 +16,7 @@ create_menu() {
 }
 
 menu() {
-  opts+=(-p "Select a note: " -l 10)
+  opts+=(-p "Select or create a new note: " -l 10)
   create_menu | dmenu "${opts[@]}"
 }
 
@@ -30,11 +30,6 @@ notedir=$XDG_CACHE_HOME/notes
 result=$(menu)
 
 [[ ! $result ]] && exit 
-width=$(wc -L "$notedir/$result" | awk '{print $1}') 
-height=$(wc -l "$notedir/$result" | awk '{print $1}')
+[[ ! -e $notedir/$result ]] && touch "$notedir/$result"
 
-if [[ $width -gt "80" ]]; then
-  width="80"
-fi
-
-exec st -t popup -g "$width"x"$(( height + 1 ))" /usr/bin/less "$notedir/$result"
+exec st -t NVIM -e /usr/bin/nvim "$notedir/$result"

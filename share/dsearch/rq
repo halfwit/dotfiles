@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+## Reddit search
+
+readonly optsdir="$XDG_CONFIG_HOME"/dmenu/dmenucolors
+tmp="$(mktemp -d)"
+
+fetch() {
+    curl -s -X GET -L "https://www.reddit.com/search.json?q=${1//\ /%20}&sort=new&count=50" -A "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5 Build/MOB3OD)" | jshon -e data -e children -a -e data -e title -upe url -u
+}
+
+build_dirs() {
+    local title url thumbnail
+    while {
+        read -r title
+        read -r url
+    } do
+        printf '%s\n' "$url" > "$tmp/$title"
+        printf '%s\n' "$title"
+    done
+}
+
+handle_selection() {
+    while read -r selection; do
+        read -r url < "$tmp/$selection"
+        [[ $url ]] && plumber "$url" &
+    done
+}
+
+[[ -s $optsdir ]] && source "$optsdir"
+
+opts+=(-l 10 -p "Search")
+fetch "$1" | build_dirs | dmenu "${opts[@]}" | handle_selection

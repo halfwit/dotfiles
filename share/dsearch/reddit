@@ -1,43 +1,40 @@
 #!/usr/bin/env bash
-## Requires Lynx
-##TODO: currently only works on sites with Discussion, Screenshot and Video tags.
+## Requires jshon 
 
-readonly optsdir="$XDG_CONFIG_HOME"/dmenu/denucolors
-readonly datadir="$XDG_DATA_HOME"/reddit
+readonly optsdir="$XDG_CONFIG_HOME"/dmenu/dmenucolors
+tmp=$(mktemp -d)
 
-tmp=$(mktemp -d )
-
-createsub() {
-  local sub count url title
-  mkdir "$tmp/$1"
-  sub=$(lynx -dump "https://www.reddit.com/r/$1")
-  count=0
-  grep -e Discussion -e Screenshot -e Video <<< "$sub" | while read -r item; do 
-    url="${item%%\]*}"
-    url=$(grep "${url#*\[}" <<< "$sub" | xurls) 
-    if [[ $url ]]; then 
-      title=${item#*\]}
-      title=${title%%\(*}
-      printf '%s\n' "$url" > "$tmp/$1/$title"
-    fi
-  done
+fetch() {
+    curl -s -X GET -L "https://www.reddit.com/r/${1//\ /%20}/new/.json?count=50" -A "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5 Build/MOB3OD)" | jshon -e data -e children -a -e data -e title -upe url -upe thumbnail -upe link_flair_text -u 
 }
 
-load() {
-  local entry
-  cd "$tmp/$1"
-  for i in *; do
-    [[ $i == *All* || $i == *Meta* ]] || printf '%s\n' "$i"
-  done
+build_dirs() {
+    local title url thumbnail flair
+    while {
+        read -r title
+        read -r url
+        read -r thumbnail
+        read -r flair
+    } do
+        curl -s "$thumbnail" -o "$tmp/$title.image" &
+        printf '%s\n' "$url" > "$tmp/$title.url"
+        if [[ $flair ]]; then
+            printf 'IMG:%b\t%s\t- %s\n' "$tmp/$title.image" "[$flair]" "$title" 
+        else
+            printf 'IMG:%b\t%s\n' "$tmp/$title.image" "$title"
+        fi
+    done
+}
+
+handle_selection() {
+    local url
+    while read -r selection; do
+        read -r url < "$tmp/${selection##*-\ }.url"
+        [[ $url ]] && plumber "https://www.reddit.com$url" &
+    done
 }
 
 [[ -s $optsdir ]] && source "$optsdir"
 
-createsub "$1" || exit 1 
-
-opts+=(-l 10 -p "Select sub")
-load "$1" | dmenu "${opts[@]}" | while IFS=$'\n' read -r result; do
-  [[ ! $result ]] && exit 1
-  read -r url < "$tmp/$1/$result"
-  plumber "$url" & 
-done
+opts+=(-l 10 -p "Select post")
+fetch "$1" | build_dirs | dmenu "${opts[@]}" | handle_selection
