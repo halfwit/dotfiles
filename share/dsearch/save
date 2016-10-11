@@ -37,6 +37,13 @@ note() {
   curl -s "$1" > "$XDG_CACHE_HOME"/notes/"$result"
 }
 
+save_feed() {
+  opts+=(-p "Save feed as:")
+  title="$(echo "" | dmenu "${opts[@]}")"
+  mkdir "$XDG_CACHE_HOME/rss/$title"
+  echo "$1" > "$XDG_CACHE_HOME/rss/$title"
+}
+
 lsw | while read -r w; do
   case $(wname "$w") in
     *browse*) sed -n -e 's/_SURF_URI(STRING) = "//p' <<< "$(xprop -id "$w")" | tr -d '"' | xcmenu -ic ;;
@@ -44,16 +51,6 @@ lsw | while read -r w; do
 done
 
 [[ $1 ]] && input="$1" || input=$(xcmenuctrl -u)
-
-# handle rss as well
-if grep -e ".rss" -e ".atom" <<< "$input"; then
-    opts+=(-p "Feed title:")
-    title=$(printf "" | dmenu "${opts[@]}")
-    mkdir "$XDG_CACHE_HOME/rss/$title"
-    printf '%s\n' "$input" > "$XDG_CACHE_HOME/rss/$title/url"
-    updatefeeds
-    exit 0
-fi
 
 if grep "github" <<< "$input"; then
   cd $HOME/code
@@ -70,6 +67,8 @@ fi
   *epub*)       name "document" | doc "epub" "$input" ;;
   *pdf*)        name "document" | doc "pdf"  "$input" ;;
   *video*) exec "$XDG_DATA_HOME/youtube/savepl" "$input" ;;
+  *application/atom*) save_feed "$input" ;;
+  *application/rss*)  save_feed "$input" ;;
   *)
     items=( "git - " "error - " "keyboards - " "linux - "
             "main - " "programming - " "electronics - " )

@@ -1,27 +1,36 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 ## Script to fetch RSS + atom feeds 
 RSS="$XDG_CACHE_HOME"/rss
 
 generate_files() {
-   
+    curl -B -X GET -L "$1" -A "Mozilla/5.0 (Linux; Android 6.0.1; Nexus  MOB3OD)" | xml2 | grep -e '/feed/entry/title' -e '/feed/entry/link.*href'
+}
+
+build_folders() {
+
     while {
-        read -r title
-        read -r url
+        read -r first
+        read -r second
     } do
-        
-    title="$(echo "$title" | sed 's/.*title=//' | tr '/' ' ')"
-    if [ ! -f "$RSS/$1/$title" ]; then
-        echo "$url" | sed 's/.*url=//' > "$RSS/$1/[new] $title"
+    
+    #This sucks, but whatever
+    case "$first" in
+        *title*) title="$(echo "$first" | sed 's|/feed/entry/title=||' | sed 's|/||g')" 
+                 link="$(echo "$second" | xurls)" ;;
+        *link*)  title="$(echo "$second" | sed 's|/feed/entry/title=||' | sed 's|/||g')"
+                 link="$(echo "$first" | xurls)" ;;
+    esac
+    
+    if [[ ! -f "$RSS/$1/$title" ]]; then
+        echo "$link" > "$RSS/$1/[new] $title"
     fi
+    
     done
 }
 
-
-# Download feed 
 cd "$RSS"
 for i in *; do
     read -r url < "$i"/url
-    curl -s "$url" | xml2 | grep -e 'media:title=.*' -e 'content/@url=.*' | generate_files "$i"
-
+    generate_files "$url" | build_folders "$i"
 done
