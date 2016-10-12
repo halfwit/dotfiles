@@ -4,7 +4,7 @@
 RSS="$XDG_CACHE_HOME"/rss
 
 generate_files() {
-    curl -B -X GET -L "$1" -A "Mozilla/5.0 (Linux; Android 6.0.1; Nexus  MOB3OD)" | xml2 | grep -e '/feed/entry/title' -e '/feed/entry/link.*href'
+    curl -sBX GET -L "$1" -A "Mozilla/5.0 (Linux; Android 6.0.1; Nexus  MOB3OD)" | xml2 | grep -e '/feed/entry/title' -e '/feed/entry/link.*href'
 }
 
 build_folders() {

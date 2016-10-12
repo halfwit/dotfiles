@@ -15,7 +15,7 @@ loop_run() {
   while true; do
     result=$(menu "$place")
     # Return to main program on exit
-    [[ ! $result ]] && exec "$XDG_DATA_HOME"/dsearch/todo
+    [[ ! $result ]] && exec todo
     case $result in
       \(\ \)*) sub="${result/\(\ \)/(x)}"
                place=$(sed -n "/$result/{=; q;}" "$TASKFILE")
