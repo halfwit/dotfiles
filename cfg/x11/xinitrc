@@ -14,5 +14,5 @@ syncthing &
 ~/local/share/x11/statsbar & 
 redshift -c ~/local/cfg/redshift.conf &
 GMusicProxy --config ~/local/cfg/gmusicproxy/config &
-hsetroot -solid '#444444'
+hsetroot -fill ~/media/pictures/cubone.jpg -tint '#222222' -fliph -contrast 0.55
 exec ~/local/share/x11/watcher 

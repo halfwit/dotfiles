@@ -83,7 +83,7 @@ handle_results() { # args -> launch
     !rq*)           exec "$handledir"/rq     "${1#*rq }"     ;;
   
 
-    !close) pkill surf && pkill qutebrowser                  ;;
+    !close) pkill surf; pkill chromium    ;;
     
     # Not really search related, but useful 
     !snap)   exec "$handledir"/rec "snap"                    ;;

@@ -11,6 +11,7 @@ getname() {
 # See if already exists
 case "$(getname $1)" in
   mpv)        grp=1 ;;
+  Chromium)   wtf "$1" && grp=2 ;;
   browse)     wtf "$1" && grp=2 ;;
   NVIM)       wtf "$1" && grp=3 ;;
   mutt|news*) wtf "$1" && grp=4 ;;

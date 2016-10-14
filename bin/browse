@@ -4,27 +4,19 @@
 lsgrp 2 | xargs mapw -u
 
 ## main
-qt() {
-  exec qutebrowser --backend=webengine --target window "$@"
-}
-
-tm() {
-  exec st -t browse -g 72 -e elinks "$@"
-}
-
 ch() {
-  exec chromium "$@"
+  exec chromium --kiosk "$@"
 }
 
 case "$@" in
   
   *google*)   ch "$@" ;;
-  *github*)   qt "$@" ;; 
-  *nixers*)   qt "$@" ;;
-  *youtube*)  qt "$@" ;;
-  *kijiji*)   qt "$@" ;;
-  *reddit*)   qt "$@" ;;
-  *!*)        qt "$@" ;;
+  *github*)   ch "$@" ;; 
+  *youtube*)  ch "$@" ;;
+  *nixers*)   ch "$@" ;;
+  *kijiji*)   ch "$@" ;;
+  *reddit*)   ch "$@" ;;
+  *!*)        ch "$@" ;;
 esac
 
 exec surf "$@"

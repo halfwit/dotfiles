@@ -20,14 +20,6 @@ handle_result() {
    st -t float -e man "$1" "$2"
 }
 
-menu() {
-  thingmenu -g  160x150 -x \
-    "Posix" "exec browse '\!posix $1'" \
-    "Mankier" "exec browse '\!mankier $1'" \
-    "Man7" "exec browse '\!man7 $1'" \
-    "Man" "exec browse '\!man $1'" \
-    "Mandoc" "exec browse '\!mandoc $1'"
-}
 
 ## Main ##
 
@@ -48,5 +40,5 @@ fi
 if [[ $result ]]; then
   handle_result "${result//[a-zA-Z\(\)-_]/}" "${result%\(*}"
 else
-  menu "$1"
+  browse "!die $1"
 fi
