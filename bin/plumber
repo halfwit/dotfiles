@@ -16,7 +16,7 @@ fetch() {
     tmp=$(mktemp)
     curl -Ls "$1" -o "$tmp"
   fi
-  printf '%q\n' "$tmp"
+  printf '%b\n' "$tmp"
 }
 
 
@@ -35,9 +35,7 @@ handle() {
               exit 0 ;;
       edit)   exec edit                 "$(fetch "$1")" & 
               exit 0 ;;
-      hear)   mpc insert "$1"
-              mpc play
-              mpc next
+      hear)   mpv "$1"
               exit 0 ;;
       man)    exec "$XDG_DATA_HOME"/dsearch/man "$1" &
               exit 0 ;;
@@ -52,12 +50,13 @@ special() {
             exit 0 ;;  
     *youtube.com/watch*|*youtu.be*|*youtube.com/v/*|ytdl*|*livestream.com*|*twitch.tv*|*webm|*mkv|*gif*) clip "$1" && exec play "$1" && exit 0;;
     *ptpb.pw/t/*) clip "$1" && exec st -e asciinema play <(curl -s "${1/\/t/}") && exit 0;;
-    *ptpb.pw/*/*) clip "$1" && printf '%s\n' "edit" | handle "${1%/*}" 
+    *ptpb.pw/*/*) clip "$1" && echo "edit" | handle "${1%/*}" 
                   exit 0 ;;
-    *bpaste.net*) clip "$1" && printf '%s\n' "edit" | handle "${1/show/raw}" 
+    *bpaste.net*) clip "$1" && echo "edit" | handle "${1/show/raw}" 
                   exit 0 ;;
     gopher://*) clip "$1" && exec st -e cgo "$1" && exit 0 ;;
     *iotek*) clip "$1" && printf '%s\n' "browse" | handle "$1" && exit 0 ;; 
+    *.mp3) clip "$1" && printf '%s\n' "hear" | handle "$1" && exit 0 ;;
   esac
 } 
 

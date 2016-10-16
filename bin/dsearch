@@ -13,7 +13,7 @@ create_menu() {
 
   # Open browsers
   while read -r id; do
-    watom "$id" WM_NAME | grep -a "browse - "
+    watom "$id" WM_NAME | grep -a -e "browse - " -e " - Chromium"
   done < <(lsw -a)
 
   # Check bookmarks
@@ -62,6 +62,7 @@ handle_results() { # args -> launch
     !pb)     exec "$handledir"/pb     ;;
     
     playlist\ -\ *) exec "$handledir"/mpv    "${1#*-\ }.pls" ;;
+    *\ -\ Chromium) exec "$handledir"/stack  "$1"            ;;
     browse\ -\ *)   exec "$handledir"/stack  "${1#*-\ }"     ;;
     !reddit*)       exec "$handledir"/reddit "${1#*reddit }" ;;
     !listen*)       exec "$handledir"/listen "${1#*listen }" ;;
@@ -81,6 +82,7 @@ handle_results() { # args -> launch
     !yt*)           exec "$handledir"/yt     "${1#*yt }"     ;;
     !pb*)           exec "$handledir"/pb     "${1#*pb }"     ;;
     !rq*)           exec "$handledir"/rq     "${1#*rq }"     ;;
+    !np)            exec "$handledir"/np     "${1#*rq }"     ;;
   
 
     !close) pkill surf; pkill chromium    ;;

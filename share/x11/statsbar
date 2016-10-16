@@ -15,6 +15,11 @@ while :; do
   else
     level=""
   fi
-  printf ' %s %s%s\n' "$(date +'%H:%M')" "%{F#AF5F5F}$level%{F-}" "%{r}$current "
+  
+  rss=$(find ~/local/cache/rss -name "\[new\]*" | wc -l)
+
+  [ $rss -gt 0 ] && rss="%{r}-$rss-"
+  
+  printf ' %s %s %s %s\n' "$(date +'%H:%M')" "%{F#AF5F5F}$level%{F-}" "$rss" "%{r}$current "
   sleep 1
 done | lemonbar -F '#bcbcbc' -d -b -f "DejaVu Mono:size=9.5" &

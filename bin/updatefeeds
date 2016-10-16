@@ -4,7 +4,7 @@
 RSS="$XDG_CACHE_HOME"/rss
 
 generate_files() {
-    curl -sBX GET -L "$1" -A "Mozilla/5.0 (Linux; Android 6.0.1; Nexus  MOB3OD)" | xml2 | grep -e '/feed/entry/title' -e '/feed/entry/link.*href'
+    curl -sBX GET -L "$1" -A "Mozilla/5.0 (Linux; Android 6.0.1; Nexus  MOB3OD)" | xml2 | grep -e '/feed/entry/title' -e '/feed/entry/link.*href' -e '/rss/channel/item/enclosure/@url' -e '/rss/channel/item/title'
 }
 
 build_folders() {
@@ -16,9 +16,9 @@ build_folders() {
     
     #This sucks, but whatever
     case "$first" in
-        *title*) title="$(echo "$first" | sed 's|/feed/entry/title=||' | sed 's|/||g')" 
+        *title*) title="$(echo "$first"  | sed 's|/feed/entry/title=||' | sed 's|/rss/channel/item/title=||' | sed 's|/||g' )" 
                  link="$(echo "$second" | xurls)" ;;
-        *link*)  title="$(echo "$second" | sed 's|/feed/entry/title=||' | sed 's|/||g')"
+        *link*)  title="$(echo "$second" | sed 's|/feed/entry/title=||' | sed 's|/rss/channel/item/enclosure/@url=||' | sed 's|/||g')"
                  link="$(echo "$first" | xurls)" ;;
     esac
     
