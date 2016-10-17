@@ -41,3 +41,5 @@ export XAUTHORITY=$XDG_RUNTIME_DIR/x11/xauthority
 
 source <(dircolors $XDG_CONFIG_HOME/terminal-colors.d/ls.enable)
 export NVIM_TUI_ENABLBE_TRUE_COLOR=1
+
+export VIS_THEME="dark-16"

@@ -53,11 +53,16 @@ done
 [[ $1 ]] && input="$1" || input=$(xcmenuctrl -u)
 
 if grep "github" <<< "$input"; then
-  cd $HOME/code
-  st -t float -g 45x4+20+20 -e git clone "$input"
-  cd "${input##*/}"
-  st &
-  exit 0
+  opts+=(-l 2 -p "Github")
+  result=$(printf '%s\n%s\n' "Save" "Clone" | dmenu "${opts[@]}")
+  [ $result ] || exit 0
+  if [[ $result == "Clone" ]]; then
+    cd $HOME/code
+    st -t float -g 45x4+20+20 -e git clone "$input"
+    cd "${input##*/}"
+    st &
+    exit 0
+  fi
 fi
 
 [[ $input ]] && case $(curl -sI "$input" | grep -i content-type) in
