@@ -1,6 +1,8 @@
 set font                        "DejaVu Sans Mono 9.8"
 
 set selection-clipboard         "primary"
+set window-title-basename       "false"
+set window-titlepage            "false"
 
 set default-bg                  "#262626" 
 set default-fg                  "#bcbcbc"

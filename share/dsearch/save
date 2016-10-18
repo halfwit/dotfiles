@@ -15,7 +15,7 @@ name() {
 doc() {
   local result cover
   read -r result
-  cover="https://ptpb.pw/REYs.png"
+  cover="$("$XDG_DATA_HOME/dsearch/is" "$result")"
   [[ $result ]] && st -t float -e /home/halfwit/local/bin/bookkeep mk "$result" -t "$1" -e nvim -c "$cover"
   if [[ -s $XDG_DATA_HOME/librarian/bin/$result ]]; then
     curl -s "$2" > media/docs/"$result.$1"
@@ -38,10 +38,10 @@ note() {
 }
 
 save_feed() {
-  opts+=(-p "Save feed as:")
-  title="$(echo "" | dmenu "${opts[@]}")"
-  mkdir "$XDG_CACHE_HOME/rss/$title"
-  echo "$1" > "$XDG_CACHE_HOME/rss/$title"
+  local result
+  read -r result
+  mkdir "$XDG_CACHE_HOME/rss/$result"
+  echo "$1" > "$XDG_CACHE_HOME/rss/$result/url"
 }
 
 lsw | while read -r w; do
@@ -65,15 +65,15 @@ if grep "github" <<< "$input"; then
   fi
 fi
 
-[[ $input ]] && case $(curl -sI "$input" | grep -i content-type) in
+[[ $input ]] && case $(content-type "$input") in
   *text/plain*) name "note"     | note       "$input" ;;
   *image*)      name "picture"  | image      "$input" ;;
   *djvu*)       name "document" | doc "djvu" "$input" ;;
   *epub*)       name "document" | doc "epub" "$input" ;;
   *pdf*)        name "document" | doc "pdf"  "$input" ;;
   *video*) exec "$XDG_DATA_HOME/youtube/savepl" "$input" ;;
-  *application/atom*) save_feed "$input" ;;
-  *application/rss*)  save_feed "$input" ;;
+  *application/atom*) name "feed" | save_feed "$input" ;;
+  *application/rss*)  name "feed" | save_feed "$input" ;;
   *)
     items=( "git - " "error - " "keyboards - " "linux - "
             "main - " "programming - " "electronics - " )

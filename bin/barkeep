@@ -227,7 +227,7 @@ mk_cover() {
     fi
 
     if [[ -e "$cover" ]]; then
-        command gm mogrify -resize 240x240\! "$cover"
+            convert "$cover" -adaptive-resize 240x240\! "$cover"
         mv -fv -- "$cover" "$coverdir"/"$entry"
     else
         err '%s: Unable to find cover.' "$cover"

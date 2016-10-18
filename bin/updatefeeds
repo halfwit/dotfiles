@@ -10,7 +10,7 @@ fetch_data() {
 	*xmlns:rdf*)	      echo "$data" | grep -e 'RDF/item/title' -e 'RDF/item/link' ;;	     
 	*rss*version*2.0*)    echo "$data" | grep -e '/rss/channel/item/title' -e '/rss/channel/item/link' ;;
     *Atom*|*atom*) 	      echo "$data" | grep -e '/feed/entry/title' -e '/feed/entry/link.*href' ;; 
-	*) echo "Mismatch on $1" > ~/rss_issue && exit 0 ;;
+	*) echo "Mismatch on $1" >> ~/rss_issue && exit 0 ;;
     esac
 }
 
@@ -37,7 +37,7 @@ build_folders() {
 			                link="$(echo "$first"   | xurls)" ;;
 	*feed*entry*link*)      title="$(echo "$second" | sed 's|/feed/entry/title=||' | sed 's|/||g')"
 			                link="$(echo "$first"   | xurls)" ;;
-    *)                      echo "Mismatch with item $first $second in $i" > ~/rss_issue && exit 0 ;;
+    *)                      echo "Mismatch with item $first $second in $i" >> ~/rss_issue && exit 0 ;;
     esac
     
     
@@ -55,7 +55,7 @@ while :; do
         read -r url < "$i"/url
         fetch_data "$url" | build_folders "$i"
     done
-    sleep 3574
+    sleep 1774
 done
 
 

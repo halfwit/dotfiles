@@ -60,6 +60,7 @@ handle_results() { # args -> launch
     !mix)    exec "$handledir"/mix    ;;
     !vm)     exec "$handledir"/vm     ;;
     !pb)     exec "$handledir"/pb     ;;
+    !np)     exec "$handledir"/np     ;;
     
     playlist\ -\ *) exec "$handledir"/mpv    "${1#*-\ }.pls" ;;
     *\ -\ Chromium) exec "$handledir"/stack  "$1"            ;;
@@ -82,7 +83,7 @@ handle_results() { # args -> launch
     !yt*)           exec "$handledir"/yt     "${1#*yt }"     ;;
     !pb*)           exec "$handledir"/pb     "${1#*pb }"     ;;
     !rq*)           exec "$handledir"/rq     "${1#*rq }"     ;;
-    !np)            exec "$handledir"/np     "${1#*rq }"     ;;
+    !is*)     plumber "$("$handledir"/is     "${1#*is }")"   ;;
   
 
     !close) pkill surf; pkill chromium    ;;

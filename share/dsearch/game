@@ -131,7 +131,7 @@ process_results() {
 
 # Main loop
 [[ "$optsfile" ]] && source "$optsfile"
-opts+=( -p "Play" )
+opts+=( -p "Play" -is 416x240)
 
 mkdir -p "$datadir" "$bindir" "$coverdir"
 

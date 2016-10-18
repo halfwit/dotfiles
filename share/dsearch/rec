@@ -1,22 +1,22 @@
 #!/bin/sh
 # Screen record or screen shot
 
-PB="https://ptpb.pw/?u=1"
+PB="https://pb.gehidore.net/"
 
 picture() {
-	maim -d 1 --format png /dev/stdout | curl -sF c=@- "$PB" | sed 's/$/.png/' | xcmenu -ic
+	maim -d 1 --format png /dev/stdout | pbpst -S | sed 's/$/.png/' | xcmenu -ic
 }
 
 win() {
 	WID=$(lsw | tail -n 1)
-	maim -i $WID -d 1 --format png /dev/stdout | curl -sF c=@- "$PB" | sed 's/$/.png/' | xcmenu -ic
+	maim -i $WID -d 1 --format png /dev/stdout | pbpst -S | sed 's/$/.png/' | xcmenu -ic
 }
 
 video() {
  	tmp=$(mktemp --suffix=.mkv)
  	ffmpeg -y -video_size "$(wattr w "$(lsw -r)")x$(wattr h "$(lsw -r)")" -framerate 60 -f x11grab -i "$DISPLAY"  "$tmp"
  	wait
-	curl -sF c=@"$tmp" "$PB" | xcmenu -ic
+	pbpst -Sf "$tmp" | xcmenu -ic
  	rm "$tmp"
 }
 

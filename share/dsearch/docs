@@ -129,7 +129,7 @@ process_results() {
 
 ## Main loop
 [[ $optsfile ]] && source "$optsfile"
-opts+=(-p "Read document: ")
+opts+=(-p "Read document: " -l 10 -is 240x320)
 
 mkdir -p "$datadir" "$bindir" "$coverdir"
 
