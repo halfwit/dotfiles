@@ -1,0 +1,9 @@
+#!/bin/sh
+
+title="$(mpc current --format "%artist%")" 
+artist="$(mpc current --format "%title%")" 
+
+[ -z $title ] && exit 0
+result="$artist - $title"
+st -t float -g "${#result}"x2 -e varless "$result"
+

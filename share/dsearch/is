@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+tmp="$(mktemp -d)"
+
+
+fetch_data() {
+    data=$(curl -sBX GET -L "$1" -A "Mozilla/5.0 (Linux; Android 6.0.1; Nexus  MOB3OD)" -o "$tmp"/data)
+}
+
+parse() {
+    jshon -QF "$tmp"/data -e items -a -e title -upe link -upe image -e thumbnailLink -u
+}
+
+itemize() {
+    while {
+        read -r title
+        read -r item
+        read -r thumb
+    } do
+        curl "$thumb" -o "$tmp/${title//\\/}" &
+        printf '%s\n' "$item" > "$tmp/${title//\\/}.url"
+        printf 'IMG:%b\t%s\t%s\n' "$tmp/${title//\\/}" "$title"
+    done
+}
+
+handle_results() {
+    while read -r item; do
+        read -r url < "$tmp/$item.url"
+        printf '%s\n' "$url"
+    done
+}
+
+read -r KEY < "$XDG_DATA_HOME"/youtube/key
+read -r ID < "$XDG_DATA_HOME"/youtube/imid
+
+url="https://www.googleapis.com/customsearch/v1?key=$KEY&cx=$ID&q=${1// /+}&searchType=image&fileType=jpg&imgSize=xlarge&alt=json"
+
+fetch_data "$url"
+
+source "$XDG_CONFIG_HOME"/dmenu/dmenucolors
+opts+=(-l 10 -p "Select image")
+
+parse | itemize | dmenu "${opts[@]}" | handle_results
