@@ -65,6 +65,10 @@ if grep "github" <<< "$input"; then
   fi
 fi
 
+if grep "youtu" <<< "$input"; then
+    exec "$XDG_DATA_HOME/youtube/savepl" "$input" 
+fi
+
 [[ $input ]] && case $(content-type "$input") in
   *text/plain*) name "note"     | note       "$input" ;;
   *image*)      name "picture"  | image      "$input" ;;

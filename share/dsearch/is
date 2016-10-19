@@ -33,11 +33,11 @@ handle_results() {
 read -r KEY < "$XDG_DATA_HOME"/youtube/key
 read -r ID < "$XDG_DATA_HOME"/youtube/imid
 
-url="https://www.googleapis.com/customsearch/v1?key=$KEY&cx=$ID&q=${1// /+}&searchType=image&fileType=jpg&imgSize=xlarge&alt=json"
+url="https://www.googleapis.com/customsearch/v1?key=$KEY&cx=$ID&q=${1// /+}&searchType=image&fileType=jpg&alt=json"
 
 fetch_data "$url"
 
 source "$XDG_CONFIG_HOME"/dmenu/dmenucolors
-opts+=(-l 10 -p "Select image")
+opts+=(-l 10 -p "Select image" -is 150x150)
 
 parse | itemize | dmenu "${opts[@]}" | handle_results

@@ -7,7 +7,6 @@ mpd &
 sxhkd &
 dunst &
 xcmenu &
-updatefeeds &
 unclutter -grab &
 compton -b &
 syncthing &

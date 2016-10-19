@@ -35,7 +35,7 @@ handle() {
               exit 0 ;;
       edit)   exec edit                 "$(fetch "$1")" & 
               exit 0 ;;
-      hear)   mpv "$1"
+      hear)   mpv "$1" &
               exit 0 ;;
       man)    exec "$XDG_DATA_HOME"/dsearch/man "$1" &
               exit 0 ;;

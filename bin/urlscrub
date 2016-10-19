@@ -8,7 +8,7 @@ readonly optsfile=$XDG_CONFIG_HOME/dmenu/dmenucolors
 # Currently strips newlines as well
 
 menu() {
-  xurls | tac | dmenu -l 10 "${opts[@]}" -p URLs
+    tr -d "[:cntrl:]" | xurls | sed 's/^.*\(http.*$\)/\1/' | tac | dmenu -l 10 "${opts[@]}" -p URLs
 }
 
 handle() {
@@ -19,5 +19,4 @@ handle() {
 }
 
 [[ -s $optsfile ]] && source "$optsfile"
-
 menu "$@" | handle 
