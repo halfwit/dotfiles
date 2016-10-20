@@ -8,8 +8,8 @@ sxhkd &
 dunst &
 xcmenu &
 unclutter -grab &
-compton -b &
 syncthing &
+compton -b &
 ~/local/share/x11/barrun &
 ~/local/share/x11/statsbar & 
 redshift -c ~/local/cfg/redshift.conf &
