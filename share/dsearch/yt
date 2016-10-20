@@ -37,6 +37,7 @@ handle() {
   local selection url
   while read -r selection; do
     read -r url < "$images/$selection-url"
+    [[ $1 == "playlist" ]] && printf '%s\n' "$url" > /tmp/tmpplaylist
     [[ $url ]] && play "ytdl://$url" &
   done
 }
@@ -50,4 +51,4 @@ handle() {
 opts+=(-p "Select video" -l 10)
 
 ## Main pipeline
-query "$@" | parse | buildmenu | dmenu "${opts[@]}" | handle
+query "$@" | parse | buildmenu | dmenu "${opts[@]}" | handle "$type"

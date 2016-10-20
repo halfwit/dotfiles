@@ -65,6 +65,7 @@ handle_results() { # args -> launch
     playlist\ -\ *) exec "$handledir"/mpv    "${1#*-\ }.pls" ;;
     *\ -\ Chromium) exec "$handledir"/stack  "$1"            ;;
     browse\ -\ *)   exec "$handledir"/stack  "${1#*-\ }"     ;;
+    !pl\ save)      exec "$XDG_DATA_HOME"/youtube/savesearch ;;
     !reddit*)       exec "$handledir"/reddit "${1#*reddit }" ;;
     !listen*)       exec "$handledir"/listen "${1#*listen }" ;;
     !lyrics*)       exec "$handledir"/lyrics "${1#*lyrics }" ;;
@@ -85,7 +86,6 @@ handle_results() { # args -> launch
     !rq*)           exec "$handledir"/rq     "${1#*rq }"     ;;
     !is*)     plumber "$("$handledir"/is     "${1#*is }")"   ;;
   
-
     !close) pkill surf; pkill chromium    ;;
     
     # Not really search related, but useful 

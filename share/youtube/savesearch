@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
+readonly optsfile=$XDG_CONFIG_HOME/dmenu/dmenucolors
 readonly datadir="$XDG_DATA_HOME"
 
 read -r KEY < "$datadir/youtube/key"
@@ -11,9 +11,9 @@ create_playlist() {
         IFS=$'\n' read -r key
         read -r value
     } do
-        printf -- '%s\n%s\n' "Title$number=$key" "File$number=ytdl://${value//\"/}" >> "$datadir/mpv/$title.pls"
+        printf -- '%s\n%s\n' "Title$number=$key" "File$number=https://www.youtube.com/watch?v=${value//\"/}" >> "$datadir/mpv/$title.pls"
         number=$(( number + 1 ))
-    done <<< "$( curl -s "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=$KEY&playlistId=$url&maxResults=50" | jshon -CQ -e items -a -e snippet -e title -upe resourceId -e videoId )"
+    done <<< "$( curl -s "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=$KEY&playlistId=$url&maxResults=50" | jshon -CQ -e items -a -e snippet -e title -upe resourceId -e videoId -u)"
     printf -- '%b' "NumberOfEntries=$(( number - 1 ))" >> "$datadir/mpv/$title.pls"
 }
 
@@ -25,7 +25,7 @@ read -r url < /tmp/tmpplaylist
 
 opts+=( -l 1 -p "Playlist name: " )
 
-title=$(printf '%s' "" | bemenu "${opts[@]}")
+title=$(printf '%s' "" | dmenu "${opts[@]}")
 
 [[ ! "$title" ]] && exit 0
 

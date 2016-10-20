@@ -10,7 +10,7 @@ while :; do
   fi
   level=100
   read -r level < /sys/class/power_supply/BAT0/capacity
-  if [ $level -lt 20 ]; then
+  if [ $level -lt 100 ]; then
     level="- $level%"
   else
     level=""
