@@ -1,6 +1,5 @@
 "------------------------------------
 " Mappings
-"
 
 " Buffer jumping
 noremap <C-n> :bn<CR>
@@ -17,17 +16,26 @@ noremap <C-c> :bdelete<CR>
 
 " Terminal niceness
 tnoremap    <ESC><ESC>     <C-\><C-n>
-" For plumbing arbitrary things
-function! s:get_visual_selection()
-  " Why is this not a built-in Vim script function?!
+
+" Why is this not a built-in Vim script function?!
+function! s:Get_visual_selection()
   let [lnum1, col1] = getpos("'<")[1:2]
   let [lnum2, col2] = getpos("'>")[1:2]
   let lines = getline(lnum1, lnum2)
-  let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[-1] = lines[-1][: col2 - 1]
   let lines[0] = lines[0][col1 - 1:]
   return join(lines, "\n")
 endfunction
 
-vmap p :'<,'> !plumber <CR>
+" Plumb it out
+function! s:run_plumber()
+  echo system('plumber '.shellescape(s:Get_visual_selection()))
+endfunction
+
+"  fprintf
+
+command! -range=% Plumbit call <SID>run_plumber()
+
+vnoremap p :<C-U>Plumbit<CR>
 vmap m :'<,'> w !sh<CR>
 vmap M :'<,'> !sh<CR>
