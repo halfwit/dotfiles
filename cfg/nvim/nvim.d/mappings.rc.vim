@@ -28,14 +28,12 @@ function! s:Get_visual_selection()
 endfunction
 
 " Plumb it out
-function! s:run_plumber()
-  echo system('plumber '.shellescape(s:Get_visual_selection()))
+function! s:run_plumber(value)
+  let ret = system(a:value.' '.shellescape(s:Get_visual_selection()))
+  return ret
 endfunction
 
-"  fprintf
-
-command! -range=% Plumbit call <SID>run_plumber()
+command! -range=% Plumbit call <SID>run_plumber("plumber")
 
 vnoremap p :<C-U>Plumbit<CR>
-vmap m :'<,'> w !sh<CR>
-vmap M :'<,'> !sh<CR>
+vnoremap m :s/.\+/\=<SID>run_plumber("sh -c")/<CR>k
