@@ -3,26 +3,32 @@
 ## use clip to send to clip
 
 declare -a results
+
 source "$XDG_CONFIG_HOME"/dmenu/dmenucolors
+opts+=(-l 10 -p "eval | clip")
 
 readonly histfile="/tmp/mathhist"
 
 [[ -e $histfile ]] || touch "$histfile"
 
+# Read in history
 while read -r item; do
     results+=($item)
 done < "$histfile"
 
-count="${#results}"
-
-opts+=(-l 10 -p "eval | clip")
-[[ $1 ]] && inp="$1" || inp="$(printf '%s\n' "${results[@]}" | tac | dmenu "${opts[@]}")"
+# Sanitize input
+if [[ $1 ]]; then
+    inp="${1//last/${results[-1]}}" 
+    inp="${inp//\ /}"
+else
+    inp="$(printf '%s\n' "${results[@]}" | tac | dmenu "${opts[@]}")"
+fi
 
 # Break this out of the while loop.
 while :; do
     
-    if [[ $inp == "clip" ]]; then
-        xcmenu -ic <<< "${results[-1]}"
+    if [[ ${results[@]} =~ "$inp" ]]; then
+        xcmenu -ic <<< "$inp"
         break
     fi
  
