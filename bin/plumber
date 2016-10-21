@@ -49,6 +49,8 @@ special() {
     *xkcd*) clip "$1" && handle view "$(curl -s "https://xkcd.com/${1//[^0-9]/}/" | awk '/hotlink/{ print $NF }')" 
             exit 0 ;;  
     *youtube.com/watch*|*youtu.be*|*youtube.com/v/*|ytdl*|*livestream.com*|*twitch.tv*|*webm|*mkv|*gif*) clip "$1" && exec play "$1" && exit 0;;
+    *youtube.com/playlist*) printf '%s\n' "${1##*list=}" > /tmp/tmpplaylist
+                            clip "$1" && exex mpv "$1" && exit 0 ;;
     *ptpb.pw/t/*) clip "$1" && exec st -e asciinema play <(curl -s "${1/\/t/}") && exit 0;;
     *ptpb.pw/*/*) clip "$1" && echo "edit" | handle "${1%/*}" 
                   exit 0 ;;

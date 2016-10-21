@@ -27,4 +27,4 @@ result=$(get_selection "$1")
 
 result=$(get_position "$1" "$result")
 
-exec play "$datadir/mpv/$1" --playlist-pos="$result"
+exec mpv "$datadir/mpv/$1" --playlist-pos="$result"
