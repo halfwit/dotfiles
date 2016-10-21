@@ -16,7 +16,7 @@ I've written a group management set of binaries to go along with wmutils, which 
 ##This is how it all looks 
 [![wmutils and bin packing demo](http://img.youtube.com/vi/MSIjqTgtj2c/0.jpg)](https://www.youtube.com/watch?v=MSIjqTgtj2c)
 
-[![Image searching, github, reddit](https://pb.gehidore.net/cyvB)](https://pb.gehidore.net/U4TN)
+[![Image searching, github, reddit](https://pb.gehidore.net/cyVB)](https://pb.gehidore.net/U4TN)
 
 [![Youtube, games](https://pb.gehidore.net/vTYD)](https://pb.gehidore.net/NiUQ)
 
