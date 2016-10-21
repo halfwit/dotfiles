@@ -16,6 +16,10 @@ I've written a group management set of binaries to go along with wmutils, which 
 ##This is how it all looks 
 [![wmutils and bin packing demo](http://img.youtube.com/vi/MSIjqTgtj2c/0.jpg)](https://www.youtube.com/watch?v=MSIjqTgtj2c)
 
+[![Image searching, github, reddit](https://pb.gehidore.net/cyvB)](https://pb.gehidore.net/U4TN)
+
+[![Youtube, games](https://pb.gehidore.net/vTYD)](https://pb.gehidore.net/NiUQ)
+
 #[Dsearch](https://github.com/halfwit/dotfiles/blob/master/bin/dsearch)
 This is a dmenu/bemenu based set of scripts for various search-oriented actions, using a set of [handlers](https://github.com/halfwit/dotfiles/blob/master/share/dsearch).
 

@@ -16,6 +16,7 @@ build_dirs() {
         read -r thumbnail
         read -r flair
     } do
+        title="${title//\/}"
         curl -s "$thumbnail" -o "$tmp/$title.image" &
         printf '%s\n' "$url" > "$tmp/$title.url"
         if [[ $flair ]]; then
@@ -30,7 +31,7 @@ handle_selection() {
     local url
     while read -r selection; do
         read -r url < "$tmp/${selection##*-\ }.url"
-        [[ $url ]] && plumber "https://www.reddit.com$url" &
+        [[ $url ]] && plumber "$url" &
     done
 }
 
