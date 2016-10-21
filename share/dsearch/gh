@@ -17,7 +17,7 @@ parse() {
 }
 
 image_parse() {
-    jshon -e -items -a -e login -upe avatar_url -u
+    jshon -e items -a -e login -upe avatar_url -u
 }
 
 build_entries() {

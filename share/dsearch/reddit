@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
-## Requires jshon 
+
+## Reddit image-enabled search utility
+## Requires 
+#  https://github.com/Cloudef/dmenu-pango-imlib
+#  https://github.com/keenerd/jshon
 
 readonly optsdir="$XDG_CONFIG_HOME"/dmenu/dmenucolors
 tmp=$(mktemp -d)
@@ -36,7 +40,10 @@ handle_selection() {
     rm -rf "$tmp"
 }
 
-[[ -s $optsdir ]] && source "$optsdir"
 
+## Main 
+
+[[ -s $optsdir ]] && source "$optsdir"
 opts+=(-is 140x140 -l 10 -p "Select post")
+
 fetch "$1" | build_dirs | dmenu "${opts[@]}" | handle_selection

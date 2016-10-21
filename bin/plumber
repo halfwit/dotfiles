@@ -64,8 +64,9 @@ special() {
 
 handle_online() {
     source "$XDG_CONFIG_HOME"/dmenu/dmenucolors
-    opts+=(-p "Send to ddg with !bang:" -l 10)
-    exec dsearch "$(printf '%s\n%s\n%s\n' "!g $1" "!die $1" "!man7 $1" | dmenu "${opts[@]}")"
+    opts+=(-p "Cannot plumb - sending to dsearch" -l 10)
+    result="$(printf '%s\n%s\n%s\n%s\n' "$1" "!g $1" "!die $1" "!man7 $1" | dmenu "${opts[@]}")"
+    [[ $result ]] && exec dsearch "$result" || exit 0
 }
 
 # In testing, this outputs a correct mime

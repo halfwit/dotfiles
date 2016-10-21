@@ -46,10 +46,10 @@ handle_result() {
 }
 
 opts+=(-p "Select sub" -l 10)
-feed=$(select_site "$RSS" | filter_read | dmenu "${opts[@]}")
+feed=$(ls -t -I url "$RSS" | filter_read | dmenu "${opts[@]}")
 
 if [[ $feed == "view all" ]]; then
-    feed=$(select_site "$RSS" | append "quit" | dmenu "${opts[@]}") 
+    feed=$(ls -t -I url "$RSS" | append "quit" | dmenu "${opts[@]}") 
 fi
 
 if [[ $feed == "quit" || ! $feed ]]; then
@@ -57,7 +57,7 @@ if [[ $feed == "quit" || ! $feed ]]; then
 fi
 
 opts+=(-p "Select feed")
-select_site "$RSS/$feed" | tac | append "mark all as read" | append "quit" |  dmenu "${opts[@]}" | handle_result "$feed" || exit 1
+ls -t -I url "$RSS/$feed" | append "mark all as read" | append "quit" |  dmenu "${opts[@]}" | handle_result "$feed" || exit 1
 
 sleep .1
 exec "$XDG_DATA_HOME"/dsearch/rss
