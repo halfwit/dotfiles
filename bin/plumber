@@ -98,7 +98,7 @@ while read -r mimetype; do
     image*) parse "${mimetype%;*}" | handle "$1" ;;
     inode*) parse "${mimetype%;*}" | handle "$1" ;;
     text*)  parse "${mimetype%;*}" | handle "$1" ;;
-    man)    printf "man\n"         | handle "$1" ;;
+    man*)   printf "man\n"         | handle "$1" ;;
     *) printf '%s\n' "$mimetype" >> ~/mime_issues ;;
   esac
 done < <(mime "$1")

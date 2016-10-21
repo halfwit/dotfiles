@@ -55,6 +55,7 @@ handle_results() { # args -> launch
     !save)   exec "$handledir"/save   ;;
     !link)   exec "$handledir"/link   ;;
     !song)   exec "$handledir"/song   ;;
+    !math)   exec "$handledir"/math   ;;
     !rss)    exec "$handledir"/rss    ;;
     !man)    exec "$handledir"/man    ;;
     !mix)    exec "$handledir"/mix    ;;
@@ -77,6 +78,7 @@ handle_results() { # args -> launch
     !book\ *)         exec "$handledir"/book   "${1#*book }"   ;;
     !code\ *)         exec "$handledir"/code   "${1#*code }"   ;;
     !dict\ *)         exec "$handledir"/dict   "${1#*dict }"   ;;
+    !math\ *)         exec "$handledir"/math   "${1#*math }"   ;;
     !man\ *)          exec "$handledir"/man    "${1#*man }"    ;;
     !mix\ *)          exec "$handledir"/mix    "${1#*mix }"    ;;
     !gh\ *)   	      exec "$handledir"/gh     "${1#*gh }"     ;;

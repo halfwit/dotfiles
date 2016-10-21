@@ -1,0 +1,31 @@
+#!/bin/bash
+## use last for last result
+## use clip to send to clip
+
+declare -a results
+source "$XDG_CONFIG_HOME"/dmenu/dmenucolors
+
+opts+=(-l 10 -p "eval | clip")
+[[ $1 ]] && inp="$1" || inp="$(printf "" | dmenu "${opts[@]}")"
+
+# Break this out of the while loop.
+while :; do
+    
+    if [[ $inp == "clip" ]]; then
+        xcmenu -ic <<< "${results[-1]}"
+        break
+    fi
+ 
+    invar=$(bc -l <<< "$inp" | sed '/\./ s/\.\{0,1\}0\{1,\}$//')
+   
+    # If result matches entry 
+    if [[ $invar ]]; then
+        results+=($invar)
+        inp=$(printf '%s\n' "${results[@]}" | tac | dmenu "${opts[@]}")
+        inp="${inp//last/${results[-1]}}"
+        inp="${inp//\ /}"
+    else
+        break
+    fi
+
+done
