@@ -5,8 +5,18 @@
 declare -a results
 source "$XDG_CONFIG_HOME"/dmenu/dmenucolors
 
+readonly histfile="/tmp/mathhist"
+
+[[ -e $histfile ]] || touch "$histfile"
+
+while read -r item; do
+    results+=($item)
+done < "$histfile"
+
+count="${#results}"
+
 opts+=(-l 10 -p "eval | clip")
-[[ $1 ]] && inp="$1" || inp="$(printf "" | dmenu "${opts[@]}")"
+[[ $1 ]] && inp="$1" || inp="$(printf '%s\n' "${results[@]}" | tac | dmenu "${opts[@]}")"
 
 # Break this out of the while loop.
 while :; do
@@ -29,3 +39,5 @@ while :; do
     fi
 
 done
+
+printf '%s\n' "${results[@]}" > "$histfile"
