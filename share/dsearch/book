@@ -25,7 +25,7 @@ create_menu() {
 }
 
 get_selection() {
-  opts+=( -l 10 -p "Select book: " )
+  opts+=(-ia top-gapless -is 250x250 -l 10 -p "Select book: " )
 	create_menu | dmenu "${opts[@]}"
 }
 

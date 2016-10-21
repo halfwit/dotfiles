@@ -33,9 +33,10 @@ handle_selection() {
         read -r url < "$tmp/${selection##*-\ }.url"
         [[ $url ]] && plumber "$url" &
     done
+    rm -rf "$tmp"
 }
 
 [[ -s $optsdir ]] && source "$optsdir"
 
-opts+=(-l 10 -p "Select post")
+opts+=(-is 140x140 -l 10 -p "Select post")
 fetch "$1" | build_dirs | dmenu "${opts[@]}" | handle_selection

@@ -1,12 +1,24 @@
 #!/usr/bin/env bash
+
+## Github image-enabled search utility
 ## Requires
 #  https://github.com/Cloudef/dmenu-pango-imlib
 #  https://github.com/keenerd/jshon
 
+tmp="$(mktemp -d /tmp/gh.XXXX)" 
+readonly optsfile="$XDG_CONFIG_HOME/dmenu/dmenucolors"
 
-grep / <<< $1 && exec browse "https://github.com/$1"
+query() {
+    curl -s "https://api.github.com/search/repositories?q=user:$result" 
+}
 
-. $XDG_CONFIG_HOME/dmenu/dmenucolors
+parse() {
+    jshon -e items -a -e name -upe description -u
+}
+
+image_parse() {
+    jshon -e -items -a -e login -upe avatar_url -u
+}
 
 build_entries() {
   while {
@@ -18,7 +30,6 @@ build_entries() {
 }
 
 build_names() {
-  tmp=$(mktemp -d) 
   while {
     read -r name
     read -r url
@@ -28,25 +39,34 @@ build_names() {
   done
 }
 
-result=$(curl -s "https://api.github.com/search/users?q=$1")
+handle_result() {
+    local selection
+    while read -r repo; do
+        repo="${repo%%\ -}"
+        xcmenu -ic "https://github.com/$1/$repo"
+        browse "https://github.com/$1/$repo"
+    done
+    rm -rf "$tmp"
+}
 
-count=$(printf '%s\n' "$result" | jshon -e total_count -u)
+## Main ##
+[[ $optsfile ]] && source "$optsfile"
 
+# Fetch initial data
+result="$(curl -s "https://api.github.com/search/users?q=$1")"
+count="$(jshon -e total_count -u <<< "$result")"
+
+# Narrow if multiple user entries
 if [ $count -gt 1 ]; then
-  opts+=(-l 10 -p "Select user")
-  result=$(printf '%s\n' "$result" | jshon -e items -a -e login -upe avatar_url -u | build_names | dmenu "${opts[@]}")
+  opts+=(-is 250x250 -p "Select user")
+  result=$(image_parse <<< "$result" | build_names | dmenu "${opts[@]}")
 else
-  result=$(printf '%s\n' "$result" | jshon -e items -a -e login -u)
+  result=$(jshon -e items -a -e login -u <<< "$result")
 fi
 
+# Exit cleanly if user presses escape
 [[ ! $result ]] && exit 0
-repo=$(curl -s "https://api.github.com/search/repositories?q=user:$result") 
-opts+=(-l 10 -p "Select repository")
-url=$(printf '%s\n' "$repo" | jshon -e items -a -e name -upe description -u | build_entries | column -s '|' -t | dmenu "${opts[@]}") 
 
-[[ ! $url ]] && exit 0
-
-url="${url%%\ -*}"
-
-xcmenu -ic "https://github.com/$result/$url"
-browse "https://github.com/$result/$url"
+# Select end repo(s) and launch in browser
+opts+=(-is 0x0 -p "Select repository")
+query "$result" | parse | build_entries | column -s '|' -t | dmenu "${opts[@]}" | handle_result "$result"

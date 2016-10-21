@@ -40,6 +40,7 @@ handle() {
     [[ $1 == "playlist" ]] && printf '%s\n' "$url" > /tmp/tmpplaylist
     [[ $url ]] && play "ytdl://$url" &
   done
+  rm -rf "$images"
 }
 
 [[ "$1" == save ]] && exec "$XDG_DATA_HOME"/youtube/savepl
@@ -48,7 +49,7 @@ handle() {
 # Grab theming
 [[ -s $optsfile ]] && source "$optsfile"
 
-opts+=(-p "Select video" -l 10)
+opts+=(-is 360x240 -p "Select video" -l 10)
 
 ## Main pipeline
 query "$@" | parse | buildmenu | dmenu "${opts[@]}" | handle "$type"
