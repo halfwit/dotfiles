@@ -46,7 +46,7 @@ handle_result() {
 }
 
 opts+=(-p "Select sub" -l 10)
-feed=$(ls -t -I url "$RSS" | filter_read | dmenu "${opts[@]}")
+feed=$(ls "$RSS" | filter_read | dmenu "${opts[@]}")
 
 if [[ $feed == "view all" ]]; then
     feed=$(ls -t -I url "$RSS" | append "quit" | dmenu "${opts[@]}") 

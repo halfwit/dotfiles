@@ -26,8 +26,8 @@ fi
 
 # Break this out of the while loop.
 while :; do
-    
-    if [[ ${results[@]} =~ "$inp" ]]; then
+    local invar
+    if [[ "${results[@]}" =~ "$inp" ]]; then
         xcmenu -ic <<< "$inp"
         break
     fi
@@ -37,8 +37,12 @@ while :; do
     # If result matches entry 
     if [[ $invar ]]; then
         results+=($invar)
-        inp=$(printf '%s\n' "${results[@]}" | tac | dmenu "${opts[@]}")
-        [[ $inp[0] != [0-9] ]] && inp="${results[-1]}$inp"
+        inp="$(printf '%s\n' "${results[@]}" | tac | dmenu "${opts[@]}")"
+        
+        if [[ $inp[0] != [0-9] ]]; then
+            inp="${results[-1]}$inp"
+        fi
+        
         inp="${inp//\ /}"
     else
         break

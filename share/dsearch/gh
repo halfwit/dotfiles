@@ -46,7 +46,6 @@ handle_result() {
         xcmenu -ic "https://github.com/$1/$repo"
         browse "https://github.com/$1/$repo"
     done
-    rm -rf "$tmp"
 }
 
 ## Main ##
@@ -63,6 +62,9 @@ if [ $count -gt 1 ]; then
 else
   result=$(jshon -e items -a -e login -u <<< "$result")
 fi
+
+# Clean up
+rm -rf "$tmp"
 
 # Exit cleanly if user presses escape
 [[ ! $result ]] && exit 0

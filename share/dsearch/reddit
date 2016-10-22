@@ -6,7 +6,7 @@
 #  https://github.com/keenerd/jshon
 
 readonly optsdir="$XDG_CONFIG_HOME"/dmenu/dmenucolors
-tmp=$(mktemp -d)
+tmp=$(mktemp -d /tmp/reddit.XXXX)
 
 fetch() {
     curl -s -X GET -L "https://www.reddit.com/r/${1//\ /%20}/new/.json?count=50" -A "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5 Build/MOB3OD)" | jshon -e data -e children -a -e data -e title -upe url -upe thumbnail -upe link_flair_text -u 
