@@ -243,7 +243,7 @@ alias ls='ls --color=auto --group-directories-first -AhXF'
 alias ll='ls --color=auto --group-directories-first -AlhXF'
 
 # mpc start music
-alias lmpc='unset MPD_HOST; unset MPD_PORT; mpc'
+alias lmpc='env -i mpc'
 
 # Pastebins
 alias dmesg='dmesg -exL'
