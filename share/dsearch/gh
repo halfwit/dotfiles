@@ -42,7 +42,7 @@ build_names() {
 handle_result() {
     local selection
     while read -r repo; do
-        repo="${repo%%\ -}"
+        repo="${repo%%\ -*}"
         xcmenu -ic "https://github.com/$1/$repo"
         browse "https://github.com/$1/$repo"
     done
