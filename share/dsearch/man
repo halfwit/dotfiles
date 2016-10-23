@@ -53,7 +53,7 @@ opts+=(-l 10 -p "Select manual")
 result="$(whatis "$1" || "$(apropos . | bemenu "${opts[@]}")")"
 
 # Check for ambiguity
-if [[ "$(unchunk <<< "$result" | wc -l)" -gt 0 ]]; then
+if [[ "$(unchunk <<< "$result" | wc -l)" -gt 1 ]]; then
     result=$(printf '%s\n' "$result" | unchunk | append "$1" | column -s '|' -t | bemenu "${opts[@]}")
 fi
 
