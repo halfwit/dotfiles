@@ -28,6 +28,7 @@ handle_results() {
         read -r url < "$tmp/$item.url"
         printf '%s\n' "$url"
     done
+    rm -rf "$tmp"
 }
 
 read -r KEY < "$XDG_DATA_HOME"/youtube/key

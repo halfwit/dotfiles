@@ -3,12 +3,12 @@
 # Code search using dmenu (single string)
 # Requires dmenu, ag
 
-readonly optsfile=$XDG_CONFIG_HOME/dmenu/dmenucolors
+readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
 
 
 get_selection() {
     opts+=( -l 10 -p "Select file to edit: " )
-    ag --vimgrep "$1" | dmenu "${opts[@]}"
+    ag --vimgrep "$1" | bemenu "${opts[@]}"
 }
 
 # Main

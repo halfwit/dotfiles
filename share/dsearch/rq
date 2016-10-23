@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ## Reddit search
 
-readonly optsdir="$XDG_CONFIG_HOME"/dmenu/dmenucolors
+readonly optsdir="$XDG_CONFIG_HOME"/dmenu/bemenucolors
 tmp="$(mktemp -d)"
 
 fetch() {
@@ -29,4 +29,4 @@ handle_selection() {
 [[ -s $optsdir ]] && source "$optsdir"
 
 opts+=(-l 10 -p "Search")
-fetch "$1" | build_dirs | dmenu "${opts[@]}" | handle_selection
+fetch "$1" | build_dirs | bemenu "${opts[@]}" | handle_selection

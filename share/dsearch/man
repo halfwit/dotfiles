@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ## Find manuals
 
-readonly optsfile="$XDG_CONFIG_HOME"/dmenu/dmenucolors
+readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
 
 handle_result() {
    local width
@@ -50,11 +50,11 @@ append() {
 [[ -s $optsfile ]] && source "$optsfile"
 opts+=(-l 10 -p "Select manual")
 
-result="$(whatis "$1" || "$(apropos . | dmenu "${opts[@]}")")"
+result="$(whatis "$1" || "$(apropos . | bemenu "${opts[@]}")")"
 
 # Check for ambiguity
 if [[ "$(unchunk <<< "$result" | wc -l)" -gt 0 ]]; then
-    result=$(printf '%s\n' "$result" | unchunk | append "$1" | column -s '|' -t | dmenu "${opts[@]}")
+    result=$(printf '%s\n' "$result" | unchunk | append "$1" | column -s '|' -t | bemenu "${opts[@]}")
 fi
 
 # If a bang, send it to browser

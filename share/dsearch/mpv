@@ -2,7 +2,7 @@
 # Create menu based on URLs and titles.
 
 readonly datadir=${XDG_DATA_HOME:-$HOME/local/share}
-readonly optsfile="$XDG_CONFIG_HOME"/dmenu/dmenucolors
+readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
 
 create_menu() {
     sed -n -e 's/^.*Title[0-9]\+=//p' "$1"
@@ -10,7 +10,7 @@ create_menu() {
 
 get_selection() {
     opts+=( -p "Select video" -l 10 )
-    create_menu "$datadir/mpv/$1" | dmenu "${opts[@]}"
+    create_menu "$datadir/mpv/$1" | bemenu "${opts[@]}"
 }
 
 get_position() {

@@ -2,11 +2,11 @@
 
 # Requires dmenu, ag
 
-readonly optsfile=$XDG_CONFIG_HOME/dmenu/dmenucolors
+readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
 
 get_selection() {
     opts+=( -l 10 -p "Select quote: " )
-    ag -t --nofilename "$1" | dmenu "${opts[@]}"
+    ag -t --nofilename "$1" | bemenu "${opts[@]}"
 }
 
 # Main

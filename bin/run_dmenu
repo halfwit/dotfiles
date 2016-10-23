@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-readonly optsdir="$XDG_CONFIG_HOME"/dmenu/dmenucolors
+readonly optsdir="$XDG_CONFIG_HOME"/dmenu/bemenucolors
 
 [[ -s "$optsdir" ]] && source "$optsdir" 
 
 opts+=(-p "Run" -l 10)
-exec $(dmenu_path | dmenu "${opts[@]}")
+exec $(dmenu_path | bemenu "${opts[@]}")

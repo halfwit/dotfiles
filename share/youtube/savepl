@@ -2,7 +2,7 @@
 # Appends to playlists, or creates new ones.
 
 readonly datadir=${XDG_DATA_HOME:-$HOME/local/share}/mpv
-readonly optsfile="${XDG_CONFIG_HOME:-$HOME/local/cfg}"/dmenu/dmenucolors
+readonly optsfile="${XDG_CONFIG_HOME:-$HOME/local/cfg}"/dmenu/bemenucolors
 
 create_menu() {
     cd "$datadir" || exit 1
@@ -13,7 +13,7 @@ create_menu() {
 
 append_selection() {
     opts+=( -l 10 -p "Append to: ")
-    create_menu | dmenu "${opts[@]}"
+    create_menu | bemenu "${opts[@]}"
 }
 
 fetch_number() {
@@ -43,7 +43,7 @@ fetch_title(){
 
 current="$(fetch_path "path"| jshon -e data -u)"
 title="$(fetch_title "media-title" | jshon -e data -u)"
-title=$(printf '%s' "$title" | dmenu -l 1 "${opts[@]}" -p "Title")
+title=$(printf '%s' "$title" | bemenu -l 1 "${opts[@]}" -p "Title")
 file=$(append_selection)
 
 if [[ ! -s "$datadir/$file" ]]; then

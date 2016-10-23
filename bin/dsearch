@@ -3,7 +3,7 @@
 
 readonly datadir=$HOME/local/share
 readonly handledir="$datadir"/dsearch
-readonly optsfile="$XDG_CONFIG_HOME"/dmenu/dmenucolors
+readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
 readonly search="https://duckduckgo.com?q="
 
 create_menu() {
@@ -36,7 +36,7 @@ create_menu() {
 
 get_selection() {
   opts+=(-p Search)
-  create_menu | dmenu -l 10 "${opts[@]}"
+  create_menu | bemenu -l 10 "${opts[@]}"
   #create_menu | rofi -dmenu
 }
 

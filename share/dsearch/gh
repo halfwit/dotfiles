@@ -70,5 +70,7 @@ rm -rf "$tmp"
 [[ ! $result ]] && exit 0
 
 # Select end repo(s) and launch in browser
-opts+=(-is 0x0 -p "Select repository")
-query "$result" | parse | build_entries | column -s '|' -t | dmenu "${opts[@]}" | handle_result "$result"
+unset opts
+source "$XDG_CONFIG_HOME"/dmenu/bemenucolors
+opts+=(-p "Select repo")
+query "$result" | parse | build_entries | column -s '|' -t | bemenu "${opts[@]}" | handle_result "$result"

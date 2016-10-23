@@ -2,7 +2,7 @@
 # Front end for notes.
 
 
-readonly optsfile=$XDG_CONFIG_HOME/dmenu/dmenucolors
+readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
 
 create_menu() {
   cd $notedir
@@ -17,7 +17,7 @@ create_menu() {
 
 menu() {
   opts+=(-p "Select a note: " -l 10)
-  create_menu | dmenu "${opts[@]}"
+  create_menu | bemenu "${opts[@]}"
 }
 
 ## Main
