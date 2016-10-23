@@ -242,6 +242,9 @@ alias chgrp='chgrp -c --preserve-root'
 alias ls='ls --color=auto --group-directories-first -AhXF'
 alias ll='ls --color=auto --group-directories-first -AlhXF'
 
+# mpc start music
+alias lmpc='unset MPD_HOST; unset MPD_PORT; mpc'
+
 # Pastebins
 alias dmesg='dmesg -exL'
 alias i="curl -F 'f:1=<-' ix.io"
