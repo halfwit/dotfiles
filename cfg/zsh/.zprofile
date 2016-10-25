@@ -44,7 +44,5 @@ export NVIM_TUI_ENABLBE_TRUE_COLOR=1
 
 export VIS_THEME="dark-16"
 
-export SURF_USERAGENT='"Mozilla/5.0 (Linux; Android 7.0; Nexus 5X Build/NBD90W) " \
-                      "AppleWebKit/537.36 (KHTML, like Gecko) "                  \
-                      "Chrome/53.0.2785.124 Mobile Safari/537.36"'
+export SURF_USERAGENT="Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5 Build/MOB3OD) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.105 Mobile Safari/537.36"
 source "$XDG_CONFIG_HOME"/session/config

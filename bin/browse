@@ -5,7 +5,7 @@ lsgrp 2 | xargs mapw -u
 
 ## main
 ch() {
-  exec chromium --kiosk "$@"
+  exec chromium --kiosk "$@" --enable-extensions --usr-data-dir="$XDG_CONFIG_HOME"/chromium
 }
 
 case "$@" in
@@ -14,9 +14,9 @@ case "$@" in
 #  *github*)   ch "$@" ;; 
   *youtube*)  ch "$@" ;;
 #  *nixers*)   ch "$@" ;;
-#  *kijiji*)   ch "$@" ;;
+  *kijiji*)   ch "$@" ;;
 #  *reddit*)   ch "$@" ;;
   *!*)        ch "$@" ;;
 esac
 
-exec surf "$@"
+exec surf -u "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5 Build/MOB3OD) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.105 Mobile Safari/537.36" "$@"
