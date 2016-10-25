@@ -1,0 +1,12 @@
+#!/bin/bash
+## Requires xdotool
+
+run_term() {
+	st -o - -g 40x1+20+20 -t float -e mpw -t max
+}
+
+layout="$(setxkbmap -query | awk '/layout/{print $NF}')"
+pw=$(run_term)
+setxkbmap -layout us
+xdotool type --clearmodifiers --window "$(lsw | tail -n 1)" "${pw##*\ }"
+setxkbmap -layout "$layout"

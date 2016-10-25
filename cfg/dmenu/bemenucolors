@@ -1,5 +1,5 @@
 opts+=(
-    --fn "DejaVu Sans Mono 8" -i -l 10
+    --fn "DejaVu Sans Mono 8" -i -l 10 -f
     --tf '#bcbcbc' --tb '#444444'
     --nf '#bcbcbc' --nb '#262626'
     --hf '#bcbcbc' --hb '#444444'

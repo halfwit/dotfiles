@@ -1,0 +1,7 @@
+#!/bin/bash
+
+. "$XDG_CONFIG_HOME"/dmenu/bemenucolors
+
+result="$(xbps-query -Rs "$1" | bemenu "${opts[@]}")"
+
+[[ $result ]] && st -e sudo xbps-install -Suv "$(awk '{print $2}' "$result")"

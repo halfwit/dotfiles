@@ -9,43 +9,42 @@ tmp="$(mktemp -d /tmp/gh.XXXX)"
 readonly optsfile="$XDG_CONFIG_HOME/dmenu/dmenucolors"
 
 query() {
-    curl -s "https://api.github.com/search/repositories?q=user:$result" 
+	curl -s "https://api.github.com/search/repositories?q=user:$result" 
 }
 
 parse() {
-    jshon -e items -a -e name -upe description -u
+	jshon -e items -a -e name -upe description -u
 }
 
 image_parse() {
-    jshon -e items -a -e login -upe avatar_url -u
+	jshon -e items -a -e login -upe avatar_url -u
 }
 
 build_entries() {
-  while {
-    read -r name 
-    read -r description
-  } do
-    printf '%s |- %s\n' "$name" "$description"
-  done
+	while {
+		read -r name 
+		read -r description
+	} do
+		printf '%s |- %s\n' "$name" "$description"
+	done
 }
 
 build_names() {
-  while {
-    read -r name
-    read -r url
-  } do
-    curl -s "$url" -o "$tmp/$name" &
-    printf 'IMG:%s\t%s\n' "$tmp/$name" "$name"
-  done
+	while {
+		read -r name
+		read -r url
+	} do
+		curl -s "$url" -o "$tmp/$name" &
+		printf 'IMG:%s\t%s\n' "$tmp/$name" "$name"
+	done
 }
 
 handle_result() {
-    local selection
-    while read -r repo; do
-        repo="${repo%%\ -*}"
-        xcmenu -ic "https://github.com/$1/$repo"
-        browse "https://github.com/$1/$repo"
-    done
+	local selection
+	while read -r repo; do
+		repo="${repo%%\ -*}"
+		gitbrowse "https://github.com/$1/$repo"
+	done
 }
 
 ## Main ##
@@ -57,10 +56,10 @@ count="$(jshon -e total_count -u <<< "$result")"
 
 # Narrow if multiple user entries
 if [ $count -gt 1 ]; then
-  opts+=(-is 250x250 -p "Select user")
-  result=$(image_parse <<< "$result" | build_names | dmenu "${opts[@]}")
+	opts+=(-is 250x250 -p "Select user")
+	result=$(image_parse <<< "$result" | build_names | dmenu "${opts[@]}")
 else
-  result=$(jshon -e items -a -e login -u <<< "$result")
+	result=$(jshon -e items -a -e login -u <<< "$result")
 fi
 
 # Clean up

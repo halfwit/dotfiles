@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-## Script to fetch RSS + atom feeds RSS="$XDG_CACHE_HOME"/rss
+## Script to fetch RSS + atom feeds 
+RSS="$XDG_CACHE_HOME"/rss
 
 fetch_data() {
 	data=$(curl -sBX GET -L "$1" -A "Mozilla/5.0 (Linux; Android 6.0.1; Nexus  MOB3OD)" | xml2)
@@ -20,36 +21,39 @@ build_folders() {
 		read -r second
 	} do
 
-	#This sucks, but whatever
-	case "$first" in
-		*feed*entry*title*)	title="$(echo "$first"	| sed 's|/feed/entry/title=||' | sed 's|/||g')"
-					link="$(echo "$second"	| xurls)" ;;
-		*rss*item*title*)	title="$(echo "$first"	| sed 's|/rss/channel/item/title=||' | sed 's|/||g')"
-					link="$(echo "$second"	| xurls)" ;;
-		*rdf*item*title*)	title="$(echo "$first"	| sed 's|/rdf:RDF/item/title=||' | sed 's|/||g')"
-					link="$(echo "$second"	| xurls)" ;;
-		*enclosure*)		title="$(echo "$second" | sed 's|/rss/channel/item/title=||' | sed 's|/||g')"
-					link="$(echo "$first"	| xurls)" ;;
-		*rdf*item*link*)	title="$(echo "$second" | sed 's|/rdf:RDF/item/title=||' | sed 's|/||g')"
-					link="$(echo "$first"	| xurls)" ;;
-		*rss*item*link*)	title="$(echo "$second" | sed 's|/rss/channel/item/title=||' | sed 's|/||g')"
-					link="$(echo "$first"	| xurls)" ;;
-		*feed*entry*link*)	title="$(echo "$second" | sed 's|/feed/entry/title=||' | sed 's|/||g')"
-					link="$(echo "$first"	| xurls)" ;;
-		*)			echo "Mismatch with item $first $second in $i" >> ~/rss_issue && exit 0 ;;
-	esac
+		#This sucks, but whatever
+		case "$first" in
+			*feed*entry*title*)	title="$(echo "$first"	| sed 's|/feed/entry/title=||' | sed 's|/||g')"
+						link="$(echo "$second"	| xurls)" ;;
+			*rss*item*title*)	title="$(echo "$first"	| sed 's|/rss/channel/item/title=||' | sed 's|/||g')"
+						link="$(echo "$second"	| xurls)" ;;
+			*rdf*item*title*)	title="$(echo "$first"	| sed 's|/rdf:RDF/item/title=||' | sed 's|/||g')"
+						link="$(echo "$second"	| xurls)" ;;
+			*enclosure*)		title="$(echo "$second" | sed 's|/rss/channel/item/title=||' | sed 's|/||g')"
+						link="$(echo "$first"	| xurls)" ;;
+			*rdf*item*link*)	title="$(echo "$second" | sed 's|/rdf:RDF/item/title=||' | sed 's|/||g')"
+						link="$(echo "$first"	| xurls)" ;;
+			*rss*item*link*)	title="$(echo "$second" | sed 's|/rss/channel/item/title=||' | sed 's|/||g')"
+						link="$(echo "$first"	| xurls)" ;;
+			*feed*entry*link*)	title="$(echo "$second" | sed 's|/feed/entry/title=||' | sed 's|/||g')"
+						link="$(echo "$first"	| xurls)" ;;
+			*)			echo "Mismatch with item $first $second in $i" >> ~/rss_issue && exit 0 ;;
+		esac
 
-	if [[ ! -f "$RSS/$1/$title" ]]; then
-		echo "$link" > "$RSS/$1/[new] $title"
-	fi
+		if [[ ! -f "$RSS/$1/$title" ]]; then
+			echo "$link" > "$RSS/$1/[new] $title"
+		fi
+	done
 }
 
 while :; do
 
 	cd "$RSS"
 	for i in *; do
-		read -r url < "$i"/url fetch_data "$url" | build_folders "$i"
-	done sleep 1774
+		read -r url < "$i"/url 
+		fetch_data "$url" | build_folders "$i"
+	done 
+	sleep 1774
 done
 
 

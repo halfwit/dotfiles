@@ -13,8 +13,8 @@ create_menu() {
 
   # Open browsers
   while read -r id; do
-    watom "$id" WM_NAME | grep -a -e "browse - " -e " - Chromium"
-  done < <(lsw -a)
+    watom "$id" WM_NAME
+  done < <(lsgrp 2)
 
   # Check bookmarks
   cd "$datadir/bookmark" || exit 1
@@ -56,6 +56,7 @@ handle_results() { # args -> launch
     !link)   exec "$handledir"/link   ;;
     !song)   exec "$handledir"/song   ;;
     !math)   exec "$handledir"/math   ;;
+    !pass)   exec "$handledir"/pass   ;;
     !rss)    exec "$handledir"/rss    ;;
     !man)    exec "$handledir"/man    ;;
     !mix)    exec "$handledir"/mix    ;;
@@ -81,6 +82,7 @@ handle_results() { # args -> launch
     !math\ *)         exec "$handledir"/math   "${1#*math }"   ;;
     !man\ *)          exec "$handledir"/man    "${1#*man }"    ;;
     !mix\ *)          exec "$handledir"/mix    "${1#*mix }"    ;;
+    !pkg\ *)	      exec "$handledir"/pkg    "${1#*pkg }"    ;;
     !gh\ *)   	      exec "$handledir"/gh     "${1#*gh }"     ;;
     !pl\ *)           exec "$handledir"/yt     "$1"            ;;
     !yt\ *)           exec "$handledir"/yt     "${1#*yt }"     ;;

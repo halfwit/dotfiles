@@ -34,7 +34,7 @@ handle_results() {
 read -r KEY < "$XDG_DATA_HOME"/youtube/key
 read -r ID < "$XDG_DATA_HOME"/youtube/imid
 
-url="https://www.googleapis.com/customsearch/v1?key=$KEY&cx=$ID&q=${1// /+}&searchType=image&fileType=jpg&alt=json"
+url="https://www.googleapis.com/customsearch/v1?key=$KEY&cx=$ID&q=${1// /+}&searchType=image&fileType=png&alt=json"
 
 fetch_data "$url"
 
