@@ -58,7 +58,8 @@ get_git_status() {
 		*behind*) print "🠛" ;;
 		*diverg*) print "⥮" ;;
 	esac
-	print "$(git diff --shortstat | awk '{print "+"$4}')%F{red}$(git diff --shortstat | awk '{print "-"$6}')%f%F{green}%f"
+	diff="$(git diff --shortstat | awk '{print "+"$4}')%F{red}$(git diff --shortstat | awk '{print "-"$6}')%f%F{green}%f"
+	print -Pn "\e[$(( $(tput cols) - ${#diff} ))C$diff"
 	return 0
 }
 
@@ -109,7 +110,7 @@ function preexec {
     repeat "$lng" print -Pn "\e[1A\e[F\e[K"
     repeat "$lng" print -Pn "\e[1B"
     print -Pn "\e]2B"
-    print -Pn "\e[2A\e[34;2m • $1\e[2B\e[F\e[K\e[0;m"
+    print -Pn "\e[2A\e[K\e[34;2m • $1\e[2B\e[F\e[K\e[0;m"
   fi
 }
 
