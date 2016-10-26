@@ -50,6 +50,17 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' rehash yes
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
+get_git_status() {
+	test=$(git rev-parse --is-inside-work-tree 2> /dev/null)
+	[[ $test ]] || return 0
+	case "$(git status | sed -n 2p)" in
+		*ahead*)  print "🠙" ;;
+		*behind*) print "🠛" ;;
+		*diverg*) print "⥮" ;;
+	esac
+	print "$(git diff --shortstat | awk '{print "+"$4}')%F{red}$(git diff --shortstat | awk '{print "-"$6}')%f%F{green}%f"
+	return 0
+}
 
 shorten_prompt() {
   local result
@@ -80,7 +91,7 @@ shorten_prompt() {
   return 0
 }
 
-PROMPT='%F{${vimode}}%m%f $(shorten_prompt)%F{green} ${repo} %f
+PROMPT='%F{${vimode}}%m%f $(shorten_prompt)%F{green} ${repo}$(get_git_status)%f
  %F{cyan}‣%f '
 
 # Functions.
@@ -89,20 +100,15 @@ function to_bottom {
   print -Pn "\e[100B"
 }
 
-# All I want is the git branch for now, vcs_info is way overkill to do this.
-function get_git_branch {
-    if [[ -d .git ]]; then
-        read -r branch < .git/HEAD
-        branch=" ${branch##*/} "%
-    else
-        branch=""
-    fi
-}
-
 function preexec {
   if [[ $TERM == st* || $TERM == xterm-* ]]; then
     local cmd=${1[(wr)^(*=*|sudo|exec|ssh|-*)]}
     print -Pn "\e];$cmd:q\a"
+    print -Pn "\e]2A"
+    lng="$(( $(( ${#1} + 3 )) / $(tput cols) ))"
+    repeat "$lng" print -Pn "\e[1A\e[F\e[K"
+    repeat "$lng" print -Pn "\e[1B"
+    print -Pn "\e]2B"
     print -Pn "\e[2A\e[34;2m • $1\e[2B\e[F\e[K\e[0;m"
   fi
 }
@@ -111,6 +117,7 @@ function preexec {
 function precmd {
     print -Pn "\e];%n %~\a"
     repo=${(%):-%(?.${"$(git rev-parse --show-toplevel 2> /dev/null)"##*/} .)}
+    
 }
 
 # Replace vimode indicators.

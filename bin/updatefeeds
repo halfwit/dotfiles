@@ -4,7 +4,7 @@
 RSS="$XDG_CACHE_HOME"/rss
 
 fetch_data() {
-	data=$(curl -sBX GET -L "$1" -A "Mozilla/5.0 (Linux; Android 6.0.1; Nexus  MOB3OD)" | xml2)
+	data=$(curl -sBX GET -L "$1" -A "Mozilla/5.0 (Linux; Android 6.0.1; Nexus  MOB3OD)" | xml2 | sed 's|/feed/entry/title/@type||')
 	case "$data" in
 		*itunes*podcast*1.0*)	echo "$data" | grep -e '/rss/channel/item/enclosure/@url' -e '/rss/channel/item/title' ;;
 		*xmlns:rdf*)		echo "$data" | grep -e 'RDF/item/title'-e 'RDF/item/link' ;;
@@ -23,7 +23,7 @@ build_folders() {
 
 		#This sucks, but whatever
 		case "$first" in
-			*feed*entry*title*)	title="$(echo "$first"	| sed 's|/feed/entry/title=||' | sed 's|/||g')"
+			*feed*entry*title=*)	title="$(echo "$first"	| sed 's|/feed/entry/title=||' | sed 's|/||g')"
 						link="$(echo "$second"	| xurls)" ;;
 			*rss*item*title*)	title="$(echo "$first"	| sed 's|/rss/channel/item/title=||' | sed 's|/||g')"
 						link="$(echo "$second"	| xurls)" ;;
