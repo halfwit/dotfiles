@@ -90,7 +90,7 @@ handle_results() { # args -> launch
     !rq\ *)           exec "$handledir"/rq     "${1#*rq }"     ;;
     !is\ *)     plumber "$("$handledir"/is     "${1#*is }")"   ;;
   
-    !close) pkill surf; pkill chromium    ;;
+    !close) pkill surf; pkill firefox ;;
     
     # Not really search related, but useful 
     !snap)   exec "$handledir"/rec "snap"                    ;;

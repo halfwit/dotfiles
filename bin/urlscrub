@@ -30,4 +30,4 @@ handle() {
 }
 
 [[ -s $optsfile ]] && source "$optsfile"
-url_scrub "$@" | menu | handle 
+url_scrub "$@" | menu | handle

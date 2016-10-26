@@ -5,17 +5,18 @@ lsgrp 2 | xargs mapw -u
 
 ## main
 ch() {
-  exec chromium --kiosk "$@" --enable-extensions --usr-data-dir="$XDG_CONFIG_HOME"/chromium
+  #exec chromium --kiosk "$@" --enable-extensions --usr-data-dir="$XDG_CONFIG_HOME"/chromium
+	exec firefox --new-window "$@"
 }
 
 case "$@" in
   
   *google*)   ch "$@" ;;
-#  *github*)   ch "$@" ;; 
+  *github*)   ch "$@" ;; 
   *youtube*)  ch "$@" ;;
-#  *nixers*)   ch "$@" ;;
+  *nixers*)   ch "$@" ;;
   *kijiji*)   ch "$@" ;;
-#  *reddit*)   ch "$@" ;;
+  *reddit*)   ch "$@" ;;
   *!*)        ch "$@" ;;
 esac
 

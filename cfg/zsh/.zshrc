@@ -50,7 +50,6 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' rehash yes
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-to_bottom=$'\e[100B'
 
 shorten_prompt() {
   local result
@@ -81,12 +80,14 @@ shorten_prompt() {
   return 0
 }
 
-
-
-PROMPT='${to_bottom}%F{${vimode}}%m%f $(shorten_prompt)%F{green} ${repo} %f
+PROMPT='%F{${vimode}}%m%f $(shorten_prompt)%F{green} ${repo} %f
  %F{cyan}‣%f '
 
 # Functions.
+
+function to_bottom {
+  print -Pn "\e[100B"
+}
 
 # All I want is the git branch for now, vcs_info is way overkill to do this.
 function get_git_branch {
@@ -102,6 +103,7 @@ function preexec {
   if [[ $TERM == st* || $TERM == xterm-* ]]; then
     local cmd=${1[(wr)^(*=*|sudo|exec|ssh|-*)]}
     print -Pn "\e];$cmd:q\a"
+    print -Pn "\e[2A\e[34;2m • $1\e[2B\e[F\e[K\e[0;m"
   fi
 }
 
@@ -135,6 +137,8 @@ function quote-word {
     zle quote-region
 }
 zle -N quote-word
+
+to_bottom
 
 # Keybinds, use vimode explicitly.
 bindkey -v
@@ -219,10 +223,6 @@ man() {
    LESS_TERMCAP_ue=$'\E[0m' \
    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
    man "$@"
-}
-
-math() {
-  print "$1" | bc 
 }
 
 # Aliases
