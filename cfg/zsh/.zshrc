@@ -58,9 +58,6 @@ get_git_status() {
 		*behind*) print "🠛" ;;
 		*diverg*) print "⥮" ;;
 	esac
-	diff="$(git diff --shortstat | awk '{print "+"$4}')%F{red}$(git diff --shortstat | awk '{print "-"$6}')%f%F{green}%f"
-	print -Pn "\e[$(( $(tput cols) - ${#diff} ))C$diff"
-	return 0
 }
 
 shorten_prompt() {
