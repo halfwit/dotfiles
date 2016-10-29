@@ -7,7 +7,7 @@ WIN="$XDG_CONFIG_HOME"/x11/windows
 getname() {
   cd $WIN
   for i in *; do
-    watom "$1" WM_NAME | grep -io "$i" && break
+    watom "$1" WM_NAME | grep -io "$i" && break || watom "$1" WM_CLASS | grep -io "$i" && break
   done
 }
 

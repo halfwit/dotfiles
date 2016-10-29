@@ -3,13 +3,11 @@
 # Trying this out!
 xhost +si:localuser:"$USER"
 
-mpd &
 sxhkd &
-dunst &
 xcmenu &
-unclutter -grab &
 syncthing &
 compton -b &
+unclutter -grab &
 ~/local/share/x11/barrun &
 ~/local/share/x11/statsbar & 
 redshift -c ~/local/cfg/redshift.conf &

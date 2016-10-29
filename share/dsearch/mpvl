@@ -11,17 +11,11 @@ readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
 #[[ ! $result ]] && exit 0
 
 main() {
-n=$(echo '{ "command": ["get_property", "playlist-count"] }' | socat - /tmp/mpvsock | jshon -e data)
+	n=$(echo '{ "command": ["get_property", "playlist-count"] }' | socat - /tmp/mpvsock | jshon -e data)
 
-for (( i = 0; i < n; i++ )); do
-  URL=$(echo '{ "command": ["get_property_string", "playlist/'$i'/filename"] }' | socat - /tmp/mpvsock | jshon -e data -u)
-  case "$URL" in
-    ytdl://*) URL="www.youtube.com/watch?v=${URL#*\/\/}" ;;
-  esac
-  
-  [[ $URL ]] && printf '%s %s\n' "$i" "$(youtube-dl -e "$URL")" &
-done
-
+	for (( i = 0; i < n; i++ )); do
+  		URL=$(echo '{ "command": ["get_property_string", "playlist/'$i'/title"] }' | socat - /tmp/mpvsock | jshon -e data -u)  
+	done
 }
 
 opts+=( -l 10 -p "Select video")

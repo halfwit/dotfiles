@@ -18,7 +18,7 @@ done < "$histfile"
 
 # Sanitize input
 if [[ $1 ]]; then
-    [[ $1[0] != [0-9] ]] && inp="${results[-1]}$1"
+    [[ ${1[0]} =~ [0-9] ]] || inp="${results[-1]}$1"
     inp="${inp//\ /}"
 else
     inp="$(printf '%s\n' "${results[@]}" | tac | bemenu "${opts[@]}")"
@@ -26,7 +26,6 @@ fi
 
 # Break this out of the while loop.
 while :; do
-    local invar
     if [[ "${results[@]}" =~ "$inp" ]]; then
         xcmenu -ic <<< "$inp"
         break
@@ -39,9 +38,7 @@ while :; do
         results+=($invar)
         inp="$(printf '%s\n' "${results[@]}" | tac | bemenu "${opts[@]}")"
         
-        if [[ $inp[0] != [0-9] ]]; then
-            inp="${results[-1]}$inp"
-        fi
+        [[ ${inp[0]} =~ [0-9] ]] || inp="${results[-1]}$inp"
         
         inp="${inp//\ /}"
     else

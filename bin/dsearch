@@ -22,7 +22,7 @@ create_menu() {
 
   # This is for mpv playlists
   cd "$datadir/mpv" ||  exit 1
-  for file in *; do
+  for file in *.pls; do
     printf '%s\n' "playlist - ${file/.pls/}" 
   done | sort -u
   
@@ -48,7 +48,7 @@ handle_results() { # args -> launch
     !pocket) exec "$handledir"/pocket ;;
     !notes)  exec "$handledir"/notes  ;;
     !photo)  exec "$handledir"/photo  ;;
-    !video)  exec "$handledir"/video  ;;
+    !mpvl)   exec "$handledir"/mpvl   ;;
     !read)   exec "$handledir"/read   ;;
     !docs)   exec "$handledir"/docs   ;;
     !game)   exec "$handledir"/game   ;;
@@ -64,7 +64,7 @@ handle_results() { # args -> launch
     !pb)     exec "$handledir"/pb     ;;
     !np)     exec "$handledir"/np     ;;
    
-    playlist\ -\ *)   exec "$handledir"/mpv    "${1#*-\ }.pls" ;;
+    playlist\ -\ *)   exec "$XDG_DATA_HOME"/mpv/select_video "${1#*-\ }.pls" ;;
     *\ -\ Chromium)   exec "$handledir"/stack  "$1"            ;;
     browse\ -\ *)     exec "$handledir"/stack  "${1#*-\ }"     ;;
     !pl\ save)        exec "$XDG_DATA_HOME"/youtube/savesearch ;;

@@ -16,8 +16,7 @@ video() {
  	tmp=$(mktemp --suffix=.mkv)
  	ffmpeg -y -video_size "$(wattr w "$(lsw -r)")x$(wattr h "$(lsw -r)")" -framerate 60 -f x11grab -i "$DISPLAY"  "$tmp"
  	wait
-	pbpst -Sf "$tmp" | xcmenu -ic
- 	rm "$tmp"
+	pbpst -Sf "$tmp" | xcmenu -ic && rm "$tmp"
 }
 
 ## Main

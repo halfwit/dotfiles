@@ -17,6 +17,10 @@ get_position() {
     awk -v result="$2" 's=index($0,result) { print int((NR-1)/2) }' "$datadir/mpv/$1"
 }
 
+get_playlist() {
+	echo '{"command": ["get_property", "playlist-name"] }' | socat - /tmp/mpvsock | jshon -e data    
+}
+
 # Main
 
 [[ -s $optsfile ]] && source "$optsfile"
@@ -27,4 +31,4 @@ result=$(get_selection "$1")
 
 result=$(get_position "$1" "$result")
 
-exec mpv "$datadir/mpv/$1" --playlist-pos="$result"
+exec play "$datadir/mpv/$1" --playlist-pos="$result"
