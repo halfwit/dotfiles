@@ -52,7 +52,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 get_git_status() {
 	test=$(git rev-parse --is-inside-work-tree 2> /dev/null)
-	[[ $test ]] || return 0
+	[[ ${#test} -gt 0 ]] || return 0
 	case "$(git status | sed -n 2p)" in
 		*ahead*)  print "🠙" ;;
 		*behind*) print "🠛" ;;

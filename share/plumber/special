@@ -1,0 +1,32 @@
+#!/bin/sh
+
+yt() {
+		exec play "$1" &
+		exit 0
+}
+
+to() {
+		exec browse "$1" &
+		exit 0
+}
+
+case "$@" in
+		*youtube.com/watch*)	yt "$@" ;;
+		*youtu.be*)				yt "$@" ;;
+		*youtube.com/v/*)		yt "$@" ;;
+		ytdl*)					yt "$@" ;;
+		*youtube.com/play*)		yt "$@" ;;
+		*.mp3*)					yt "$@" ;;
+		*webm)					yt "$@" ;;
+		*mkv)					yt "$@" ;;
+		*gifv\?)				yt "$@" ;;
+		
+		gopher://*)				exec st -e cgo "$1" && exit 0 ;;
+		
+		ISBN*)					URL=`echo $1 | awk '{print $2}'`
+								to "https://duckduckgo.com?q=!a%20$URL" ;;
+		*ptpb.pw/*/*) 			URL=`echo $1 | cut -b 1-21`			
+								to "$URL" ;; 
+esac
+
+exit 1

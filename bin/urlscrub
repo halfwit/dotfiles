@@ -7,19 +7,23 @@ readonly optsfile=$XDG_CONFIG_HOME/dmenu/dmenucolors
 # https://github.com/Cloudef/bemenu
 # Currently strips newlines as well
 
+tmp=$(mktemp)
+
 menu() {
     tac | dmenu -l 10 "${opts[@]}" -p URLs
 }
 
 url_scrub() {
     local item
-    tr -d "[:cntrl:]" | xurls | while read -r item; do
+    tee $tmp | tr -d "[:cntrl:]" | xurls | while read -r item; do
         case "$item" in
             *http://*|*https://*) sed 's/^.*\(http.*$\)/\1/' <<< "$item" ;;
             (file*)               sed 's|file://||'          <<< "$item" ;;
             *)                    printf '%s\n' "$item"                  ;;
         esac
     done
+	cat "$tmp" | xurls
+
 }
 
 handle() {
@@ -27,6 +31,7 @@ handle() {
   while read -r selection; do
     plumber "$selection" 
   done
+  rm "$tmp"
 }
 
 [[ -s $optsfile ]] && source "$optsfile"

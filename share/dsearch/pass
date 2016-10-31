@@ -8,5 +8,5 @@ run_term() {
 layout="$(setxkbmap -query | awk '/layout/{print $NF}')"
 pw=$(run_term)
 setxkbmap -layout us
-xdotool type --clearmodifiers --window "$(lsw | tail -n 1)" "${pw##*\ }"
+xdotool type --clearmodifiers --delay 50 --window "$(lsw | tail -n 1)" "${pw##*\ }"
 setxkbmap -layout "$layout"

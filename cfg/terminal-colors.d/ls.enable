@@ -31,51 +31,51 @@ OTHER_WRITABLE         32;40 # o+w
 STICKY                 37;44 # o+t
 
 # # archives or compressed
-# .7z    38;5;9
-# .Z     38;5;9
-# .ace   38;5;9
-# .arj   38;5;9
-# .bz2   38;5;9
-# .cpio  38;5;9
-# .deb   38;5;9
-# .ear   38;5;9
-# .gz    38;5;9
-# .jar   38;5;9
-# .lzh   38;5;9
-# .lzma  38;5;9
-# .rar   38;5;9
-# .rpm   38;5;9
-# .tar   38;5;9
-# .taz   38;5;9
-# .tbz   38;5;9
-# .tbz2  38;5;9
-# .tgz   38;5;9
-# .tlz   38;5;9
-# .txz   38;5;9
-# .xz    38;5;9
-# .zip   38;5;9
+ .7z    38;5;9
+ .Z     38;5;9
+ .ace   38;5;9
+ .arj   38;5;9
+ .bz2   38;5;9
+ .cpio  38;5;9
+ .deb   38;5;9
+ .ear   38;5;9
+ .gz    38;5;9
+ .jar   38;5;9
+ .lzh   38;5;9
+ .lzma  38;5;9
+ .rar   38;5;9
+ .rpm   38;5;9
+ .tar   38;5;9
+ .taz   38;5;9
+ .tbz   38;5;9
+ .tbz2  38;5;9
+ .tgz   38;5;9
+ .tlz   38;5;9
+ .txz   38;5;9
+ .xz    38;5;9
+ .zip   38;5;9
 
 # # still image formats
-# .bmp   00;35
-# .emf   00;35
-# .gif   00;35
-# .jpeg  00;35
-# .jpg   00;35
-# .pbm   00;35
-# .pcx   00;35
-# .pgm   00;35
-# .png   00;35
-# .ppm   00;35
-# .svg   00;35
-# .svgz  00;35
-# .tga   00;35
-# .tif   00;35
-# .tiff  00;35
-# .webp  00;35
-# .xbm   00;35
-# .xcf   00;35
-# .xpm   00;35
-# .xwd   00;35
+.bmp   00;35
+.emf   00;35
+.gif   00;35
+.jpeg  00;35
+.jpg   00;35
+.pbm   00;35
+.pcx   00;35
+.pgm   00;35
+.png   00;35
+.ppm   00;35
+.svg   00;35
+.svgz  00;35
+.tga   00;35
+.tif   00;35
+.tiff  00;35
+.webp  00;35
+.xbm   00;35
+.xcf   00;35
+.xpm   00;35
+.xwd   00;35
 
 # # video formats
 # .avi   38;5;13
