@@ -13,7 +13,7 @@ case "$@" in
 	*google*)	ch "$@" ;;
 	*github*)	ch "$@" ;; 
 	*nixers*)	ch "$@" ;;
-	*kijiji*)	ch "$@" ;;
+	#*kijiji*)	ch "$@" ;;
 	*reddit*)	ch "$@" ;;
 	*!*)		ch "$@" ;;
 esac

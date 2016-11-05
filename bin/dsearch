@@ -42,10 +42,11 @@ get_selection() {
 
 handle_results() { # args -> launch
   case "$@" in
-    
+    !metal) exec browse "$search!metal%20$(mpc current | sed 's/ -.*//')" ;; 
     !listen) exec "$handledir"/listen ;;
     !lyrics) exec "$handledir"/lyrics ;;
     !pocket) exec "$handledir"/pocket ;;
+	!commit) exec "$handledir"/commit ;;
     !notes)  exec "$handledir"/notes  ;;
     !photo)  exec "$handledir"/photo  ;;
     !mpvl)   exec "$handledir"/mpvl   ;;

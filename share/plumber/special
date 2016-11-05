@@ -10,6 +10,11 @@ to() {
 		exit 0
 }
 
+asci() {
+		st -e asciinema play "$1" &
+		exit 0
+}
+
 case "$@" in
 		*youtube.com/watch*)	yt "$@" ;;
 		*youtu.be*)				yt "$@" ;;
@@ -23,10 +28,17 @@ case "$@" in
 		
 		gopher://*)				exec st -e cgo "$1" && exit 0 ;;
 		
+		*gehidore.net/t/*)		URL=`echo $1 | sed 's|/t||p'`
+								asci "$URL" ;;
+		*ptpb.pw/t/*)			URL=`echo $1 | sed 's|/t||p'`
+								asci "$URL" ;;
+		*asciinema*)			asci "$1" 	;;
 		ISBN*)					URL=`echo $1 | awk '{print $2}'`
 								to "https://duckduckgo.com?q=!a%20$URL" ;;
-		*ptpb.pw/*/*) 			URL=`echo $1 | cut -b 1-21`			
-								to "$URL" ;; 
+		
+		*ptpb.pw/*/*) 			URL=`echo $1 | cut -b 1-20`			
+								exec plumber "$URL" ;; 
+		
 esac
 
 exit 1

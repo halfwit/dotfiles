@@ -24,7 +24,7 @@ setopt auto_cd \
     correct              \
     dot_glob             \
     hist_verify          \
-    hist_append          \
+	appendhistory		 \
     prompt_subst         \
     extended_glob        \
     rm_star_silent       \
@@ -37,6 +37,7 @@ setopt auto_cd \
     hist_reduce_blanks   \
     hist_ignore_all_dups \
     interactive_comments 
+#    hist_append          \
 
 READNULLCMD=$PAGER
 HELPDIR=/usr/share/zsh/$ZSH_VERSION/help
@@ -97,6 +98,7 @@ PROMPT='%F{${vimode}}%m%f $(shorten_prompt)%F{green} ${repo}$(get_git_status)%f
 function to_bottom {
   print -Pn "\e[100B"
 }
+to_bottom
 
 function preexec {
   if [[ $TERM == st* || $TERM == xterm-* ]]; then
@@ -143,7 +145,6 @@ function quote-word {
 }
 zle -N quote-word
 
-to_bottom
 
 # Keybinds, use vimode explicitly.
 bindkey -v
@@ -246,19 +247,6 @@ alias chgrp='chgrp -c --preserve-root'
  
 alias ls='ls --color=auto --group-directories-first -AhXF'
 alias ll='ls --color=auto --group-directories-first -AlhXF'
-
-# Pastebins
-alias dmesg='dmesg -exL'
-alias i="curl -F 'f:1=<-' ix.io"
-alias s="curl -F 'sprunge=<-' sprunge.us"
-
-# Nvim socket for msgpack
-alias nvim="NVIM_LISTEN_ADDRESS=/tmp/nvimsocket /usr/bin/nvim"
-
-# For proper XDG dirs
-alias newsbeuter="newsbeuter -C $XDG_CONFIG_HOME/newsbeuter/config"
-alias gdb="gdb -n -x $XDG_CONFIG_HOME/gdb/init"
-alias weechat="weechat -d $XDG_CONFIG_HOME/weechat"
 
 # Some --help based completions for things I use
 compdef _gnu_generic clang-format
