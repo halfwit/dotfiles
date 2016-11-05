@@ -1,0 +1,31 @@
+#!/bin/bash
+# Branches should be handled with much more care, do not use for branches
+crawl() {
+		for i in $1/*; do
+				if test -d $i 2>/dev/null; then
+						cd "$i"
+				else
+						continue
+				fi
+				
+				if git  rev-parse --is-inside-work-tree &>/dev/null; then
+						case "$(git status | sed -n 2p)" in
+								*ahead*) printf '%s\n' "${i/$HOME/}" ;;
+						esac	
+				else
+						crawl "$i"
+				fi
+		done
+}
+
+handle_results() {
+		while read -r url; do
+				cd "$HOME${url%%\ *}"
+				st -g 40x4+20+20 -t float -e git push
+		done
+}
+
+source "$XDG_CONFIG_HOME/dmenu/dmenucolors"
+opts+=(-p "Push repo(s)")
+
+crawl "$HOME" | dmenu "${opts[@]}" | handle_results 

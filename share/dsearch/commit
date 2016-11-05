@@ -1,0 +1,29 @@
+#!/bin/bash
+
+crawl() {
+		for i in $1/*; do
+				if test -d $i 2>/dev/null; then
+						cd "$i"
+				else
+						continue
+				fi
+				
+				if git rev-parse --show-toplevel &>/dev/null; then
+						stat="$(git diff --shortstat)"
+						[[ ${#stat} > 0 ]] && printf '%s|%s\n' "${i/$HOME/}" "$stat"
+				else
+						crawl "$i"
+				fi
+		done
+}
+
+handle_results() {
+		while read -r url; do
+				cd "$HOME${url%%\ *}"
+				st -e git commit -a --verbose &
+		done
+}
+
+source "$XDG_CONFIG_HOME/dmenu/dmenucolors"
+opts+=(-p "To be commited")
+crawl "$HOME" | column -s '|' -t | dmenu "${opts[@]}" | handle_results 

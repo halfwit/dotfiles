@@ -58,6 +58,7 @@ handle_results() { # args -> launch
     !song)   exec "$handledir"/song   ;;
     !math)   exec "$handledir"/math   ;;
     !pass)   exec "$handledir"/pass   ;;
+	!push)	 exec "$handledir"/push	  ;;
     !rss)    exec "$handledir"/rss    ;;
     !man)    exec "$handledir"/man    ;;
     !mix)    exec "$handledir"/mix    ;;
