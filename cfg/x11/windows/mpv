@@ -1,1 +1,4 @@
-printf '%s %s %s %s %s\n' "400" "224" "$(wattr w "$id")" "$(( heigh - gaps ))" "$id"
+t_w="$(wattr w "$id")"
+t_h="$(echo '{ "command": ["get_property", "video-aspect"] }' | socat - /tmp/mpvsock | jshon -e data -u)"
+t_h=$(echo "$t_w/$t_h" | bc)
+printf '%s %s %s %s %s\n' "$t_w" "$t_h" "$t_w" "$t_h" "$id"
