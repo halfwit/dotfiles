@@ -21,7 +21,9 @@ crawl() {
 handle_results() {
 		while read -r url; do
 				cd "$HOME${url%%\ *}"
-				st -g 60x1+20+20 -t float -e git push
+				while $(st -g 60x1+20+20 -t float -e git push); do
+						:
+				done
 		done
 }
 

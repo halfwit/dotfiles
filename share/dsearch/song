@@ -1,44 +1,33 @@
 #!/usr/bin/env bash
 ## List current playlist
+#  I generally have all of my music on the playlist
+#  Adjust for your own needs
 
 readonly optsdir=$XDG_CONFIG_HOME/dmenu/bemenucolors
 
 load() {
-  local i=0 result
-  result=$(mpc playlist | while read -r title; do
-    printf '%s %s\n' "$((++i))" "$title"
-  done | bemenu "${opts[@]}")
-  [[ ! $result ]] && exit 1
-  mpc play "${result%%\ *}"
+	local i=0 result
+	result=$(mpc playlist | while read -r title; do
+		printf '%s %s\n' "$((++i))" "$title"
+	done | bemenu "${opts[@]}")
 }
-
-querysong() {
-  echo "Not found!"
-}
-
-findsong() {
-  local result dir num name
-  result="$(grep -Fsrni "$1" ~/local/cfg/mpd/playlists)"
-  if [[ $(wc -l <<< "$result") -gt 1 ]]; then
-    result="$(bemenu "${opts[@]}" -l 10 <<< "$result")"
-  fi
-  [[ ! $result ]] && exit 1
-  while IFS=":" read -r dir num name; do
-    dir="${dir/.m3u/}" 
-    mpc clear
-    mpc load "${dir##*\/}"
-    mpc play "$(( num / 2 ))"
-  break
-  done <<< "$result"
-}
-
 ## Main
 
 [[ $optsdir ]] && source "$optsdir"
 opts+=(-p "Select song: " -l 10)
 
 if [[ $1 ]]; then
-  grep -Fsrni "$1" ~/local/cfg/mpd/playlists && findsong "$1" || querysong "$1"
-else 
-  load
+	result=$1
+else
+	result="$(load)"
+fi	
+
+[[ $result ]] || exit 0
+
+# If we don't have the song at all, grab it from youtube
+if ! mpc playlist | grep "$result"; then
+	youtube-dl "ytsearch:$result" --get-url -f 140 | mpc insert
+	mpc next
+else
+	mpc play "${result%%\ *}"
 fi
