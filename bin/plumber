@@ -39,7 +39,7 @@ handle() {
               exit 0 ;;
       hear)   mpv 		"$1" &
               exit 0 ;;
-      man)    exec "$XDG_DATA_HOME"/dsearch/man "$1" &
+      man)    "$XDG_DATA_HOME"/dsearch/man "$1" &
               exit 0 ;;
     esac
   done
@@ -57,7 +57,7 @@ handle_online() {
 mime() {
   if [[ -f $1 ]]; then 
     file -bL --mime-type "$1"
-  elif whatis "${1%\(*}" &>/dev/null; then
+  elif whatis "${1/[^a-zA-Z0-9]*/}" &>/dev/null; then
     printf "man\n"
   else
     content-type "$1" || handle_online "$1"
@@ -73,19 +73,19 @@ parse() {
 }
 
 ## Main
-
-[[ $1 ]] && "$PLDIR"/special "$1" && exit 0
+[[ $1 ]] && input="$1" || read -r input 
+[[ $input ]] && "$PLDIR"/special "$input" && exit 0
 
 while read -r mimetype; do
   case "$mimetype" in
-    X-Arc*) parse "${mimetype%;*}" | handle "$1" ;;
-    appli*) parse "${mimetype%;*}" | handle "$1" ;;
-    video*) parse "${mimetype%;*}" | handle "$1" ;;
-    audio*) parse "${mimetype%;*}" | handle "$1" ;;
-    image*) parse "${mimetype%;*}" | handle "$1" ;;
-    inode*) parse "${mimetype%;*}" | handle "$1" ;;
-    text*)  parse "${mimetype%;*}" | handle "$1" ;;
-    man*)   printf "man\n"         | handle "$1" ;;
+    X-Arc*) parse "${mimetype%;*}" | handle "$input" ;;
+    appli*) parse "${mimetype%;*}" | handle "$input" ;;
+    video*) parse "${mimetype%;*}" | handle "$input" ;;
+    audio*) parse "${mimetype%;*}" | handle "$input" ;;
+    image*) parse "${mimetype%;*}" | handle "$input" ;;
+    inode*) parse "${mimetype%;*}" | handle "$input" ;;
+    text*)  parse "${mimetype%;*}" | handle "$input" ;;
+    man*)   printf "man\n"         | handle "$input" ;;
     *) printf '%s\n' "$mimetype" >> ~/mime_issues ;;
   esac
-done < <(mime "$1")
+done < <(mime "$input")

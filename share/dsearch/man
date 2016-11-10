@@ -1,15 +1,11 @@
 #!/usr/bin/env bash
 ## Find manuals
 
-readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
+readonly optsfile="$XDG_CONFIG_HOME"/dmenu/dmenucolors
 
 handle_result() {
    local width
-   #Coloration, and match width
-   width=$(tput cols)
-   [[ $width -gt $MANWIDTH ]] && \
    exec env LESS=-RX \
-   MANWIDTH="$width" \
    LESS_TERMCAP_mb=$'\E[01;31m' \
    LESS_TERMCAP_md=$'\E[01;38;5;74m' \
    LESS_TERMCAP_me=$'\E[0m' \
@@ -17,7 +13,7 @@ handle_result() {
    LESS_TERMCAP_so=$'\E[38;5;246m' \
    LESS_TERMCAP_ue=$'\E[0m' \
    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
-   st -t float -e man "$1" "$2"
+   st -g 80 -t man -e man "$1" "$2" &
 }
 
 unchunk() {
@@ -50,15 +46,15 @@ append() {
 [[ -s $optsfile ]] && source "$optsfile"
 opts+=(-l 10 -p "Select manual")
 
-result="$(whatis "$1" || "$(apropos . | bemenu "${opts[@]}")")"
+result="$(whatis "${1/[^a-zA-Z0-9]*/}" || "$(apropos - | dmenu "${opts[@]}")")"
 
 # Check for ambiguity
 if [[ "$(unchunk <<< "$result" | wc -l)" -gt 1 ]]; then
-    result=$(printf '%s\n' "$result" | unchunk | append "$1" | column -s '|' -t | bemenu "${opts[@]}")
+    result=$(printf '%s\n' "$result" | unchunk | append "$1" | column -s '|' -t | dmenu "${opts[@]}")
 fi
 
 # If a bang, send it to browser
-[[ $result == !* ]] && exec browse "https://duckduckgo.com?q=$result" 
+[[ $result == !* ]] && exec browse "https://duckduckgo.com?q=$result" &
 
 # Send off to handler
 [[ $result ]] && handle_result "${result//[a-zA-Z\(\)-_]/}" "${result%\(*}"
