@@ -3,7 +3,7 @@
 
 readonly datadir=$HOME/local/share
 readonly handledir="$datadir"/dsearch
-readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
+readonly optsfile="$XDG_CONFIG_HOME"/dmenu/dmenucolors
 readonly search="https://duckduckgo.com?q="
 
 create_menu() {
@@ -36,7 +36,7 @@ create_menu() {
 
 get_selection() {
   opts+=(-p Search)
-  create_menu | bemenu -l 10 "${opts[@]}"
+  create_menu | dmenu -l 10 "${opts[@]}"
   #create_menu | rofi -dmenu
 }
 
@@ -93,7 +93,7 @@ handle_results() { # args -> launch
     !rq\ *)           exec "$handledir"/rq     "${1#*rq }"     ;;
     !is\ *)     plumber "$("$handledir"/is     "${1#*is }")"   ;;
   
-    !close) pkill surf; pkill firefox ;;
+    !close) pkill surf; pkill chromium ;;
     
     # Not really search related, but useful 
     !snap)   exec "$handledir"/rec "snap"                    ;;

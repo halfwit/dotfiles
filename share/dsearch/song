@@ -3,13 +3,13 @@
 #  I generally have all of my music on the playlist
 #  Adjust for your own needs
 
-readonly optsdir=$XDG_CONFIG_HOME/dmenu/bemenucolors
+readonly optsdir=$XDG_CONFIG_HOME/dmenu/dmenucolors
 
 load() {
-	local i=0 result
-	result=$(mpc playlist | while read -r title; do
+	local i=0
+		mpc playlist | while read -r title; do
 		printf '%s %s\n' "$((++i))" "$title"
-	done | bemenu "${opts[@]}")
+	done | dmenu "${opts[@]}"
 }
 ## Main
 
@@ -25,7 +25,7 @@ fi
 [[ $result ]] || exit 0
 
 # If we don't have the song at all, grab it from youtube
-if ! mpc playlist | grep "$result"; then
+if ! mpc playlist | grep "${result#*\ }"; then
 	youtube-dl "ytsearch:$result" --get-url -f 140 | mpc insert
 	mpc next
 else

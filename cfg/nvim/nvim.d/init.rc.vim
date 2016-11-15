@@ -1,4 +1,6 @@
 Plug 'romainl/Apprentice'
+Plug 'chrisdone/zenburn'
+Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'Yggdroot/indentLine'
 Plug 'benekastah/neomake'
 Plug 'cespare/vim-toml' 

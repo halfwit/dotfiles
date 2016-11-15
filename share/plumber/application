@@ -1,7 +1,9 @@
 application/octet-stream edit
+application/xml edit
 application/vnd.djvu edit
 application/pdf docs
 application/epubzip docs
 application/binary browse
 application/json browse
+application/xhtml browse
 application/x-shockwave-flash play

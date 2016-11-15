@@ -57,7 +57,7 @@ handle_online() {
 mime() {
   if [[ -f $1 ]]; then 
     file -bL --mime-type "$1"
-  elif whatis "${1/[^a-zA-Z0-9]*/}" &>/dev/null; then
+  elif whatis "${1/[^a-zA-Z0-9:-_\/]*/}" &>/dev/null; then
     printf "man\n"
   else
     content-type "$1" || handle_online "$1"
