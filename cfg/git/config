@@ -10,9 +10,12 @@
   unstage = reset HEAD --
   cached = diff --cached
   d = difftool
+  ctags = !.git/hooks/ctags
 [color]
   ui = auto
 [diff]
   tool = vimdiff
 [difftool]
   prompt = false
+[init]
+	templatedir = ~/local/cfg/git/template
