@@ -1,0 +1,51 @@
+#!/bin/bash
+
+## Ugly code, but this will use the ctags of a given .git/tags, and open them
+## upon search match
+
+[[ $1 ]] && input="$1" || read -r input
+[[ $(git rev-parse --is-inside-work-tree) ]] || exec $XDG_DATA_HOME/dsearch/code "$input"
+
+declare -A rarray
+
+
+scrub() {
+	awk '/^'"$1"'/{ print $1, $0}' < "$(git rev-parse --show-toplevel)/.git/tags"
+}
+
+menu() {
+	source "$XDG_CONFIG_HOME/dmenu/dmenucolors"
+	opts+=(-p "Select file")
+	printf "${!rarray[*]}" | xargs -n 1 | dmenu "${opts[@]}"
+}
+
+
+## Main ##
+
+# Build array
+while read -r item key; do
+		rarray["$item"]="$key"
+done < <(scrub "$input")
+
+# If we have only one result, just run that
+if [[ ${#rarray[@]} == 1 ]]; then
+	result="${!rarray[@]}"
+else
+	result=$(menu)
+fi
+
+[[ $result ]] || exit 0
+
+linenumber=$(grep -o "line:[0-9]\+" <<< "${rarray[$result]}")
+filepath=$(awk '{ print $2 }' <<< "${rarray[$result]}")
+
+# Fire off editor, then use xdo to enter vim motions down to line
+cd $(git rev-parse --show-toplevel)
+edit "${filepath/..\/}" &
+
+sleep .1
+layout="$(setxkbmap -query | awk '/layout/{print $NF}')"
+setxkbmap -layout us
+xdotool type --window "$(lsw | tail -n 1)" "${linenumber##*:}"jk
+sleep .1
+setxkbmap -layout "$layout"
