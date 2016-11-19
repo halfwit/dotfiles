@@ -35,7 +35,7 @@ handle() {
               exit 0 ;;
       docs)   zathura   "$(fetch "$1")" & 
               exit 0 ;;
-      edit)   edit      "$1" & 
+	  edit)   edit      "$(fetch "$1")" & 
               exit 0 ;;
       hear)   mpv 		"$1" &
               exit 0 ;;

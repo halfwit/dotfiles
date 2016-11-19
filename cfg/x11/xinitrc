@@ -2,6 +2,7 @@
 
 # Trying this out!
 xhost +si:localuser:"$USER"
+setxkbmap -option caps:escape
 
 sxhkd &
 xcmenu &

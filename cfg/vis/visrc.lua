@@ -19,6 +19,8 @@ vis.events.win_open = function(win)
 	vis:command('set autoindent')
 	vis:command('set tabwidth 4')
 end
---hello world printf(hello world) hahahha
--- ISBN 18678720788
--- https://github.com/martanne/vis
+
+vis.events.file_presave = function()
+	vis:command(':%s/\t\+$//g')
+	vis:command(':%s/ \+$//g')
+end

@@ -35,4 +35,4 @@ handle() {
 }
 
 [[ -s $optsfile ]] && source "$optsfile"
-url_scrub "$@" | sort -ru | menu | handle
+url_scrub "$@" | sort -u | menu | handle

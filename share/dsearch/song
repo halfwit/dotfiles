@@ -20,14 +20,18 @@ if [[ $1 ]]; then
 	result=$1
 else
 	result="$(load)"
-fi	
+fi
 
 [[ $result ]] || exit 0
 
 # If we don't have the song at all, grab it from youtube
 if ! mpc playlist | grep "${result#*\ }"; then
-	youtube-dl "ytsearch:$result" --get-url -f 140 | mpc insert
+	youtube-dl "ytsearch:$result" --get-url --audio-format mp3 -f 140 | mpc insert
 	mpc next
 else
 	mpc play "${result%%\ *}"
+	sleep 2
+	if ! pgrep mpg123; then
+		stream
+	fi
 fi
