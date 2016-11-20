@@ -4,7 +4,6 @@
 
 shopt -s nullglob
 readonly progn=docs
-readonly optsfile="$XDG_CONFIG_HOME"/dmenu/dmenucolors
 readonly prefix="$XDG_DATA_HOME"/librarian
 readonly bindir="$prefix"/bin
 readonly coverdir="$prefix"/covers
@@ -84,7 +83,7 @@ create_menu() {
 
 get_user_picks() {
     #global dmenu_opts
-    create_menu | sort -k2 | dmenu "${opts[@]}"
+    create_menu | sort -k2 | dmenu -p "Select" -is 240x320
 }
 
 launch() {
@@ -128,9 +127,6 @@ process_results() {
 }
 
 ## Main loop
-[[ $optsfile ]] && source "$optsfile"
-opts+=(-p "Read document: " -l 10 -is 240x320)
-
 mkdir -p "$datadir" "$bindir" "$coverdir"
 
 populate_arrays < <(generate_entry_data)

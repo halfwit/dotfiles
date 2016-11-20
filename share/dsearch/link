@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # Database of bookmarks for quick linking
-readonly optsfile=$XDG_CONFIG_HOME/dmenu/bemenucolors
 readonly datadir="$XDG_DATA_HOME"
 readonly pics="$HOME"/media/pictures
 
@@ -39,7 +38,7 @@ build() {
 
 video() {
   local result
-  lnk=$(sed -n -e 's/^Title[0-9]\+=//p' < "$datadir/mpv/${1##*-\ }.pls" | bemenu "${opts[@]}" -l 10 -p "Select video" ) 
+  lnk=$(sed -n -e 's/^Title[0-9]\+=//p' < "$datadir/mpv/${1##*-\ }.pls" | dmenu -p "Select video" ) 
   
   # If no selection is made, return to this program
   [[ ! $lnk ]] && exec "$datadir/dsearch/link"
@@ -47,10 +46,7 @@ video() {
   sed -n -e "/$lnk/ { n; s/^File[0-9]\+=//p }" < "$datadir/mpv/${1#*-\ }.pls"
 }
 
-[[ -s $optsfile ]] && source "$optsfile"
-
-opts+=( -l 10 -p "Select bookmark" )
-lnk=$(list | sort -u | build | bemenu "${opts[@]}")
+lnk=$(list | sort -u | build | dmenu -p "Select bookmark: ")
 
 case $lnk in
   current*) lnk="${lnk#*-\ }" ;;

@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 # Front end for notes.
 
-
-readonly optsfile=$XDG_CONFIG_HOME/dmenu/dmenucolors
-
 create_menu() {
   cd $notedir
   for i in *; do 
@@ -16,15 +13,10 @@ create_menu() {
 }
 
 menu() {
-  opts+=(-p "Select or create a new note: " -l 10)
-  create_menu | dmenu "${opts[@]}"
+  create_menu | dmenu -p "Create or edit note"
 }
 
 ## Main
-
-# Theme for dmenu
-[[ -s $optsfile ]] && source "$optsfile"
-
 
 notedir=$XDG_CACHE_HOME/notes
 result=$(menu)

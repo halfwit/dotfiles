@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 ## Find manuals
 
-readonly optsfile="$XDG_CONFIG_HOME"/dmenu/dmenucolors
-
 handle_result() {
    local width
    exec env LESS=-RX \
@@ -43,14 +41,11 @@ append() {
 
 ## Main ##
 
-[[ -s $optsfile ]] && source "$optsfile"
-opts+=(-l 10 -p "Select manual")
-
-result="$(whatis "${1/[^a-zA-Z0-9]*/}" || "$(apropos - | dmenu "${opts[@]}")")"
+result="$(whatis "${1/[^a-zA-Z0-9]*/}" || "$(apropos - | dmenu -p "Select manual: ")")"
 
 # Check for ambiguity
 if [[ "$(unchunk <<< "$result" | wc -l)" -gt 1 ]]; then
-    result=$(printf '%s\n' "$result" | unchunk | append "$1" | column -s '|' -t | dmenu "${opts[@]}")
+    result=$(printf '%s\n' "$result" | unchunk | append "$1" | column -s '|' -t | dmenu)
 fi
 
 # If a bang, send it to browser

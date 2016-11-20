@@ -1,9 +1,6 @@
 #!/bin/bash
 
-. "$XDG_CONFIG_HOME"/dmenu/bemenucolors
-
-opts+=(-p "Select package")
-result="$(xbps-query -Rs "$1" | bemenu "${opts[@]}")"
+result="$(xbps-query -Rs "$1" | -p "Select package: ")"
 result="$(awk '{print $2}' <<< "$result")"
 
 [[ $result ]] || exit 0

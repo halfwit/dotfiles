@@ -24,6 +24,4 @@ handle_results() {
 		done
 }
 
-source "$XDG_CONFIG_HOME/dmenu/dmenucolors"
-opts+=(-p "To be commited")
-crawl "$HOME" | column -s '|' -t | dmenu "${opts[@]}" | handle_results 
+crawl "$HOME" | column -s '|' -t | dmenu -p "Commit: " | handle_results 

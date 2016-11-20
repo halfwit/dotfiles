@@ -1,16 +1,12 @@
 #!/usr/bin/env bash
 
-readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
-
 selection() {
-  opts+=(-l 10 -p Upload)
-  find ~/ -type f | bemenu "${opts[@]}" 
+  find ~/ -type f | dmenu -p Upload
 }
 
 if [[ $1 ]]; then
   result="$1"
 else
-  [[ -s $optsfile ]] && source "$optsfile"
   result=$(selection)
 fi
 

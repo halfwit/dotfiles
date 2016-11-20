@@ -3,8 +3,6 @@
 #
 
 # binaries and their parameters
-readonly optsfile=$XDG_CONFIG_HOME/dmenu/dmenucolors
-
 XCMENU="xcmenu"
 
 # clipboard to copy to
@@ -34,7 +32,7 @@ EOF
 # urls
 urlmode() {
    local protos="https?|ftps?|mailto|ssh|git|file"
-   local url="$("$XCMENU" -l | grep -aoP "((($protos):\/\/|www\..*\.)[-/.\?=&%()#@~:\w]+)" | dmenu -l 10 "${opts[@]}" -p "clipboard" )"
+   local url="$("$XCMENU" -l | grep -aoP "((($protos):\/\/|www\..*\.)[-/.\?=&%()#@~:\w]+)" | dmenu -p "clipboard" )"
    [[ -n "$url" ]] || exit 1
    printf %s "#LC:skip_history:$url" | "$XCMENU" -i --${CLIPBOARD}
    echo "$url"
@@ -43,9 +41,9 @@ urlmode() {
 
 # syncmode
 syncmode() {
-   local synf="$(echo -e "primary\nsecondary\nclipboard" | dmenu "${opts[@]}" -l 10 -p "sync_from")"
+   local synf="$(echo -e "primary\nsecondary\nclipboard" | dmenu -p "sync_from")"
    [[ -n "$synf" ]] || exit 1
-   local synt="$(echo -e "primary\nsecondary\nclipboard" | dmenu "${opts[@]}" -p "sync_to")"
+   local synt="$(echo -e "primary\nsecondary\nclipboard" | dmenu -p "sync_to")"
    [[ -n "$synt" ]] || exit 1
    local data="$("$XCMENU" --${synf})"
    printf %s "$data" | "$XCMENU" -i --${synt}
@@ -55,8 +53,7 @@ syncmode() {
 
 # clipmode
 clipmode() {
-   opts+=( -l 10 -p "clipboard" )
-   id="$("$XCMENU" -m | dmenu "${opts[@]}"| sed 's/^[^0-9]*\([^:]*\):.*/\1/g')"
+   id="$("$XCMENU" -m | dmenu -p clipboard| sed 's/^[^0-9]*\([^:]*\):.*/\1/g')"
    [[ -n "$id" ]] || exit 1
    local data="$(echo "$id" | "$XCMENU" -g)"
    printf %s "$data" | "$XCMENU" -i --${CLIPBOARD}
@@ -87,9 +84,6 @@ main() {
    [[ "$1" == "-s" ]] && syncmode
    clipmode
 }
-
-# https://github.com/halfwit/dotfiles/blob/master/.config/dmenu/font
-[[ -s $optsfile ]] && source "$optsfile"
 
 main "$@"
 

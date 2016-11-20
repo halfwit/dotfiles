@@ -38,7 +38,5 @@ url="https://www.googleapis.com/customsearch/v1?key=$KEY&cx=$ID&q=${1// /+}&sear
 
 fetch_data "$url"
 
-source "$XDG_CONFIG_HOME"/dmenu/dmenucolors
-opts+=(-l 10 -p "Select image" -is 150x150)
 
-parse | itemize | dmenu "${opts[@]}" | handle_results
+parse | itemize | dmenu -p "Select image: " -is 150x150 | handle_results

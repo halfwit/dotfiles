@@ -21,6 +21,6 @@ vis.events.win_open = function(win)
 end
 
 vis.events.file_presave = function()
-	vis:command(':%s/\t\+$//g')
-	vis:command(':%s/ \+$//g')
+	vis:command(':%s/\t$//g')
+	vis:command(':%s/ $//g')
 end

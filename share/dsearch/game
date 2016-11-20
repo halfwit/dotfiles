@@ -5,7 +5,6 @@
 
 shopt -s nullglob
 readonly progn=game
-readonly optsfile="$XDG_CONFIG_HOME"/dmenu/dmenucolors
 readonly datadir="${XDG_DATA_HOME:-$HOME/local/share}"
 readonly prefix="$HOME"/local/share/taverner
 readonly bindir="$prefix"/bin
@@ -85,7 +84,7 @@ create_menu() {
 
 get_user_picks() {
     #global opts
-    create_menu | sort | dmenu "${opts[@]}"
+    create_menu | sort | dmenu -p "Select game: " -is 416x240
 }
 
 launch() {
@@ -130,9 +129,6 @@ process_results() {
 
 
 # Main loop
-[[ "$optsfile" ]] && source "$optsfile"
-opts+=( -p "Play" -is 416x240)
-
 mkdir -p "$datadir" "$bindir" "$coverdir"
 
 populate_arrays < <(generate_entry_data)

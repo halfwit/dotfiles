@@ -6,7 +6,6 @@
 #  https://github.com/keenerd/jshon
 
 tmp="$(mktemp -d /tmp/gh.XXXX)" 
-readonly optsfile="$XDG_CONFIG_HOME/dmenu/dmenucolors"
 
 query() {
 	curl -s "https://api.github.com/search/repositories?q=user:$result" 
@@ -56,8 +55,7 @@ count="$(jshon -e total_count -u <<< "$result")"
 
 # Narrow if multiple user entries
 if [ $count -gt 1 ]; then
-	opts+=(-is 250x250 -p "Select user")
-	result=$(image_parse <<< "$result" | build_names | dmenu "${opts[@]}")
+	result=$(image_parse <<< "$result" | build_names | dmenu -p "Select user" -is 250x250)
 else
 	result=$(jshon -e items -a -e login -u <<< "$result")
 fi
@@ -70,6 +68,4 @@ rm -rf "$tmp"
 
 # Select end repo(s) and launch in browser
 unset opts
-source "$XDG_CONFIG_HOME"/dmenu/bemenucolors
-opts+=(-p "Select repo")
-query "$result" | parse | build_entries | column -s '|' -t | bemenu "${opts[@]}" | handle_result "$result"
+query "$result" | parse | build_entries | column -s '|' -t | dmenu -p "Select repo: " | handle_result "$result"

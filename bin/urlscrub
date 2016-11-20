@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 # Cheapo url spawner for st
 
-readonly optsfile=$XDG_CONFIG_HOME/dmenu/dmenucolors
-
 # https://github.com/mvdan/xurls
 # https://github.com/Cloudef/bemenu
 # Currently strips newlines as well
@@ -10,7 +8,7 @@ readonly optsfile=$XDG_CONFIG_HOME/dmenu/dmenucolors
 tmp=$(mktemp)
 
 menu() {
-    tac | dmenu -l 10 "${opts[@]}" -p URLs
+    tac | dmenu -p URLs
 }
 
 url_scrub() {
@@ -34,5 +32,4 @@ handle() {
   rm "$tmp"
 }
 
-[[ -s $optsfile ]] && source "$optsfile"
 url_scrub "$@" | sort -u | menu | handle

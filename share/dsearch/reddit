@@ -5,7 +5,6 @@
 #  https://github.com/Cloudef/dmenu-pango-imlib
 #  https://github.com/keenerd/jshon
 
-readonly optsdir="$XDG_CONFIG_HOME"/dmenu/dmenucolors
 tmp=$(mktemp -d /tmp/reddit.XXXX)
 
 fetch() {
@@ -42,8 +41,4 @@ handle_selection() {
 
 
 ## Main 
-
-[[ -s $optsdir ]] && source "$optsdir"
-opts+=(-is 140x140 -l 10 -p "Select post")
-
-fetch "$1" | build_dirs | dmenu "${opts[@]}" | handle_selection
+fetch "$1" | build_dirs | dmenu -p "Select post: " -is 140x140 | handle_selection

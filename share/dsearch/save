@@ -2,14 +2,10 @@
 
 # Tool to save arbitrary things from the current clip to various locations
 
-readonly optsdir=$XDG_CONFIG_HOME/dmenu/bemenucolors
-
-[[ $optsdir ]] && source "$optsdir"
 
 
 name() {
-  opts+=(-l 1 -p "Save $1 as:")
-  printf '\n' | bemenu "${opts[@]}" 
+  printf '\n' | dmenu "Save $1 as: " -l 1
 }
 
 doc() {
@@ -53,8 +49,7 @@ done
 [[ $1 ]] && input="$1" || input=$(xcmenuctrl -u)
 
 if grep "github" <<< "$input"; then
-  opts+=(-l 2 -p "Github")
-  result=$(printf '%s\n%s\n' "Save" "Clone" | bemenu "${opts[@]}")
+  result=$(printf '%s\n%s\n' "Save" "Clone" | dmenu -p "Github: ")
   [ $result ] || exit 0
   if [[ $result == "Clone" ]]; then
     cd $HOME/code
@@ -81,8 +76,7 @@ fi
   *)
     items=( "git - " "error - " "keyboards - " "linux - "
             "main - " "programming - " "electronics - " )
-    opts+=( -l 10 -p "Save bookmark" )
-    result=$(printf '%s\n' "${items[@]}" | bemenu "${opts[@]}") 
+    result=$(printf '%s\n' "${items[@]}" | dmenu -p "Save bookmark: ") 
     [[ $result ]] && printf '%s' "$input" > "$XDG_DATA_HOME/bookmark/$result"
     ;;
 esac

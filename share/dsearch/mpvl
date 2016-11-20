@@ -2,11 +2,8 @@
 # Create menu based on URLs and titles.
 
 readonly datadir=${XDG_DATA_HOME:-$HOME/local/share}
-readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
 
 # Main
-
-[[ -s $optsfile ]] && source "$optsfile"
 
 #[[ ! $result ]] && exit 0
 
@@ -18,7 +15,6 @@ main() {
 	done
 }
 
-opts+=( -l 10 -p "Select video")
-result=$(main | bemenu "${opts[@]}")
+result=$(main | dmenu -p "Select video: ")
 
 echo '{ "command": ["set_property", "playlist-pos", '${result%%\ *}'] }' | socat - /tmp/mpvsock, 

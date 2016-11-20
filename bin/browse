@@ -11,11 +11,16 @@ ch() {
 case "$@" in
 	*youtube*)	ch "$@" ;;
 	*google*)	ch "$@" ;;
-	*github*)	ch "$@" ;; 
+	*github*)	ch "$@" ;;
 	*nixers*)	ch "$@" ;;
 	#*kijiji*)	ch "$@" ;;
 	*reddit*)	ch "$@" ;;
 	*!*)		ch "$@" ;;
 esac
 
-exec surf -u "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5 Build/MOB3OD) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.105 Mobile Safari/537.36" "$@"
+surf -u "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5 Build/MOB3OD) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.105 Mobile Safari/537.36" "$@" &
+
+# Webkit2 focus hack
+sleep 1
+wtf "$(lsw | tail -n 1)"
+exit 0

@@ -3,7 +3,7 @@
 while :; do
   current=""
   if mpc status | grep -q playing; then
-    current="$(mpc current --format "%artist% - %title% $(date -d@$(mpdtime) +%-M:%S)/%time%")"
+    current="$(mpc current --format "%artist% - %title%")"
     [[ ${#current} -gt 80 ]] && current="${current:0:10}...${current:(-70)}"
   elif mpc status | grep -q paused; then
     current="[paused] "
@@ -15,11 +15,11 @@ while :; do
   else
     level=""
   fi
-  
+
   rss=$(find ~/local/cache/rss -name "\[new\]*" | wc -l)
 
   rss="%{r}-$rss-"
-  
+
   printf ' %s %s %s %s\n' "$(date +'%H:%M')" "$level" "$rss" "%{r}$current "
   sleep 1
 done | lemonbar -F '#bcbcbc' -d -b -f "DejaVu Mono:size=9.5" &

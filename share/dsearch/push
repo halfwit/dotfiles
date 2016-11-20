@@ -26,7 +26,4 @@ handle_results() {
 		done
 }
 
-source "$XDG_CONFIG_HOME/dmenu/dmenucolors"
-opts+=(-p "Push repo(s)")
-
-crawl "$HOME" | dmenu "${opts[@]}" | handle_results 
+crawl "$HOME" | dmenu -p "Push repo: " | handle_results 

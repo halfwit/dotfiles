@@ -4,9 +4,6 @@
 
 declare -a results
 
-source "$XDG_CONFIG_HOME"/dmenu/bemenucolors
-opts+=(-l 10 -p "eval | clip")
-
 readonly histfile="/tmp/mathhist"
 
 [[ -e $histfile ]] || touch "$histfile"
@@ -21,7 +18,7 @@ if [[ $1 ]]; then
     [[ ${1[0]} =~ [0-9] ]] || inp="${results[-1]}$1"
     inp="${inp//\ /}"
 else
-    inp="$(printf '%s\n' "${results[@]}" | tac | bemenu "${opts[@]}")"
+    inp="$(printf '%s\n' "${results[@]}" | tac | dmenu -p "eval | clip: ")"
 fi
 
 # Break this out of the while loop.
@@ -36,7 +33,7 @@ while :; do
     # If result matches entry 
     if [[ $invar ]]; then
         results+=($invar)
-        inp="$(printf '%s\n' "${results[@]}" | tac | bemenu "${opts[@]}")"
+        inp="$(printf '%s\n' "${results[@]}" | tac | dmenu -p "eval | clip: ")"
         
         [[ ${inp[0]} =~ [0-9] ]] || inp="${results[-1]}$inp"
         

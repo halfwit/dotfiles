@@ -14,14 +14,11 @@ scrub() {
 }
 
 menu() {
-	source "$XDG_CONFIG_HOME/dmenu/dmenucolors"
-	opts+=(-p "Select file")
-	printf "${!rarray[*]}" | xargs -n 1 | dmenu "${opts[@]}"
+	printf "${!rarray[*]}" | xargs -n 1 | dmenu -p tag
 }
 
 
 ## Main ##
-echo "$MYPATH" | dmenu
 # Build array
 while read -r item key; do
 		rarray["$item"]="$key"

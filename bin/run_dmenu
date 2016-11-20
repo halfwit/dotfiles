@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-readonly optsdir="$XDG_CONFIG_HOME"/dmenu/dmenucolors
-
-[[ -s "$optsdir" ]] && source "$optsdir" 
-
-opts+=(-p "Run" -l 10)
-exec $(dmenu_path | dmenu "${opts[@]}")

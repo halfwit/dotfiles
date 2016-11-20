@@ -2,7 +2,6 @@
 # Google Books search handler
 
 readonly progn=gbookhandler
-readonly optsfile="$XDG_CONFIG_HOME"/dmenu/dmenucolors
 
 # For Json
 readonly TMPDIR="${TMPDIR:-/tmp}"
@@ -25,8 +24,7 @@ create_menu() {
 }
 
 get_selection() {
-  opts+=(-ia top-gapless -is 250x250 -l 10 -p "Select book: " )
-	create_menu | dmenu "${opts[@]}"
+	create_menu | dmenu -p "Select Book" -is 250x250
 }
 
 populate_info() { # title pagecount isbn # isbn #
@@ -48,8 +46,6 @@ process_selection() { # global token
 
 # Main
 declare -A menu info
-
-[[ -s $optsfile ]] && source "$optsfile"
 
 fetch_json "$@" 
 

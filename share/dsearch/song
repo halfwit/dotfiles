@@ -3,18 +3,14 @@
 #  I generally have all of my music on the playlist
 #  Adjust for your own needs
 
-readonly optsdir=$XDG_CONFIG_HOME/dmenu/dmenucolors
 
 load() {
 	local i=0
 		mpc playlist | while read -r title; do
 		printf '%s %s\n' "$((++i))" "$title"
-	done | dmenu "${opts[@]}"
+	done | dmenu -p "Select song: "
 }
 ## Main
-
-[[ $optsdir ]] && source "$optsdir"
-opts+=(-p "Select song: " -l 10)
 
 if [[ $1 ]]; then
 	result=$1

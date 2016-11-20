@@ -4,6 +4,7 @@
 xhost +si:localuser:"$USER"
 setxkbmap -option caps:escape
 
+dunst &
 sxhkd &
 xcmenu &
 syncthing &

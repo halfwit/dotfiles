@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Youtube search handler
 
-readonly optsfile=$XDG_CONFIG_HOME/dmenu/dmenucolors
 readonly images="$(mktemp -d /tmp/yt.XXXX)"
 readonly requests=25
 declare type=video
@@ -46,10 +45,5 @@ handle() {
 [[ "$1" == save ]] && exec "$XDG_DATA_HOME"/youtube/savepl
 [[ "$1" == *pl* ]] && type="playlist"
 
-# Grab theming
-[[ -s $optsfile ]] && source "$optsfile"
-
-opts+=(-is 360x240 -p "Select video" -l 10)
-
 ## Main pipeline
-query "$@" | parse | buildmenu | dmenu "${opts[@]}" | handle "$type"
+query "$@" | parse | buildmenu | dmenu -p "Select video: " -is 360x240 | handle "$type"

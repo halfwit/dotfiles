@@ -2,7 +2,6 @@
 
 ## Dmenu based frontend to read RSS directory
 RSS=$XDG_CACHE_HOME/rss
-source "$XDG_CONFIG_HOME"/dmenu/dmenucolors
 
 select_site() {
     cd "$1"
@@ -45,19 +44,17 @@ handle_result() {
     plumber "$url" & 
 }
 
-opts+=(-p "Select sub" -l 10)
-feed=$(ls "$RSS" | filter_read | dmenu "${opts[@]}")
+feed=$(ls "$RSS" | filter_read | dmenu -p "Select sub: ")
 
 if [[ $feed == "view all" ]]; then
-    feed=$(ls -t -I url "$RSS" | append "quit" | dmenu "${opts[@]}") 
+    feed=$(ls -t -I url "$RSS" | append "quit" | dmenu) 
 fi
 
 if [[ $feed == "quit" || ! $feed ]]; then
     exit 0
 fi
 
-opts+=(-p "Select feed")
-ls -t -I url "$RSS/$feed" | append "mark all as read" | append "quit" |  dmenu "${opts[@]}" | handle_result "$feed" || exit 1
+ls -t -I url "$RSS/$feed" | append "mark all as read" | append "quit" |  dmenu -p "Select feed: " | handle_result "$feed" || exit 1
 
 sleep .1
 exec "$XDG_DATA_HOME"/dsearch/rss
