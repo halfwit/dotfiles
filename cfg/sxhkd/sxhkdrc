@@ -1,7 +1,7 @@
 super + {d,n,t,v}
          {dmenu_run,dsearch,,st,xcmenuctrl}
 
-super + shift + {h,l}
+super + shift + {l,h}
          winid=$(pfw) && wrs {20,-20} 0 "$winid" && ~/local/share/x11/wshuf && wtf "$winid"
 super + {h,j,k,l}
          wtf $(unxt -d {h,j,k,l} -w $(pfw) -c ) && chwso -r $(pfw)

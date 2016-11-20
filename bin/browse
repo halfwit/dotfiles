@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Script to open Vimb instances in tabbed
 
 lsgrp 2 | xargs mapw -u
@@ -13,7 +13,6 @@ case "$@" in
 	*google*)	ch "$@" ;;
 	*github*)	ch "$@" ;;
 	*nixers*)	ch "$@" ;;
-	#*kijiji*)	ch "$@" ;;
 	*reddit*)	ch "$@" ;;
 	*!*)		ch "$@" ;;
 esac

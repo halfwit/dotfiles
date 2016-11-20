@@ -72,7 +72,6 @@ handle_results() { # args -> launch
     !quote\ *)        exec "$handledir"/quote  "${1#*quote }"  ;;
     !save\ *)         exec "$handledir"/save   "${1#*save }"   ;;
     !song\ *)         exec "$handledir"/song   "${1#*song }"   ;;
-    !book\ *)         exec "$handledir"/book   "${1#*book }"   ;;
     !code\ *)         exec "$handledir"/code   "${1#*code }"   ;;
     !dict\ *)         exec "$handledir"/dict   "${1#*dict }"   ;;
     !math\ *)         exec "$handledir"/math   "${1#*math }"   ;;

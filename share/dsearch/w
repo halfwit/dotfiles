@@ -16,13 +16,12 @@ chunk() {
 				read -r desc
 				read -r url
 		} do
-				echo "$desc" > "$tmp/$title"
-				echo "$url" >> "$tmp/$title"
+				printf '%s\n%s\n' "$desc" "$url" > "$tmp/$title"
 				printf '%s\n' "$title"
 		done
 }
 
-curl -s "$URL" -o "$tmp"/json
+curl -sf "$URL" -o "$tmp"/json || exit 1
 count=$(jshon -F $tmp/json -e 1 -a -u | wc -l)
 
 # Check if we need to disambiguate
@@ -30,6 +29,10 @@ if [[ $count -gt 1 ]]; then
 		result="$(build | chunk | dmenu -p "Select disambiguation: ")"
 else
 		result="$(jshon -F $tmp/json -e 1 -a -uppe 2 -a -uppe 3 -a -u | chunk)"
+fi
+
+if [ -e $result ]; then
+		exit 0
 fi
 
 xurls < "$tmp/$result" | xcmenu -ic
