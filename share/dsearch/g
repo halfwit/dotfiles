@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+## Requires
+# https://github.com/jarun/googler
+# dmenu
+
+tmp=$(mktemp -d /tmp/gs.XXXX)
+
+fetch() {
+		googler "$1" --json -x -n 25 | jshon -a -e title -upe abstract -upe url -u
+}
+
+chunk() {
+		while {
+				read -r title
+				read -r _
+				read -r url
+		} do
+				printf '%s\n' "$url" > "$tmp/$title"
+				printf '%s\n' "$title"
+		done
+}
+
+handle() {
+		while read -r input; do
+				plumber "$(cat "$tmp/$input")"
+		done
+		rm -rf "$tmp"
+}
+
+fetch "$1" | chunk | dmenu -p "Select result: " | handle

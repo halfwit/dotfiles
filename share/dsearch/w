@@ -37,3 +37,4 @@ fi
 
 xurls < "$tmp/$result" | xcmenu -ic
 notify-send "$(cat "$tmp/$result")"
+rm -rf "$tmp"

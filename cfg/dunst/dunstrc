@@ -148,8 +148,8 @@
     icon_folders = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
 
 [frame]
-    width = 3
-    color = "#aaaaaa"
+    width = 0
+    color = "#000000"
 
 [shortcuts]
 
@@ -180,8 +180,8 @@
     timeout = 10
 
 [urgency_normal]
-    background = "#285577"
-    foreground = "#ffffff"
+    background = "#262626"
+    foreground = "#bcbcbc"
     timeout = 10
 
 [urgency_critical]

@@ -84,6 +84,7 @@ handle_results() { # args -> launch
     !rq\ *)           exec "$handledir"/rq     "${1#*rq }"     ;;
     !is\ *)     plumber "$("$handledir"/is     "${1#*is }")"   ;;
     !w\ *)			  exec "$handledir"/w	   "${1#*w }" 	   ;;
+    !g\ *)			  exec "$handledir"/g      "${1#*g }"      ;;
 
     !close) pkill surf; pkill chromium ;;
 
