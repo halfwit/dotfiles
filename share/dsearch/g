@@ -4,7 +4,7 @@
 # https://github.com/jarun/googler
 # dmenu
 
-tmp=$(mktemp -d /tmp/gs.XXXX)
+tmp=$(mktemp)
 
 fetch() {
 		googler "$1" --json -x -n 25 | jshon -a -e title -upe abstract -upe url -u
@@ -16,15 +16,14 @@ chunk() {
 				read -r _
 				read -r url
 		} do
-				printf '%s\n' "$url" > "$tmp/${title//\//}"
-				printf '%s\n' "${title//\//}"
+				printf '%s\n' "${title//\//} :: $url"
 		done
 }
 
 handle() {
 		while read -r input; do
-				plumber "$(cat "$tmp/$input")"
-		done
+				plumber "${input##*\ ::\ }" &
+		done 
 		rm -rf "$tmp"
 }
 
