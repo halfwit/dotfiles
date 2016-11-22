@@ -16,8 +16,8 @@ chunk() {
 				read -r _
 				read -r url
 		} do
-				printf '%s\n' "$url" > "$tmp/$title"
-				printf '%s\n' "$title"
+				printf '%s\n' "$url" > "$tmp/${title//\//}"
+				printf '%s\n' "${title//\//}"
 		done
 }
 

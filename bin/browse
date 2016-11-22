@@ -9,11 +9,11 @@ ch() {
 }
 
 case "$@" in
+	*reddit*)	exec st -e rtv -l "$@" ;;
 	*youtube*)	ch "$@" ;;
 	*google*)	ch "$@" ;;
 	*github*)	ch "$@" ;;
 	*nixers*)	ch "$@" ;;
-	*reddit*)	st -e rtv -l "$@" ;;
 	*!*)		ch "$@" ;;
 esac
 

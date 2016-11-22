@@ -5,10 +5,10 @@
 #  https://github.com/Cloudef/dmenu-pango-imlib
 #  https://github.com/keenerd/jshon
 
-tmp="$(mktemp -d /tmp/gh.XXXX)" 
+tmp="$(mktemp -d /tmp/gh.XXXX)"
 
 query() {
-	curl -s "https://api.github.com/search/repositories?q=user:$result" 
+	curl -s "https://api.github.com/search/repositories?q=user:$result"
 }
 
 parse() {
@@ -21,7 +21,7 @@ image_parse() {
 
 build_entries() {
 	while {
-		read -r name 
+		read -r name
 		read -r description
 	} do
 		printf '%s |- %s\n' "$name" "$description"
@@ -55,7 +55,7 @@ count="$(jshon -e total_count -u <<< "$result")"
 
 # Narrow if multiple user entries
 if [ $count -gt 1 ]; then
-	result=$(image_parse <<< "$result" | build_names | dmenu -p "Select user" -is 250x250)
+	result="$(image_parse <<< "$result" | build_names | dmenu -p "Select user" -is 250x250)"
 else
 	result=$(jshon -e items -a -e login -u <<< "$result")
 fi

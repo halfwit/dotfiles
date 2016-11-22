@@ -1,40 +1,47 @@
 #!/usr/bin/env bash
 
-tmp=$(mktemp -d /tmp/wk.XXXX)
-URL="https://en.wikipedia.org/w/api.php?action=opensearch&search=$(echo $1 | sed 's/ /_/')&namespace=0&format=json"
+tmp=$(mktemp)
+URL="https://en.wikipedia.org/w/api.php?action=opensearch&search=$(echo "$1" | sed 's/ /_/')&namespace=0&format=json"
 
 build() {
-		count=$(jshon -F $tmp/json -e 1 -a -u | wc -l)
+		count=$(jshon -F $tmp -e 1 -a -u | wc -l)
 		for i in `seq 1 $count`; do
-				jshon -F $tmp/json -e 1 -e $i -uppe 2 -e $i -uppe 3 -e $i -u
+				jshon -F $tmp -e 1 -e $i -uppe 3 -e $i -u
 		done
 }
 
 chunk() {
 		while {
 				read -r title
-				read -r desc
 				read -r url
 		} do
-				printf '%s\n%s\n' "$desc" "$url" > "$tmp/$title"
-				printf '%s\n' "$title"
+				printf '%s :: %s\n' "$title" "$url"
 		done
 }
 
-curl -sf "$URL" -o "$tmp"/json || exit 1
-count=$(jshon -F $tmp/json -e 1 -a -u | wc -l)
+handle() {
+		while read -r url; do
+				plumber "$url" &
+		done
+}
+
+get_links() {
+		curl -s "https://en.wikipedia.org/w/api.php?action=query&titles=$1&prop=extlinks&ellimit=500&format=json&redirects=1" | jshon -e query -e pages -a -e extlinks -a -e "*" -u
+}
+
+curl -sf "$URL" -o "$tmp" || exit 1
+count=$(jshon -F $tmp -e 1 -a -u | wc -l)
 
 # Check if we need to disambiguate
 if [[ $count -gt 1 ]]; then
 		result="$(build | chunk | dmenu -p "Select disambiguation: ")"
 else
-		result="$(jshon -F $tmp/json -e 1 -a -uppe 2 -a -uppe 3 -a -u | chunk)"
+		result="$(jshon -F $tmp -e 1 -a -uppe 3 -a -u | chunk)"
 fi
 
-if [ -e $result ]; then
+if [[ -e $result ]]; then
 		exit 0
 fi
 
-xurls < "$tmp/$result" | xcmenu -ic
-notify-send "$(cat "$tmp/$result")"
+printf '%s\n%s\n' "${result##*::\ }" "$(get_links "${result##*wikipedia.org/wiki/}")" | dmenu -p "Select url: " | handle
 rm -rf "$tmp"
