@@ -13,7 +13,7 @@ create_menu() {
   # Open browsers
   while read -r id; do
     watom "$id" WM_NAME
-  done < <(lsgrp 2)
+done < <(lsgrp 2) | awk '/Chromium/{print "browse -", $0;next}1'
 
   # Check bookmarks
   cd "$datadir/bookmark" || exit 1
@@ -63,7 +63,6 @@ handle_results() { # args -> launch
     !np)     exec "$handledir"/np     ;;
 
     playlist\ -\ *)   exec "$XDG_DATA_HOME"/mpv/select_video "${1#*-\ }.pls" ;;
-    *\ -\ Chromium)   exec "$handledir"/stack  "$1"            ;;
     browse\ -\ *)     exec "$handledir"/stack  "${1#*-\ }"     ;;
     !pl\ save)        exec "$XDG_DATA_HOME"/youtube/savesearch ;;
     !reddit\ *)       exec "$handledir"/reddit "${1#*reddit }" ;;

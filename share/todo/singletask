@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
 # Write/remove a task to do later.
 
-readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
-
 TASKFILE="$XDG_CACHE_HOME/todo/$1"
 
 menu() {
-  opts+=(-l 10 -p "Add new or select to toggle task" -I "$(($1 - 1))")
-  bemenu "${opts[@]}" < "$TASKFILE"
+  dmenu "Add new or select task to toggle"  < "$TASKFILE"
 }
 
 loop_run() {
@@ -30,7 +27,4 @@ loop_run() {
 }
 
 ## Main
-
-[[ -s $optsfile ]] && source "$optsfile"
-
 loop_run

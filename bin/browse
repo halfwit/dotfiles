@@ -8,8 +8,10 @@ ch() {
 		exec chromium --kiosk --user-data-dir=/home/halfwit/local/cfg/chromium --window-size=800,600 "$@"
 }
 
+
 case "$@" in
 	*reddit*)	exec st -e rtv -l "$@" ;;
+	*github*)	exec surf "$@";; 
 	*)			ch "$@" ;;
 esac
 

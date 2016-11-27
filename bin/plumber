@@ -16,7 +16,7 @@ fetch() {
     link="$1"
   else
     link=$(mktemp)
-    curl -Ls "$1" -o "$link" &
+    curl -Lsk "$1" -o "$link" &
   fi
   printf '%b\n' "$link"
 }
