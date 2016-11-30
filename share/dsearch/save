@@ -5,12 +5,13 @@
 
 
 name() {
-  printf '\n' | dmenu "Save $1 as: " -l 1
+  printf '\n' | dmenu -p "Save $1 as: " -l 1
 }
 
 doc() {
   local result cover
   read -r result
+
   cover="$("$XDG_DATA_HOME/dsearch/is" "$result")"
   [[ $result ]] && st -t float -e /home/halfwit/local/bin/bookkeep mk "$result" -t "$1" -e nvim -c "$cover"
   if [[ -s $XDG_DATA_HOME/librarian/bin/$result ]]; then
@@ -65,14 +66,14 @@ if grep "youtu" <<< "$input"; then
 fi
 
 [[ $input ]] && case $(content-type "$input") in
-  *text/plain*) name "note"     | note       "$input" ;;
-  *image*)      name "picture"  | image      "$input" ;;
-  *djvu*)       name "document" | doc "djvu" "$input" ;;
-  *epub*)       name "document" | doc "epub" "$input" ;;
-  *pdf*)        name "document" | doc "pdf"  "$input" ;;
+  *text/plain*) name "note"     | note        	"$input" ;;
+  *image*)      name "picture"  | image       	"$input" ;;
+  *djvu*)       name "document" | doc "djvu"  	"$input" ;;
+  *epub*)       name "document" | doc "epub"  	"$input" ;;
+  *pdf*)        name "document" | doc "pdf"     "$input" ;;
   *video*) exec "$XDG_DATA_HOME/youtube/savepl" "$input" ;;
-  *application/atom*) name "feed" | save_feed "$input" ;;
-  *application/rss*)  name "feed" | save_feed "$input" ;;
+  *application/atom*) name "feed" | save_feed 	"$input" ;;
+  *application/rss*)  name "feed" | save_feed 	"$input" ;;
   *)
     items=( "git - " "error - " "keyboards - " "linux - "
             "main - " "programming - " "electronics - " )
