@@ -24,3 +24,9 @@ vis.events.file_presave = function()
 	vis:command(':%s/\t$//g')
 	vis:command(':%s/ $//g')
 end
+
+vis.events.file_save = function(file)
+	-- lint, putting output in split
+	-- have filetype inferrence, reuse the vis bits where I can
+	-- lint.output(win)
+end
