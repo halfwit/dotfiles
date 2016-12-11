@@ -1,4 +1,2 @@
-t_w="$(wattr w "$id")"
 t_h="$(echo '{ "command": ["get_property", "video-aspect"] }' | socat - /tmp/mpvsock | jshon -e data -u)"
-t_h=$(echo "$t_w/$t_h" | bc)
-printf '%s %s %s %s %s\n' "$t_w" "$t_h" "$t_w" "$t_h" "$id"
+printf '%s %s %s %s %s\n' "350" "$(echo 350/"$t_h" | bc)" "450" "$(echo 450/"$t_h" | bc)" "$id"

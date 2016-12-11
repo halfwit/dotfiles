@@ -1,1 +1,0 @@
-printf '%s %s %s %s %s\n' "420" "230" "450" $(( heigh - gaps )) "$id"

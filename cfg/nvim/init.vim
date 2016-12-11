@@ -10,7 +10,7 @@ set termguicolors
 
 " Initialization
 call plug#begin('$XDG_DATA_HOME/plugged')
-call s:source_rc('init.rc.vim')
+call s:source_rc('packages.rc.vim')
 call plug#end()
 
 "------------------------------------------------

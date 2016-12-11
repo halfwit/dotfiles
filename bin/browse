@@ -11,6 +11,7 @@ ch() {
 
 case "$@" in
 	*reddit*)	exec st -e rtv -l "$@" ;;
-	*)			ch "$@" ;;
+	*cxcore*)	exec surf "$@"         ;;		
+	*)			ch "$@"                ;; 
 esac
 

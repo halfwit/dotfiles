@@ -11,12 +11,14 @@ select_site() {
 }
 
 filter_read() {
-    while read -r title; do
+    local flag
+	while read -r title; do
         if ls "$RSS/$title"/\[new\]* &>/dev/null; then
+			flag=1
             printf '%s\n' "$title"
         fi
     done
-    printf '%s\n%s\n' "view all" "quit"
+	printf '%s\n%s\n' "view all" "quit"
 }
 
 append() {
@@ -55,6 +57,10 @@ if [[ $feed == "quit" || ! $feed ]]; then
 fi
 
 ls -t -I url "$RSS/$feed" | append "mark all as read" | append "quit" |  dmenu -p "Select feed: " | handle_result "$feed" || exit 1
+
+if [[ $(ls "$RSS" | filter_read | wc -l) == 0 ]]; then
+	exit
+fi
 
 sleep .1
 exec "$XDG_DATA_HOME"/dsearch/rss

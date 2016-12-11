@@ -4,7 +4,7 @@
 TASKFILE="$XDG_CACHE_HOME/todo/$1"
 
 menu() {
-  dmenu "Add new or select task to toggle"  < "$TASKFILE"
+  dmenu -p "Add new or select task to toggle"  < "$TASKFILE"
 }
 
 loop_run() {

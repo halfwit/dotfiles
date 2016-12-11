@@ -41,7 +41,7 @@ append() {
 
 ## Main ##
 
-result="$(whatis "${1/[^a-zA-Z0-9]*/}" || "$(apropos - | dmenu -p "Select manual: ")")"
+result="$(whatis "${1/[^a-zA-Z0-9-_]*/}" || "$(apropos - | dmenu -p "Select manual: ")")"
 
 # Check for ambiguity
 if [[ "$(unchunk <<< "$result" | wc -l)" -gt 1 ]]; then
