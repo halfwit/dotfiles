@@ -2,15 +2,26 @@
 # Youtube search handler
 
 readonly images="$(mktemp -d /tmp/yt.XXXX)"
-readonly requests=25
+readonly requests=50
 declare type=video
 
-query() {
-  local key input
-  [[ $type == "video" ]] && input="$1" || input="${1#*\!pl}"
-  read -r key < "$XDG_DATA_HOME/youtube/key"
+querychan() {
+	read -r key < "$XDG_DATA_HOME/youtube/key"
+	curl -s "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=$requests&key=$key&type=video&channelId=${1#*channel\/}"
+}
 
-  curl -s "https://www.googleapis.com/youtube/v3/search?q=${input// /+}&type=$type&part=snippet&maxResults=$requests&key=$key"
+query() {
+	local key input
+	if [[ $type == "channel" ]]; then
+		input="${1#*\!ch\ }"
+	elif [[ $type == "playlist" ]]; then
+		input="${1#*\!pl\ }"
+	else
+		input="$1"
+	fi
+
+	read -r key < "$XDG_DATA_HOME/youtube/key"
+	curl -s "https://www.googleapis.com/youtube/v3/search?q=${input// /+}&type=$type&part=snippet&maxResults=$requests&key=$key"
 }
 
 parse() {
@@ -37,13 +48,19 @@ handle() {
   while read -r selection; do
     read -r url < "$images/$selection-url"
     [[ $1 == "playlist" ]] && printf '%s\n' "$url" > /tmp/tmpplaylist
+    [[ $1 == "channel" ]] && printf '%s%s\n' "https://www.youtube.com/channel/" "$url" | xcmenu -ic
     [[ $url ]] && play "ytdl://$url" &
   done
   rm -rf "$images"
 }
 
 [[ "$1" == save ]] && exec "$XDG_DATA_HOME"/youtube/savepl
-[[ "$1" == *pl* ]] && type="playlist"
-
+[[ "$1" == \!pl\ * ]] && type="playlist"
+[[ "$1" == \!ch\ * ]] && type="channel"
+if [[ "$1" == *youtube.com/channel/* ]]; then
+	type="video"
+	querychan "$1"
 ## Main pipeline
-query "$@" | parse | buildmenu | dmenu -p "Select video: " -is 360x240 | handle "$type"
+else
+	query "$@" 
+fi | parse | buildmenu | dmenu -p "Select video: " -is 360x240 | handle "$type"

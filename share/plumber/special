@@ -1,46 +1,47 @@
 #!/bin/sh
 
 yt() {
-		exec play "$1" &
-		exit 0
+	exec play "$1" &
+	exit 0
 }
 
 to() {
-		exec browse "$1" &
-		exit 0
+	exec browse "$1" &
+	exit 0
 }
 
 asci() {
-		st -e asciinema play "$1" &
-		exit 0
+	st -e asciinema play "$1" &
+	exit 0
 }
 
 case "$@" in
-		*bell-labs.com*) 		url="$(echo "$1" | sed 's/.\+com//')"
-								to "http://9p.io$url" ;;
-		*youtube.com/watch*)	yt "$@" ;;
-		*youtu.be*)				yt "$@" ;;
-		*youtube.com/v/*)		yt "$@" ;;
-		ytdl*)					yt "$@" ;;
-		*youtube.com/play*)		yt "$@" ;;
-		*.mp3*)					yt "$@" ;;
-		*webm)					yt "$@" ;;
-		*mkv)					yt "$@" ;;
-		*gifv\?)				yt "$@" ;;
+	*bell-labs.com*) 	url="$(echo "$1" | sed 's/.\+com//')"
+				to "http://9p.io$url" ;;
+	*youtube.com/watch*)	yt "$@" ;;
+	*youtu.be*)		yt "$@" ;;
+	*youtube.com/v/*)	yt "$@" ;;
+	ytdl*)			yt "$@" ;;
+	*youtube.com/play*)	yt "$@" ;;
+	*youtube.com/channel*)	exec "$XDG_DATA_HOME"/dsearch/yt "$@" ;;
+	*.mp3*)			yt "$@" ;;
+	*webm)			yt "$@" ;;
+	*mkv)			yt "$@" ;;
+	*gifv\?)		yt "$@" ;;
+	
+	gopher://*)		exec st -e cgo "$1" && exit 0 ;;
+	
+	*gehidore.net/t/*)	URL=`echo $1 | sed 's|/t||p'`
+				asci "$URL" ;;
+	*ptpb.pw/t/*)		URL=`echo $1 | sed 's|/t||p'`
+				asci "$URL" ;;
+	*asciinema*)		asci "$1" 	;;
+	ISBN*)			URL=`echo $1 | awk '{print $2}'`
+				to "https://duckduckgo.com?q=!a%20$URL" ;;
 		
-		gopher://*)				exec st -e cgo "$1" && exit 0 ;;
-		
-		*gehidore.net/t/*)		URL=`echo $1 | sed 's|/t||p'`
-								asci "$URL" ;;
-		*ptpb.pw/t/*)			URL=`echo $1 | sed 's|/t||p'`
-								asci "$URL" ;;
-		*asciinema*)			asci "$1" 	;;
-		ISBN*)					URL=`echo $1 | awk '{print $2}'`
-								to "https://duckduckgo.com?q=!a%20$URL" ;;
-		
-		*ptpb.pw/*/*) 			URL=`echo $1 | cut -b 1-20`			
-								exec plumber "$URL" ;; 
-		ftp://*)				to "$@" ;;
+	*ptpb.pw/*/*) 		URL=`echo $1 | cut -b 1-20`			
+				exec plumber "$URL" ;; 
+	ftp://*)		to "$@" ;;
 		
 esac
 
