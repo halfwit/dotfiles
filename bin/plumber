@@ -49,8 +49,15 @@ handle() {
 
 handle_online() {
     local result
-    result="$(printf '%s\n%s\n%s\n' "$1" "!g $1" "!w $1" | dmenu -l 3 -p dsearch)"
-    [[ $result ]] && dsearch "$result" || exit 0
+    result="$(printf '%s\n%s\n%s\n%s\n' "$1" "!g $1" "!w $1" "!godoc" | dmenu -l 4 -p dsearch)"
+	if [[ $result == *godoc* ]]; then
+		"$XDG_DATA_HOME/dsearch/godoc" "$1" &
+		exit 0
+	fi
+    if [[ $result ]]; then
+		dsearch "$result" & 
+		exit 0
+	fi
 }
 
 # In testing, this outputs a correct mime
