@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # using https://github.com/tj/go-search
 
+input="$(echo "$1" | tr -d "\"")"
 
-if [[ "$1" != golang* ]] && go doc "$1" &>/dev/null; then
-	exec st -t man -e varless "$(go doc "$1")"
+if go doc "$input" &>/dev/null; then
+	exec st -t man -e varless "$(go doc "$input")"
 fi
 
 secondarg() {
@@ -25,7 +26,7 @@ handle() {
 	done
 }
 
-doc="$(go-search "$1" | secondarg)" 
+doc="$(go-search "$input" | secondarg)" 
 cnt=$(wc -l <<< "$doc")
 
 if [[ $cnt > 1 ]]; then
