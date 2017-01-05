@@ -55,4 +55,8 @@ case $lnk in
   *) read -r lnk < "$datadir/bookmark/$lnk"
 esac
 
+if [[ $lnk == ytdl* ]]; then
+	lnk=${lnk/ytdl:\/\//https:\/\/www.youtube.com/watch?v=}
+fi
+
 [[ $lnk ]] && exec xcmenu -ic "$lnk"

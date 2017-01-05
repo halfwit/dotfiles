@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# using https://github.com/tj/go-search
+
+
+if [[ "$1" != golang* ]] && go doc "$1" &>/dev/null; then
+	exec st -t man -e varless "$(go doc "$1")"
+fi
+
+secondarg() {
+	i=0
+	while read -r line; do
+		if [[ $i == 1 ]]; then
+			printf '%s\n' "$line"
+		fi
+		i=$((i+1))
+		if [[ $line == "" ]]; then
+			i=0
+		fi
+	done
+}
+
+handle() {
+	while read -r line; do
+		browse "$line"
+	done
+}
+
+doc="$(go-search "$1" | secondarg)" 
+cnt=$(wc -l <<< "$doc")
+
+if [[ $cnt > 1 ]]; then
+	printf '%s\n' "$doc" | dmenu -p "Select repo" 
+else
+	printf '%s\n' "$doc"
+fi | handle

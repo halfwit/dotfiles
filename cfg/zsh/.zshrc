@@ -263,3 +263,4 @@ compdef _gnu_generic slop
 compdef _gnu_generic cmake
 compdef _gnu_generic ctags
 compdef _gnu_generic udcli
+compdef _gnu_generic go

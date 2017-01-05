@@ -35,7 +35,7 @@ append() {
     while read -r line; do
         printf "$line\n"
     done
-    printf '%s\n%s\n%s\n' "!g $1" "!die $1" "!man7 $1"
+    printf '%s\n%s\n%s\n%s\n' "!g $1" "!die $1" "!man7 $1" "!godoc $1"
 }
 
 
@@ -49,7 +49,14 @@ if [[ "$(unchunk <<< "$result" | wc -l)" -gt 1 ]]; then
 fi
 
 # If a bang, send it to browser
-[[ $result == !* ]] && exec browse "https://duckduckgo.com?q=$result" &
+if [[ $result == !go* ]]; then 
+	exec "$XDG_DATA_HOME/dsearch/godoc" "$1" &
+	exit 0
+fi
+if [[ $result == !* ]]; then
+	exec browse "https://duckduckgo.com?q=$result" &
+	exit 0
+fi
 
 # Send off to handler
 [[ $result ]] && handle_result "${result//[a-zA-Z\(\)-_]/}" "${result%\(*}"

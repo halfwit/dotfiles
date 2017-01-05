@@ -66,6 +66,7 @@ handle_results() { # args -> launch
 		!pl\ save)        exec "$XDG_DATA_HOME"/youtube/savesearch ;;
 		!reddit\ *)       exec "$handledir"/reddit "${1#*reddit }" ;;
 		!lyrics\ *)       exec "$handledir"/lyrics "${1#*lyrics }" ;;
+		!godoc\ *)	      exec "$handledir"/godoc  "${1#*godoc }"   ;;
 		!album\ *)        exec "$handledir"/album  "${1#*album }"  ;;
 		!quote\ *)        exec "$handledir"/quote  "${1#*quote }"  ;;
 		!save\ *)         exec "$handledir"/save   "${1#*save }"   ;;

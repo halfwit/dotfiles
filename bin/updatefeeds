@@ -9,7 +9,8 @@ fetch_data() {
 		*itunes*podcast*1.0*)	echo "$data" | grep -e '/rss/channel/item/enclosure/@url' -e '/rss/channel/item/title' ;;
 		*xmlns:rdf*)		echo "$data" | grep -e 'RDF/item/title'-e 'RDF/item/link' ;;
 		*rss*version*2.0*)	echo "$data" | grep -e '/rss/channel/item/title' -e '/rss/channel/item/link' ;;
-		*Atom*|*atom*)		echo "$data" | grep -e '/feed/entry/title' -e '/feed/entry/link.*href' ;;
+		*Atom*)				echo "$data" | grep -e '/feed/entry/title' -e '/feed/entry/link.*href' ;;
+		*atom*)				echo "$data" | grep -e '/feed/entry/title' -e '/feed/entry/link.*href' ;;
 		*) echo "Mismatch on $1" >> ~/rss_issue && exit 0 ;;
 	esac
 }

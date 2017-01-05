@@ -1,7 +1,7 @@
 #!/bin/sh
 # Script to open Vimb instances in tabbed
 
-lsgrp 2 | xargs mapw -u
+lsgrp 2 | xargs mapw -u &>/dev/null
 
 ## main
 ch() {		
