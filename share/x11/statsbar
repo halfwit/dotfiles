@@ -17,8 +17,11 @@ while :; do
   fi
 
   rss=$(find ~/local/cache/rss -name "\[new\]*" | wc -l)
-
-  rss="%{r}-$rss-"
+  if [[ $rss != 0 ]]; then
+  	rss="%{r}-$rss-"
+  else
+	rss=""
+  fi
 
   printf '%s %s %s\n' "$level" "$rss" "%{r}$current "
   sleep 1
