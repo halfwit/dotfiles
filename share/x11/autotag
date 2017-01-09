@@ -10,15 +10,16 @@ getname() {
 
 # See if already exists
 case "$(getname $1)" in
-  mpv)        grp=1 ;;
-  Chromium)   wtf "$1" && grp=2 ;;
-  Firefox)    wtf "$1" && grp=2 ;;
-  browse)     wtf "$1" && grp=2 ;;
-  NVIM)       wtf "$1" && grp=3 ;;
-  mutt|news*) wtf "$1" && grp=4 ;;
-  irc)        wtf "$1" && grp=5 ;;
-  *docs*)     wtf "$1" && grp=6 ;;
-  zathura)    wtf "$1" && grp=6 ;;
+  mpv*)        grp=1 ;;
+  surf*)       wtf "$1" && grp=2 ;;
+  Chromium*)   wtf "$1" && grp=2 ;;
+  Firefox*)    wtf "$1" && grp=2 ;;
+  browse*)     wtf "$1" && grp=2 ;;
+  NVIM*)       wtf "$1" && grp=3 ;;
+  mutt*|news*) wtf "$1" && grp=4 ;;
+  irc*)        wtf "$1" && grp=5 ;;
+  *docs*)      wtf "$1" && grp=6 ;;
+  zathura*)    wtf "$1" && grp=6 ;;
 esac
 
 chwso -r "$1"

@@ -14,7 +14,7 @@ This is why I do all of this - [cognitive penalties are too severe to be effecti
 I've written a group management set of binaries to go along with wmutils, which allow me to set an arbitrary group name as an x11 atom on a window. An additional binary allows me to list all windows that contain that same arbitrary group name - the rest is glued together with tools from wmutils, and script.
 
 ##This is how it all looks 
-[![wmutils and bin packing demo](http://img.youtube.com/vi/MSIjqTgtj2c/0.jpg)](https://www.youtube.com/watch?v=MSIjqTgtj2c)
+[![wmutils and bin packing demo](http://img.youtube.com/vi/MSIjqTgtj2c/0.jpg)](https://www.youtube.com/watch?v=NqbHe9X4PWU)
 
 [![Image searching, github, reddit](https://pb.gehidore.net/cyYB)](https://pb.gehidore.net/U4TN)
 
