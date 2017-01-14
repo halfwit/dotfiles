@@ -1,12 +1,14 @@
 #!/bin/sh
-
+#TODO: Move what we can out to browse and play, where we can. 
+#      e.g. *youtu* play, then handle the oddities in play
+#      gopher* browse
 yt() {
-	exec play "$1" &
+	play "$1" &
 	exit 0
 }
 
 to() {
-	exec browse "$1" &
+	browse "$1" &
 	exit 0
 }
 
@@ -31,16 +33,17 @@ case "$@" in
 	
 	gopher://*)		exec st -e cgo "$1" && exit 0 ;;
 	
-	*gehidore.net/t/*)	URL=`echo $1 | sed 's|/t||p'`
+	*gehidore.net/t/*)	URL=`echo $@ | sed 's|/t||p'`
 				asci "$URL" ;;
-	*ptpb.pw/t/*)		URL=`echo $1 | sed 's|/t||p'`
+	*ptpb.pw/t/*)		URL=`echo $@ | sed 's|/t||p'`
 				asci "$URL" ;;
-	*asciinema*)		asci "$1" 	;;
-	ISBN*)			URL=`echo $1 | awk '{print $2}'`
+	*asciinema*)		asci "$@" 	;;
+	ISBN*)			URL=`echo $@ | awk '{print $2}'`
 				to "https://duckduckgo.com?q=!a%20$URL" ;;
 		
-	*ptpb.pw/*/*) 		URL=`echo $1 | cut -b 1-20`			
-				exec plumber "$URL" ;; 
+	*ptpb.pw/*/*) 		URL=`echo $@ | cut -b 1-20`			
+				exec plumber "$URL" &
+				exit 0;; 
 	ftp://*)		to "$@" ;;
 		
 esac

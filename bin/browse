@@ -9,7 +9,6 @@ ch() {
 }
 
 case "$@" in
-	*reddit*)	exec st -e rtv -l "$@" ;;
 	*cxcore*)	exec surf "$@"         ;;		
 	*)			ch "$@"                ;; 
 esac
