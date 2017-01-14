@@ -25,3 +25,4 @@ handle_results() {
 }
 
 crawl "$HOME" | column -s '|' -t | dmenu -p "Commit: " | handle_results 
+# test
