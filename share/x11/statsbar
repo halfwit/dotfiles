@@ -23,6 +23,9 @@ while :; do
 	rss=""
   fi
 
+  #git=$(grab gitstuff, pretty print
+  # git hook will update a file that holds our variables on any git write?
+
   printf '%s %s %s\n' "$level" "$rss" "%{r}$current "
   sleep 1
 done | lemonbar -F '#bcbcbc' -d -b -f "DejaVu Mono:size=9.5" &

@@ -26,4 +26,8 @@ handle_results() {
 		done
 }
 
-crawl "$HOME" | dmenu -p "Push repo: " | handle_results 
+if [[ $1 == "wc" ]]; then
+	crawl "$HOME" | wc -l
+else
+	crawl "$HOME" | dmenu -p "Push repo: " | handle_results 
+fi

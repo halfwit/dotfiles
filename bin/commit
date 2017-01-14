@@ -23,6 +23,8 @@ handle_results() {
 				st -e git commit -a --verbose &
 		done
 }
-
-crawl "$HOME" | column -s '|' -t | dmenu -p "Commit: " | handle_results 
-# test
+if [[ $1 == "wc" ]]; then
+	crawl "$HOME" | wc -l
+else
+	crawl "$HOME" | column -s '|' -t | dmenu -p "Commit: " | handle_results 
+fi

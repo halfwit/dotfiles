@@ -8,11 +8,11 @@ crawl() {
 						continue
 				fi
 				
-				if git  rev-parse --is-inside-work-tree &>/dev/null; then
-						git fetch & 
-						[[ $(git rev-parse HEAD) == $(git rev-parse @{u}) ]] || printf '%s\n' "${i/$HOME/}"
+				if git rev-parse --is-inside-work-tree &>/dev/null; then
+					   git fetch &>/dev/null & 
+					   [[ $(git rev-parse HEAD) == $(git rev-parse @{u}) ]] >/dev/null || printf '%s\n' "${i/$HOME/}"
 				else
-						crawl "$i"
+					   crawl "$i"
 				fi
 		done
 }
@@ -25,5 +25,8 @@ handle_results() {
 				st -e varless "$stat" 
 		done
 }
-
-crawl "$HOME" | dmenu -p "Pull repos: " | handle_results 
+if [[ $1 == "wc" ]]; then
+	crawl "$HOME" | wc -l
+else
+	crawl "$HOME" | dmenu -p "Pull repos: " | handle_results 
+fi
