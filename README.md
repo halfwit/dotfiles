@@ -4,7 +4,7 @@ Halfwits Personal Dotfiles
 I wanted my windows to lay out a very specific way - and that ended up as a [2D bin-packing algorithm](https://github.com/halfwit/binpack), while allowing some give on the size of any particular window. These are all outlined in [cfg/wmutils/wshuf](https://github.com/halfwit/dotfiles/blob/master/share/x11/wshuf)
 
 This all allows me to do the following:
- - strict character for terminal applications
+ - strict character width for terminal applications
  - variable widths for browsers and editors
  - best-fit of a set of open windows
 

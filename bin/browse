@@ -5,10 +5,10 @@ lsgrp 2 | xargs mapw -u &>/dev/null
 
 ## main
 ch() {		
-		exec chromium --kiosk --user-data-dir=/home/halfwit/local/cfg/chromium --window-size=800,600 "$@"
+		exec chromium --kiosk --user-data-dir=/home/halfwit/local/cfg/chromium --window-size=800,600 "$@" &>/dev/null
 }
 
 case "$@" in
-	*cxcore*)	exec surf "$@"         ;;		
-	*)			ch "$@"                ;; 
+	*cxcore*)	exec surf "$@" &>/dev/null ;;
+	*)			ch "$@"                    ;;
 esac
