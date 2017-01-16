@@ -12,13 +12,13 @@ load() {
 		match=`grep -c "(x)" "$title"`
 		total=`wc -l "$title" | awk '{print $1}'`
 		total=`echo "100*$match/$total" | bc`
-		printf '%s\t%s\n' "$total%" `basename "$title"`
+		printf '%s\t%s\n' "$total%" "`basename "$title"`"
 	done
 }
 
 ## Main
 result=`load | dmenu -p "Select/create task" | cut -d '	' -f2-`
-test -z $result && exit 0
+test -z "$result" && exit 0
 
 touch "$todir/$result"
 exec ~/local/share/todo/singletask "$result"

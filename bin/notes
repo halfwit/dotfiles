@@ -1,30 +1,26 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Front end for notes.
 
-create_menu() {
-  cd $notedir
-  for i in *; do 
-    if [[ -s $i ]]; then 
-      printf '%s\n' "$i"
-    else 
-      rm "$i"
-    fi
-  done
-  printf "New\n"
-}
-
-menu() {
-  create_menu | dmenu -p "Create or edit note"
+notedir=$XDG_CACHE_HOME/notes
+# Scrub empty files
+load() {
+	cd $notedir
+	for i in *; do 
+		if test -s $i; then 
+			printf '%s\n' "$i"
+		else 
+			rm "$i"
+		fi
+	done
+	printf "New\n"
 }
 
 ## Main
+test -d $notedir || mkdir -p "$notedir"
+result=`load | dmenu -p "Create/edit note:"`
 
-notedir=$XDG_CACHE_HOME/notes
-[[ -d $notedir ]] || mkdir -p "$notedir"
-result=$(menu)
-
-[[ ! $result ]] && exit 
-[[ $result == "New" ]] && exec "$XDG_DATA_HOME"/notes/new
-[[ ! -e $notedir/$result ]] && touch "$notedir/$result"
-
-exec st -t NVIM -e /usr/bin/nvim "$notedir/$result"
+test -z $result && exit 0
+case $result in
+	New) exec $XDG_DATA_HOME/notes/new ;;
+	*)   exec st -e edit "$notedir/$result" ;;
+esac
