@@ -51,10 +51,12 @@ while :; do
 
 	cd "$RSS"
 	for i in *; do
+		if [[ $i == ".stfolder" ]] || [[ $i == "count" ]]; then
+			continue
+		fi
 		read -r url < "$i"/url 
 		fetch_data "$url" | build_folders "$i"
 	done 
+	find ~/local/cache/rss -name "\[new\]*" | wc -l > $RSS/count
 	sleep 1774
 done
-
-

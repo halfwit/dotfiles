@@ -11,10 +11,8 @@ select_site() {
 }
 
 filter_read() {
-    local flag
 	while read -r title; do
         if ls "$RSS/$title"/\[new\]* &>/dev/null; then
-			flag=1
             printf '%s\n' "$title"
         fi
     done
@@ -49,16 +47,18 @@ handle_result() {
 feed=$(ls "$RSS" | filter_read | dmenu -p "Select sub: ")
 
 if [[ $feed == "view all" ]]; then
-    feed=$(ls -t -I url "$RSS" | append "quit" | dmenu) 
+    feed=$(ls -t -I url -I count "$RSS" | append "quit" | dmenu) 
 fi
 
 if [[ $feed == "quit" || ! $feed ]]; then
+	ls "$RSS" | filter_read | wc -l | sed 's/$/-2/' |bc -2 > "$RSS"/count
     exit 0
 fi
 
 ls -t -I url "$RSS/$feed" | append "mark all as read" | append "quit" |  dmenu -p "Select feed: " | handle_result "$feed" || exit 1
 
 if [[ $(ls "$RSS" | filter_read | wc -l) == 0 ]]; then
+	echo 0 > "$RSS"/count
 	exit
 fi
 

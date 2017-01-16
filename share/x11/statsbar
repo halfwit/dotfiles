@@ -16,7 +16,7 @@ while :; do
     level=""
   fi
 
-  rss=$(find ~/local/cache/rss -name "\[new\]*" | wc -l)
+  read -r rss < ~/local/cache/rss/count
   if [[ $rss != 0 ]]; then
   	rss="%{r}-$rss-"
   else
