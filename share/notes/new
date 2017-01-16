@@ -1,0 +1,65 @@
+#!/bin/sh
+
+notesdir="$XDG_CACHE_HOME/notes"
+
+result() {
+	echo "" | dmenu -p "$1"
+}
+
+note() {
+	printf '    %s\n' "$1" >> "$notesdir/$main"
+	while :; do
+		assume=`result "$1"`
+		if test -z "$assume"; then
+			break
+		fi
+		printf '     - %s\n' "$assume" >> "$notesdir/$main"
+	done
+}
+
+add_concept() {
+	# Main entry for concept
+	concept=`result "Concept $1 - $2:"`
+	if test -z "$concept"; then
+		return 1
+	fi
+	printf '  Concept %s: %s\n' "$1" "$concept" >> "$notesdir/$main"	
+	note "Details about $concept:"
+	note "Assumptions about $concept:"
+	return 0
+}
+
+add_subconcept() {
+	c=`result "Sub-concept $1 - $2"`
+	if test -z "$c"; then
+		return 1
+	fi
+	printf '  Sub-concept %s: %s\n' "$1" "$c" >> "$notesdir/$main"
+	note "Details about $c: "
+	note "Assumptions about $c:"
+	note "What I have issue explaining about $c:"
+	printf '    What the books say about %s\n' "$c" >> "$notesdir/$main"
+	return 0
+}
+
+## Main
+main=`result "Main Idea:"`
+printf '%s %s\n' "Main Idea:" "$main" > "$notesdir/$main"
+# If we go this far, eh. Forget about it.
+for i in `seq 1 10`; do
+	add_concept "$i" "$main" || break
+done
+
+# Fine detail for each concept
+awk -- '/^  Concept/{for (i=3; i<=NF; i++) printf "%s", $i (i==NF?ORS:OFS)}' < "$notesdir/$main" | while read -r concept; do
+	printf 'Concept: %s\n' "$concept" >> "$notesdir/$main"
+	for i in `seq 1 10`; do
+		add_subconcept "$i" "$concept" || break
+	done
+done
+
+cat <<-EOF >> "$notesdir/$main"
+General issues
+  Trying to be perfect first time:
+  Not reading enough into each abstraction:
+EOF

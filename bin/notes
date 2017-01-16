@@ -10,6 +10,7 @@ create_menu() {
       rm "$i"
     fi
   done
+  printf "New\n"
 }
 
 menu() {
@@ -19,9 +20,11 @@ menu() {
 ## Main
 
 notedir=$XDG_CACHE_HOME/notes
+[[ -d $notedir ]] || mkdir -p "$notedir"
 result=$(menu)
 
 [[ ! $result ]] && exit 
+[[ $result == "New" ]] && exec "$XDG_DATA_HOME"/notes/new
 [[ ! -e $notedir/$result ]] && touch "$notedir/$result"
 
 exec st -t NVIM -e /usr/bin/nvim "$notedir/$result"
