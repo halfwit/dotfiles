@@ -2,14 +2,14 @@
 
 getname() {
   cd "$XDG_CONFIG_HOME"/x11/windows
-  for i in *; do
+  for i in ./*; do
     watom "$1" WM_NAME | grep -io "$i" && break
     watom "$1" _NET_WM_NAME | grep -io "$i" && break
   done
 }
 
 # See if already exists
-case "$(getname $1)" in
+case "`getname $1`" in
   mpv*)        grp=1 ;;
   surf*)       wtf "$1" && grp=2 ;;
   Chromium*)   wtf "$1" && grp=2 ;;
@@ -24,7 +24,7 @@ esac
 
 chwso -r "$1"
 
-if [ $grp ]; then
+if test -n $grp; then
   grp "$grp" "$1"
   "$XDG_DATA_HOME"/x11/groupsbar
 fi

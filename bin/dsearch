@@ -62,7 +62,7 @@ handle_results() { # args -> launch
 		!np)     exec "$handledir"/np     ;;
 
 		playlist\ -\ *)   exec "$XDG_DATA_HOME"/mpv/select_video "${1#*-\ }.pls" ;;
-		browse\ -\ *)     exec "$handledir"/stack  "${1#*-\ }"     ;;
+		browse\ -\ *)     exec "$XDG_DATA_HOME"/x11/stack  "${1#*-\ }"     ;;
 		!pl\ save)        exec "$XDG_DATA_HOME"/youtube/savesearch ;;
 		!reddit\ *)       exec "$handledir"/reddit "${1#*reddit }" ;;
 		!lyrics\ *)       exec "$handledir"/lyrics "${1#*lyrics }" ;;

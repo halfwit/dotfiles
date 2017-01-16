@@ -1,11 +1,12 @@
 #!/bin/sh
-# Front end for notes.
+# Front end for searching and writing notes
+# Done with as simple userland tools as possible
 
 notedir=$XDG_CACHE_HOME/notes
 # Scrub empty files
 load() {
-	cd $notedir
-	for i in *; do 
+	cd $notedir || exit 1
+	for i in ./*; do 
 		if test -s $i; then 
 			printf '%s\n' "$i"
 		else 

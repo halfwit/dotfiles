@@ -1,17 +1,21 @@
-#!/usr/bin/env bash
+#!/bin/sh
 DIR=$XDG_DATA_HOME/x11
 
 wew | while read -r ev; do
-  case "$ev" in
-    18*)  $DIR/wshuf
-          wtf $(lsw | tail -n1)
-          $DIR/groupsbar           ;;
-    19*)  $DIR/wshuf
-          $DIR/autotag "${ev#*:}"
-          wtf "${ev#*:}"
-          $DIR/groupsbar           ;;
-    17*)  wtf $(lsw | tail -n1)
-          watom `lsw -r` FS | grep "${ev#*:}" && xprop -root -remove FS && $DIR/wshuf
-          $DIR/groupsbar           ;;
-  esac
+	wid=`echo "$ev" | sed 's/.*://'`
+    case "$ev" in
+		18*) $DIR/wshuf | xargs -n 5 wtp
+			wtf `lsw | tail -n1`
+			$DIR/groupsbar           ;;
+		19*) $DIR/wshuf | xargs -n 5 wtp
+			$DIR/autotag "$wid"
+			wtf "$wid"
+			$DIR/groupsbar           ;;
+		17*) wtf `lsw | tail -n1`
+			if watom `lsw -r` FS | grep "$wid"; then
+				xprop -root -remove FS
+				DIR/wshuf | xargs -n 5 wtp
+			fi
+			$DIR/groupsbar           ;;
+	esac
 done

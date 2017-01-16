@@ -14,7 +14,7 @@ super + shift + {1,3,4,5,6}
 super + {1,3,4,5,6}
          lsgrp {1,3,4,5,6} | xargs mapw -t && ~/local/share/x11/groupsbar
 super + 2
-         ~/local/share/dsearch/stack
+         ~/local/share/x11/stack
 XF86Audio{Prev,Next,Play}
          mpc -q {prev,next,toggle}
 XF86AudioStop

@@ -12,17 +12,17 @@ getname() {
 }
 
 winsize() {
-  while read -r id; do
-    name=$(getname $id)
-    test -f $WIN/$name && . $WIN/$name || . $WIN/default
-  done
+	while read -r id; do
+		name=`getname $id`
+		test -f $WIN/$name && . $WIN/$name || . $WIN/default
+	done
 }
 
 ## Main ##
 # window dimensions and gap
-if watom `lsw -r` FS; then
-  exit 0
+if watom `lsw -r` FS 2>/dev/null; then
+	exit 0
 fi
 
-. "$XDG_CONFIG_HOME"/x11/size && [ ! $width ] && [ !$heigh ] && exit 1
-lsw | winsize | binpack -x "$width" -y "$heigh" -g "$gaps" | xargs -n 5 wtp
+. "$XDG_CONFIG_HOME"/x11/size && [ ! $width ] && [ ! $heigh ] && exit 1
+lsw | winsize | binpack -x "$width" -y "$heigh" -g "$gaps"
