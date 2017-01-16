@@ -1,3 +1,0 @@
-#!/bin/sh
-
-GOOS=plan9 $HOME/code/harvey/go1.7/go/bin/go build -ldflags "-H linux -R 0x200000" "$1"
