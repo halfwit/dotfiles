@@ -64,4 +64,5 @@ cat <<-EOF >> "$notesdir/$main"
 General issues
 	Trying to be perfect first time:
 	Not reading enough into each abstraction:
+	Not testing iteratively:
 EOF
