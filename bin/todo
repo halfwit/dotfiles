@@ -1,27 +1,24 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Write/remove a task to do later.
 
-readonly todir=$XDG_CACHE_HOME/todo
-
+todir=$XDG_CACHE_HOME/todo
 load() {
   # count matches with grep vs line count 
-  local match total
-  find "$todir" -not -path '*/\.*' -type f | while read title; do
-    [[ ! -s "$title" ]] && rm "$title"
-    match=$(grep -c "[x]" "$title")
-    total=$(wc -l "$title" | awk '{print $1}')
-    printf '%s\t%s\n' "$(( 100 * match / total ))%" "${title##*\/}"
-  done
-}
-
-menu() {
-  load | dmenu -p "Select or create new task"
+	find "$todir" -not -path '*/\.*' -type f | while read title; do
+		if ! test -s "$title"; then
+			rm "$title"
+			continue
+		fi
+		match=`grep -c "(x)" "$title"`
+		total=`wc -l "$title" | awk '{print $1}'`
+		total=`echo "100*$match/$total" | bc`
+		printf '%s\t%s\n' "$total%" `basename "$title"`
+	done
 }
 
 ## Main
-
-result=$(menu | cut -d $'\t' -f2-)
-[[ ! $result ]] && exit 
+result=`load | dmenu -p "Select/create task" | cut -d '	' -f2-`
+test -z $result && exit 0
 
 touch "$todir/$result"
 exec ~/local/share/todo/singletask "$result"

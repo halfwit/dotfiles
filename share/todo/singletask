@@ -1,30 +1,15 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Write/remove a task to do later.
-
 TASKFILE="$XDG_CACHE_HOME/todo/$1"
 
-menu() {
-  dmenu -p "Add new or select task to toggle"  < "$TASKFILE"
-}
-
-loop_run() {
-  local sub result place=1
-  while true; do
-    result=$(menu "$place")
-    # Return to main program on exit
-    [[ ! $result ]] && exec todo
-    case $result in
-      \(\ \)*) sub="${result/\(\ \)/(x)}"
-               place=$(sed -n "/$result/{=; q;}" "$TASKFILE")
-               sed -i "s:$result:$sub:g" "$TASKFILE" ;;
-      \(x\)*)  sub="${result/\(x\)/( )}"
-               place=$(sed -n "/$result/{=; q;}" "$TASKFILE")
-               sed -i "s:$result:$sub:g" "$TASKFILE" ;;
-      *) place=$(wc -l "$TASKFILE" | awk '{ print $1+1 }') 
-         printf '%s\n' "( ) $result" >> "$TASKFILE" ;;
-    esac
-  done
-}
-
-## Main
-loop_run
+while true; do
+	result=`dmenu -p "Add new task or toggle" < "$TASKFILE"`
+	sub=`printf "$result" | sed -e 's/( )/(x)/' -e t -e 's/(x)/( )/' -e t`
+	# Return to main program on exit
+	test -z "$result" && exec todo
+	case $result in
+		\(\ \)*) sed -i "s:$result:$sub:g" "$TASKFILE" ;;
+		\(x\)*)  sed -i "s:$result:$sub:g" "$TASKFILE" ;;
+		*)       printf '%s\n' "( ) $result" >> "$TASKFILE" ;;
+	esac
+done
