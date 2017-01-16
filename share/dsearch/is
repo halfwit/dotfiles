@@ -38,5 +38,4 @@ url="https://www.googleapis.com/customsearch/v1?key=$KEY&cx=$ID&q=${1// /+}&sear
 
 fetch_data "$url"
 
-
 parse | itemize | dmenu -p "Select image: " -is 150x150 | handle_results

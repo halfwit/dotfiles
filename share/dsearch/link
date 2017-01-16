@@ -5,54 +5,54 @@ readonly datadir="$XDG_DATA_HOME"
 readonly pics="$HOME"/media/pictures
 
 list() {
-  lsw | while read -r w; do
-    case "$(wname $w)" in
-      *browse*) sed -n -e 's/_SURF_URI(STRING) = "//p' <<< "$(xprop -id "$w")" ;;
-    esac
-  done
-  find "$datadir"/bookmark -type f -not -path '*/\.*'
-  find "$datadir"/mpv -type f -not -path '*/\.*'
-  find "$pics" -type f -not -path '*/\.*'
+	lsw | while read -r w; do
+		case "$(wname $w)" in
+			*browse*) sed -n -e 's/_SURF_URI(STRING) = "//p' <<< "$(xprop -id "$w")" ;;
+		esac
+	done
+	find "$datadir"/bookmark -type f -not -path '*/\.*'
+	find "$datadir"/mpv -type f -not -path '*/\.*'
+	find "$pics" -type f -not -path '*/\.*'
 }
 
 build() {
-  local input
-  while read -r input; do
-    case "$input" in
-      http*)
-        printf 'current - %s\n' "${input::-1}" ;;
-      *bookmark*)
-        read -r url < "$input"
-        printf '%s\n' "${input##*bookmark\/}"
-        ;;
-      *mpv*)
-        input="${input/.pls/}"
-        printf '%s\n' "video - ${input##*mpv\/}"
-        ;;
-      *pictures*) 
-        printf 'IMG:%q\t%s\n' "$pic/$input" "image - ${input##*pictures\/}"
-        ;;
-    esac
-  done
+	local input
+	while read -r input; do
+		case "$input" in
+			http*)
+				printf 'current - %s\n' "${input::-1}" ;;
+			*bookmark*)
+				read -r url < "$input"
+				printf '%s\n' "${input##*bookmark\/}"
+				;;
+			*mpv*)
+				input="${input/.pls/}"
+				printf '%s\n' "video - ${input##*mpv\/}"
+				;;
+			*pictures*) 
+				printf 'IMG:%q\t%s\n' "$pic/$input" "image - ${input##*pictures\/}"
+				;;
+		esac
+	done
 }
 
 video() {
-  local result
-  lnk=$(sed -n -e 's/^Title[0-9]\+=//p' < "$datadir/mpv/${1##*-\ }.pls" | dmenu -p "Select video" ) 
+	local result
+	lnk=$(sed -n -e 's/^Title[0-9]\+=//p' < "$datadir/mpv/${1##*-\ }.pls" | dmenu -p "Select video" ) 
   
-  # If no selection is made, return to this program
-  [[ ! $lnk ]] && exec "$datadir/dsearch/link"
+	# If no selection is made, return to this program
+	[[ ! $lnk ]] && exec "$datadir/dsearch/link"
   
-  sed -n -e "/$lnk/ { n; s/^File[0-9]\+=//p }" < "$datadir/mpv/${1#*-\ }.pls"
+	sed -n -e "/$lnk/ { n; s/^File[0-9]\+=//p }" < "$datadir/mpv/${1#*-\ }.pls"
 }
 
 lnk=$(list | sort -u | build | dmenu -p "Select bookmark: ")
 
 case $lnk in
-  current*) lnk="${lnk#*-\ }" ;;
-  video*) lnk="$(video "$lnk")" ;;
-  image*) lnk="$(exiftool "$pics/${lnk#*-\ }" | awk '/^Comment/ { print $NF }')" ;;
-  *) read -r lnk < "$datadir/bookmark/$lnk"
+	current*) lnk="${lnk#*-\ }" ;;
+	video*) lnk="$(video "$lnk")" ;;
+	image*) lnk="$(exiftool "$pics/${lnk#*-\ }" | awk '/^Comment/ { print $NF }')" ;;
+	*) read -r lnk < "$datadir/bookmark/$lnk"
 esac
 
 if [[ $lnk == ytdl* ]]; then

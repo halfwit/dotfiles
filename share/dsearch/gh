@@ -47,8 +47,6 @@ handle_result() {
 }
 
 ## Main ##
-[[ $optsfile ]] && source "$optsfile"
-
 # Fetch initial data
 result="$(curl -s "https://api.github.com/search/users?q=$1")"
 count="$(jshon -e total_count -u <<< "$result")"
@@ -67,5 +65,4 @@ rm -rf "$tmp"
 [[ ! $result ]] && exit 0
 
 # Select end repo(s) and launch in browser
-unset opts
 query "$result" | parse | build_entries | column -s '|' -t | dmenu -p "Select repo: " | handle_result "$result"

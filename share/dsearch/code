@@ -1,21 +1,12 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
-# Code search using dmenu (single string)
-# Requires dmenu, ag
+# Code search using dmenu, ag (single string)
 
+cd "$HOME" || exit 1
+result=`ag "$1" | dmenu -p "Select file: "`
 
-get_selection() {
-    ag --vimgrep "$1" | dmenu -p "Select file: "
-}
-
-# Main
-
-# Configuration
-
-result=$(get_selection "$1")
-
-# Verify a selection was made
-if [[ $result ]]; then
-    subres="${result#*:}"
-    exec st -t NVIM -e nvim +"${subres%%:*}" "$HOME/${result%%:*}"
+if test -n "$result"; then
+	subres="${result#*:}"
+	edit +"${subres%%:*}" "$HOME/${result%%:*}" &
 fi
+exit 0
