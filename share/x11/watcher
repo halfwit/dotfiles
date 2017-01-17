@@ -14,7 +14,7 @@ wew | while read -r ev; do
 		17*) wtf `lsw | tail -n1`
 			if watom `lsw -r` FS | grep "$wid"; then
 				xprop -root -remove FS
-				DIR/wshuf | xargs -n 5 wtp
+				$DIR/wshuf | xargs -n 5 wtp
 			fi
 			$DIR/groupsbar           ;;
 	esac
