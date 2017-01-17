@@ -6,7 +6,7 @@ notedir=$XDG_CACHE_HOME/notes
 # Scrub empty files
 load() {
 	cd $notedir || exit 1
-	for i in ./*; do 
+	for i in *; do 
 		if test -s $i; then 
 			printf '%s\n' "$i"
 		else 

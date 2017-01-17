@@ -51,7 +51,7 @@ if [[ $feed == "view all" ]]; then
 fi
 
 if [[ $feed == "quit" || ! $feed ]]; then
-	ls "$RSS" | filter_read | wc -l | sed 's/$/-2/' |bc -2 > "$RSS"/count
+	ls "$RSS" | filter_read | wc -l | sed 's/$/-2/' | bc > "$RSS"/count
     exit 0
 fi
 
