@@ -2,9 +2,9 @@
 
 getname() {
   cd "$XDG_CONFIG_HOME"/x11/windows || exit 1
-  for i in ./*; do
-    watom "$1" WM_NAME | grep -io "$i" && break
-    watom "$1" _NET_WM_NAME | grep -io "$i" && break
+  for i in *; do
+    watom "$1" WM_NAME | grep -io "$i" 2>/dev/null && break
+    watom "$1" _NET_WM_NAME | grep -io "$i" 2>/dev/null && break
   done
 }
 
