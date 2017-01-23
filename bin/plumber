@@ -6,100 +6,83 @@ PLDIR="$XDG_DATA_HOME/plumber"
 
 # Load up the clipboard
 clip() {
-  printf '%s\n' "$1" | xcmenu -ic
+	printf '%s\n' "$1" | xcmenu -ic
 }
 
 # Workaround until we have a filesystem based browser
 fetch() {
-  local link tmp
-  if [[ -f "$1" ]]; then
-    link="$1"
-  else
-    link=$(mktemp)
-    curl -Lsk "$1" -o "$link" &
-  fi
-  printf '%b\n' "$link"
+	local link tmp
+	if [[ -f "$1" ]]; then
+		link="$1"
+	else
+		link=$(mktemp)
+		curl -Lsk "$1" -o "$link" &
+	fi
+	printf '%b\n' "$link"
 }
 
 
 # Fire off the action
 handle() {
-  local input
-  while read -r input; do
-    case "$input" in
-      browse) browse 	"$1" &
-              exit 0 ;;
-      play)   play   	"$(fetch "$1")" &
-              exit 0 ;;
-      view)   imv		"$(fetch "$1")" &
-              exit 0 ;;
-      docs)   zathura   "$(fetch "$1")" &
-              exit 0 ;;
-	  edit)   edit      "$(fetch "$1")" &
-              exit 0 ;;
-      hear)   mpv 		"$1" &
-              exit 0 ;;
-      man)    "$XDG_DATA_HOME"/dsearch/man "$1" &
-              exit 0 ;;
-	  godoc)  "$XDG_DATA_HOME"/dsearch/godoc "$1" &
-		      exit 0 ;;
-    esac
-  done
+	local input
+	clip "$1"
+	while read -r input; do
+		case "$input" in
+			browse) browse 	"$1" &
+					exit 0 ;;
+			play)   play   	"$(fetch "$1")" &
+					exit 0 ;;
+			view)   imv		"$(fetch "$1")" &
+					exit 0 ;;
+			docs)   zathura   "$(fetch "$1")" &
+					exit 0 ;;
+			edit)   edit      "$(fetch "$1")" &
+					exit 0 ;;
+			hear)   mpv 		"$1" &
+					exit 0 ;;
+			man)    "$XDG_DATA_HOME"/dsearch/man "$1" &
+					exit 0 ;;
+			godoc)  "$XDG_DATA_HOME"/dsearch/godoc "$1" &
+					exit 0 ;;
+			search) dsearch "!g $1" &
+					exit 0 ;;
+			wiki)   dsearch "!w $1" &
+					exit 0 ;;
+		esac
+	done
+	printf "$input $1" > ~/mime_issues
 }
 
-handle_online() {
-    local result
-    result="$(printf '%s\n%s\n%s\n%s\n%s\n' "$1" "!g $1" "!w $1" "!man" "!godoc" | dmenu -l 4 -p dsearch)"
-	if [[ $result == "!godoc" ]]; then
-		"$XDG_DATA_HOME/dsearch/godoc" "$1" &
-		exit 0
-	fi
-	if [[ $result == "!man" ]]; then
-		"$XDG_DATA_HOME/dsearch/man" "$1" &
-		exit 0
-	fi
-    if [[ $result ]]; then
-		dsearch "$result" & 
-		exit 0
-	fi
+menu() {
+	printf '%s\n%s\n%s\n%s\n' "search" "wiki" "man" "godoc" | dmenu -l 4 -p "Query: $1"
 }
 
 # In testing, this outputs a correct mime
 mime() {
-	if [[ -f $1 ]]; then
-		file -bL --mime-type "$1"
-	elif whatis "${1/[^a-zA-Z0-9:-_\/]*/}" &>/dev/null; then
-		printf "man\n"
-	elif go doc "$1" &>/dev/null; then
-		printf "godoc\n"
-	else 
-		content-type "$1" || handle_online "$1"
-		clip "$1"
-	fi
+	content-type "$1" 2>/dev/null &
+	file -bL --mime-type "$1" | sed 's/cannot open.*//' &
+	whatis "${1/[^a-zA-Z0-9:-_\/]*/}" 2>/dev/null | grep -q . && printf "man\n" &
 }
 
 # Match mimetype with action to be taken
 parse() {
-  local out
-  out=$(awk -v r="$1" '$0 ~ r { print $2 }' "$PLDIR/${1%\/*}")
-  [[ $out ]] && printf "$out\n" || printf "$1\n" >> ~/mime_issues
+	while read -r input; do 
+		awk -v r="$input" '$0 ~ r { print $2 }' "$PLDIR/${input%\/*}" 2>/dev/null
+		case "$input" in
+			search) printf "search\n" ;;
+			godoc)  printf "godoc\n"  ;;
+			wiki)   printf "wiki\n"   ;;
+			man)    printf "man\n"    ;;
+		esac
+	done
 }
 
 ## Main
+
+# Read stdin or flag
 [[ $1 ]] && input="$1" || read -r input
+# Test for special cases
 [[ $input ]] && "$PLDIR"/special "$input" && exit 0
 
-while read -r mimetype; do
-  case "$mimetype" in
-    X-Arc*) parse "${mimetype%;*}" | handle "$input" ;;
-    appli*) parse "${mimetype%;*}" | handle "$input" ;;
-    video*) parse "${mimetype%;*}" | handle "$input" ;;
-    audio*) parse "${mimetype%;*}" | handle "$input" ;;
-    image*) parse "${mimetype%;*}" | handle "$input" ;;
-    inode*) parse "${mimetype%;*}" | handle "$input" ;;
-    text*)  parse "${mimetype%;*}" | handle "$input" ;;
-    man*)   printf "man\n"         | handle "$input" ;;
-    godoc*) printf "godoc\n"       | handle "$input" ;;
-    *) printf '%s\n' "$mimetype" >> ~/mime_issues ;;
-  esac
-done < <(mime "$input")
+# Ugly! Will write something to read from stdin and err on no values.
+mime "$input" | (grep . || menu "$input") | parse | handle "$input"
