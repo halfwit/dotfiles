@@ -43,7 +43,7 @@ get_selection() {
 
 handle_results() { # args -> launch
 	while read -r input; do
-		if test -f $input 2>/dev/null; then
+		if test -f "$input" 2>/dev/null; then
 			plumber "$input" &
 			exit 0
 		fi

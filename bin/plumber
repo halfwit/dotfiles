@@ -28,15 +28,15 @@ handle() {
 		case "$input" in
 			browse) browse 	"$1" &
 					exit 0 ;;
-			play)   play   	`fetch "$1"` &
+			play)   play   	"`fetch "$1"`" &
 					exit 0 ;;
-			view)   imv		`fetch "$1"` &
+			view)   imv		"`fetch "$1"`" &
 					exit 0 ;;
-			docs)   zathura   `fetch "$1"` &
+			docs)   zathura "`fetch "$1"`" &
 					exit 0 ;;
-			edit)   edit      `fetch "$1"` &
+			edit)   edit    "`fetch "$1"`" &
 					exit 0 ;;
-			hear)   mpv 		"$1" &
+			hear)   mpv 		      "$1" &
 					exit 0 ;;
 			man)    "$XDG_DATA_HOME"/dsearch/man "$1" &
 					exit 0 ;;
@@ -51,12 +51,8 @@ handle() {
 	printf "$input $1" > ~/mime_issues
 }
 
-check_file() {
-	file -bL --mime-type "$1" | sed 's/cannot open.*//'
-}
-
 check_manpage() {
-	query=`printf "$1" | sed 's/[^a-zA-Z0-9_-:].*//'`
+	query=`printf "$1" | sed 's/[^a-zA-Z0-9:/_-].*//'`
 	whatis "$query" 2>/dev/null && printf "man\n"
 }
 
@@ -66,8 +62,8 @@ menu() {
 
 # In testing, this outputs a correct mime
 mime() {
+	file -bL --mime-type "$1" | sed 's/cannot open.*//' &
 	content-type "$1" 2>/dev/null &
-	check_file "$1" &
 	check_manpage "$1" &
 }
 
@@ -87,9 +83,9 @@ parse() {
 ## Main
 
 # Read stdin or flag
-test -n $1 && input="$1" || read -r input
+test -n "$1" && input="$1" || read -r input
 # Test for special cases
-test -n $input && "$PLDIR"/special "$input" && exit 0
+test -n "$input" && "$PLDIR"/special "$input" && exit 0
 
 # Ugly! Will write something to read from stdin and err on no values.
 mime "$input" | (grep . || menu "$input") | parse | handle "$input"
