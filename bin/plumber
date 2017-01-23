@@ -53,6 +53,14 @@ handle() {
 	printf "$input $1" > ~/mime_issues
 }
 
+check_file() {
+	file -bL --mime-type "$1" | sed 's/cannot open.*//'
+}
+
+check_manpage() {
+	whatis "${1/[^a-zA-Z0-9:-_\/]*/]*/}" 2>/dev/null | grep -q . && printf "man\n"
+}
+
 menu() {
 	printf '%s\n%s\n%s\n%s\n' "search" "wiki" "man" "godoc" | dmenu -l 4 -p "Query: $1"
 }
@@ -60,14 +68,14 @@ menu() {
 # In testing, this outputs a correct mime
 mime() {
 	content-type "$1" 2>/dev/null &
-	file -bL --mime-type "$1" | sed 's/cannot open.*//' &
-	whatis "${1/[^a-zA-Z0-9:-_\/]*/}" 2>/dev/null | grep -q . && printf "man\n" &
+	check_file "$1" &
+	check_manpage "$1" &
 }
 
 # Match mimetype with action to be taken
 parse() {
 	while read -r input; do 
-		awk -v r="$input" '$0 ~ r { print $2 }' "$PLDIR/${input%\/*}" 2>/dev/null
+		awk -v r="$input" '$0 ~ r { print $2 }' "$PLDIR/${input%\/*}" 2>/dev/null &
 		case "$input" in
 			search) printf "search\n" ;;
 			godoc)  printf "godoc\n"  ;;
