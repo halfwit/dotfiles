@@ -1,6 +1,4 @@
-#!/usr/bin/env bash
-
-shopt -s extglob
+#!/bin/sh
 
 PLDIR="$XDG_DATA_HOME/plumber"
 
@@ -12,10 +10,10 @@ clip() {
 # Workaround until we have a filesystem based browser
 fetch() {
 	local link tmp
-	if [[ -f "$1" ]]; then
+	if test -f "$1"; then
 		link="$1"
 	else
-		link=$(mktemp)
+		link=`mktemp`
 		curl -Lsk "$1" -o "$link" &
 	fi
 	printf '%b\n' "$link"
@@ -30,13 +28,13 @@ handle() {
 		case "$input" in
 			browse) browse 	"$1" &
 					exit 0 ;;
-			play)   play   	"$(fetch "$1")" &
+			play)   play   	`fetch "$1"` &
 					exit 0 ;;
-			view)   imv		"$(fetch "$1")" &
+			view)   imv		`fetch "$1"` &
 					exit 0 ;;
-			docs)   zathura   "$(fetch "$1")" &
+			docs)   zathura   `fetch "$1"` &
 					exit 0 ;;
-			edit)   edit      "$(fetch "$1")" &
+			edit)   edit      `fetch "$1"` &
 					exit 0 ;;
 			hear)   mpv 		"$1" &
 					exit 0 ;;
@@ -58,7 +56,8 @@ check_file() {
 }
 
 check_manpage() {
-	whatis "${1/[^a-zA-Z0-9:-_\/]*/]*/}" 2>/dev/null | grep -q . && printf "man\n"
+	query=`printf "$1" | sed 's/[^a-zA-Z0-9_-].*//'`
+	whatis "$query" 2>/dev/null && printf "man\n"
 }
 
 menu() {
@@ -88,9 +87,9 @@ parse() {
 ## Main
 
 # Read stdin or flag
-[[ $1 ]] && input="$1" || read -r input
+test -n $1 && input="$1" || read -r input
 # Test for special cases
-[[ $input ]] && "$PLDIR"/special "$input" && exit 0
+test -n $input && "$PLDIR"/special "$input" && exit 0
 
 # Ugly! Will write something to read from stdin and err on no values.
 mime "$input" | (grep . || menu "$input") | parse | handle "$input"
