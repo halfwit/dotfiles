@@ -56,7 +56,7 @@ check_file() {
 }
 
 check_manpage() {
-	query=`printf "$1" | sed 's/[^a-zA-Z0-9_-].*//'`
+	query=`printf "$1" | sed 's/[^a-zA-Z0-9_-:].*//'`
 	whatis "$query" 2>/dev/null && printf "man\n"
 }
 
