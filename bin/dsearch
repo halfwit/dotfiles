@@ -1,19 +1,18 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Dmenu search with history
 
-readonly datadir=$HOME/local/share
-readonly handledir="$datadir"/dsearch
-readonly search="https://duckduckgo.com?q="
+datadir=$HOME/local/share
+handledir="$datadir"/dsearch
+search="https://duckduckgo.com?q="
 
 create_menu() {
-	local open
 	# Last selection
 	xcmenu --list | head -n 1
 
 	# Open browsers
-	while read -r id; do
-		watom "$id" WM_NAME
-	done < <(lsgrp 2) | awk '/Chromium/{print "browse -", $0;next}1'
+	lsgrp 2 | while read -r id; do
+		watom "$id" WM_NAME 2>/dev/null
+	done | awk '/Chromium/{print "browse -", $0;next}1'
 
 	# Check bookmarks
 	cd "$datadir/bookmark" || exit 1
@@ -22,7 +21,7 @@ create_menu() {
 	# This is for mpv playlists
 	cd "$datadir/mpv" ||  exit 1
 	for file in *.pls; do
-		printf '%s\n' "playlist - ${file/.pls/}"
+		printf '%s\n' "playlist - ${file%.pls*}"
 	done | sort -u
 
 	# Bang completions
@@ -34,76 +33,80 @@ create_menu() {
 }
 
 get_selection() {
-	create_menu | dmenu -p Search
+	if test -z "$1"; then
+		create_menu | dmenu -p Search | sed 's/^.*http/http/'
+	else
+		printf "$1"
+	fi
 	#create_menu | rofi -dmenu
 }
 
 handle_results() { # args -> launch
-	case "$@" in
-		!metal)  exec browse "$search!metal%20$(mpc current | sed 's/ -.*//')" ;;
-		!lyrics) exec "$handledir"/lyrics ;;
-		!pocket) exec "$handledir"/pocket ;;
-		!commit) exec "$handledir"/commit ;;
-		!photo)  exec "$handledir"/photo  ;;
-		!mpvl)   exec "$handledir"/mpvl   ;;
-		!read)   exec "$handledir"/read   ;;
-		!docs)   exec "$handledir"/docs   ;;
-		!game)   exec "$handledir"/game   ;;
-		!save)   exec "$handledir"/save   ;;
-		!link)   exec "$handledir"/link   ;;
-		!song)   exec "$handledir"/song   ;;
-		!math)   exec "$handledir"/math   ;;
-		!pass)   exec "$handledir"/pass   ;;
-		!push)	 exec "$handledir"/push	  ;;
-		!pull)	 exec "$handledir"/pull	  ;;
-		!rss)    exec "$handledir"/rss    ;;
-		!man)    exec "$handledir"/man    ;;
-		!pb)     exec "$handledir"/pb     ;;
-		!np)     exec "$handledir"/np     ;;
-
-		playlist\ -\ *)   exec "$XDG_DATA_HOME"/mpv/select_video "${1#*-\ }.pls" ;;
-		browse\ -\ *)     exec "$XDG_DATA_HOME"/x11/stack  "${1#*-\ }"     ;;
-		!pl\ save)        exec "$XDG_DATA_HOME"/youtube/savesearch ;;
-		!reddit\ *)       exec "$handledir"/reddit "${1#*reddit }" ;;
-		!lyrics\ *)       exec "$handledir"/lyrics "${1#*lyrics }" ;;
-		!godoc\ *)	      exec "$handledir"/godoc  "${1#*godoc }"   ;;
-		!album\ *)        exec "$handledir"/album  "${1#*album }"  ;;
-		!quote\ *)        exec "$handledir"/quote  "${1#*quote }"  ;;
-		!save\ *)         exec "$handledir"/save   "${1#*save }"   ;;
-		!song\ *)         exec "$handledir"/song   "${1#*song }"   ;;
-		!code\ *)         exec "$handledir"/code   "${1#*code }"   ;;
-		!dict\ *)         exec "$handledir"/dict   "${1#*dict }"   ;;
-		!math\ *)         exec "$handledir"/math   "${1#*math }"   ;;
-		!man\ *)          exec "$handledir"/man    "${1#*man }"    ;;
-		!pkg\ *)	  exec "$handledir"/pkg    "${1#*pkg }"    ;;
-		!gh\ *)   	  exec "$handledir"/gh     "${1#*gh }"     ;;
-		!pl\ *)           exec "$handledir"/yt     "$1"            ;;
-		!ch\ *)		  exec "$handledir"/yt     "$1"            ;;
-		!yt\ *)           exec "$handledir"/yt     "${1#*yt }"     ;;
- 		!pb\ *)           exec "$handledir"/pb     "${1#*pb }"     ;;
-		!rq\ *)           exec "$handledir"/rq     "${1#*rq }"     ;;
-		!is\ *)     plumber "$("$handledir"/is     "${1#*is }")"   ;;
-		!w\ *)		  exec "$handledir"/w	   "${1#*w }" 	   ;;
-		!g\ *)		  exec "$handledir"/g      "${1#*g }"      ;;
-		
-		!close) pkill surf; pkill chromium ;;
-		# Not really search related, but useful
-		!snap)   exec "$handledir"/rec "snap"                    ;;
-		!stop)   exec "$handledir"/rec "stop"                    ;;
-		!win)    exec "$handledir"/rec "win"		     ;;
-		!rec)    exec "$handledir"/rec "vid"                     ;;
-		*\ -\ *) read -r result < "$datadir/bookmark/$1"
-			 exec browse "$result"     ;;
-		!*)      exec browse "$search$1"   ;;
-		*)       exec browse "$1" ;;
-	esac
+	while read -r input; do
+		if test -f $input 2>/dev/null; then
+			plumber "$input" &
+			exit 0
+		fi
+		case "$input" in
+			!metal)  exec browse "$search!metal%20`mpc current | sed 's/ -.*//'`" ;;
+			!lyrics) exec "$handledir"/lyrics ;;
+			!pocket) exec "$handledir"/pocket ;;
+			!commit) exec "$handledir"/commit ;;
+			!photo)  exec "$handledir"/photo  ;;
+			!mpvl)   exec "$handledir"/mpvl   ;;
+			!read)   exec "$handledir"/read   ;;
+			!docs)   exec "$handledir"/docs   ;;
+			!game)   exec "$handledir"/game   ;;
+			!save)   exec "$handledir"/save   ;;
+			!link)   exec "$handledir"/link   ;;
+			!song)   exec "$handledir"/song   ;;
+			!math)   exec "$handledir"/math   ;;
+			!pass)   exec "$handledir"/pass   ;;
+			!push)	 exec "$handledir"/push	  ;;
+			!pull)	 exec "$handledir"/pull	  ;;
+			!rss)    exec "$handledir"/rss    ;;
+			!man)    exec "$handledir"/man    ;;
+			!pb)     exec "$handledir"/pb     ;;
+			!np)     exec "$handledir"/np     ;;
+	
+			playlist\ -\ *)   exec "$XDG_DATA_HOME"/mpv/select_video "${input#*-\ }.pls" ;;
+			browse\ -\ *)     exec "$XDG_DATA_HOME"/x11/stack  "${input#*-\ }"     ;;
+			!pl\ save)        exec "$XDG_DATA_HOME"/youtube/savesearch ;;
+			!reddit\ *)       exec "$handledir"/reddit "${input#*reddit }" ;;
+			!lyrics\ *)       exec "$handledir"/lyrics "${input#*lyrics }" ;;
+			!godoc\ *)	      exec "$handledir"/godoc  "${input#*godoc }"   ;;
+			!album\ *)        exec "$handledir"/album  "${input#*album }"  ;;
+			!quote\ *)        exec "$handledir"/quote  "${input#*quote }"  ;;
+			!save\ *)         exec "$handledir"/save   "${input#*save }"   ;;
+			!song\ *)         exec "$handledir"/song   "${input#*song }"   ;;
+			!code\ *)         exec "$handledir"/code   "${input#*code }"   ;;
+			!dict\ *)         exec "$handledir"/dict   "${input#*dict }"   ;;
+			!math\ *)         exec "$handledir"/math   "${input#*math }"   ;;
+			!man\ *)          exec "$handledir"/man    "${input#*man }"    ;;
+			!pkg\ *)	  exec "$handledir"/pkg    "${input#*pkg }"    ;;
+			!gh\ *)   	  exec "$handledir"/gh     "${input#*gh }"     ;;
+			!pl\ *)           exec "$handledir"/yt     "$input"            ;;
+			!ch\ *)		  exec "$handledir"/yt     "$input"           ;;
+			!yt\ *)           exec "$handledir"/yt     "${input#*yt }"     ;;
+ 			!pb\ *)           exec "$handledir"/pb     "${input#*pb }"     ;;
+			!rq\ *)           exec "$handledir"/rq     "${input#*rq }"     ;;
+			!is\ *)     plumber `"$handledir"/is     "${input#*is }"`   ;;
+			!w\ *)		  exec "$handledir"/w	   "${input#*w }" 	   ;;
+			!g\ *)		  exec "$handledir"/g      "${input#*g }"      ;;
+			
+			!close) pkill surf; pkill chromium ;;
+			# Not really search related, but useful
+			!snap)   exec "$handledir"/rec "snap"                    ;;
+			!stop)   exec "$handledir"/rec "stop"                    ;;
+			!win)    exec "$handledir"/rec "win"		     ;;
+			!rec)    exec "$handledir"/rec "vid"                     ;;
+			*\ -\ *) read -r result < "$datadir/bookmark/$input"
+				 	 exec browse "$result"     ;;
+			!*)      exec browse "$search$input"   ;;
+			*)       exec browse "$input" ;;
+		esac
+	done
 }
 
 # Main
-[[ $1 ]] && query=$1 || query="$(get_selection)"
-query=${query/*http/http}
-
-# Verify selection
-[[ ! $query ]] && exit 0
-[[ -f $query ]] && exec plumber "$query"
-handle_results "$query"
+get_selection "$1" | handle_results
