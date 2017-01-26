@@ -2,6 +2,7 @@
 
 ## Dmenu based frontend to read RSS directory
 RSS=$XDG_CACHE_HOME/rss
+declare all=false
 
 select_site() {
     cd "$1"
@@ -10,57 +11,71 @@ select_site() {
     done
 }
 
+update_count() {
+	ls "$RSS" | while read -r title; do
+		if ls "$RSS/$title"/\[new\]* &>/dev/null; then
+			printf '%s\n' "$title"
+		fi 
+	done | wc -l | bc > "$RSS"/count
+}
+
 filter_read() {
 	while read -r title; do
-        if ls "$RSS/$title"/\[new\]* &>/dev/null; then
+		if [[ $all == true ]]; then
+			printf '%s\n' "$title"
+		elif ls "$RSS/$title"/\[new\]* &>/dev/null; then
             printf '%s\n' "$title"
         fi
     done
 	printf '%s\n%s\n' "view all" "quit"
 }
 
+mark_read() {
+	cd "$RSS/$1"
+	for i in *; do
+		mv "$i" "${i/\[new\]\ /}"
+	done
+}
+
 append() {
-    while read -r entry; do
-        printf '%s\n' "$entry"
-    done
-    printf '%s\n' "$1"
+	while read -r entry; do
+		printf '%s\n' "$entry"
+	done
+	printf '%s\n' "$1"
 }
 
-handle_result() {
-    read -r selection
-    if [[ $selection == "mark all as read" ]]; then
-        cd "$RSS/$1"
-        for i in *; do
-            mv "$i" "${i/\[new\]\ /}"
-        done
-        exit 0 
-    fi
-    if [[ $selection == "quit" ]]; then
-        exit 1
-    fi
-
-    read -r url < "$RSS/$1/$selection"
-    mv "$RSS/$1/$selection" "$RSS/$1/${selection/\[new\]\ /}"
-    plumber "$url" & 
+select_post() {
+	local feed
+	echo "$RSS/$1"
+	while :; do
+		update_count
+		feed="$(ls -t -I url -I count "$RSS/$1" | append "clear posts" | dmenu -p "Select post: ")"
+		[[ ! $feed ]] && break
+		case "$feed" in
+			clear\ posts) 	mark_read "$1"
+							break ;;
+			quit)        	break ;;
+		esac
+    	read -r url < "$RSS/$1/$feed"
+    	mv "$RSS/$1/$feed" "$RSS/$1/${feed/\[new\]\ /}"
+    	plumber "$url" & 
+	done
 }
 
-feed=$(ls "$RSS" | filter_read | dmenu -p "Select sub: ")
+# each count check 
+select_feed() {
+	local feed
+	while :; do
+		update_count
+		feed="$(ls "$RSS" | filter_read | dmenu -p "Select sub: ")"
+		[[ ! $feed ]] && break
+		case "$feed" in
+			view\ all) 	all=true				;;
+			quit)		break 					;;
+			*)			all=false
+						select_post "$feed" 	;;
+		esac
+	done
+}
 
-if [[ $feed == "view all" ]]; then
-    feed=$(ls -t -I url -I count "$RSS" | append "quit" | dmenu) 
-fi
-
-if [[ $feed == "quit" || ! $feed ]]; then
-	ls "$RSS" | filter_read | wc -l | sed 's/$/-2/' | bc > "$RSS"/count
-    exit 0
-fi
-
-ls -t -I url "$RSS/$feed" | append "mark all as read" | append "quit" |  dmenu -p "Select feed: " | handle_result "$feed" || exit 1
-
-if [[ $(ls "$RSS" | filter_read | wc -l) == 0 ]]; then
-	echo 0 > "$RSS"/count
-	exit
-fi
-
-sleep .1
-exec "$XDG_DATA_HOME"/dsearch/rss
+select_feed
