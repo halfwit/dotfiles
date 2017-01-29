@@ -30,4 +30,5 @@ if [[ $1 == "wc" ]]; then
 	crawl "$HOME" | wc -l
 else
 	crawl "$HOME" | dmenu -p "Push repo: " | handle_results 
+	"$XDG_DATA_HOME"/x11/gitbar &
 fi

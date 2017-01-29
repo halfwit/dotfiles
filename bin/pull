@@ -22,11 +22,12 @@ handle_results() {
 				cd "$HOME${url%%\ *}"
 				git pull && continue 
 				stat=$(git status)
-				st -e varless "$stat" 
+				st -e varless "$stat"
 		done
 }
 if [[ $1 == "wc" ]]; then
 	crawl "$HOME" | wc -l
 else
 	crawl "$HOME" | dmenu -p "Pull repos: " | handle_results 
+	"$XDG_DATA_HOME"/x11/gitpull &
 fi
