@@ -6,6 +6,7 @@ setxkbmap -option caps:escape
 
 sxhkd &
 xcmenu &
+$XDG_DATA_HOME/x11/gitbar &
 syncthing &
 compton -b &
 unclutter -grab &

@@ -6,7 +6,7 @@ while :; do
     current="$(mpc current --format "%artist% - %title%")"
     [[ ${#current} -gt 80 ]] && current="${current:0:10}...${current:(-70)}"
   elif mpc status | grep -q paused; then
-    current="[paused] "
+    current=" [paused] "
   fi
   level=100
   read -r level < /sys/class/power_supply/BAT0/capacity
@@ -18,14 +18,15 @@ while :; do
 
   read -r rss < ~/local/cache/rss/count
   if [[ $rss != 0 ]]; then
-  	rss="-$rss-"
+  	rss=" -$rss- "
   else
 	rss=""
   fi
 
+  read -r git < /tmp/gitbar
   #git=$(grab gitstuff, pretty print
   # git hook will update a file that holds our variables on any git write?
 
-  printf '%s %s %s\n' "$level" "%{r}$rss $current "
+  printf '%s %s %s\n' "$level" "%{r}$rss$git$current "
   sleep 1
 done | lemonbar -F '#bcbcbc' -d -b -f "DejaVu Mono:size=9.5" &

@@ -26,5 +26,5 @@ else
 fi
 
 if [ $check -eq 1 ]; then
-	printf '%s\n' "%{r}$commit$push$pull" > /tmp/panel
+	printf '%s\n' "%{r}[$commit$push$pull]" > /tmp/gitbar
 fi
