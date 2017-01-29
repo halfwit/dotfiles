@@ -18,7 +18,7 @@ while :; do
 
   read -r rss < ~/local/cache/rss/count
   if [[ $rss != 0 ]]; then
-  	rss="%{r}-$rss-"
+  	rss="-$rss-"
   else
 	rss=""
   fi
@@ -26,6 +26,6 @@ while :; do
   #git=$(grab gitstuff, pretty print
   # git hook will update a file that holds our variables on any git write?
 
-  printf '%s %s %s\n' "$level" "$rss" "%{r}$current "
+  printf '%s %s %s\n' "$level" "%{r}$rss $current "
   sleep 1
 done | lemonbar -F '#bcbcbc' -d -b -f "DejaVu Mono:size=9.5" &

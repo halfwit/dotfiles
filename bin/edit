@@ -1,7 +1,9 @@
 #!/bin/sh
 
+EDIT=nvim
+
 if test -n "$2"; then
-	exec st -t "NVIM" nvim "$1" "$2"
+	exec st -t "NVIM" "$EDIT" "$1" "$2"
 else
-	exec st -t "NVIM" nvim "$1"
+	exec st -t "NVIM" "$EDIT" "$1"
 fi

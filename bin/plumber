@@ -1,5 +1,5 @@
 #!/bin/sh
-
+set -x
 PLDIR="$XDG_DATA_HOME/plumber"
 
 # Load up the clipboard
@@ -13,6 +13,7 @@ fetch() {
 	if test -f "$1"; then
 		link="$1"
 	else
+		clip "$1"
 		link=`mktemp`
 		curl -Lsk "$1" -o "$link" &
 	fi
@@ -23,7 +24,6 @@ fetch() {
 # Fire off the action
 handle() {
 	local input
-	clip "$1"
 	while read -r input; do
 		case "$input" in
 			browse) browse 	"$1" &
@@ -37,6 +37,7 @@ handle() {
 			edit)   edit    "`fetch "$1"`" &
 					exit 0 ;;
 			hear)   mpv 		      "$1" &
+					clip "$1"
 					exit 0 ;;
 			man)    "$XDG_DATA_HOME"/dsearch/man "$1" &
 					exit 0 ;;

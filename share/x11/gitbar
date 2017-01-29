@@ -1,0 +1,30 @@
+#!/bin/sh
+
+commit=`commit wc`
+push=`push wc`
+pull=`pull wc`
+check=0
+if [ $commit -gt 0 ]; then
+	commit="⇄$commit"
+	check=1
+else
+	commit=""
+fi
+
+if [ $push -gt 0 ]; then
+	push="↑$push"
+	check=1
+else
+	push=""
+fi
+
+if [ $pull -gt 0 ]; then
+	pull="↓$pull"
+	check=1
+else
+	pull=""
+fi
+
+if [ $check -eq 1 ]; then
+	printf '%s\n' "%{r}$commit$push$pull" > /tmp/panel
+fi
