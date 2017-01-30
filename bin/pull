@@ -29,5 +29,5 @@ if [[ $1 == "wc" ]]; then
 	crawl "$HOME" | wc -l
 else
 	crawl "$HOME" | dmenu -p "Pull repos: " | handle_results 
-	"$XDG_DATA_HOME"/x11/gitpull &
+	"$XDG_DATA_HOME"/x11/gitbar &
 fi
