@@ -27,4 +27,6 @@ fi
 
 if [ $check -eq 1 ]; then
 	printf '%s\n' "%{r}[$commit$push$pull]" > /tmp/gitbar
+else
+	printf '%s\n' "" > /tmp/gitbar
 fi
