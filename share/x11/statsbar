@@ -3,7 +3,7 @@
 while :; do
   current=""
   if mpc status | grep -q playing; then
-    current="♫$(mpc current --format "%artist% - %title%")"
+    current="♫ $(mpc current --format "%artist% - %title%")"
     [[ ${#current} -gt 80 ]] && current="${current:0:10}...${current:(-70)}"
   elif mpc status | grep -q paused; then
     current=" [paused] "
@@ -11,7 +11,7 @@ while :; do
   level=100
   read -r level < /sys/class/power_supply/BAT0/capacity
   if [ $level -lt 100 ]; then
-    level="$level%"
+    level=" $level%"
   else
     level=""
   fi
