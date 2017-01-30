@@ -3,7 +3,7 @@
 while :; do
   current=""
   if mpc status | grep -q playing; then
-    current="$(mpc current --format "%artist% - %title%")"
+    current="♫$(mpc current --format "%artist% - %title%")"
     [[ ${#current} -gt 80 ]] && current="${current:0:10}...${current:(-70)}"
   elif mpc status | grep -q paused; then
     current=" [paused] "
@@ -18,7 +18,7 @@ while :; do
 
   read -r rss < ~/local/cache/rss/count
   if [[ $rss != 0 ]]; then
-  	rss=" -$rss- "
+  	rss=" $rss "
   else
 	rss=""
   fi
