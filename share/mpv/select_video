@@ -1,34 +1,20 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Create menu based on URLs and titles.
 
-readonly datadir=${XDG_DATA_HOME:-$HOME/local/share}
-readonly optsfile="$XDG_CONFIG_HOME"/dmenu/bemenucolors
-
-create_menu() {
-    sed -n -e 's/^.*Title[0-9]\+=//p' "$1"
+load() {
+    sed -n -e 's/^.*Title[0-9]\+=//p' "$XDG_DATA_HOME/mpv/$1"
 }
 
-get_selection() {
-    opts+=( -p "Select video" -l 10 )
-    create_menu "$datadir/mpv/$1" | bemenu "${opts[@]}"
+scrub() {
+	while read -r name; do
+    	awk -v result="$name" 's=index($0,result) { print int((NR-1)/2) }' "$XDG_DATA_HOME/mpv/$1"
+	done
 }
 
-get_position() {
-    awk -v result="$2" 's=index($0,result) { print int((NR-1)/2) }' "$datadir/mpv/$1"
+handle() {
+	while read -r name; do
+		play "$XDG_DATA_HOME/mpv/$1" --playlist-pos="$1" &
+	done
 }
-
-get_playlist() {
-	echo '{"command": ["get_property", "playlist-name"] }' | socat - /tmp/mpvsock | jshon -e data    
-}
-
 # Main
-
-[[ -s $optsfile ]] && source "$optsfile"
-
-result=$(get_selection "$1")
-
-[[ ! $result ]] && exit 0
-
-result=$(get_position "$1" "$result")
-
-exec play "$datadir/mpv/$1" --playlist-pos="$result"
+load "$1" | dmenu -p "Select video:" | scrub "$1" | handle "$1"
