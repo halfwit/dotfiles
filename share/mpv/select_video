@@ -7,12 +7,18 @@ load() {
 
 scrub() {
 	while read -r name; do
+		if test -z $name; then
+			exit 0
+		fi
     	awk -v result="$name" 's=index($0,result) { print int((NR-1)/2) }' "$XDG_DATA_HOME/mpv/$1"
 	done
 }
 
 handle() {
 	while read -r name; do
+		if test -z $name; then
+			exit 0
+		fi
 		play "$XDG_DATA_HOME/mpv/$1" --playlist-pos="$1" &
 	done
 }

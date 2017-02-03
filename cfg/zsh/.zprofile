@@ -34,11 +34,6 @@ export GTK_IM_MODULE=xim
 export XAUTHORITY=$XDG_RUNTIME_DIR/x11/xauthority
 
 source <(dircolors $XDG_CONFIG_HOME/terminal-colors.d/ls.enable)
-export NVIM_TUI_ENABLBE_TRUE_COLOR=1
 
 export VIS_THEME="dark-16"
-export VIMPERATOR_INIT=":source $XDG_CONFIG_HOME/vimperator/vimperatorrc"
-export VIMPERATOR_RUNTIME="$XDG_DATA_HOME/vimperator"
-
-export SURF_USERAGENT="Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5 Build/MOB3OD) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.105 Mobile Safari/537.36"
 source "$XDG_CONFIG_HOME"/session/config
