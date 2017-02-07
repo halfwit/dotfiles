@@ -1,5 +1,4 @@
 #!/bin/sh
-set -x
 PLDIR="$XDG_DATA_HOME/plumber"
 
 # Load up the clipboard
