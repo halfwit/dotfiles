@@ -29,4 +29,4 @@ while :; do
 
   printf '%s %s %s\n' "$level" "%{r}$rss$git$current "
   sleep 1
-done | lemonbar -F '#bcbcbc' -d -b -f "DejaVu Mono:size=9.5" -f "Symbola:size=9.5" &
+done | lemonbar -F '#282828' -d -b -f "DejaVu Mono:size=9.5" -f "Symbola:size=9.5" &

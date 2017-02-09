@@ -2,7 +2,7 @@
 " View
 "
 
-colorscheme apprentice
+colorscheme gruvbox
 
 set laststatus=0
 set cursorline

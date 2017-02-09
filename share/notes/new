@@ -7,60 +7,61 @@ result() {
 }
 
 note() {
-	printf '\t\t%s\n' "$1" >> "$notesdir/$main"
+	printf '\t\t%s\n' "$1" >> "$dir"
 	while :; do
-		assume=`result "$1"`
+		assume="$(result "$1")"
 		if test -z "$assume"; then
 			break
 		fi
-		printf '\t\t - %s\n' "$assume" >> "$notesdir/$main"
+		printf '\t\t - %s\n' "$assume" >> "$dir"
 	done
 }
 
 add_concept() {
 	# Main entry for concept
-	concept=`result "Concept $1 - $2:"`
+	concept="$(result "Concept $1 - $2:")"
 	if test -z "$concept"; then
 		return 1
 	fi
-	printf '\tConcept %s: %s\n' "$1" "$concept" >> "$notesdir/$main"	
+	printf '\tConcept %s: %s\n' "$1" "$concept" >> "$dir"	
 	note "Details about $concept:"
 	note "Assumptions about $concept:"
 	return 0
 }
 
 add_subconcept() {
-	c=`result "Sub-concept $1 - $2"`
+	c="$(result "Sub-concept $1 - $2")"
 	if test -z "$c"; then
 		return 1
 	fi
-	printf '\tSub-concept %s: %s\n' "$1" "$c" >> "$notesdir/$main"
+	printf '\tSub-concept %s: %s\n' "$1" "$c" >> "$dir"
 	note "Details about $c: "
 	note "Assumptions about $c:"
 	note "What I have issue explaining about $c:"
-	printf '\t\tWhat the books say about %s\n' "$c" >> "$notesdir/$main"
+	printf '\t\tWhat the books say about %s\n' "$c" >> "$dir"
 	return 0
 }
 
 ## Main
-main=`result "Main Idea:"`
-printf '%s %s\n' "Main Idea:" "$main" > "$notesdir/$main"
+main="$(result "Main Idea:")"
+dir="$notesdir/$(echo "$main" | sed 's/ /\\\ /g')"
+printf '%s %s\n' "Main Idea:" "$main" > "$dir"
 # If we go this far, eh. Forget about it.
 for i in `seq 1 10`; do
 	add_concept "$i" "$main" || break
-	printf "\n" >> "$notesdir/$main"
+	printf "\n" >> "$dir"
 done
 
 # Fine detail for each concept
-awk -- '/^\tConcept/{for (i=3; i<=NF; i++) printf "%s", $i (i==NF?ORS:OFS)}' < "$notesdir/$main" | while read -r concept; do
-	printf 'Concept: %s\n' "$concept" >> "$notesdir/$main"
+awk -- '/^\tConcept/{for (i=3; i<=NF; i++) printf "%s", $i (i==NF?ORS:OFS)}' < "$dir" | while read -r concept; do
+	printf 'Concept: %s\n' "$concept" >> "$dir"
 	for i in `seq 1 10`; do
 		add_subconcept "$i" "$concept" || break
-		printf "\n" >> "$notesdir/$main"
+		printf "\n" >> "$dir"
 	done
 done
 
-cat <<-EOF >> "$notesdir/$main"
+cat <<-EOF >> "$dir"
 General issues
 	Trying to be perfect first time:
 	Not reading enough into each abstraction:

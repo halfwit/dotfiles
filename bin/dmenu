@@ -1,2 +1,2 @@
 #!/bin/sh
-/usr/local/bin/dmenu -i -ia top-gapless -l 10 -fn "DejaVu Sans Mono 8" -sf '#bcbcbc' -sb '#444444' -nf '#bcbcbc' -nb '#262626' "$@"
+/usr/local/bin/dmenu -i -ia top-gapless -l 10 -fn "Go Mono 8.2" -sf '#3c3836' -sb '#ebdbb2' -nf '#3c3836' -nb '#fbf1c7' "$@"
