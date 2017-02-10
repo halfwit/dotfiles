@@ -1,7 +1,6 @@
 #!/bin/sh
 
 EDIT=nvim
-
 if test -n "$2"; then
 	exec st -t "NVIM" "$EDIT" "$1" "$2"
 else
