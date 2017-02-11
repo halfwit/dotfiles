@@ -4,5 +4,5 @@ if pgrep mpg123 >/dev/null; then
 	
 	printf '%s \033[0;34m%s\033[0m - \033[0;34m%s\n' "/me is listening to" "`mpc current --format "%artist%"`" "`mpc current --format "%title%"`"
 elif pgrep mpv >/dev/null; then
-	printf '%s \033[0;34m%s\033[0m' "/me is listening to" "`echo '{ "command": ["get_property", "media-title"] } '| socat - /tmp/mpvsock | jshon -e data -u`"
+	printf '/me is listening to \033[0;34m%s\033[0m\n' "`echo '{ "command": ["get_property", "media-title"] } '| socat - /tmp/mpvsock | jshon -e data -u`"
 fi

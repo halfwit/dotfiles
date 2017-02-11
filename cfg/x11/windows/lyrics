@@ -1,1 +1,1 @@
-printf '%s %s %s %s %s\n' "400" "225" "450" "496" "$id"
+printf '%s %s %s %s %s\n' "400" "$(( heigh / 2 ))" "450" "$(( heigh - gaps ))" "$id"

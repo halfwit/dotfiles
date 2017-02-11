@@ -90,7 +90,7 @@ shorten_prompt() {
   return 0
 }
 
-PROMPT='%F{${vimode}}%m%f $(shorten_prompt)%F{green} ${repo}$(get_git_status)%f
+PROMPT='%F{${vimode}}%B%m%b%f $(shorten_prompt)%F{green} ${repo}$(get_git_status)%f
  %F{cyan}‣%f '
 
 # Functions.
@@ -109,7 +109,7 @@ function preexec {
     repeat "$lng" print -Pn "\e[1A\e[F\e[K"
     repeat "$lng" print -Pn "\e[1B"
     print -Pn "\e]2B"
-    print -Pn "\e[2A\e[K\e[34;2m • $1\e[2B\e[F\e[K\e[0;m"
+    print -Pn "\e[2A\e[K\e[34;0m • $1\e[2B\e[F\e[K\e[0;m"
   fi
 }
 
