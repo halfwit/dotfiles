@@ -5,5 +5,6 @@ application/pdf docs
 application/epubzip docs
 application/binary browse
 application/json browse
+application/javascript edit
 application/xhtml browse
 application/x-shockwave-flash play

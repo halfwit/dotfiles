@@ -48,7 +48,7 @@ handle_results() { # args -> launch
 			exit 0
 		fi
 		case "$input" in
-			!metal)  exec browse "$search!metal%20`mpc current | sed 's/ -.*//'`" ;;
+			!metal)  exec browse "$search!metal%20`np | sed 's/ -.*//' | sed 's/ /+/g'`" ;;
 			!lyrics) exec "$handledir"/lyrics ;;
 			!pocket) exec "$handledir"/pocket ;;
 			!commit) exec "$handledir"/commit ;;
