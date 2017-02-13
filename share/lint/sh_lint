@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 
 lint_bash() {
-	echo "not implemented yet"
+	bash -D $1 &>/dev/stdout | while read -r line; do
+		num="$(cut -d ':' -f 2 <<< "$line" | awk '{print $2}')"
+		error="$(awk '{ $1=""; $2=""; $3=""; print}' <<< "$line")"
+		case "$line" in
+			$1*) printf 'line:%s error:%s\n' "$num" "${error/  /}" ;;
+		esac
+	done
 }
 
 lint_posix() {
@@ -9,7 +15,7 @@ lint_posix() {
 		num="$(cut -d ':' -f 2 <<< "$line" | sed 's/ $//')"
 		error="$(awk '{ $1=""; $2=""; $3=""; print}' <<< "$line")"
 		case "$line" in
-			$1*)	printf 'line:%s error:%s\n' "$num" "$error"
+			$1*)	printf 'line:%s error:%s\n' "$num" "$error" ;;
 		esac
 	done
 }
