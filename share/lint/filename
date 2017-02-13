@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Get the name of the focused file for input to lint
+
+watom $1 WM_NAME | awk '{ print $2"/"$1 }' | sed 's/(//' | sed 's/)//'
+
