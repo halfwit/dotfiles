@@ -14,10 +14,8 @@ EOF
 ##main - run handlers based on extension
 test -z $1 && usage
 
-case $1 in
-	0x*) 	pid="$(xprop -id $1 | awk '/NET_WM_PID/{print $NF}')"
-		set -- "$(ps $pid | awk '/NVIM/{print $9}')" ;;
-esac
+pid="`xprop -id $1 | awk '/NET_WM_PID/{print $NF}'`"
+set -- "`ps $pid | awk '/NVIM/{print $9}'`"
 
 case $1 in
 	*.go)    set -- "`$handle/go_lint $1`" ;;
@@ -25,4 +23,4 @@ case $1 in
 	*)       set -- "`$handle/sh_lint $1`" ;;
 esac
 
-exec st -e varless "$@"
+st -e varless "$@" &

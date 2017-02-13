@@ -1,3 +1,10 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-echo "foo bar baz"
+go test $1 &>/dev/stdout | while read -r line; do
+	num="$(cut -d ':' -f2 <<< "$line")"
+	error="$(awk '{ $1=""; print }' <<< "$line")"
+	name="$(basename $1)"
+	case "$line" in
+		*$name*) printf 'line: %s error:%s\n' "$num" "$error" ;;
+	esac
+done
