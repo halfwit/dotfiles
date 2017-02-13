@@ -13,5 +13,5 @@ unclutter -grab &
 ~/local/share/x11/barrun &
 ~/local/share/x11/statsbar & 
 #redshift -c ~/local/cfg/redshift.conf &
-hsetroot -solid '#444444'
+hsetroot -fill ~/media/pictures/calvin1.jpg -tint '#ebdbb2'
 exec ~/local/share/x11/watcher 

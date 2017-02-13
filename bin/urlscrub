@@ -16,20 +16,20 @@ url_scrub() {
     tee $tmp | tr -d "[:cntrl:]" | xurls | while read -r item; do
         case "$item" in
             *http://*|*https://*) sed 's/^.*\(http.*$\)/\1/' <<< "$item" ;;
-            (file*)               sed 's|file://||'          <<< "$item" ;;
+            *file:///*)           sed 's|file://||'          <<< "$item" ;;
             *)                    printf '%s\n' "$item"                  ;;
         esac
     done
-	cat "$tmp" | xurls
+	cat "$tmp" | sed 's|file://||' | xurls
 
 }
 
 handle() {
-  local selection
-  while read -r selection; do
-    plumber "$selection" 
-  done
-  rm "$tmp"
+	local selection
+	while read -r selection; do
+		plumber "$selection" 
+	done
+	rm "$tmp"
 }
 
-url_scrub "$@" | sort -u | menu | handle
+url_scrub "$@" | menu | handle

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+sh $1 &>/dev/stdout | while read -r line; do
+	num="$(cut -d ':' -f 2 <<< "$line" | sed 's/ //')"	
+	case "$line" in
+		$1*) printf 'line: %s error: %s\n' "$num" "${line##*: }"  
+			 printf 'file://%s -- \n' "$1" ;;
+	esac
+done

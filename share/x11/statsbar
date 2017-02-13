@@ -2,8 +2,8 @@
 
 while :; do
   current=""
-  if mpc status | grep -q playing; then
-    current="♫ $(mpc current --format "%artist% - %title%")"
+  if mpc status | grep -q playing || pgrep mpv; then
+    current=" ♫ $(np)"
     [[ ${#current} -gt 80 ]] && current="${current:0:10}...${current:(-70)}"
   elif mpc status | grep -q paused; then
     current=" [paused] "
