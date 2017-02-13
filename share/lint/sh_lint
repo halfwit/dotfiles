@@ -1,9 +1,23 @@
 #!/usr/bin/env bash
 
-sh $1 &>/dev/stdout | while read -r line; do
-	num="$(cut -d ':' -f 2 <<< "$line" | sed 's/ //')"	
-	case "$line" in
-		$1*) printf 'line: %s error: %s\n' "$num" "${line##*: }"  
-			 printf 'file://%s -- \n' "$1" ;;
-	esac
-done
+lint_bash() {
+	echo "not implemented yet"
+}
+
+lint_posix() {
+	sh $1 &>/dev/stdout | while read -r line; do
+		num="$(cut -d ':' -f 2 <<< "$line" | sed 's/ //')"	
+		error="$(awk '{ $1=""; $2=""; $3=""; print}' <<< "$line")"
+		case "$line" in
+			$1*)	printf 'line: %s error: %s\n' "$num" "$error"
+				printf 'file://%s --\n' "$1" ;;
+		esac
+	done
+}
+
+#read #! from first line
+case "$(head -n 1 $1)" in
+	*bin/bash*|*usr/bin/env\ bash*) lint_bash $1 ;;
+	*bin/sh*) lint_posix $1 ;;
+esac
+
