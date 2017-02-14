@@ -5,7 +5,7 @@ require('plugins/textobject-lexer')
 
 vis.events.subscribe(vis.events.INIT, function()
 	-- Your global configuration options
-	vis:command("set theme ".. (vis.ui.colors <= 16 and "default-16" or "default-256"))
+	vis:command("set theme gruvboxlight")
 end)
 
 vis.events.subscribe(vis.events.WIN_OPEN, function(win)
