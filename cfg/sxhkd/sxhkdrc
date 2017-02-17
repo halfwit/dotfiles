@@ -17,6 +17,8 @@ super + 2
          ~/local/share/x11/stack
 super + r
 		 lint `pfw`
+super + Print
+		~/local/share/dsearch/rec snap
 XF86Audio{Prev,Next,Play}
          mpc -q {prev,next,toggle}
 XF86AudioStop
