@@ -36,9 +36,8 @@ get_selection() {
 	if test -z "$1"; then
 		create_menu | dmenu -p Search | sed 's/^.*http/http/'
 	else
-		printf "$1"
+		printf "$1\n"
 	fi
-	#create_menu | rofi -dmenu
 }
 
 handle_results() { # args -> launch

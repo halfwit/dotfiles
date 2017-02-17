@@ -3,6 +3,6 @@
 if pgrep mpg123 >/dev/null; then
 	
 	printf '%s - %s\n' "`mpc current --format "%artist%"`" "`mpc current --format "%title%"`"
-elif pgrep mpv >/dev/null; then
-	echo '{ "command": ["get_property", "media-title"] } '| socat - /tmp/mpvsock | jshon -e data -u
+#elif pgrep mpv >/dev/null; then
+#	echo '{ "command": ["get_property", "media-title"] } '| socat - /tmp/mpvsock | jshon -e data -u
 fi | head -n 1
