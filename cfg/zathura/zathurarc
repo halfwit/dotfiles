@@ -1,38 +1,38 @@
-set font                        "DejaVu Sans Mono 9.8"
+set font                        "Source Code Pro 9.8"
 
 set selection-clipboard         "primary"
 set window-title-basename       "false"
 set window-titlepage            "false"
 
-set default-bg                  "#262626" 
-set default-fg                  "#bcbcbc"
+set default-bg                  "#fbf1c7" 
+set default-fg                  "#3c3836"
 
-set statusbar-bg                "#bcbcbc"
-set statusbar-fg                "#444444"
+set statusbar-bg                "#ebdbb2"
+set statusbar-fg                "#3c3836"
 
-set inputbar-bg                 "#262626"
-set inputbar-fg                 "#bcbcbc"
+set inputbar-bg                 "#fbf1c7"
+set inputbar-fg                 "#3c3836"
 
-set notification-error-bg       "#444444"
-set notification-error-fg       "#bcbcbc"
+set notification-error-bg       "#ebdbb2"
+set notification-error-fg       "#3c3836"
 
-set notification-warning-bg     "#444444"
+set notification-warning-bg     "#ebdbb2"
 set notification-warning-fg     "#ff8700"
 
-set highlight-color             "#444444"
-set highlight-active-color      "#5f87af"
+set highlight-color             "#ebdbb2"
+set highlight-active-color      "#458588"
 
-set completion-highlight-fg     "#444444"
-set completion-highlight-bg     "#bcbcbc"
+set completion-highlight-fg     "#458588"
+set completion-highlight-bg     "#fbf1c7"
 
-set completion-bg               "#262626"
-set completion-fg               "#bcbcbc"
+set completion-bg               "#fbf1c7"
+set completion-fg               "#3c3836"
 
-set notification-bg             "#262626"
-set notification-fg             "#444444"
+set notification-bg             "#fbf1c7"
+set notification-fg             "#3c3836"
 
-set recolor-darkcolor           "#bcbcbc"
-set recolor-lightcolor          "#262626"
+set recolor-darkcolor           "#3c3836"
+set recolor-lightcolor          "#fbf1c7"
 
 set recolor                     "true"
 set recolor-reverse-video       "true"
