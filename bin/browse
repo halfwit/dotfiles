@@ -1,14 +1,8 @@
 #!/bin/sh
-# Script to open Vimb instances in tabbed
+
+BROWSE=surf
 
 lsgrp 2 | xargs mapw -u &>/dev/null
 
 ## main
-ch() {		
-		exec chromium --kiosk --user-data-dir=/home/halfwit/local/cfg/chromium --window-size=800,600 "$@" &>/dev/null
-}
-
-case "$@" in
-	*cxcore*)	exec surf "$@" &>/dev/null ;;
-	*)			ch "$@"                    ;;
-esac
+exec "$BROWSE" "$@" &>/dev/null

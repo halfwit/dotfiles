@@ -21,11 +21,7 @@ create_playlist() {
 
 read -r url < /tmp/tmpplaylist
 
-[[ -s $optsfile ]] && source "$optsfile"
-
-opts+=( -l 1 -p "Playlist name: " )
-
-title=$(printf '%s' "" | bemenu "${opts[@]}")
+title=$(printf '%s' "" | dmenu -p "Playlist name")
 
 [[ ! "$title" ]] && exit 0
 

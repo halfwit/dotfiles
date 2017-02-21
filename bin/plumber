@@ -49,7 +49,6 @@ handle() {
 		esac
 	done
 	printf "$input $1" > ~/mime_issues
-	clip "$1"
 }
 
 check_manpage() {

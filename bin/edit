@@ -1,8 +1,4 @@
 #!/bin/sh
 
-EDIT=nvim
-if test -n "$2"; then
-	exec st -t "edit" "$EDIT" "$1" "$2"
-else
-	exec st -t "edit" "$EDIT" "$1"
-fi
+EDIT=vis
+exec st -t "edit" "$EDIT" "$@"

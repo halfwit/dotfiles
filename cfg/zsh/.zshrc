@@ -5,13 +5,6 @@ autoload -Uz edit-command-line run-help compinit zmv
 zmodload zsh/complist
 compinit
 
-# Some verbosity for completions
-zstyle ':completion:*:options' list-colors '=^(-- *)=34'
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*:descriptions' format '%B%d%b'
-zstyle ':completion:*:messages' format '%d'
-zstyle ':completion:*' group-name
-
 # Vimode functions
 zle -N edit-command-line
 zle -N zle-line-init
@@ -37,7 +30,6 @@ setopt auto_cd \
     hist_reduce_blanks   \
     hist_ignore_all_dups \
     interactive_comments 
-#    hist_append          \
 
 READNULLCMD=$PAGER
 HELPDIR=/usr/share/zsh/$ZSH_VERSION/help
@@ -48,8 +40,6 @@ SAVEHIST=$HISTSIZE
 # Style.
 zstyle ':completion:*' menu select
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' rehash yes
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 get_git_status() {
 	test=$(git rev-parse --is-inside-work-tree 2> /dev/null)
@@ -117,7 +107,6 @@ function preexec {
 function precmd {
     print -Pn "\e];%n %~\a"
     repo=${(%):-%(?.${"$(git rev-parse --show-toplevel 2> /dev/null)"##*/} .)}
-    
 }
 
 # Replace vimode indicators.
@@ -133,19 +122,6 @@ function ft-zshexit {
 }
 zle -N q ft-zshexit
 
-
-# Simple widget for quoting the current word or the previous if cursor
-# positioned on a blank.
-function quote-word {
-    zle vi-forward-word
-    zle vi-backward-blank-word
-    zle set-mark-command
-    zle vi-forward-blank-word-end
-    zle quote-region
-}
-zle -N quote-word
-
-
 # Keybinds, use vimode explicitly.
 bindkey -v
 
@@ -154,9 +130,6 @@ vimode=i
 
 # Remove the default 0.4s ESC delay, set it to 0.1s.
 export KEYTIMEOUT=1
-
-# Shift-tab.
-bindkey $terminfo[kcbt] reverse-menu-complete
 
 # Delete.
 bindkey -M vicmd $terminfo[kdch1] vi-delete-char
@@ -178,14 +151,8 @@ bindkey -M vicmd $terminfo[kpp] beginning-of-buffer-or-history
 # Page down (and <C-f> in vicmd).
 bindkey -M vicmd $terminfo[knp] end-of-buffer-or-history
 
-bindkey -M vicmd '^B' beginning-of-buffer-or-history
-
 # Do history expansion on space.
 bindkey ' ' magic-space
-
-# Use M-w for small words.
-bindkey '^[w' backward-kill-word
-bindkey '^W' vi-backward-kill-word
 
 bindkey -M vicmd '^H' backward-char
 
@@ -193,28 +160,12 @@ bindkey -M vicmd '^H' backward-char
 bindkey -M vicmd 'h' backward-char
 bindkey -M vicmd 'l' forward-char
 
-# Incremental undo and redo.
-bindkey -M vicmd '^R' redo
-bindkey -M vicmd 'u' undo
-
-# Misc.
-bindkey -M vicmd 'ga' what-cursor-position
-
-# Open in editor.
-bindkey -M vicmd 'v' edit-command-line
-
 # History search.
 bindkey '^P' up-line-or-search
 bindkey '^N' down-line-or-search
 
 # Patterned history search with zsh expansion, globbing, etc.
 bindkey -M vicmd '^T' history-incremental-pattern-search-backward
-
-# Verify search result before accepting.
-bindkey -M isearch '^M' accept-search
-
-# Quote the current or previous word.
-bindkey -M vicmd 'Q' quote-word
 
 # Colored manpages
 man() {
@@ -247,20 +198,3 @@ alias chgrp='chgrp -c --preserve-root'
  
 alias ls='ls --color=auto --group-directories-first -AhXF'
 alias ll='ls --color=auto --group-directories-first -AlhXF'
-
-# Some --help based completions for things I use
-compdef _gnu_generic clang-format
-compdef _gnu_generic clang-check
-compdef _gnu_generic bemenu
-compdef _gnu_generic xcmenu
-compdef _gnu_generic qutebrowser
-compdef _gnu_generic file
-compdef _gnu_generic complexity
-compdef _gnu_generic valgrind
-compdef _gnu_generic curl
-compdef _gnu_generic screenkey
-compdef _gnu_generic slop
-compdef _gnu_generic cmake
-compdef _gnu_generic ctags
-compdef _gnu_generic udcli
-compdef _gnu_generic go

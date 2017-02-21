@@ -1,3 +1,1 @@
-ignw -s $id
-chwso -r $id
-wtp 0 0 $(wattr w $id) $(wattr h $id) $id 
+
