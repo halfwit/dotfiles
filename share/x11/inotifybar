@@ -1,5 +1,5 @@
 #!/bin/sh
-
+# Full credit to @Earnestly.
 statusdir="$XDG_RUNTIME_DIR/statusbar"
 mkdir -pm0700 "$statusdir"
 
@@ -16,10 +16,9 @@ battery() {
 }
 
 battery &
-ln -s $statusdir/rss ~/local/cache/rss/count
 
-inotifywait -rqme close_write --format %f "$statusdir" | while read -r file; do
+inotifywait -qme close_write --format %f "$statusdir" | while read -r file; do
 	if read -r -- "$file" < "$statusdir/$file"; then
 		printf -- ' %s %%{c} %s %%{r} %s%s%s\n' "$batt" "$groups" "$rss" "$git" "$media"
 	fi
-done | lemonbar -F '#282828' -d -b -f "DejaVu Mono:size=9.5" -f "Symbola:size=9.5"
+done | lemonbar -F '#282828' -d -b -f "DejaVu Sans:size=9.5" -f "Symbola:size=9.5"

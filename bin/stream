@@ -7,5 +7,5 @@ if pgrep mpg123; then
 fi
 
 mpg123 --no-control -b 1024 http://192.168.1.120:28128 &>/dev/stdout | while read -r line; do
-	echo "$line" | grep StreamTitle | sed "s/ICY-META: StreamTitle='/♫/" | sed "s/';StreamUrl=.*//" > "$XDG_RUNTIME_DIR/statusbar/media"
+	echo "$line" | grep StreamTitle | sed "s/ICY-META: StreamTitle='/♫/" | sed "s/';StreamUrl=.*//" | tail -c 80 > "$XDG_RUNTIME_DIR/statusbar/media"
 done
