@@ -25,6 +25,7 @@ case "$@" in
 	*youtube.com/v/*)	yt "$@" ;;
 	ytdl*)			yt "$@" ;;
 	*youtube.com/play*)	yt "$@" ;;
+	*vimeo*)		yt "$@" ;;
 	*youtube.com/channel*)	exec "$XDG_DATA_HOME"/dsearch/yt "$@" ;;
 	*.mp3*)			yt "$@" ;;
 	*webm)			yt "$@" ;;

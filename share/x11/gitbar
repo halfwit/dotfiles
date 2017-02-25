@@ -28,7 +28,7 @@ else
 fi
 
 if [ $check -eq 1 ]; then
-	printf '%s\n' "[$commit$push$pull] " > "$GITBAR"
+	printf '%s\n' " [$commit$push$pull]" > "$GITBAR"
 else
 	printf '%s\n' "" > "$GITBAR"
 fi

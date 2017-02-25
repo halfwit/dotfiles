@@ -79,3 +79,9 @@ select_feed() {
 }
 
 select_feed
+read -r count < ~/local/cache/rss/count
+if [ $count -gt 0 ]; then
+	echo "$count" > ~/local/run/statusbar/rss
+else
+	echo "" > ~/local/run/statusbar/rss
+fi 
