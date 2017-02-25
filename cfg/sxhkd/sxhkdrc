@@ -22,7 +22,7 @@ super + Print
 XF86Audio{Prev,Next,Play}
          mpc -q {prev,next,toggle}
 XF86AudioStop
-         mpc -q stop && pkill mpd
+         mpc -q stop
 XF86Audio{LowerVolume,RaiseVolume}
          amixer set Master 3dB{-,+}
 XF86AudioMute

@@ -111,7 +111,7 @@ function precmd {
 
 # Replace vimode indicators.
 function zle-line-init zle-keymap-select {
-    vimode=${${KEYMAP/vicmd/white}/(main|viins)/blue}
+    vimode=${${KEYMAP/vicmd/gray}/(main|viins)/blue}
     zle reset-prompt
 }
 

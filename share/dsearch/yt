@@ -36,6 +36,7 @@ buildmenu() {
 		read -r blob
 		read -r url 
 	} do
+		name="${name//\//-}"
 		curl -s "$url" -o "$images/$i" &
 		printf '%s\n' "$blob" > "$images/$name-url"
 		printf 'IMG:%q\t%s\n' "$images/$i" "$name"

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if ! pgrep mpv; then
-	mpv --input-ipc-server=/tmp/mpvsock --keepaspect-window "$1" &
+	mpv --input-ipc-server=/tmp/mpvsocket --keepaspect-window "$1" &
 else
-	echo ' { "command": ["loadfile", "'"$1"'", "append-play"] }' | socat - /tmp/mpvsock
+	echo ' { "command": ["loadfile", "'"$1"'", "append-play"] }' | socat - /tmp/mpvsocket
 fi
