@@ -18,4 +18,4 @@ for (( i = 1; i <= $panels; i++ )); do
   result+=${item["$i"]} 
 done
 
-printf '%s\n' "%{c}—${result[@]}—" > /tmp/panel
+printf '%s\n' "—${result[@]}—" > $XDG_RUNTIME_DIR/statusbar/groups

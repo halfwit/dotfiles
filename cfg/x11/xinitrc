@@ -6,11 +6,9 @@ setxkbmap -option caps:escape
 
 sxhkd &
 xcmenu &
-$XDG_DATA_HOME/x11/gitbar &
 syncthing &
 compton -b &
 unclutter -grab &
-~/local/share/x11/barrun &
-~/local/share/x11/statsbar & 
+~/local/share/x11/inotifybar & 
 hsetroot -fill ~/media/pictures/calvin1.jpg -tint '#ebdbb2'
 exec ~/local/share/x11/watcher 

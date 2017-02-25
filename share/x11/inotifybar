@@ -1,0 +1,25 @@
+#!/bin/sh
+
+statusdir="$XDG_RUNTIME_DIR/statusbar"
+mkdir -pm0700 "$statusdir"
+
+battery() {
+	while :; do
+		read -r level < /sys/class/power_supply/BAT0/capacity
+		if [ $level -lt 100 ]; then
+			printf ' %s%%\n' "$level" > "$statusdir/batt"
+		else
+			printf "" > "$statusdir/batt"
+		fi
+		sleep 60
+	done
+}
+
+battery &
+ln -s $statusdir/rss ~/local/cache/rss/count
+
+inotifywait -rqme close_write --format %f "$statusdir" | while read -r file; do
+	if read -r -- "$file" < "$statusdir/$file"; then
+		printf -- ' %s %%{c} %s %%{r} %s%s%s\n' "$batt" "$groups" "$rss" "$git" "$media"
+	fi
+done | lemonbar -F '#282828' -d -b -f "DejaVu Mono:size=9.5" -f "Symbola:size=9.5"
