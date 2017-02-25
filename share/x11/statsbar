@@ -24,8 +24,6 @@ while :; do
   fi
 
   read -r git < /tmp/gitbar
-  #git=$(grab gitstuff, pretty print
-  # git hook will update a file that holds our variables on any git write?
 
   printf '%s %s %s\n' "$level" "%{r}$rss$git$current "
   sleep 1

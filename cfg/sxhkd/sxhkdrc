@@ -20,9 +20,9 @@ super + r
 super + Print
 		~/local/share/dsearch/rec snap
 XF86Audio{Prev,Next,Play}
-         mpc -q {prev,next,toggle}
+         ~/local/bin/mpcontrol {prev,next,toggle}
 XF86AudioStop
-         mpc -q stop
+         ~/local/bin/mpcontrol stop
 XF86Audio{LowerVolume,RaiseVolume}
          amixer set Master 3dB{-,+}
 XF86AudioMute

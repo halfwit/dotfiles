@@ -1,8 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
-if pgrep mpg123 >/dev/null; then
-	
-	printf '%s - %s\n' "`mpc current --format "%artist%"`" "`mpc current --format "%title%"`"
+if pgrep mpg123 >/dev/null; then	
+	printf '%s\n' "`mpc current --format "%artist% - %title%"`"
 elif pgrep mpv >/dev/null; then
-	echo '{ "command": ["get_property", "media-title"] } '| socat - /tmp/mpvsocket | jshon -e data -u
+	printf '%s\n' "`mpvc --format "%artist% - %title%"`"	
 fi | head -n 1

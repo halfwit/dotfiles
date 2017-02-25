@@ -1,5 +1,7 @@
 #!/bin/sh
 
+GITBAR="$XDG_RUNTIME_DIR/statusbar/git"
+
 commit=`commit wc`
 push=`push wc`
 pull=`pull wc`
@@ -26,7 +28,7 @@ else
 fi
 
 if [ $check -eq 1 ]; then
-	printf '%s\n' "%{r}[$commit$push$pull]" > /tmp/gitbar
+	printf '%s\n' "%{r}[$commit$push$pull]" > $GITBAR
 else
-	printf '%s\n' "" > /tmp/gitbar
+	printf '%s\n' "" > $GITBAR
 fi
