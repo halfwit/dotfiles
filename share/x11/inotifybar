@@ -6,7 +6,7 @@ mkdir -pm0700 "$statusdir"
 battery() {
 	while :; do
 		read -r level < /sys/class/power_supply/BAT0/capacity
-		if [ $level -lt 100 ]; then
+		if [ $level -lt 80 ]; then
 			printf ' %s%%\n' "$level" > "$statusdir/batt"
 		else
 			printf "" > "$statusdir/batt"
