@@ -19,8 +19,8 @@ export PAGER=less
 export LESSHISTFILE=$XDG_CACHE_HOME/less/history
 
 # Editing
-export EDITOR=nvim
-export VISUAL=nvim
+export EDITOR=edit
+export VISUAL=edit
 export SUDO_EDITOR=rvim
 
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
