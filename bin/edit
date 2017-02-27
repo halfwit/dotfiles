@@ -1,4 +1,8 @@
 #!/bin/sh
 
 EDIT=vis
-exec st -t "edit" "$EDIT" "$@"
+if [ $1 == *.go ]; then
+	exec st -t "edit" nvim "$@"
+else
+	exec st -t "edit" "$EDIT" "$@"
+fi
