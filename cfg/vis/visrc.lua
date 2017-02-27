@@ -6,6 +6,7 @@ require('plugins/textobject-lexer')
 vis.events.subscribe(vis.events.INIT, function()
 	-- Your global configuration options
 	vis:command("set theme monotone")
+	vis:command("set tab 4")
 end)
 
 vis.events.subscribe(vis.events.WIN_OPEN, function(win)
