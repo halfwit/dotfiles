@@ -13,7 +13,7 @@ battery() {
 		fi
 		read -r rss < ~/local/cache/rss/count
 		if [ $rss -gt 0 ]; then
-			printf ' %s\n' "$rss" > "$statusdir/rss"
+			printf '  %s\n' "$rss" > "$statusdir/rss"
 		else
 			printf "" > "$statusdir/rss" 
 		fi
@@ -28,4 +28,4 @@ inotifywait -qme close_write --format %f "$statusdir" | while read -r file; do
 	if read -r -- "$file" < "$statusdir/$file"; then
 		printf -- ' %s %%{c} %s %%{r} %s%s%s \n' "$batt" "$groups" "$rss" "$git" "$media"
 	fi
-done | lemonbar -F '#282828' -d -b -f "DejaVu Sans:size=9.5" -f "Symbola:size=9.5"
+done | lemonbar -F '#282828' -d -b -f "DejaVu Book:size=9.5" -f "Symbola:size=9.5" -f "FreeSans:size=9.5"

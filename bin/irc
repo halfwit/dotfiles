@@ -1,2 +1,2 @@
 #!/bin/sh
-exec st -t "irc" -e weechat
+exec st -t "weechat" -e weechat

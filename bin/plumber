@@ -48,6 +48,7 @@ handle() {
 					exit 0 ;;
 		esac
 	done
+	clip "$1"
 	printf "$input $1" > ~/mime_issues
 }
 

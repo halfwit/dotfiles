@@ -10,5 +10,5 @@ syncthing &
 compton -b &
 unclutter -grab &
 ~/local/share/x11/inotifybar & 
-hsetroot -fill ~/media/pictures/calvin1.jpg -tint '#ebdbb2'
+hsetroot -fill ~/local/cfg/x11/calvin.jpg -tint '#458588' -brightness 0.24 &
 exec ~/local/share/x11/watcher 
