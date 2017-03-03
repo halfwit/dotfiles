@@ -1,10 +1,11 @@
 #!/bin/sh
 
 handle() {
-	while read -r have inp _; do
-		case "$have" in
-			\[-\]*) st -e sudo xbps-install -Sy "$inp"  ;;
-    		\[*\]*) st -e varless "`xbps-query "$inp"`" ;;
+	# We only care about the first two words in the string
+	while read -r installed name _; do
+		case "$installed" in
+			\[-\]*) st -e sudo xbps-install -Sy "$name"  ;;
+			\[*\]*) st -e varless "`xbps-query "$name"`" ;;
 		esac
 	done
 }
