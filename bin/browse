@@ -1,8 +1,0 @@
-#!/bin/sh
-
-BROWSE=surf
-
-lsgrp 2 | xargs mapw -u &>/dev/null
-
-## main
-exec "$BROWSE" "$@" &>/dev/null

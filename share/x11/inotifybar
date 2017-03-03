@@ -13,7 +13,7 @@ battery() {
 		fi
 		read -r rss < ~/local/cache/rss/count
 		if [ $rss -gt 0 ]; then
-			printf '  %s\n' "$rss" > "$statusdir/rss"
+			printf '  %s \n' "$rss" > "$statusdir/rss"
 		else
 			printf "" > "$statusdir/rss" 
 		fi

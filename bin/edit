@@ -1,7 +1,0 @@
-#!/bin/sh
-
-EDIT=vis
-case $1 in
-	*.go) exec st -t "edit" nvim "$@"    ;;
-	*)    exec st -t "edit" "$EDIT" "$@" ;;
-esac

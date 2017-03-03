@@ -24,6 +24,7 @@ export VISUAL=edit
 export SUDO_EDITOR=rvim
 
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
+export VIS_THEME=monotone
 
 # ASP
 export TERMINAL=st
@@ -35,3 +36,4 @@ export XAUTHORITY=$XDG_RUNTIME_DIR/x11/xauthority
 
 source <(dircolors $XDG_CONFIG_HOME/terminal-colors.d/ls.enable)
 source "$XDG_CONFIG_HOME"/session/config
+
