@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-clang-check $1 &>/dev/stdout | while read -r line; do
-	num="`cut -d ':' -f2 <<< "$line"`"
-	error="`awk '{ $1=""; print }' <<< "$line"`"
-	case "$line" in
-		$1*) printf 'line: %s error:%s\n' "$num" "$error" ;; 
-	esac
-done
