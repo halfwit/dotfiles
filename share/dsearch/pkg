@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 
-result="$(xbps-query -Rs "$1" | dmenu -p "Select package: ")"
-result="$(awk '{print $2}' <<< "$result")"
-
-[[ $result ]] || exit 0
-if xbps-query "$result"; then
-	st -e varless "$(xbps-query "$result")"
-else
-	st -e sudo xbps-install -Sy "$result"
-fi
+handle() {
+	while read -r have inp _; do
+		case "$have" in
+			\[-\]*) st -e sudo xbps-install -Sy "$inp"  ;;
+    		\[*\]*) st -e varless "`xbps-query "$inp"`" ;;
+		esac
+	done
+}
+xbps-query -Rs "$1" | dmenu -p "Select package: " | handle

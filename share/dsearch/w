@@ -19,12 +19,6 @@ chunk() {
 		done
 }
 
-handle() {
-		while read -r url; do
-				plumber "$url" &
-		done
-}
-
 get_links() {
 		curl -s "https://en.wikipedia.org/w/api.php?action=query&titles=$1&prop=extlinks&ellimit=500&format=json&redirects=1" | jshon -e query -e pages -a -e extlinks -a -e "*" -u
 }
@@ -43,5 +37,5 @@ if [[ -e $result ]]; then
 		exit 0
 fi
 
-printf '%s\n%s\n' "${result##*::\ }" "$(get_links "${result##*wikipedia.org/wiki/}")" | dmenu -p "Select url: " | handle
+printf '%s\n%s\n' "${result##*::\ }" "$(get_links "${result##*wikipedia.org/wiki/}")" | dmenu -p "Select url: " | xe plumber
 rm -rf "$tmp"
