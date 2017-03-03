@@ -50,7 +50,7 @@ handle() {
 	read -r url < "$images/$selection-url"
 		[[ $1 == "playlist" ]] && printf '%s\n' "$url" > /tmp/tmpplaylist
 		[[ $1 == "channel" ]] && echo "https://www.youtube.com/channel/$url" | xcmenu -ic && exec plumber "https://www.youtube.com/channel/$url"
-		[[ $url ]] && play "ytdl://$url" &
+		[[ $url ]] && play "https://youtube.com/watch?v=$url" &
 	done
 
 	rm -rf "$images"

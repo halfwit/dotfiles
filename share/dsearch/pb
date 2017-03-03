@@ -1,13 +1,13 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 selection() {
-  find ~/ -type f | dmenu -p Upload
+	find ~/ -type f | dmenu -p Upload
 }
 
-if [[ $1 ]]; then
-  result="$1"
+if [ $1 ]; then
+	result="$1"
 else
-  result=$(selection)
+	result="$(selection)"
 fi
 
-pbpst -Sf $result | xcmenu -ic #|| curl -sT- https://p.iotek.org < $result | xcmenu -ic
+curl -F c=@$result "https://ptpb.pw/?u=1" | xcmenu -ic

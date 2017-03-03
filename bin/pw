@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 ## Requires xdotool
 
 run_term() {
@@ -6,9 +6,10 @@ run_term() {
 }
 
 layout="$(setxkbmap -query | awk '/layout/{print $NF}')"
-pw=$(run_term)
-
+pw="$(run_term | awk '/]: /{print $NF}')"
+echo "$pw"
+exit 
 # Normalize input
 setxkbmap -layout us
-xdotool type --clearmodifiers --delay 50 --window "$(lsw | tail -n 1)" "${pw##*\ }"
+xdotool type --clearmodifiers --delay 50 --window "$(lsw | tail -n 1)" "$pw"
 setxkbmap -layout "$layout"
