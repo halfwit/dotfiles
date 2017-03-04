@@ -1,5 +1,0 @@
-#!/bin/sh
-tmp=`mktemp`
-curl -s "http://nycurl.sytes.net/" > $tmp
-st -t news -e less "$tmp"
-rm "$tmp"

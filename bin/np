@@ -1,7 +1,0 @@
-#!/bin/sh
-
-if pgrep mpg123 >/dev/null; then	
-	printf '%s\n' "`mpc current --format "%artist% - %title%"`"
-elif pgrep mpv >/dev/null; then
-	printf '%s\n' "`mpvc --format "%artist% - %title%"`"	
-fi | head -n 1

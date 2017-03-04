@@ -1,2 +1,0 @@
-#!/bin/sh
-exec st -t "weechat" -e weechat

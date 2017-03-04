@@ -1,2 +1,0 @@
-#!/bin/sh
-/usr/local/bin/dmenu -i -ia top-gapless -l 10 -fn "Source Code Pro 8.2" -sf '#3c3836' -sb '#ebdbb2' -nf '#3c3836' -nb '#fbf1c7' "$@"
