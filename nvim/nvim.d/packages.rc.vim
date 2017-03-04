@@ -1,0 +1,5 @@
+Plug 'morhetz/gruvbox'
+Plug 'Yggdroot/indentLine'
+Plug 'benekastah/neomake'
+Plug 'cespare/vim-toml' 
+Plug 'fatih/vim-go'
