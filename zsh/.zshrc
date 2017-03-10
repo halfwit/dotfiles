@@ -105,6 +105,7 @@ function preexec {
 
 function pb() {
 	while read -r input; do
+		printf '%s\n' "$input"
 		tmp="$tmp
 $input"
 	done
