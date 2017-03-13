@@ -109,7 +109,7 @@ function pb() {
 		tmp="$tmp
 $input"
 	done
-	printf '%s%s\n' "$ $(sed 's/| pb//' <<< "$history[$HISTCMD]")" "$tmp" | curl -F c=@- "https://ptpb.pw/?u=1"
+	printf '%s\n%s\n' "$ ${history[$HISTCMD]/| pb/}" "$tmp" | curl -F c=@- "https://ptpb.pw/?u=1"
 }
 
 # Print basic prompt to the window title.
