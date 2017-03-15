@@ -7,6 +7,8 @@ export FT2_SUBPIXEL_HINTING=1
 export GNUPGHOME=$XDG_CONFIG_HOME/gnupg
 export XCOMPOSEFILE=$XDG_CONFIG_HOME/x11/xcompose
 export WEECHAT_HOME=$XDG_CONFIG_HOME/weechat
+
+#Go fits well in a ~/local based set up
 export GOPATH=$HOME/local
 
 #Trying to get WLC
