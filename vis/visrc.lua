@@ -11,3 +11,7 @@ vis.events.subscribe(vis.events.WIN_OPEN, function(win)
 	-- Your per window configuration options e.g.
 	-- vis:command('set number')
 end)
+
+vis.events.subscribe(vis.events.FILE_SAVE_POST, function(file, path)
+	os.execute('$XDG_DATA_HOME/x11/gitbar 2&1>/dev/null &')
+end)
