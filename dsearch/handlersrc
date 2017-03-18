@@ -1,0 +1,6 @@
+case "$input" in
+	playlist\ -\ *) exec "$handledir/youtube/select_video" "${input#*-\ }.pls" ;;
+	browse\ -\ *) exec "$XDG_DATA_HOME/x11/stack" "${input#*-\ }" ;;
+	*\ -\ *) read -r result "$XDG_DATA_HOME/bookmark/$input"
+			 exec browse "$result" ;;
+esac
