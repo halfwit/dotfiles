@@ -1,0 +1,4 @@
+set statusbar=false
+set input-autohide=true
+set stylesheet=true
+set input-bg-normal=#fbf1c7
