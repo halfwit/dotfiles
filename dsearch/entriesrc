@@ -8,3 +8,4 @@ for file in *.pls; do
 done | sort -u
 find ~/code -type f ! -name *.git*
 find ~/local/cfg -type f ! -name *.git*
+find ~/docs -type f
