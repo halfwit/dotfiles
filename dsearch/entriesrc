@@ -6,6 +6,6 @@ cd "$XDG_DATA_HOME/mpv"
 for file in *.pls; do
 	printf '%s\n' "playlist - ${file%.pls*}"
 done | sort -u
-find ~/code -type f ! -name *.git*
-find ~/local/cfg -type f ! -name *.git*
+find ~/code -type f -not -path '*/\.*'
+find ~/local/cfg -type f -not -path '*/\.*'
 find ~/docs -type f

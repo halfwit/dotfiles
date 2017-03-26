@@ -1,0 +1,44 @@
+#!/bin/sh
+yt() {
+	play "$1" &
+	exit 1
+}
+
+to() {
+	browse "$1" &
+	exit 1
+}
+
+asci() {
+	st -e asciinema play "$1" &
+	exit 1
+}
+
+case "$@" in
+	*bell-labs.com*) 	url="$(echo "$1" | sed 's/.\+com//')"
+				to "http://9p.io$url" ;;
+	*youtube.com/watch*)	yt "$@" ;;
+	*youtu.be*)		yt "$@" ;;
+	*youtube.com/v/*)	yt "$@" ;;
+	ytdl*)			yt "$@" ;;
+	*youtube.com/play*)	yt "$@" ;;
+	*youtube.com/channel*)	exec /usr/local/dsearch/yt "$@" ;;
+	*.mp3*)			yt "$@" ;;
+	*webm)			yt "$@" ;;
+	*mkv)			yt "$@" ;;
+	*gifv\?)		yt "$@" ;;
+	
+	gopher://*)		exec st -e cgo "$1" && exit 1 ;;
+	
+	*asciinema*)		asci "$@" 	;;
+	ISBN*)			URL=`echo $@ | awk '{print $2}'`
+				to "https://duckduckgo.com?q=!a%20$URL" ;;
+		
+	*ptpb.pw/*/*) 		URL=`echo $@ | cut -b 1-20`			
+				exec plumber "$URL" &
+				exit 1 ;; 
+	ftp://*)		to "$@" ;;
+		
+esac
+
+exit 0
