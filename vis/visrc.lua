@@ -13,5 +13,6 @@ vis.events.subscribe(vis.events.WIN_OPEN, function(win)
 end)
 
 vis.events.subscribe(vis.events.FILE_SAVE_POST, function(file, path)
+	os.execute('lint `pfw` &')
 	os.execute('$XDG_DATA_HOME/x11/gitbar commit 2&1>/dev/null &')
 end)
