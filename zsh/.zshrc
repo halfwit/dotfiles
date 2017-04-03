@@ -207,3 +207,19 @@ alias chgrp='chgrp -c --preserve-root'
  
 alias ls='ls --color=auto --group-directories-first -AhXF'
 alias ll='ls --color=auto --group-directories-first -AlhXF'
+
+## Runs compdef _gnu_generic <cmd>
+function zle-compdef () {
+	if [[ -z "$BUFFER" ]]; then
+		LBUFFER="compdef _gnu_generic "
+	else
+		local cmd
+		cmd="${BUFFER%% *}"
+		zle push-input
+		BUFFER="compdef _gnu_generic $cmd"
+		zle accept-line
+		unset cmd
+	fi
+}
+zle -N zle-compdef
+bindkey "\eOS" zle-compdef

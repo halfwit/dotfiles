@@ -24,6 +24,8 @@ case "$@" in
 	*youtube.com/play*)	yt "$@" ;;
 	*youtube.com/channel*)	exec /usr/local/dsearch/yt "$@" ;;
 	*.mp3*)			yt "$@" ;;
+	*bandcamp*)     yt "$@" ;;
+	*http://music*) yt "$@" ;;
 	*webm)			yt "$@" ;;
 	*mkv)			yt "$@" ;;
 	*gifv\?)		yt "$@" ;;	
