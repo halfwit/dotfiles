@@ -2,25 +2,25 @@ super + {d,n,t,v,m,w}
          {dmenu_run,dsearch,,st,xcmenuctrl,notes,todo}
 
 super + shift + {l,h}
-         winid=$(pfw) && wrs {20,-20} 0 "$winid" && ~/local/share/x11/wshuf | xargs -n 5 wtp && wtf "$winid"
+         winid=$(pfw) && wrs {20,-20} 0 "$winid" && /usr/local/share/hwwm/wshuf | xargs -n 5 wtp && wtf "$winid"
 super + {h,j,k,l}
          wtf $(unxt -d {h,j,k,l} -w $(pfw) -c ) && chwso -r $(pfw)
 @F11
-         ~/local/share/x11/fullscreen $(pfw)
+         /usr/local/share/hwwm/fullscreen $(pfw)
 super + x
 		compose
 super + c
          killwa $(pfw)
 super + shift + {1,3,4,5,6,7}
-         grp {1,3,4,5,6,7} $(pfw) && ~/local/share/x11/groupsbar
+         grp {1,3,4,5,6,7} $(pfw) && /usr/local/share/hwwm/groupsbar
 super + {1,3,4,5,6,7}
-         lsgrp {1,3,4,5,6,7} | xargs mapw -t && ~/local/share/x11/groupsbar
+         lsgrp {1,3,4,5,6,7} | xargs mapw -t && /usr/local/share/hwwm/groupsbar
 super + 2
-         ~/local/share/x11/stack
+         /usr/local/share/hwwm/stack
 super + r
 		 lint `pfw`
 super + Print
-		~/local/share/dsearch/rec snap
+		/usr/local/share/dsearch/rec snap
 XF86Audio{Prev,Next,Play}
          ~/local/bin/mpcontrol {prev,next,toggle}
 XF86AudioStop

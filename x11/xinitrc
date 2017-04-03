@@ -4,11 +4,10 @@
 xhost +si:localuser:"$USER"
 setxkbmap -option caps:escape
 
-sxhkd &
+sxhkd -m -1 &
 xcmenu &
 syncthing &
 compton -b &
-unclutter -grab &
 inotifybar & 
 hsetroot -fill ~/local/cfg/x11/calvin.jpg -tint '#458588' -brightness 0.24 &
 exec hwwm 
