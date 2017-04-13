@@ -16,6 +16,6 @@ news printf '%s %s %s %s' "350" "255" "565" "$(( heigh - gaps ))"
 pdf printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 popup #none
 Vimb printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
-chromium printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
+Chromium printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 weather printf '%s %s %s %s' "350" "255" "885" $(( heigh - gaps ))
 irc printf '%s %s %s %s' "350" "225" "454" "261"
