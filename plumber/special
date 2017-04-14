@@ -14,6 +14,13 @@ asci() {
 	exit 1
 }
 
+view() {
+	tmp=$(mktemp)
+	curl -Lsk "$1" -o "$tmp"
+	imv "$tmp" &
+	exit 1
+}
+
 case "$@" in
 	*bell-labs.com*) 	url="$(echo "$1" | sed 's/.\+com//')"
 				to "http://9p.io$url" ;;
@@ -38,6 +45,7 @@ case "$@" in
 				exec plumber "$URL" &
 				exit 1 ;; 
 	ftp://*)		to "$@" ;;
+	*teknik*)   view "$@" ;;
 		
 esac
 
