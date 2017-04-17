@@ -37,7 +37,8 @@ case "$@" in
 	*webm)			yt "$@" ;;
 	*mkv)			yt "$@" ;;
 	*gifv\?)		yt "$@" ;;	
-	gopher://*)		exec st -e cgo "$1" && exit 1 ;;
+	gopher://*)		st -e cgo "$1" &
+					exit 1 ;;
 	*asciinema*)		asci "$@" 	;;
 	ISBN*)			URL=`echo $@ | awk '{print $2}'`
 				to "https://duckduckgo.com?q=!a%20$URL" ;;
