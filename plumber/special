@@ -33,6 +33,7 @@ case "$@" in
 	*futurism.com/videos*) yt "$@" ;;
 	*.mp3*)			yt "$@" ;;
 	*bandcamp*)     yt "$@" ;;
+	*soundcloud*)   yt "$@" ;;
 	*http://music*) yt "$@" ;;
 	*webm)			yt "$@" ;;
 	*mkv)			yt "$@" ;;
