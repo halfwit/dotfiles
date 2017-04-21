@@ -6,7 +6,7 @@ super + shift + {l,h}
 super + {h,j,k,l}
          wtf $(unxt -d {h,j,k,l} -w $(pfw) -c ) && chwso -r $(pfw)
 @F11
-         /usr/local/share/hwwm/fullscreen $(pfw)
+         /usr/local/share/hwwm/fullscreen $(pfw) && /usr/local/share/hwwm/wshuf
 super + x
 		compose
 super + c
