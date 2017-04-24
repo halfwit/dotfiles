@@ -34,6 +34,8 @@ case "$@" in
 	*.mp3*)			yt "$@" ;;
 	*bandcamp*)     yt "$@" ;;
 	*soundcloud*)   yt "$@" ;;
+	*bpaste.net/show*) plumber "$(echo "$1" | sed 's/show/raw/')" 
+					exit 1 ;;
 	*http://music*) yt "$@" ;;
 	*webm)			yt "$@" ;;
 	*mkv)			yt "$@" ;;
