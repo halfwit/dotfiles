@@ -25,6 +25,7 @@ case "$@" in
 	*bell-labs.com*) 	url="$(echo "$1" | sed 's/.\+com//')"
 				to "http://9p.io$url" ;;
 	*youtube.com/watch*)	yt "$@" ;;
+	*youtube.com/embed*)    yt "$@" ;;
 	*youtu.be*)		yt "$@" ;;
 	*youtube.com/v/*)	yt "$@" ;;
 	ytdl*)			yt "$@" ;;
