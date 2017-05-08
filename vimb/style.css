@@ -37,24 +37,6 @@ a:hover { text-decoration: underline !important }
 
 b   { font: bold monospace !important; }
 em  { font: bold monospace !important; }
-/* :::::: Hints Coloring :::::: */
-
-._hintLabel {
-    -webkit-transform:translate(px,-2px) !important;
-    position: absolute !important;
-    z-index: 100000 !important;
-    color: #bcbcbc !important;
-    font:bold .8em monospace !important;
-    background-color: #fe8019 !important;
-    margin: 0 !important;
-    padding: 1px 1px !important;
-    border: 0px solid !important;
-    opacity: 1 !important
-}
-._hintLabel._hintFocus {
-    z-index: 100001 !important;
-    opacity: 1 !important
-}
 
 article, .container {
   width: auto !important;

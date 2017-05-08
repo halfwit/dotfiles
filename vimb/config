@@ -1,5 +1,3 @@
 set statusbar=false
 set input-autohide=true
 set stylesheet=true
-set scripts=true
-set plugins=true
