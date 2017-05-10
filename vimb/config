@@ -1,3 +1,23 @@
-set statusbar=false
+set editor-command=plumber %s
+
+set minimumfontsize=9.5
+set monofontsize=9.5
+set fontsize=9.5
+set hintkeys=aoeuhtns
+set home-page=https://www.duckduckgo.com
+
 set input-autohide=true
-set stylesheet=true
+set statusbar=false
+set caret=true
+#set auto-shrink-images=true
+
+handler-add gopher=plumber %s
+
+#set x-hint-command=:sh! ~/local/bin/plumber <C-R>; <CR>
+#aug whitelistjs
+#  au LoadCommited * set scripts=off|set cookie-accept=never
+#  au LoadCommited https://github.com/* set scripts=on
+#  au LoadCommited http://192.168.* set scripts=on|set cookie-accept=always
+#aug end
+
+nmap <F1> :eval! simplyread()<CR>
