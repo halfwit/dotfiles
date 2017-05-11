@@ -8,7 +8,6 @@ set home-page=https://www.duckduckgo.com
 
 set input-autohide=true
 set statusbar=false
-set caret=true
 #set auto-shrink-images=true
 
 handler-add gopher=plumber %s

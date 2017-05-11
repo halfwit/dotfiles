@@ -42,3 +42,6 @@ article, .container {
   width: auto !important;
 }
 
+.repository-content, .repohead-details-container, .markdown-body {
+	width: auto !important;
+}
