@@ -12,11 +12,9 @@ set statusbar=false
 
 handler-add gopher=plumber %s
 
-#set x-hint-command=:sh! ~/local/bin/plumber <C-R>; <CR>
-#aug whitelistjs
-#  au LoadCommited * set scripts=off|set cookie-accept=never
-#  au LoadCommited https://github.com/* set scripts=on
-#  au LoadCommited http://192.168.* set scripts=on|set cookie-accept=always
-#aug end
-
-nmap <F1> :eval! simplyread()<CR>
+set x-hint-command=:sh! ~/local/bin/plumber <C-R>; <CR>
+aug whitelistjs
+  au LoadCommited * set scripts=off|set cookie-accept=never
+  au LoadCommited https://github.com/* set scripts=on
+  au LoadCommited http://192.168.* set scripts=on|set cookie-accept=always
+aug end
