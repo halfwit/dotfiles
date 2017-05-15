@@ -17,3 +17,8 @@
   prompt = false
 [init]
 	templatedir = ~/local/cfg/git/template
+[sendemail]
+	smtpEncryption = tls
+	smtpServer = smtp.gmail.com
+	smtpUser = michaelmisch1985@gmail.com
+	smtpServerPort = 587
