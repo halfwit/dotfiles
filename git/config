@@ -11,6 +11,8 @@
   ctags = !.git/hooks/ctags
 [color]
   ui = auto
+[format]
+  signoff = true
 [diff]
   tool = vimdiff
 [difftool]
