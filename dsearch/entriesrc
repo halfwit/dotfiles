@@ -13,3 +13,4 @@ done | sort -u
 find ~/code -type f -not -path '*/\.git*'
 find ~/local/cfg -type f -not -path '*/\.git*'
 find ~/docs -type f
+dmenu_path | sed 's/^/\!run /'

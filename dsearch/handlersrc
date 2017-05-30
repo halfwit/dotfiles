@@ -3,6 +3,7 @@ case "$input" in
 	radio\ -\ *) read -r result < "$XDG_DATA_HOME/radio/${input#*-\ }"
 					exec station "$result" ;;
 	browse\ -\ *) exec "$XDG_DATA_HOME/x11/stack" "${input#*-\ }" ;;
+	run\ *) exec "${input#*run }" ;;
 	*\ -\ *) read -r result < "$XDG_DATA_HOME/bookmark/$input"
 			 exec browse "$result" ;;
 esac
