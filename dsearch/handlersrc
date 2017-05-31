@@ -1,9 +1,9 @@
-lsgrp 2 | xe -s 'wname $1' | grep -q "$input" && exec "$XDG_DATA_HOME/x11/stack" "$input"
 case "$input" in
 	playlist\ -\ *) exec "$handledir/youtube/select_video" "${input#*-\ }.pls" ;;
 	radio\ -\ *) read -r result < "$XDG_DATA_HOME/radio/${input#*-\ }"
 					exec station "$result" ;;
 	run\ *) exec "${input#*run }" ;;
+	open\ -\ *) exec "$XDG_DATA_HOME/x11/stack" "${input#*-\ }" ;; 
 	*\ -\ *)	read -r result < "$XDG_DATA_HOME/bookmark/$input"
 				exec browse "$result" ;;
 esac

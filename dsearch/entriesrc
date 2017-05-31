@@ -1,5 +1,5 @@
 xcmenu --list | head -n 1
-lsgrp 2 | xe -s 'watom $1 WM_NAME 2> /dev/null'
+lsgrp 2 | xe -s 'watom $1 WM_NAME 2> /dev/null' | sed 's/^/open - /'
 cd "$XDG_DATA_HOME/bookmark"
 find -not -path '*/\.*' -type f -printf "%f\n" | sort -u
 cd "$XDG_DATA_HOME/mpv"
