@@ -1,6 +1,6 @@
 mpv false 1
 browse true 2
-Chromium 2
+Chromium true 2
 Vimb true 2
 edit true 3
 mutt true 4
