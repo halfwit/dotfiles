@@ -7,7 +7,7 @@ edit printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id"
 nvim printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 float #none 
 htop printf '%s %s %s %s' "350" "100" "450" "110"
-imv printf '%s %s %s %s' "$(wattr w "$id")" "$(wattr h "$id")" "$(wattr w "$id")" "$(wattr h "$id")"
+imv printf '%s %s %s %s' "350" "225" "$(wattr w "$id")" "$(wattr h "$id")"
 lyrics printf '%s %s %s %s' "400" "$(( heigh / 2 ))" "450" "$(( heigh - gaps ))"
 man printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 mpv t_h="$(echo '{ "command": ["get_property", "video-aspect"] }' | socat - /tmp/mpvsocket | jshon -e data -u)"; printf '%s %s %s %s' "350" "$(echo 350/"$t_h" | bc)" "454" "$(echo 454/"$t_h" | bc)"
