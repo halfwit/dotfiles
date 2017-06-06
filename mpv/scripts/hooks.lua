@@ -7,7 +7,7 @@ function update_bar(name)
 	f:write(title.." ")
 	f:flush()
 	f:close()
-
+	os.execute('/usr/local/share/hwwm/wshuf | xe -s \'wtp $1 $2 $3 $4 $5\' &')
 end
 
 function clean_bar(reason)
