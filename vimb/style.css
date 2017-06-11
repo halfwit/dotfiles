@@ -69,3 +69,7 @@ article, .container {
     z-index: 100001;
     opacity: 1
 }
+
+.main { 
+	width: auto !important;
+}
