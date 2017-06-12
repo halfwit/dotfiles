@@ -1,5 +1,7 @@
 /* Base */
-* { font-family: "Source Code Pro", monospace !important;
+* { width: auto !important;
+	margin: 3px !important;
+	font-family: "Source Code Pro", monospace !important;
     font: 8.7pt monospace !important; }
 h1 { font: 18pt monospace !important; }
 h2 { font: 16pt monospace !important; }
@@ -7,14 +9,15 @@ h3 { font: 14pt monospace !important; }
 h4 { font: 12pt monospace !important; }
 h5 { font: 10pt monospace !important; }
 
-html {
-    margin: 3px;
-}
-
 *:not(a),body,td,tr,p {
     background-color: #fbf1c7 !important;
     background-size: 0,0 !important;
     color: #3c3836 !important;
+}
+
+img {
+	max-width: 99% !important;
+	max-height: 99% !imortant;
 }
 
 h1,h2,h3,h4 {
@@ -38,14 +41,6 @@ a:hover { text-decoration: underline !important }
 b   { font: bold monospace !important; }
 em  { font: bold monospace !important; }
 
-article, .container {
-  width: auto !important;
-}
-
-.repository-content, .repohead-details-container, .markdown-body {
-	width: auto !important;
-}
-
 ._hintLabel {
     -webkit-transform:translate(-4px,-4px);
     position: absolute;
@@ -68,8 +63,4 @@ article, .container {
 ._hintLabel._hintFocus{
     z-index: 100001;
     opacity: 1
-}
-
-.main { 
-	width: auto !important;
 }
