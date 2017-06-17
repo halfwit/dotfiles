@@ -1,6 +1,6 @@
 /* Base */
-* { width: auto !important;
-	margin: 3px !important;
+* { /*width: auto !important;
+	margin: 3px !important;*/
 	font-family: "Source Code Pro", monospace !important;
     font: 8.7pt monospace !important; }
 h1 { font: 18pt monospace !important; }
