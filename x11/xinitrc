@@ -7,7 +7,6 @@ setxkbmap -option caps:escape
 sxhkd -m -1 &
 xcmenu &
 syncthing &
-redshift &
 compton -b &
 inotifybar & 
 hsetroot -fill ~/local/cfg/x11/calvin.jpg -tint '#458588' -brightness 0.24 &
