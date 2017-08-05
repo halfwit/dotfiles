@@ -37,6 +37,7 @@ case "$@" in
 	*soundcloud*)   yt "$@" ;;
 	*bpaste.net/show*) plumber "$(echo "$1" | sed 's/show/raw/')" 
 					exit 1 ;;
+	*gfycat.com*)	yt "$@" ;; 
 	*http://music*) yt "$@" ;;
 	*webm)			yt "$@" ;;
 	*mkv)			yt "$@" ;;

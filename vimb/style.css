@@ -1,6 +1,5 @@
 /* Base */
-* { /*width: auto !important;
-	margin: 3px !important;*/
+* {
 	font-family: "Source Code Pro", monospace !important;
     font: 8.7pt monospace !important; }
 h1 { font: 18pt monospace !important; }
@@ -8,6 +7,11 @@ h2 { font: 16pt monospace !important; }
 h3 { font: 14pt monospace !important; }
 h4 { font: 12pt monospace !important; }
 h5 { font: 10pt monospace !important; }
+
+main,body {
+	width: auto !important;
+	margin: 3px !important;
+}
 
 *:not(a),body,td,tr,p {
     background-color: #fbf1c7 !important;
