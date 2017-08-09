@@ -1,7 +1,6 @@
-st.font: Source Code Pro:pixelsize=12.4:rgba=rgb:antialias=false:autohint=true:hinting=true:hintstyle=hintslight:lcdfilter=lcddefault
+st.font: Source Code Pro:pixelsize=12.4:rgba=rgb:antialias=false:autohint=true:hinting=true:hintstyle=hintslight:lcdfilter=lcddefault,DejaVu Sans Mono:pixelsize=12.4
 st.bold_font: 1
 st.italic_font: 1
-st.underlined_font: 1
 st.termname: st-meta-256color
 st.shell: /bin/sh
 st.bellvolume: 0
