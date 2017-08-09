@@ -1,4 +1,4 @@
-st.font: DejaVu Sans Mono:pixelsize=12.4:rgba=rgb:antialias=true:autohint=true:hinting=true:hintstyle=hintslight:lcdfilter=lcddefault
+st.font: Source Code Pro:pixelsize=12.4:rgba=rgb:antialias=false:autohint=true:hinting=true:hintstyle=hintslight:lcdfilter=lcddefault
 st.bold_font: 1
 st.italic_font: 1
 st.underlined_font: 1
