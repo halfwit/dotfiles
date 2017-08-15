@@ -15,7 +15,6 @@ main,body {
 
 *:not(a),body,td,tr,p {
     background-color: #1d2021 !important;
-    background-size: 0,0 !important;
     color: #ebdbb2 !important;
 }
 
