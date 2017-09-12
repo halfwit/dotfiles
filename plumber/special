@@ -41,10 +41,12 @@ case "$@" in
 	*http://music*) yt "$@" ;;
 	*webm)			yt "$@" ;;
 	*mkv)			yt "$@" ;;
-	*gifv\?)		yt "$@" ;;	
-	gopher://*)		st -e cgo "$1" &
+	*gif)			yt "$@" ;;	
+	*gifv)			yt "$@" ;;
+	gopher://*)		st -c gopher -e cgo "$1" &
 					exit 1 ;;
-	*asciinema*)		asci "$@" 	;;
+	*asciinema*)	asci "$(echo "$1" | sed 's|/t||')" 	;;
+	*ptpb.pw/t/*)   asci "$(echo "$1" | sed 's|/t||')"  ;;
 	ISBN*)			URL=`echo $@ | awk '{print $2}'`
 				to "https://duckduckgo.com?q=!a%20$URL" ;;
 		
