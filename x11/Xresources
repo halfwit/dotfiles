@@ -1,4 +1,4 @@
-st.font: Source Code Pro:style=Regular:pixelsize=12.4,symbola:pixelsize=12.4,DejaVu Sans Mono:pixelsize=12.4,ttf-symbola
+st.font: Source Code Pro:style=Regular:pixelsize=12.4,symbola:pixelsize=12.4,DejaVu Sans Mono:pixelsize=12.4,ttf-symbola:pixelsize=12.4
 st.bold_font: 1
 st.italic_font: 1
 st.termname: st-256color

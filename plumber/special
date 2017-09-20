@@ -30,7 +30,8 @@ case "$@" in
 	*youtube.com/v/*)	yt "$@" ;;
 	ytdl*)			yt "$@" ;;
 	*youtube.com/play*)	yt "$@" ;;
-	*youtube.com/channel*)	exec /usr/local/dsearch/yt "$@" ;;
+	*youtube.com/channel*)	/usr/local/share/dsearch/yt "$@" 
+					exit 1;;
 	*futurism.com/videos*) yt "$@" ;;
 	*.mp3*)			yt "$@" ;;
 	*bandcamp*)     yt "$@" ;;
