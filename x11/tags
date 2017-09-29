@@ -1,4 +1,5 @@
 mpv false 1
+htop false 1
 browse true 2
 Chromium true 2
 Vimb true 2
@@ -7,4 +8,4 @@ mutt true 4
 news true 4
 irc true 5
 docs true 6
-zathura true 6
+Zathura true 6

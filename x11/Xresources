@@ -53,31 +53,51 @@ st.chscale: 1.0
 ! -----------------------------------------------------------------------------
 
 ! hard contrast: 
-*background: #1d2021
+!*background: #1d2021
 !*background: #282828
 ! soft contrast: *background: #32302f
-*foreground: #ebdbb2
+!*foreground: #ebdbb2
 ! Black + DarkGrey
-*color0:  #1d2021
-*color8:  #928374
+!*color0:  #1d2021
+!*color8:  #928374
 ! DarkRed + Red
-*color1:  #cc241d
-*color9:  #fb4934
+!*color1:  #cc241d
+!*color9:  #fb4934
 ! DarkGreen + Green
-*color2:  #98971a
-*color10: #b8bb26
+!*color2:  #98971a
+!*color10: #b8bb26
 ! DarkYellow + Yellow
-*color3:  #d79921
-*color11: #fabd2f
+!*color3:  #d79921
+!*color11: #fabd2f
 ! DarkBlue + Blue
-*color4:  #458588
-*color12: #83a598
+!*color4:  #458588
+!*color12: #83a598
 ! DarkMagenta + Magenta
-*color5:  #b16286
-*color13: #d3869b
+!*color5:  #b16286
+!*color13: #d3869b
 ! DarkCyan + Cyan
-*color6:  #689d6a
-*color14: #8ec07c
+!*color6:  #689d6a
+!*color14: #8ec07c
 ! LightGrey + White
-*color7:  #a89984
-*color15: #ebdbb2
+!*color7:  #a89984
+!*color15: #ebdbb2
+
+! Apprentice 
+*foreground: #BCBCBC
+*background: #262626
+*color0:     #1C1C1C
+*color8:     #444444
+*color1:     #AF5F5F
+*color9:     #FF8700
+*color2:     #5F875F
+*color10:    #87AF87
+*color3:     #87875F
+*color11:    #FFFFAF
+*color4:     #5F87AF
+*color12:    #8FAFD7
+*color5:     #5F5F87
+*color13:    #8787AF
+*color6:     #5F8787
+*color14:    #5FAFAF
+*color7:     #6C6C6C
+*color15:    #FFFFFF

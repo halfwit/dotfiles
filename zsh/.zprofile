@@ -4,7 +4,6 @@ export PATH=$HOME/local/bin:${PATH}
 
 #XDG Compliance enforcing
 export GNUPGHOME=$XDG_CONFIG_HOME/gnupg
-export XCOMPOSEFILE=$XDG_CONFIG_HOME/x11/xcompose
 export WEECHAT_HOME=$XDG_CONFIG_HOME/weechat
 
 #Go fits well in a ~/local based set up
@@ -24,9 +23,6 @@ export EDITOR=edit
 export VISUAL=edit
 export SUDO_EDITOR=rvim
 
-export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
-
-# ASP
 export TERMINAL=st
 
 # Xorg stuffs

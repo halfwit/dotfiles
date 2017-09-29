@@ -1,9 +1,8 @@
-set editor-command=plumber %s
+set editor-command=edit %s
 
 set minimum-font-size=9.5
 set monospace-font-size=9.5
 set font-size=9.5
-set hint-keys=aoeuhtns
 set home-page=https://www.duckduckgo.com
 
 set input-autohide=true
@@ -11,5 +10,3 @@ set status-bar=false
 #set auto-shrink-images=true
 
 handler-add gopher=plumber %s
-
-set x-hint-command=:sh! ~/local/bin/plumber <C-R>; <CR>
