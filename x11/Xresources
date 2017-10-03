@@ -1,4 +1,4 @@
-st.font: Source Code Pro:style=Regular:pixelsize=12.4,symbola:pixelsize=12.4,DejaVu Sans Mono:pixelsize=12.4,ttf-symbola:pixelsize=12.4
+st.font: Source Code Pro:style=Semibold:pixelsize=12.4,symbola:pixelsize=12.4,DejaVu Sans Mono:pixelsize=12.4,ttf-symbola:pixelsize=12.4
 st.bold_font: 1
 st.italic_font: 1
 st.termname: st-256color
@@ -16,33 +16,33 @@ st.chscale: 1.0
 ! -----------------------------------------------------------------------------
 
 ! hard contrast: *background: #f9f5d7
-!*background: #fbf1c7
+*background: #fbf1c7
 ! soft contrast: *background: #f2e5bc
-!*foreground: #3c3836
+*foreground: #3c3836
 ! Black + DarkGrey
-!*color0:  #fdf4c1
-!*color8:  #928374
+*color0:  #f9f5d7
+*color8:  #928374
 ! DarkRed + Red
-!*color1:  #cc241d
-!*color9:  #9d0006
+*color1:  #cc241d
+*color9:  #9d0006
 ! DarkGreen + Green
-!*color2:  #98971a
-!*color10: #79740e
+*color2:  #98971a
+*color10: #79740e
 ! DarkYellow + Yellow
-!*color3:  #d79921
-!*color11: #b57614
+*color3:  #d79921
+*color11: #b57614
 ! DarkBlue + Blue
-!*color4:  #458588
-!*color12: #076678
+*color4:  #458588
+*color12: #076678
 ! DarkMagenta + Magenta
-!*color5:  #b16286
-!*color13: #8f3f71
+*color5:  #b16286
+*color13: #8f3f71
 ! DarkCyan + Cyan
-!*color6:  #689d6a
-!*color14: #427b58
+*color6:  #689d6a
+*color14: #427b58
 ! LightGrey + White
-!*color7:  #7c6f64
-!*color15: #3c3836
+*color7:  #7c6f64
+*color15: #3c3836
 
 ! -----------------------------------------------------------------------------
 ! File: gruvbox-dark.xresources
@@ -81,23 +81,3 @@ st.chscale: 1.0
 ! LightGrey + White
 !*color7:  #a89984
 !*color15: #ebdbb2
-
-! Apprentice 
-*foreground: #BCBCBC
-*background: #262626
-*color0:     #1C1C1C
-*color8:     #444444
-*color1:     #AF5F5F
-*color9:     #FF8700
-*color2:     #5F875F
-*color10:    #87AF87
-*color3:     #87875F
-*color11:    #FFFFAF
-*color4:     #5F87AF
-*color12:    #8FAFD7
-*color5:     #5F5F87
-*color13:    #8787AF
-*color6:     #5F8787
-*color14:    #5FAFAF
-*color7:     #6C6C6C
-*color15:    #FFFFFF

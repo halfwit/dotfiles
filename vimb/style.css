@@ -1,12 +1,14 @@
 /* Base */
 * {
-	font-family: "Source Code Pro", monospace !important;
-    font: 8.4pt monospace !important; }
-h1 { font: 18pt monospace !important; }
-h2 { font: 16pt monospace !important; }
-h3 { font: 14pt monospace !important; }
-h4 { font: 12pt monospace !important; }
-h5 { font: 10pt monospace !important; }
+	font-family: "Source Code Pro", Semibold !important;
+    font-size: 12.4px !important;
+}
+
+h1 { font: 18pt !important; }
+h2 { font: 16pt !important; }
+h3 { font: 14pt !important; }
+h4 { font: 12pt !important; }
+h5 { font: 10pt !important; }
 
 main,body {
 	width: auto !important;
@@ -14,8 +16,8 @@ main,body {
 }
 
 *:not(a),body,td,tr,p {
-    background-color: #1d2021 !important;
-    color: #ebdbb2 !important;
+    background-color: #f9f5d7 !important;
+    color: #3c3836 !important;
 }
 
 img {
@@ -24,19 +26,19 @@ img {
 }
 
 h1,h2,h3,h4 {
-    background-color: #1d2021 !important;
-    color: #a89984 !important
+    background-color: #f9f5d7 !important;
+    color: #282828 !important
 }
 
 button {
     background-size: auto !important;
-    background-color: #1d2021 !important;
-    color: #b16286 !important
+    background-color: #f9f5d7 !important;
+    color: #689d6a !important
 }
 
 a {
-    color: #458588 !important;
-    background-color: #1d2021 !important
+    color: #076678 !important;
+    background-color: #f9f5d7 !important
 }
 a:hover,a:focus,a:visited { color: #458588 !important }
 a:hover { text-decoration: underline !important }
@@ -44,18 +46,6 @@ a:hover { text-decoration: underline !important }
 b   { font: bold monospace !important; }
 em  { font: bold monospace !important; }
 
-._hintLabel {
-    -webkit-transform:translate(-4px,-4px);
-    position: absolute;
-    z-index: 100000;
-    font:bold .8em monospace;
-    color: #000;
-    background-color: #fff;
-    margin: 0;
-    padding: 0px 1px;
-    border: 1px solid #444;
-    opacity: 0.7
-}
 ._hintElem {
     background-color: #ff0 !important;
     color: #000 !important

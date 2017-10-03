@@ -9,6 +9,7 @@ xcmenu &
 syncthing &
 compton -b &
 inotifybar & 
+redshift &
 xrdb -merge ~/local/cfg/x11/Xresources &
 hsetroot -fill ~/local/cfg/x11/calvin.jpg -tint '#458588' -brightness 0.24 &
 exec hwwm 
