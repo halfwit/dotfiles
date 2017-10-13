@@ -54,9 +54,6 @@ case "$@" in
 	*ptpb.pw/*/*) 		URL=`echo $@ | cut -b 1-20`			
 				exec plumber "$URL" &
 				exit 1 ;; 
-	*pb.gehidore.net*)  URL=`echo $@ | cut -b 1-27`
-				exec plumber "$URL" &
-				exit 1 ;;
 	ftp://*)		to "$@" ;;
 	*teknik*)   view "$@" ;;
 		
