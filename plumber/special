@@ -27,6 +27,7 @@ case "$@" in
 	*youtube.com/watch*)	yt "$@" ;;
 	*youtube.com/embed*)    yt "$@" ;;
 	*youtu.be*)		yt "$@" ;;
+	https://go.twitch.tv/videos*) yt "$@" ;;
 	*youtube.com/v/*)	yt "$@" ;;
 	ytdl*)			yt "$@" ;;
 	*youtube.com/play*)	yt "$@" ;;
