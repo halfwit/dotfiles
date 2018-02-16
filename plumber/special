@@ -45,6 +45,7 @@ case "$@" in
 	*mkv)			yt "$@" ;;
 	*gif)			yt "$@" ;;	
 	*gifv)			yt "$@" ;;
+	*png)			view "$@" ;;
 	gopher://*)		st -c gopher -e cgo "$1" &
 					exit 1 ;;
 	*asciinema*)	asci "$(echo "$1" | sed 's|/t||')" 	;;
