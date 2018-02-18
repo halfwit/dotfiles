@@ -1,8 +1,38 @@
+yt() {
+	ytcli "$1" -t "$3" | while {
+		read -r name
+		read -r blob
+		read -r url
+	} do
+		mkdir -p "$2/$(dirname "$name")"
+		curl -s --create-dirs "$url" -o "$2/$name" &
+		printf '%s\n' "$blob" > "$2/$name"-url
+		printf 'IMG:%s\t%s\n' "$2/$name" "$name"
+	done | dmenu -p "Select video: " -is 360x240
+}
+
+handle() {
+	while read -r input; do
+		read -r url < "$1/$input"-url
+		rm -rf "$1"
+		printf '%s\n' "$url"
+	done
+}
+
 case "$input" in
 	playlist\ -\ *) exec "$handledir/youtube/select_video" "${input#*-\ }.pls" ;;
 	radio\ -\ *) read -r result < "$XDG_DATA_HOME/radio/${input#*-\ }"
 					exec station "$result" ;;
 	open\ -\ *) exec "$XDG_DATA_HOME/x11/stack" "${input#*-\ }" ;; 
+	!pl\ *) 	tmp="$(mktemp -d /tmp/"${input#*pl }"XXXX)"
+				url="$(yt playlist "$tmp" "${input#*pl }" | handle "tmp")"
+				exec play "$url" ;;
+	!yt\ *)		tmp="$(mktemp -d /tmp/"${input#*yt }"XXXX)"
+				url="$(yt search "$tmp" "${input#*yt }" | handle "$tmp")"
+				exec play "$url" ;;
+	!ch\ *)		tmp="$(mktemp -d /tmp/"${input#*ch }"XXXX)"
+				url="$(yt channel "$tmp" "${input#*ch }" | handle "$tmp")"
+				exec play "$url" ;;
 	*\ -\ *)	read -r result < "$XDG_DATA_HOME/bookmark/$input"
 				exec browse "$result" ;;
 esac
