@@ -9,7 +9,6 @@ xcmenu &
 syncthing &
 compton -b &
 inotifybar & 
-redshift &
 xrdb -merge ~/local/cfg/x11/Xresources &
 hsetroot -solid '#787878' & 
 exec hwwm 
