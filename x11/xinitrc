@@ -6,8 +6,6 @@ setxkbmap -option caps:escape
 
 sxhkd -m -1 &
 xcmenu &
-syncthing &
-compton -b &
 inotifybar & 
 xrdb -merge ~/local/cfg/x11/Xresources &
 hsetroot -solid '#787878' & 
