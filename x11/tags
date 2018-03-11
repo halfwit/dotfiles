@@ -3,6 +3,7 @@ htop false 1
 browse true 2
 Chromium true 2
 Vimb true 2
+Luakit true 2
 edit true 3
 mutt true 4
 news true 4
