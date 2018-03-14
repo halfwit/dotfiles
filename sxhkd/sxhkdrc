@@ -8,7 +8,7 @@ super + {h,j,k,l}
 @F11
          /usr/local/share/hwwm/fullscreen $(pfw) && /usr/local/share/hwwm/wshuf
 super + x
-		compose
+		compose $(pfw)
 super + c
          killw $(pfw)
 super + p

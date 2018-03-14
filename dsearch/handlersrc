@@ -22,7 +22,7 @@ handle() {
 case "$input" in
 	playlist\ -\ *) exec "$handledir/youtube/select_video" "${input#*-\ }.pls" ;;
 	radio\ -\ *) read -r result < "$XDG_DATA_HOME/radio/${input#*-\ }"
-					exec station "$result" ;;
+				exec station "$result" ;;
 	open\ -\ *) exec "$XDG_DATA_HOME/x11/stack" "${input#*-\ }" ;; 
 	!pl\ *) 	tmp="$(mktemp -d /tmp/"${input#*pl }"XXXX)"
 				url="$(yt playlist "$tmp" "${input#*pl }" | handle "tmp")"
