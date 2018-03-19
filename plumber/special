@@ -48,6 +48,9 @@ case "$@" in
 	*gif)			yt "$@" ;;	
 	*gifv)			yt "$@" ;;
 	*png)			view "$@" ;;
+	https://pic.twitter.com*) URL="$(curl -sIL "$@" | sed -n 's/^location: //pI')"
+					exec plumber "$URL" &
+					exit 1 ;;
 	https://t.co*)  URL="$(curl -sIL "$@" | sed -n 's/^Location: //pI')"
 					exec plumber "$URL" &
 					exit 1 ;;
