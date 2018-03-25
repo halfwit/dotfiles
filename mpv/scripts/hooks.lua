@@ -16,6 +16,6 @@ function clean_bar(reason)
 	f:flush()
 	f:close()
 end
-
+mp.register_event("start-file", update_bar)
 mp.observe_property("media-title", "string", update_bar)
 mp.register_event("end-file", clean_bar)
