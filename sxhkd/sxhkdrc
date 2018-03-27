@@ -23,10 +23,8 @@ super + r
 		 lint `pfw`
 super + Print
 		/usr/local/share/dsearch/rec snap
-XF86Audio{Prev,Next,Play}
-         ~/local/bin/mpcontrol {prev,next,toggle}
-XF86AudioStop
-         ~/local/bin/mpcontrol stop
+XF86Audio{Prev,Next,Play,Stop}
+         ~/local/bin/mpcontrol {prev,next,toggle,stop}
 XF86Audio{LowerVolume,RaiseVolume}
          amixer set Master 3dB{-,+}
 XF86AudioMute
