@@ -1,20 +1,19 @@
-yt() {
-	ytcli "$1" -t "$3" | while {
-		read -r name
-		read -r blob
+parse() {
+	while {
+		read -r name 
 		read -r url
+		read -r image
 	} do
-		mkdir -p "$2/$(dirname "$name")"
-		curl -s --create-dirs "$url" -o "$2/$name" &
-		printf '%s\n' "$blob" > "$2/$name"-url
-		printf 'IMG:%s\t%s\n' "$2/$name" "$name"
+		mkdir -p /tmp/yt/"$(dirname "$name")"
+		curl -s --create-dirs "$image" -o /tmp/yt/"$name" &
+		printf '%s\n' "$url" > /tmp/yt/"$name"-url
+		printf 'IMG:%s\t%s\n' /tmp/yt/"$name" "$name"
 	done | dmenu -p "Select video: " -is 360x240
 }
 
 handle() {
 	while read -r input; do
-		read -r url < "$1/$input"-url
-		rm -rf "$1"
+		read -r url < /tmp/yt/"$input"-url
 		printf '%s\n' "$url"
 	done
 }
@@ -24,14 +23,14 @@ case "$input" in
 	radio\ -\ *) read -r result < "$XDG_DATA_HOME/radio/${input#*-\ }"
 				exec station "$result" ;;
 	open\ -\ *) exec "$XDG_DATA_HOME/x11/stack" "${input#*-\ }" ;; 
-	!pl\ *) 	tmp="$(mktemp -d /tmp/"${input#*pl }"XXXX)"
-				url="$(yt playlist "$tmp" "${input#*pl }" | handle "tmp")"
+	!pl\ *) 	url="$(ytcli playlist -t ${input#*pl } | parse | handle)"
+				rm -rf /tmp/yt
 				exec play "$url" ;;
-	!yt\ *)		tmp="$(mktemp -d /tmp/"${input#*yt }"XXXX)"
-				url="$(yt search "$tmp" "${input#*yt }" | handle "$tmp")"
+	!yt\ *)		url="$(ytcli search -t ${input#*yt } | parse | handle)"
+				#rm -rf /tmp/ty
 				exec play "$url" ;;
-	!ch\ *)		tmp="$(mktemp -d /tmp/"${input#*ch }"XXXX)"
-				url="$(yt channel "$tmp" "${input#*ch }" | handle "$tmp")"
+	!ch\ *)		url="$(ytcli channel -t ${input#*ch } | parse | handle)"
+				rm -rf /tmp/ty
 				exec play "$url" ;;
 	*\ -\ *)	read -r result < "$XDG_DATA_HOME/bookmark/$input"
 				exec browse "$result" ;;

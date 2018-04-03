@@ -1,4 +1,4 @@
-default printf '%s %s %s %s' "350" "224" "454" "261"
+default printf '%s %s %s %s' "351" "224" "454" "$(( heigh - gaps ))"
 browse printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 cgo printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 Zathura printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
@@ -22,4 +22,4 @@ w3m printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")
 Luakit printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 retroarch printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 gopher printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
-irc printf '%s %s %s %s' "350" "225" "454" "262"
+irc printf '%s %s %s %s' "350" "223" "453" "262"
