@@ -49,10 +49,10 @@ case "$@" in
 	*gifv)			yt "$@" ;;
 	*png)			view "$@" ;;
 	https://pic.twitter.com*) URL="$(curl -sIL "$@" | sed -n 's/^location: //pI')"
-					exec plumber "$URL" &
+					plumber "$URL" &
 					exit 1 ;;
 	https://t.co*)  URL="$(curl -sIL "$@" | sed -n 's/^Location: //pI')"
-					exec plumber "$URL" &
+					plumber "$URL" &
 					exit 1 ;;
 	gopher://*)		st -c gopher -e cgo "$1" &
 					exit 1 ;;
@@ -62,7 +62,7 @@ case "$@" in
 				to "https://duckduckgo.com?q=!a%20$URL" ;;
 		
 	*ptpb.pw/*/*) 		URL=`echo $@ | cut -b 1-20`			
-				exec plumber "$URL" &
+				plumber "$URL" &
 				exit 1 ;; 
 	ftp://*)		to "$@" ;;
 	*teknik*)   view "$@" ;;
