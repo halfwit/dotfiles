@@ -36,12 +36,15 @@ case "$@" in
 	*youtube.com/user/*) /usr/local/share/dsearch/yt "$@"
 					exit 1;;
 	*futurism.com/videos*) yt "$@" ;;
+	http://heavymetal666.com*) yt "$@" ;;
 	*.mp4|*.mp3)	yt "$@" ;;
 	*bandcamp*)     yt "$@" ;;
 	*soundcloud*)   yt "$@" ;;
 	*bpaste.net/show*) plumber "$(echo "$1" | sed 's/show/raw/')" 
 					exit 1 ;;
 	*gfycat.com*)	yt "$@" ;; 
+	*radiolab.org*) URL="$(echo ${@#*story/} | grep -o "^.*-" | sed 's/-//' )"
+					yt "https://www.radiolab.org/audio/m3u/$URL" ;;
 	*http://music*) yt "$@" ;;
 	*webm)			yt "$@" ;;
 	*mkv)			yt "$@" ;;
