@@ -35,6 +35,9 @@ case "$@" in
 					exit 1;;
 	*youtube.com/user/*) /usr/local/share/dsearch/yt "$@"
 					exit 1;;
+	*hellointernet*) URL="$(curl -s "$@" | grep "data-url" | sed 's/data-url=//;s/\"//g;s/ //g')"
+					mpg123 "$URL" &
+					exit 1 ;;
 	*futurism.com/videos*) yt "$@" ;;
 	http://heavymetal666.com*) yt "$@" ;;
 	*.mp4|*.mp3)	yt "$@" ;;
