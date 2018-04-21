@@ -4,20 +4,17 @@ cgo printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")
 Zathura printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 dict printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 edit printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
-nvim printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 float #none 
 htop printf '%s %s %s %s' "350" "100" "450" "110"
 imv printf '%s %s %s %s' "350" "225" "$(wattr w "$id")" "$(wattr h "$id")"
 lyrics printf '%s %s %s %s' "400" "$(( heigh / 2 ))" "450" "$(( heigh - gaps ))"
 man printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 mpv t_h="$(echo '{ "command": ["get_property", "video-aspect"] }' | socat - /tmp/mpvsocket | jshon -e data -u)"; printf '%s %s %s %s' "$(wattr w "$id")" "$(echo "$(wattr w "$id")"/"$t_h" | bc)" "$(wattr w "$id")" "$(echo "$(wattr w "$id")"/"$t_h" | bc)"
-mutt printf '%s %s %s %s' "350" "230" "450" "$(( heigh - gaps ))"
 news printf '%s %s %s %s' "350" "255" "565" "$(( heigh - gaps ))"
 popup #none
-Vimb printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 weather printf '%s %s %s %s' "350" "255" "885" $(( heigh - gaps ))
 Chromium printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
-Surf printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
+Netsurf-gtk printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 w3m printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 Luakit printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 retroarch printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
