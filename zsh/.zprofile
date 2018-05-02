@@ -34,3 +34,4 @@ source "$XDG_CONFIG_HOME"/session/config
 
 # Browser
 export WWW_HOME="https://duckduckgo.com"
+export RTV_BROWSER=/usr/local/bin/plumber
