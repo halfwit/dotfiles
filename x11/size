@@ -5,6 +5,6 @@ HI=$(wattr h $RW)
 
 gaps=$(($GA * 2))
 width=$(($WI - $GA))
-heigh=$(($HI - $GA - 15))
-fulw=$(($WI - $GA - 9))
+heigh=$(($HI - $GA - 16))
+fulw=$(($WI - $GA - 10))
 fulh=$(($HI - $GA - 23))
