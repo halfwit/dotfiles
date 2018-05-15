@@ -21,6 +21,14 @@ view() {
 	exit 1
 }
 
+docs() {
+	tmp=$(mktemp)
+	curl -Lsk "$1" -o "$tmp"
+	wait
+	zathura "$tmp" &
+	exit 1
+}
+
 case "$@" in
 	*bell-labs.com*) 	url="$(echo "$1" | sed 's/.\+com//')"
 				to "http://9p.io$url" ;;
@@ -54,6 +62,7 @@ case "$@" in
 	*gif)			yt "$@" ;;	
 	*gifv)			yt "$@" ;;
 	*png)			view "$@" ;;
+	*pdf)           docs "$@" ;;
 	https://pic.twitter.com*) URL="$(curl -sIL "$@" | sed -n 's/^location: //pI')"
 					plumber "$URL" &
 					exit 1 ;;
