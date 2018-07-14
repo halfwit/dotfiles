@@ -16,33 +16,33 @@ st.chscale: 1.0
 ! -----------------------------------------------------------------------------
 
 ! hard contrast: *background: #f9f5d7
-*background: #fbf1c7
+!*background: #fbf1c7
 ! soft contrast: *background: #f2e5bc
-*foreground: #3c3836
+!*foreground: #3c3836
 ! Black + DarkGrey
-*color0:  #f9f5d7
-*color8:  #928374
+!*color0:  #f9f5d7
+!*color8:  #928374
 ! DarkRed + Red
-*color1:  #cc241d
-*color9:  #9d0006
+!*color1:  #cc241d
+!*color9:  #9d0006
 ! DarkGreen + Green
-*color2:  #98971a
-*color10: #79740e
+!*color2:  #98971a
+!*color10: #79740e
 ! DarkYellow + Yellow
-*color3:  #d79921
-*color11: #b57614
+!*color3:  #d79921
+!*color11: #b57614
 ! DarkBlue + Blue
-*color4:  #458588
-*color12: #076678
+!*color4:  #458588
+!*color12: #076678
 ! DarkMagenta + Magenta
-*color5:  #b16286
-*color13: #8f3f71
+!*color5:  #b16286
+!*color13: #8f3f71
 ! DarkCyan + Cyan
-*color6:  #689d6a
-*color14: #427b58
+!*color6:  #689d6a
+!*color14: #427b58
 ! LightGrey + White
-*color7:  #7c6f64
-*color15: #3c3836
+!*color7:  #7c6f64
+!*color15: #3c3836
 
 ! -----------------------------------------------------------------------------
 ! File: gruvbox-dark.xresources
@@ -53,31 +53,33 @@ st.chscale: 1.0
 ! -----------------------------------------------------------------------------
 
 ! hard contrast: 
-!*background: #1d2021
+*background: #000000
 !*background: #282828
-! soft contrast: *background: #32302f
-!*foreground: #ebdbb2
+! soft contrast: 
+!*background: #32302f
+*foreground: #ebdbb2
 ! Black + DarkGrey
-!*color0:  #1d2021
-!*color8:  #928374
+*color0:  #1d2021
+*color8:  #928374
 ! DarkRed + Red
-!*color1:  #cc241d
-!*color9:  #fb4934
+*color1:  #cc241d
+*color9:  #fb4934
 ! DarkGreen + Green
-!*color2:  #98971a
-!*color10: #b8bb26
+*color2:  #98971a
+*color10: #b8bb26
 ! DarkYellow + Yellow
-!*color3:  #d79921
-!*color11: #fabd2f
+*color3:  #d79921
+*color11: #fabd2f
 ! DarkBlue + Blue
-!*color4:  #458588
-!*color12: #83a598
+*color4:  #458588
+*color12: #83a598
 ! DarkMagenta + Magenta
-!*color5:  #b16286
-!*color13: #d3869b
+*color5:  #b16286
+*color13: #d3869b
 ! DarkCyan + Cyan
-!*color6:  #689d6a
-!*color14: #8ec07c
+*color6:  #689d6a
+*color14: #8ec07c
 ! LightGrey + White
-!*color7:  #a89984
+*color7:  #a89984
 !*color15: #ebdbb2
+*desktop: #fe8019

@@ -17,7 +17,7 @@ asci() {
 view() {
 	tmp=$(mktemp)
 	curl -Lsk "$1" -o "$tmp"
-	imv "$tmp" &
+	sxiv "$tmp" &
 	exit 1
 }
 

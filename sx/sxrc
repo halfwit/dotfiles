@@ -7,6 +7,6 @@ xrdb -merge ~/local/cfg/x11/Xresources
 redshift &
 sxhkd -m -1 &
 xcmenu &
-hsetroot -solid '#FFFFFF' -center ~/local/cfg/x11/calvin.jpg
+hsetroot  -center ~/local/x11/background.png -tint "$(xrdb -query | awk '/desktop/{print $NF}')"
 inotifybar &
 exec hwwm

@@ -8,7 +8,7 @@ edit printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id"
 float #none 
 htop printf '%s %s %s %s' "350" "100" "450" "110"
 WebKitWebProcess '%s %s %s %s' "0" "0" "0" "0"
-imv printf '%s %s %s %s' "350" "225" "$(wattr w "$id")" "$(wattr h "$id")"
+Sxiv printf '%s %s %s %s' "350" "225" "$(wattr w "$id")" "$(wattr h "$id")"
 lyrics printf '%s %s %s %s' "400" "$(( heigh / 2 ))" "450" "$(( heigh - gaps ))"
 man printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 mpv t_h="$(echo '{ "command": ["get_property", "video-aspect"] }' | socat - /tmp/mpvsocket | jshon -e data -u)"; printf '%s %s %s %s' "$(wattr w "$id")" "$(echo "$(wattr w "$id")"/"$t_h" | bc)" "$(wattr w "$id")" "$(echo "$(wattr w "$id")"/"$t_h" | bc)"
