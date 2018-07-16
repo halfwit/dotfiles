@@ -80,13 +80,13 @@ shorten_prompt() {
   return 0
 }
 
-PROMPT='%F{${vimode}}%B%m%b%f $(shorten_prompt)%F{green} ${repo}$(get_git_status)%f
+PROMPT='%F{${vicolor}}%B%m%b%f $(shorten_prompt)%F{green} ${repo}$(get_git_status)%f
  %F{cyan}‣%f '
 
 # Functions.
 
 function to_bottom {
-  print -Pn "\e[100B"
+  print -Pn "\e[$(tput lines);0f"
 }
 to_bottom
 
@@ -120,7 +120,7 @@ function precmd {
 
 # Replace vimode indicators.
 function zle-line-init zle-keymap-select {
-    vimode=${${KEYMAP/vicmd/gray}/(main|viins)/blue}
+    vicolor=${${KEYMAP/vicmd/gray}/(main|viins)/blue}
     zle reset-prompt
 }
 

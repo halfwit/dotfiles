@@ -1,8 +1,8 @@
 st.font: Source Code Pro:style=Semibold:pixelsize=11.8,symbola:pixelsize=12.4,DejaVu Sans Mono:pixelsize=12.4,ttf-symbola:pixelsize=12.4
-st.bold_font: 1
-st.italic_font: 1
+st.bold_font: 0
+st.italic_font: 0
 st.termname: st-256color
-st.shell: /bin/zsh
+st.shell: /usr/bin/zsh
 st.bellvolume: 0
 st.cwscale: 0.9
 st.chscale: 1.0
