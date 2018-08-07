@@ -12,5 +12,5 @@ for file in *; do
 done | sort -u
 find ~/code -type f -not -path '*/\.git*'
 find ~/local/cfg -type f -not -path '*/\.git*'
-find ~/docs -type f
+find ~/media/docs -type f
 printf '%s\n%s\n' "!yt" "!pl"
