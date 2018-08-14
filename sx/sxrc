@@ -1,12 +1,16 @@
 #!/bin/bash
 
-# Trying this out!
+# These options will go away with system-wide config
 setxkbmap -option caps:escape
 setxkbmap dvorak
+
+# Update the database
 xrdb -merge ~/local/cfg/x11/Xresources
+
+# This is for the wm
+hsetroot  -center ~/local/cfg/x11/background.png -tint "$(xrdb -query | awk '/desktop/{print $NF}')"
 redshift &
 sxhkd -m -1 &
 xcmenu &
-hsetroot  -center ~/local/cfg/x11/background.png -tint "$(xrdb -query | awk '/desktop/{print $NF}')"
 inotifybar &
 exec hwwm
