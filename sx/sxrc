@@ -4,13 +4,8 @@
 setxkbmap -option caps:escape
 setxkbmap dvorak
 
-# Update the database
-xrdb -merge ~/local/cfg/x11/Xresources
-
-# This is for the wm
-hsetroot  -center ~/local/cfg/x11/background.png -tint "$(xrdb -query | awk '/desktop/{print $NF}')"
+# Clipboard menu and backlight automation
 redshift &
-sxhkd -m -1 &
 xcmenu &
-inotifybar &
+
 exec hwwm
