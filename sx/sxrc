@@ -8,4 +8,5 @@ setxkbmap dvorak
 redshift &
 xcmenu &
 
+## Run
 exec hwwm

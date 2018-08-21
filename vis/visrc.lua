@@ -21,5 +21,6 @@ end)
 
 vis.events.subscribe(vis.events.FILE_SAVE_POST, function(file, path)
 	-- Update our bar on write
-	os.execute('/usr/local/share/hwwm/gitbar commit >/dev/null 2&>1 &')
+	os.execute('/usr/local/share/hwwm/gitbar commit >/dev/null &')
+
 end)
