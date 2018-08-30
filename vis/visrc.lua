@@ -18,9 +18,3 @@ vis.events.subscribe(vis.events.FILE_OPEN, function(file)
 	--	TODO: os.execute('/usr/local/bin/plumber '..vis. &')
 	--end, "plumb the current line")
 end)
-
-vis.events.subscribe(vis.events.FILE_SAVE_POST, function(file, path)
-	-- Update our bar on write
-	os.execute('/usr/local/share/hwwm/gitbar commit >/dev/null &')
-
-end)
