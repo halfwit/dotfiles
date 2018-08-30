@@ -7,7 +7,7 @@ dict printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id"
 edit printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 float #none 
 htop printf '%s %s %s %s' "350" "100" "450" "110"
-WebKitWebProcess '%s %s %s %s' "0" "0" "0" "0"
+WebKitWebProcess #none
 Sxiv printf '%s %s %s %s' "350" "225" "$(wattr w "$id")" "$(wattr h "$id")"
 lyrics printf '%s %s %s %s' "400" "$(( heigh / 2 ))" "450" "$(( heigh - gaps ))"
 man printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"

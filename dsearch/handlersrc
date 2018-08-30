@@ -22,12 +22,13 @@ case "$input" in
 	playlist\ -\ *) exec "$handledir/youtube/select_video" "${input#*-\ }.pls" ;;
 	radio\ -\ *) read -r result < "$XDG_DATA_HOME/radio/${input#*-\ }"
 				exec station "$result" ;;
-	open\ -\ *) exec "$XDG_DATA_HOME/x11/stack" "${input#*-\ }" ;; 
+	open\ -\ *) name="${input#*-\ }"
+				exec /usr/local/share/hwwm/stack "$name" ;;
 	!pl\ *) 	url="$(ytcli playlist -t ${input#*pl } | parse | handle)"
 				rm -rf /tmp/yt
 				exec play "$url" ;;
 	!yt\ *)		url="$(ytcli search -t ${input#*yt } | parse | handle)"
-				#rm -rf /tmp/ty
+				rm -rf /tmp/yt
 				exec play "$url" ;;
 	!ch\ *)		url="$(ytcli channel -t ${input#*ch } | parse | handle)"
 				rm -rf /tmp/ty
