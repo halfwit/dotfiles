@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Hold our pulls file while we edit it
+tmp="$(mktemp)"
+
+# Make sure we clean up the file
+trap clean EXIT HUP KILL
+clean() {
+	rm "$tmp"
+	/usr/local/share/hwwm/gitbar
+}
+
+# We have the current path
+name="$(git remote get-url origin | sed 's|git+ssh://git@||;s|.git$||;s|https://||')"
+
+cp "$XDG_DATA_DIR/pulls" "$tmp"
+
+while read -r line; do
+	test $line = $name && continue
+	printf '%s\n' "$line"
+done < "$tmp" > "$XDG_DATA_DIR/pulls"

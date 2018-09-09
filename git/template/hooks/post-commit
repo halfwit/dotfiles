@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Check if the commit means we have a push ready
+# For now we scrub the whole tree, future variants we could do something more efficient
+check() {
+    cd "$1" || return 0
+    if git status 2>/dev/null | grep -q ahead; then
+        printf '%s\n' "${1/$HOME/}"
+        return 1
+    fi
+    return 0
+}
+
+crawl() {
+    for i in "$1"/*; do
+        cd "$i" 2>/dev/null || continue
+        check "$i" && crawl "$i" &
+    done
+}
+
+# =^.^=
+cat <(check "$XDG_CONFIG_HOME") <(crawl "$HOME"/code) <(crawl "$XDG_DATA_HOME/blog") > "$XDG_DATA_HOME/pushes"
+/usr/local/share/hwwm/gitbar

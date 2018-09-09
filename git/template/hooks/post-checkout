@@ -1,0 +1,28 @@
+#!/bin/sh
+	
+DB="$XDG_DATA_DIR/commits"
+changes() {
+	git diff --shortstat 2>/dev/null| grep -q changed
+}
+
+db_has_entry() {
+	grep "$name" "$DB"
+}
+
+clean() {
+	tmp="$(mktemp)"
+	cp "$DB" "$tmp"
+	while read -r line; do
+		test $line = $1 && continue
+		printf '%s\n' "$line"
+	done > "$DB"
+}
+
+# If we have uncommitted changes ensure we have DB entry
+if changes; then
+	# Make sure it's not already there
+	db_has_entry || printf '%s\n' "$name" >> "$DB"
+# If DB has entry but no commits are waiting, remove
+else
+	db_has_entry && clean "$name"
+fi
