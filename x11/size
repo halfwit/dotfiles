@@ -8,3 +8,4 @@ width=$(($WI - $GA))
 heigh=$(($HI - $GA - 16))
 fulw=$(($WI - $GA - 10))
 fulh=$(($HI - $GA - 23))
+screens=1
