@@ -1,8 +1,7 @@
 GA=3
 RW=$(lsw -r)
-WI=$(wattr w $RW)
-HI=$(wattr h $RW)
-
+WI=5760 
+HI=1080
 gaps=$(($GA * 2))
 width=$(($WI - $GA))
 heigh=$(($HI - $GA - 16))

@@ -1,6 +1,6 @@
 mpv false 1
 htop false 1
-Chromium true 2
+Chromium-browser true 2
 Luakit true 2
 edit true 3
 news true 4

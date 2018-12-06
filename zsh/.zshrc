@@ -149,7 +149,6 @@ bindkey -M vicmd $terminfo[kich1] vi-insert
 bindkey -M vicmd $terminfo[khome] vi-beginning-of-line
 
 # End.
-bindkey -M vicmd $terminfo[kend] vi-end-of-line
 
 # Backspace (and <C-h>).
 bindkey -M vicmd $terminfo[kbs] backward-char
@@ -205,9 +204,6 @@ alias chmod='chmod -c --preserve-root'
 alias chown='chown -c --preserve-root'
 alias chgrp='chgrp -c --preserve-root'
  
-alias ls='ls --color=auto --group-directories-first -AhXF'
-alias ll='ls --color=auto --group-directories-first -AlhXF'
-
 ## Runs compdef _gnu_generic <cmd>
 function zle-compdef () {
 	if [[ -z "$BUFFER" ]]; then

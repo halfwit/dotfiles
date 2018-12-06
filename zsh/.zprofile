@@ -29,9 +29,6 @@ export TERMINAL=st
 export XINITRC=$XDG_CONFIG_HOME/x11/xinitrc
 export XAUTHORITY=$XDG_RUNTIME_DIR/x11/xauthority
 
-source <(dircolors $XDG_CONFIG_HOME/terminal-colors.d/ls.enable)
-source "$XDG_CONFIG_HOME"/session/config
-
 # Browser
 export WWW_HOME="https://duckduckgo.com"
 export RTV_BROWSER=/usr/local/bin/plumber

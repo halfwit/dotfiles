@@ -16,9 +16,9 @@ st.chscale: 1.0
 ! -----------------------------------------------------------------------------
 
 ! hard contrast: *background: #f9f5d7
-*background: #fbf1c7
+*background: #ffffec
 ! soft contrast: *background: #f2e5bc
-*foreground: #3c3836
+*foreground: #424242
 ! Black + DarkGrey
 *color0:  #f9f5d7
 *color8:  #928374
@@ -26,7 +26,7 @@ st.chscale: 1.0
 *color1:  #cc241d
 *color9:  #9d0006
 ! DarkGreen + Green
-*color2:  #98971a
+*color2:  #effeec
 *color10: #79740e
 ! DarkYellow + Yellow
 *color3:  #d79921

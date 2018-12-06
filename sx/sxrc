@@ -5,7 +5,6 @@ setxkbmap -option caps:escape
 setxkbmap dvorak
 
 # Clipboard menu and backlight automation
-redshift &
 xcmenu &
 
 ## Run
