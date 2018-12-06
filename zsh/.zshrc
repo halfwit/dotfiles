@@ -200,10 +200,6 @@ alias ln='ln -vi'
 alias mkdir='mkdir -vp'
 alias grep='grep --color=auto'
 
-alias chmod='chmod -c --preserve-root'
-alias chown='chown -c --preserve-root'
-alias chgrp='chgrp -c --preserve-root'
- 
 ## Runs compdef _gnu_generic <cmd>
 function zle-compdef () {
 	if [[ -z "$BUFFER" ]]; then

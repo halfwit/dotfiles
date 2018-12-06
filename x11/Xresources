@@ -18,7 +18,7 @@ st.chscale: 1.0
 ! hard contrast: *background: #f9f5d7
 *background: #ffffec
 ! soft contrast: *background: #f2e5bc
-*foreground: #424242
+*foreground: #282828
 ! Black + DarkGrey
 *color0:  #f9f5d7
 *color8:  #928374
@@ -82,4 +82,4 @@ st.chscale: 1.0
 ! LightGrey + White
 !*color7:  #a89984
 !*color15: #ebdbb2
-*desktop: #cc241d
+*desktop: #787878
