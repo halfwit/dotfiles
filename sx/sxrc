@@ -5,7 +5,5 @@ setxkbmap -option caps:escape
 setxkbmap dvorak
 
 # Clipboard menu and backlight automation
-xcmenu &
-
 ## Run
 exec hwwm
