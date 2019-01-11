@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh --
 
 # These options will go away with system-wide config
 setxkbmap -option caps:escape
@@ -6,4 +6,8 @@ setxkbmap dvorak
 
 # Clipboard menu and backlight automation
 ## Run
+compton &
 exec hwwm
+
+sxhkd &
+exec drawterm

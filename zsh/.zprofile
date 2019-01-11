@@ -25,10 +25,6 @@ export SUDO_EDITOR=rvim
 
 export TERMINAL=st
 
-# Xorg stuffs
-export XINITRC=$XDG_CONFIG_HOME/x11/xinitrc
-export XAUTHORITY=$XDG_RUNTIME_DIR/x11/xauthority
-
 # Browser
 export WWW_HOME="https://duckduckgo.com"
 export RTV_BROWSER=/usr/local/bin/plumber
