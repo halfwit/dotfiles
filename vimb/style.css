@@ -15,8 +15,8 @@ main,body {
 }
 
 *:not(a),body,td,tr,p {
-    background-color: #f9f5d7 !important;
-    color: #3c3836 !important;
+    color: #fbf1c7 !important;
+    background-color: #282828 !important;
 }
 
 img {
@@ -25,19 +25,19 @@ img {
 }
 
 h1,h2,h3,h4 {
-    background-color: #f9f5d7 !important;
-    color: #282828 !important
+    color: #fbf1c7 !important;
+    background-color: #282828 !important
 }
 
 button {
     background-size: auto !important;
-    background-color: #f9f5d7 !important;
-    color: #689d6a !important
+    color: #689d6a !important;
+    background-color: #282828 !important
 }
 
 a {
-    color: #076678 !important;
-    background-color: #f9f5d7 !important
+    background-color: #282828 !important;
+    color: #076678 !important
 }
 a:hover,a:focus,a:visited { color: #458588 !important }
 a:hover { text-decoration: underline !important }

@@ -1,12 +1,17 @@
 set editor-command=edit %s
-
-set minimum-font-size=9.5
-set monospace-font-size=9.5
-set font-size=9.5
+set auto-shrink-images=true
+set dom-paste=true
+#set plugins=true
+set resizable-text-areas=true
+set webgl=enable
+set accelerated-compositing=true
+set minimumfontsize=9.5
+set monofontsize=9.5
+set fontsize=9.5
 set home-page=https://www.duckduckgo.com
 
 set input-autohide=true
-set status-bar=false
-#set auto-shrink-images=true
+set stylesheet=true
+set statusbar=false
 
 handler-add gopher=plumber %s

@@ -1,6 +1,6 @@
 [user]
-  name = Halfwit
-  email = michaelmisch1985@gmail.com
+	name = halfwit
+	email = michaelmisch1985@gmail.com
 [alias]
   graph = log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%x20(%ce)%n%x20%s%n"
   stat = status -sb

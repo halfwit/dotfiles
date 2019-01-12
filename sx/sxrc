@@ -6,8 +6,8 @@ setxkbmap dvorak
 
 # Clipboard menu and backlight automation
 ## Run
-compton &
+compton -b &
+feh --bg-scale --no-xinerama Downloads/5760x1080-2915477-triple-screen-mountain-snow-polyscape___mixed-wallpapers.jpg &
+
 exec hwwm
 
-sxhkd &
-exec drawterm

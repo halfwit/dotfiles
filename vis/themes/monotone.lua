@@ -21,11 +21,11 @@ local colors = {
 
 lexers.colors = colors
 -- dark
-local fg = ',fore:'..colors.base3..','
-local bg = ',back:'..colors.base03..','
+-- local fg = ',fore:'..colors.base3..','
+-- local bg = ',back:'..colors.base03..','
 -- light
---local fg = ',fore:'..colors.base03..','
---local bg = ',back:'..colors.base3..','
+local fg = ',fore:'..colors.base03..','
+local bg = ',back:'..colors.base3..','
 
 lexers.STYLE_DEFAULT = bg..fg
 lexers.STYLE_NOTHING = bg
