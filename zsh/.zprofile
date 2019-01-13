@@ -29,3 +29,7 @@ export TERMINAL=st
 export WWW_HOME="https://duckduckgo.com"
 export RTV_BROWSER=/usr/local/bin/plumber
 export BROWSER="/usr/local/bin/plumber"
+
+# Plan9
+export PATH=${PATH}:/usr/local/plan9/bin
+export PLAN9=/usr/local/plan9
