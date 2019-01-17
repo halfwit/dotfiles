@@ -5,8 +5,9 @@ Drawterm #none
 antimicro printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 Zathura printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 dict printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
-edit printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 sam printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
+edit printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
+termdraw printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 float #none 
 htop printf '%s %s %s %s' "350" "100" "450" "110"
 WebKitWebProcess #none

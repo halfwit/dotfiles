@@ -4,7 +4,7 @@ super + {d,n,t,v,m,w}
 super + shift + {l,h}
          winid=$(pfw) && wrs {20,-20} 0 "$winid" && /usr/local/share/hwwm/wshuf | xargs -n 5 wtp && wtf "$winid"
 super + {h,j,k,l}
-         unxt {h,j,k,l}
+         /usr/local/share/hwwm/focus {left,down,up,right}
 @F11
          /usr/local/share/hwwm/fullscreen $(pfw)
 super + x
