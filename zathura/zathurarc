@@ -5,7 +5,7 @@ set window-title-basename       "false"
 set window-titlepage            "false"
 
 set default-bg                  "#fbf1c7" 
-set default-fg                  "#3c3836"
+set default-fg                  "#282828"
 
 set statusbar-bg                "#ebdbb2"
 set statusbar-fg                "#3c3836"
