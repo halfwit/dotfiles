@@ -3,9 +3,11 @@
 # These options will go away with system-wide config
 setxkbmap -option caps:escape
 setxkbmap dvorak
+compton &
 
-# Clipboard menu and backlight automation
+# Dual monitor for now
+xrandr --auto --output DP1 --right-of DP3 --output HDMI1 --left-of DP3
+hsetroot -solid '#787878'
+
 ## Run
-drawterm &
 exec hwwm
-
