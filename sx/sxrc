@@ -6,7 +6,7 @@ setxkbmap dvorak
 compton &
 
 # Dual monitor for now
-xrandr --auto --output DP1 --right-of DP3 --output HDMI1 --left-of DP3
+xrandr --auto --output DP1 --right-of DP3 --output HDMI1 --left-of DP3 --output DP3 --primary
 hsetroot -solid '#787878'
 
 ## Run
