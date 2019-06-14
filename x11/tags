@@ -1,6 +1,6 @@
 mpv true 1
 htop false 1
-Chromium-browser true 2
+Chromium true 2
 Vimb true 2
 Luakit true 2
 edit true 3
@@ -8,3 +8,5 @@ news true 4
 irc true 5
 docs true 6
 Zathura true 6
+Steam true 6
+

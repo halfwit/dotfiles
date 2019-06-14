@@ -1,10 +1,10 @@
 GA=4
 RW=$(lsw -r)
-WI=5760
+WI=3860
 HI=1080
 gaps=$(($GA * 2))
 width=$(($WI - $GA))
 heigh=$(($HI - $GA - 20))
 fulw=$(($WI - $GA - 10))
 fulh=$(($HI - $GA - 23))
-screens=3
+screens=2
