@@ -1,6 +1,8 @@
 default printf '%s %s %s %s' "351" "224" "454" "$(( heigh - gaps ))"
-browse printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
+Java #none
 antimicro printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
+browse printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
+jetbrains-studio printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 Zathura printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 Chromium-browser printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 Steam printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"

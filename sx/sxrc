@@ -3,6 +3,8 @@
 # These options will go away with system-wide config
 setxkbmap -option caps:escape
 setxkbmap dvorak
+xmodmap $HOME/halfwit-dvorak
+./local/urserver-3.6.0.745/urserver &
 compton &
 redshift -l 55.17:-118.75 &
 
