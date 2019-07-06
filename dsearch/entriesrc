@@ -12,4 +12,4 @@ find ~/code -type f -not -path '*/\.git*'
 find ~/local/cfg -type f -not -path '*/\.git*'
 find ~/local/src -type f -not -path '*/\.git*' -not -path '*/\.hg*'
 find ~/media/docs -type f
-printf '%s\n%s\n' "!yt" "!pl"
+printf '%s\n%s\n%s\n%s\n' "!yt" "!pl" "!ch" "!g"

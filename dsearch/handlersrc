@@ -24,15 +24,17 @@ case "$input" in
 				exec station "$result" ;;
 	open\ -\ *) name="${input#*-\ }"
 				exec /usr/local/share/hwwm/stack "$name" ;;
-	!pl\ *) 	url="$(ytcli playlist -t ${input#*pl } | parse | handle)"
+	!pl\ *) 	url="$(ytcli -p -t ${input#*pl } | parse | handle)"
 				rm -rf /tmp/yt
 				exec play "$url" ;;
-	!yt\ *)		url="$(ytcli search -t ${input#*yt } | parse | handle)"
+	!yt\ *)		url="$(ytcli -t ${input#*yt } | parse | handle)"
 				rm -rf /tmp/yt
 				exec play "$url" ;;
-	!ch\ *)		url="$(ytcli channel -t ${input#*ch } | parse | handle)"
+	!ch\ *)		url="$(ytcli -c -t ${input#*ch } | parse | handle)"
 				rm -rf /tmp/ty
 				exec play "$url" ;;
+	!g\ *)      url="$(gcli -t ${input#*g } | dmenu | awk '{print $NF}')" 
+				exec browse "$url" ;;
 	*\ -\ *)	read -r result < "$XDG_DATA_HOME/bookmark/$input"
 				exec browse "$result" ;;
 esac
