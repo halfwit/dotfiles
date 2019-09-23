@@ -37,3 +37,4 @@ export PLAN9=/usr/lib/plan9
 
 # Bologna
 export PATH="$PATH:$XDG_DATA_HOME/flutter/bin"
+export ANDROID_HOME="$HOME/Android/Sdk"

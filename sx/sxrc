@@ -5,11 +5,11 @@ setxkbmap -option caps:escape
 setxkbmap dvorak
 #xmodmap $HOME/halfwit-dvorak
 unclutter &
-./local/urserver-3.6.0.745/urserver &
+#./local/urserver-3.6.0.745/urserver &
 compton &
 
 # Dual monitor for now
-xrandr --auto --output DP2 --right-of DP3 --output HDMI1 --left-of DP3 --output DP3 --primary
+#xrandr --auto --output DP2 --right-of DP3 --output HDMI1 --left-of DP3 --output DP3 --primary
 hsetroot -solid '#787878'
 
 ## Run
