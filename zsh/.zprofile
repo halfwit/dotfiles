@@ -23,7 +23,7 @@ export EDITOR=edit
 export VISUAL=edit
 export SUDO_EDITOR=rvim
 
-export TERMINAL=st
+export TERMINAL=xst
 
 # Browser
 export WWW_HOME="https://duckduckgo.com"

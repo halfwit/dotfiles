@@ -1,5 +1,5 @@
 super + {d,n,t,v,m,w}
-         {dmenu_run,dsearch,,st,xcmenuctrl,notes,todo}
+         {dmenu_run,dsearch,$TERMINAL,xcmenuctrl,notes,todo}
 
 super + shift + {l,h}
          winid=$(pfw) && wrs {20,-20} 0 "$winid" && /usr/local/share/hwwm/wshuf | xargs -n 5 wtp && wtf "$winid"
