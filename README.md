@@ -16,25 +16,15 @@ I've written a group management set of binaries to go along with wmutils, which 
 ## This is how it all looks 
 [![wmutils and bin packing demo](http://img.youtube.com/vi/MSIjqTgtj2c/0.jpg)](https://www.youtube.com/watch?v=NqbHe9X4PWU)
 
-# [Dsearch](https://github.com/halfwit/dotfiles/blob/master/bin/dsearch)
-This is a dmenu/bemenu based set of scripts for various search-oriented actions, using a set of [handlers](https://github.com/halfwit/dotfiles/blob/master/share/dsearch).
+# [Dsearch](https://github.com/halfwit/dsearch)
+This is a dmenu/bemenu based set of scripts for various search-oriented actions, using a set of [handlers](https://github.com/halfwit/dsearch/tree/master/handlers).
 
 Each handler is invoked using the traditional DuckDuckGo handler behavior, !foo bar baz. (Anything not matching a handler is simply passed through, to DuckDuckGo)
 
-In addition, bookmarks are handled in dsearch, as I found myself switching browser too frequently [demo](https://ptpb.pw/qR19.mkv), and currently session management as tabbed causes too many issues. [demo](https://ptpb.pw/SyC3.mkv)
+In addition, bookmarks are handled in dsearch, as I found myself switching browser too frequently, and currently even session management as tabbed causes too many issues.
 
-Notable handlers include:
- - [youtube search](https://github.com/halfwit/dotfiles/blob/master/share/dsearch/yt) (You do need a developer API key)
- - Gmusicapi integration [Song search/list](https://github.com/halfwit/dotfiles/blob/master/share/dsearch/song) [Album search/list](https://github.com/halfwit/dotfiles/blob/master/share/dsearch/album) [Station search/list](https://github.com/halfwit/dotfiles/blob/master/share/dsearch/listen)
- - [Manual search](https://github.com/halfwit/dotfiles/blob/master/share/dsearch/man)
- - [Code](https://github.com/halfwit/dotfiles/blob/master/share/dsearch/code) Search for code snippets on local system
- - [Save](https://github.com/halfwit/dotfiles/blob/master/share/dsearch/save) This isn't really search oriented, and will eventually move to a better default. This script was written so that I wouldn't have to go through various repetitive steps to save a link, be it an image, a video, or a bookmark. [photo saving](https://ptpb.pw/LMBL.mkv) [bookmark saving](https://ptpb.pw/qR19.mkv)
- - [Notes](https://github.com/halfwit/dotfiles/blob/master/share/dsearch/notes) Search for and create notes
- - [Todo](https://github.com/halfwit/dotfiles/blob/master/share/dsearch/todo) Search for and manage my various todo lists
- - [Rss](https://github.com/halfwit/dotfiles/blob/master/share/dsearch/rss) Frontend to a [directory based RSS aggregator solution](https://github.com/halfwit/dotfiles/blob/master/bin/updatefeeds)  
- - [Gh](https://github.com/halfwit/dotfiles/blob/master/share/dsearch/gh) Search Github, with avatar images!
+More information about dsearch can be found on the main page.
 
-# [Plumber](https://github.com/halfwit/dotfiles/blob/master/bin/plumber)
+# [Plumber](https://github.com/halfwit/dotfiles/blob/main/bin/plumber)
  Based on [Plan9's ipc mechanism of the same name](http://plan9.bell-labs.com/sys/doc/plumb.html), this is merely a script to act on an arbitrary string of input in a meaningful way. If the string is a path or URL, it will attempt to infer the mimetype, and finally open it with the correct application. If the string does not match either of those cases, it runs through and attemps to open a manual entry for the string.
 
-(If you feel like helping me afford my coffee addiction, help me out! B/C 1K4NfnPJM3gneEyEFYZiDTKBhBwCjxBGnu)
