@@ -25,6 +25,7 @@ In addition, bookmarks are handled in dsearch, as I found myself switching brows
 
 More information about dsearch can be found on the main page.
 
-# [Plumber](https://github.com/halfwit/dotfiles/blob/main/bin/plumber)
- Based on [Plan9's ipc mechanism of the same name](http://plan9.bell-labs.com/sys/doc/plumb.html), this is merely a script to act on an arbitrary string of input in a meaningful way. If the string is a path or URL, it will attempt to infer the mimetype, and finally open it with the correct application. If the string does not match either of those cases, it runs through and attemps to open a manual entry for the string.
+# [Plumber](https://github.com/halfwit/plumber)
+ ~Based on [Plan9's ipc mechanism of the same name](http://plan9.bell-labs.com/sys/doc/plumb.html), this is merely a script to act on an arbitrary string of input in a meaningful way. If the string is a path or URL, it will attempt to infer the mimetype, and finally open it with the correct application. If the string does not match either of those cases, it runs through and attemps to open a manual entry for the string.~
+ I've moved to using the Plumber from plan9port :) 
 
