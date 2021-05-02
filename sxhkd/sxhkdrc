@@ -1,6 +1,5 @@
 super + {d,n,t,v,m,w}
          {dmenu_run,dsearch,$TERMINAL,xcmenuctrl,notes,todo}
-
 super + shift + {l,h}
          winid=$(pfw) && wrs {20,-20} 0 "$winid" && /usr/local/share/hwwm/wshuf | xargs -n 5 wtp && wtf "$winid"
 super + {h,j,k,l}
@@ -9,10 +8,12 @@ super + {h,j,k,l}
          /usr/local/share/hwwm/fullscreen $(pfw)
 super + x
 		compose $(pfw)
+super + r
+	/usr/local/share/hwwm/tagw $(pfw)
 super + c
          killw $(pfw)
 super + p
-		 plumb
+	 plumb
 super + shift + {1,3,4,5,6,7,8,9}
          grp {1,3,4,5,6,7,8,9} $(pfw) && /usr/local/share/hwwm/groupsbar
 super + {1,3,4,5,6,7,8,9}
@@ -20,9 +21,9 @@ super + {1,3,4,5,6,7,8,9}
 super + 2
          /usr/local/share/hwwm/stack
 super + r
-		 lint `pfw`
+	 lint `pfw`
 super + Print
-		/usr/local/share/dsearch/rec snap
+	/usr/local/share/dsearch/rec snap
 XF86Audio{Prev,Next,Play,Stop}
          ~/local/bin/mpcontrol {prev,next,toggle,stop}
 XF86Audio{LowerVolume,RaiseVolume}

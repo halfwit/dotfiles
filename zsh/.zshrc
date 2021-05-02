@@ -1,10 +1,5 @@
 # XDG_CONFIG_HOME/zsh/.zshrc
 
-# Modules.
-autoload -Uz edit-command-line run-help compinit zmv
-zmodload zsh/complist
-compinit
-
 # Vimode functions
 zle -N edit-command-line
 zle -N zle-line-init
@@ -31,11 +26,10 @@ setopt auto_cd \
     hist_ignore_all_dups \
     interactive_comments 
 
-READNULLCMD=$PAGER
-HELPDIR=/usr/share/zsh/$ZSH_VERSION/help
-HISTFILE=$XDG_CONFIG_HOME/zsh/.zsh_history
-HISTSIZE=1000
-SAVEHIST=$HISTSIZE
+export READNULLCMD=$PAGER
+export HISTSIZE=1000
+export SAVEHIST=$HISTSIZE
+export GOPATH=$HOME/local
 
 # Style.
 zstyle ':completion:*' menu select
@@ -101,15 +95,6 @@ function preexec {
     print -Pn "\e]2B"
     print -Pn "\e[2A\e[K\e[34;0m • $1\e[2B\e[F\e[K\e[0;m"
   fi
-}
-
-function pb() {
-	while read -r input; do
-		printf '%s\n' "$input"
-		tmp="$tmp
-$input"
-	done
-	printf '%s\n%s\n' "$ ${history[$HISTCMD]/| pb/}" "$tmp" | curl -sF c=@- "https://ptpb.pw/?u=1" | xclip -i -selection clipboard
 }
 
 # Print basic prompt to the window title.

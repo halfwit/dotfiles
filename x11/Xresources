@@ -1,9 +1,9 @@
-st.font: Source Code Pro:style=heavy:size=8.2:antialias=true:hinting=true 
+st.font: Source Code Pro:style=heavy:size=7.2:antialias=true:hinting=true 
 st.bold_font: 1
 st.borderpx: 6
 st.italic_font: 1
 st.alpha: 255
-st.termname: st-256color
+st.termname: xterm-256color
 st.shell: /usr/bin/zsh
 st.bellvolume: 0
 st.cwscale: 0.9

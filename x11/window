@@ -3,12 +3,9 @@ antimicro printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w 
 jetbrains-studio printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 Sam printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 browse printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
-com-eteks-sweethome3d-SweetHome3D printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
-Zathura printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 Chromium-browser printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 steam #none
 Drawterm printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
-Blender printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 dict printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 sam printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 edit printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
@@ -18,13 +15,13 @@ WebKitWebProcess #none
 Sxiv printf '%s %s %s %s' "350" "225" "$(wattr w "$id")" "$(wattr h "$id")"
 lyrics printf '%s %s %s %s' "400" "$(( heigh / 2 ))" "450" "$(( heigh - gaps ))"
 man printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
-mpv t_h="$(echo '{ "command": ["get_property", "video-aspect"] }' | socat - /tmp/mpvsocket | jshon -e data -u)"; printf '%s %s %s %s' "$(wattr w "$id")" "$(echo "$(wattr w "$id")"/"$t_h" | bc)" "$(wattr w "$id")" "$(echo "$(wattr w "$id")"/"$t_h" | bc)"
 news printf '%s %s %s %s' "350" "255" "565" "$(( heigh - gaps ))"
 popup #none
 weather printf '%s %s %s %s' "350" "255" "885" $(( heigh - gaps ))
 Luakit printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 steam_app_238960 printf '%s %s %s %s' "$(wattr w "$id")" "600" "$(wattr w "$id")" "$(( heigh - gaps ))"
-irc printf '%s %s %s %s' "350" "223" "454" "276"
+irc printf '%s %s %s %s' "350" "228" "452" "261"
 ubqt-cairo printf '%s %s %s %s' "$(wattr w "$id")" "$(( heigh / 2 ))" "$(wattr w "$id")" "$(( heigh - gaps ))"
 Xephyr printf '%s %s %s %s' "1900" "1050" "1900" "1050"
+dmenu #none
 

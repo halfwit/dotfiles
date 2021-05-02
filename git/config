@@ -1,28 +1,3 @@
 [user]
-	name = halfwit
-	email = michaelmisch1985@gmail.com
-[alias]
-  graph = log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%x20(%ce)%n%x20%s%n"
-  stat = status -sb
-  last = log -1 --stat
-  unstage = reset HEAD --
-  cached = diff --cached
-  d = difftool
-  ctags = !.git/hooks/ctags
-[color]
-  ui = auto
-[format]
-  signoff = true
-[diff]
-  tool = vimdiff
-[core]
-  hooksPath = ~/local/cfg/git/template/hooks
-[difftool]
-  prompt = false
-[init]
-	templatedir = ~/local/cfg/git/template
-[sendemail]
-	smtpEncryption = tls
-	smtpServer = smtp.gmail.com
-	smtpUser = michaelmisch1985@gmail.com
-	smtpServerPort = 587
+	email = michealmisch1985@gmail.com
+	name = Michael Misch

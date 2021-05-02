@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Hold our pulls file while we edit it
 tmp="$(mktemp)"
