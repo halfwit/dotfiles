@@ -1,4 +1,5 @@
 lsgrp 2 | xe -s 'xprop -id $1' | sed -n -e "s/_NET_WM_NAME(UTF8_STRING) = //p" | tr -d '"' | sed 's/^/open - /;s/\(.*\) - http:\/\/.*/\1/;s/\(.*\) - https:\/\/.*/\1/'
 find ~/code -type f -not -path '*/\.git*'
 find ~/local/cfg -type f -not -path '*/\.git*'
+find ~/local/data/bookmark -type f | sed 's/.*\/local\/data\/bookmark\///'
 printf '%s\n%s\n%s\n%s\n' "!yt" "!pl" "!ch" "!g"

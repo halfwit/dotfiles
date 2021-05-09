@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Check if the commit means we have a push ready
 # For now we scrub the whole tree, future variants we could do something more efficient
